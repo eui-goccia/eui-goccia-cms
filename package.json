@@ -1,0 +1,57 @@
+{
+	"name": "eui-goccia",
+	"version": "1.0.0",
+	"description": "EUI Goccia",
+	"license": "MIT",
+	"type": "module",
+	"scripts": {
+		"build": "cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=8000\" next build",
+		"dev": "cross-env NODE_OPTIONS=--no-deprecation next dev --turbopack",
+		"devsafe": "rm -rf .next && cross-env NODE_OPTIONS=--no-deprecation next dev",
+		"generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
+		"generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
+		"lint": "cross-env NODE_OPTIONS=--no-deprecation next lint",
+		"payload": "cross-env NODE_OPTIONS=--no-deprecation payload",
+		"start": "cross-env NODE_OPTIONS=--no-deprecation next start",
+		"db:up": "docker compose -f docker-compose.db.yml up -d",
+		"db:down": "docker compose -f docker-compose.db.yml down",
+		"db:purge": "docker compose -f docker-compose.db.yml down -v"
+	},
+	"dependencies": {
+		"@payloadcms/db-vercel-postgres": "latest",
+		"@payloadcms/next": "latest",
+		"@payloadcms/plugin-seo": "latest",
+		"@payloadcms/live-preview-react": "latest",
+		"@payloadcms/richtext-lexical": "latest",
+		"@payloadcms/storage-s3": "latest",
+		"@payloadcms/ui": "latest",
+		"@payloadcms/translations": "latest",
+		"cross-env": "^7.0.3",
+		"dotenv": "^16.6.0",
+		"graphql": "^16.11.0",
+		"next": "^15.3.4",
+		"payload": "latest",
+		"plaiceholder": "^3.0.0",
+		"react": "^19.1.0",
+		"sharp": "^0.34.2"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^2.0.6",
+		"@types/node": "^22.15.33",
+		"@types/react": "^19.1.8",
+		"@types/react-dom": "^19.1.6",
+		"typescript": "^5.8.3"
+	},
+	"engines": {
+		"node": ">=20.9.0",
+		"pnpm": "^10.12.4"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": [
+			"bufferutil",
+			"esbuild",
+			"sharp",
+			"utf-8-validate"
+		]
+	}
+}
