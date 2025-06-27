@@ -481,7 +481,7 @@ export interface About {
     | {
         name: string;
         bio: string;
-        logo: string | Image;
+        logo?: (string | null) | Image;
         members?: string | null;
         id?: string | null;
       }[]

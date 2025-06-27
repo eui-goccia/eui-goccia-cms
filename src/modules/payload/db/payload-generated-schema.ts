@@ -420,11 +420,9 @@ export const about_partners = pgTable(
     id: varchar("id").primaryKey(),
     name: varchar("name").notNull(),
     bio: varchar("bio").notNull(),
-    logo: uuid("logo_id")
-      .notNull()
-      .references(() => images.id, {
-        onDelete: "set null",
-      }),
+    logo: uuid("logo_id").references(() => images.id, {
+      onDelete: "set null",
+    }),
     members: varchar("members"),
   },
   (columns) => ({
@@ -441,7 +439,11 @@ export const about_partners = pgTable(
 
 export const about = pgTable("about", {
   id: uuid("id").defaultRandom().primaryKey(),
-  description: varchar("description").notNull(),
+  description: varchar("description")
+    .notNull()
+    .default(
+      "La Cordata di progetto è guidata dal Comune di Milano e composta da Ambiente Italia Srl, Climateflux GmbH, Eutropian Association, FROM, Open Impact, Osservatorio La Goccia, Politecnico di Milano.",
+    ),
   updatedAt: timestamp("updated_at", {
     mode: "string",
     withTimezone: true,
@@ -486,7 +488,11 @@ export const goccia_timeline = pgTable(
 
 export const goccia = pgTable("goccia", {
   id: uuid("id").defaultRandom().primaryKey(),
-  description: varchar("description").notNull(),
+  description: varchar("description")
+    .notNull()
+    .default(
+      "Nata come area industriale tra fine Ottocento e inizio Novecento, poi dismessa e abbandonata tra gli anni ‘70 e ‘90, la Goccia è oggi è al centro di progetti di rigenerazione che intrecciano memoria industriale, ambiente e futuro urbano.",
+    ),
   updatedAt: timestamp("updated_at", {
     mode: "string",
     withTimezone: true,
