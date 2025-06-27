@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import mask from '@/assets/images/meta/BreakStroke.avif';
+import mask from '@/assets/images/meta/BreakStroke.webp';
 
 export default function SectionBreakFill() {
 	return (

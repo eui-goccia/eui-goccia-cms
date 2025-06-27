@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import heroTexture from '@/assets/images/homepage/heroTexture.avif';
-import heroTitle from '@/assets/images/homepage/heroTitle.avif';
+import heroTexture from '@/assets/images/homepage/heroTexture.webp';
+import heroTitle from '@/assets/images/homepage/heroTitle.webp';
 import heroImage from '@/assets/images/homepage/home_1.webp';
 
 export default function SectionHero() {

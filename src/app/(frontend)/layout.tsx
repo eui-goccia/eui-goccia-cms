@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
-import Script from 'next/script';
 import { ghost, greed, tagada } from '@/modules/utilities/customFonts';
 import '@/app/(frontend)/global.css';
+import { Plausible } from '@/modules/analytics/plausible';
 import Footer from '@/modules/components/shared/Footer';
 import Header from '@/modules/components/shared/Header';
 import NewsletterSignup from '@/modules/components/shared/NewsletterSignup';
-
 import { ReactLenis } from '@/modules/utilities/lenis';
 
 export const metadata: Metadata = {
@@ -74,23 +73,18 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='it' className='scroll-smooth'>
-			<head>
-				<Script
-					defer
-					data-domain='eui-goccia.eu'
-					src='https://plausible.io/js/script.file-downloads.hash.outbound-links.js'
-				/>
-			</head>
-			<ReactLenis root>
-				<body
-					className={`${ghost.variable} ${tagada.variable} ${greed.variable} antialiased flex flex-col justify-between h-dvh`}
-				>
-					<Header />
-					<main className='mb-auto'>{children}</main>
-					<NewsletterSignup />
-					<Footer />
-				</body>
-			</ReactLenis>
+			<Plausible>
+				<ReactLenis root>
+					<body
+						className={`${ghost.variable} ${tagada.variable} ${greed.variable} antialiased flex flex-col justify-between h-dvh`}
+					>
+						<Header />
+						<main className='mb-auto'>{children}</main>
+						<NewsletterSignup />
+						<Footer />
+					</body>
+				</ReactLenis>
+			</Plausible>
 		</html>
 	);
 }

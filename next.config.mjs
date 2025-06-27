@@ -1,8 +1,5 @@
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { withPayload } from '@payloadcms/next/withPayload';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+import rewrites from './rewrites.js';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -22,6 +19,7 @@ const nextConfig = {
 	turbopack: {
 		resolveExtensions: ['.ts', '.tsx', '.js', '.jsx', '.cjs', '.mjs'],
 	},
+	rewrites,
 };
 
 export default withPayload(nextConfig, { devBundleServerPackages: false });

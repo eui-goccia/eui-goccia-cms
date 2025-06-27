@@ -38,6 +38,7 @@
 		"lucide-react": "^0.524.0",
 		"mapbox-gl": "^3.13.0",
 		"next": "^15.3.4",
+		"next-plausible": "^3.12.4",
 		"payload": "latest",
 		"plaiceholder": "^3.0.0",
 		"postcss": "^8.5.6",

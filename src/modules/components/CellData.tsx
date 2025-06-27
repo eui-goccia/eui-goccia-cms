@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import CellPattern1 from '@/assets/images/meta/CellPattern_1.avif';
+import CellPattern1 from '@/assets/images/meta/CellPattern_1.webp';
 import { cn } from '@/modules/utilities/cnUtils';
 
 interface CellDataProps {

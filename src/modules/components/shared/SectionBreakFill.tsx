@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import mask from '@/assets/images/meta/BreakFill.avif';
+import mask from '@/assets/images/meta/BreakFill.webp';
 
 export default function SectionBreakFill() {
 	return (
