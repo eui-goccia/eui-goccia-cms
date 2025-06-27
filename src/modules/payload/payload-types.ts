@@ -501,7 +501,13 @@ export interface Goccia {
         title: string;
         description: string;
         cover: string | Image;
+        /**
+         * Inserire l'anno di inizio del periodo. IE: `2020`
+         */
         start: number;
+        /**
+         * Inserire l'anno di fine del periodo. IE: `2025`
+         */
         end?: number | null;
         id?: string | null;
       }[]

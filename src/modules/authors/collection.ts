@@ -15,6 +15,7 @@ export const Authors: CollectionConfig = {
 			name: 'name',
 			type: 'text',
 			required: true,
+			label: 'Nome',
 		},
 		{
 			name: 'posts',
@@ -22,6 +23,7 @@ export const Authors: CollectionConfig = {
 			collection: 'posts',
 			on: 'author',
 			hasMany: true,
+			label: 'Articoli',
 		},
 		...slugField('name'),
 	],

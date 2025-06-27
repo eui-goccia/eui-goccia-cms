@@ -8,30 +8,36 @@ export const About: GlobalConfig = {
 			name: 'description',
 			type: 'textarea',
 			required: true,
+			label: 'Descrizione',
 		},
 		{
 			name: 'partners',
 			type: 'array',
+			label: 'Partner',
 			fields: [
 				{
 					name: 'name',
 					type: 'text',
 					required: true,
+					label: 'Nome',
 				},
 				{
 					name: 'bio',
 					type: 'textarea',
 					required: true,
+					label: 'Biografia',
 				},
 				{
 					name: 'logo',
 					type: 'upload',
 					relationTo: 'images',
 					required: true,
+					label: 'Logo',
 				},
 				{
 					name: 'members',
 					type: 'textarea',
+					label: 'Membri',
 				},
 			],
 		},

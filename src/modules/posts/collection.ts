@@ -13,6 +13,7 @@ export const Posts: CollectionConfig = {
 	fields: [
 		{
 			name: 'title',
+			label: 'Titolo',
 			type: 'text',
 			required: true,
 		},
@@ -20,11 +21,13 @@ export const Posts: CollectionConfig = {
 			name: 'description',
 			type: 'textarea',
 			required: true,
+			label: 'Descrizione',
 		},
 		{
 			name: 'content',
 			type: 'richText',
 			required: true,
+			label: 'Contenuto',
 		},
 		{
 			name: 'coverImage',
@@ -32,6 +35,7 @@ export const Posts: CollectionConfig = {
 			relationTo: 'images',
 			required: true,
 			hasMany: false,
+			label: 'Immagine di copertina',
 			admin: {
 				position: 'sidebar',
 			},
@@ -39,6 +43,7 @@ export const Posts: CollectionConfig = {
 		{
 			name: 'author',
 			type: 'relationship',
+			label: 'Autore',
 			relationTo: 'authors',
 			hasMany: false,
 			required: true,
