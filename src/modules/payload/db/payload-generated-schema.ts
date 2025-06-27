@@ -18,10 +18,31 @@ import {
   numeric,
   jsonb,
   boolean,
-  serial,
   integer,
+  serial,
+  pgEnum,
 } from "@payloadcms/db-vercel-postgres/drizzle/pg-core";
 import { sql, relations } from "@payloadcms/db-vercel-postgres/drizzle";
+export const enum_posts_status = pgEnum("enum_posts_status", [
+  "draft",
+  "published",
+]);
+export const enum__posts_v_version_status = pgEnum(
+  "enum__posts_v_version_status",
+  ["draft", "published"],
+);
+export const enum_payload_jobs_log_task_slug = pgEnum(
+  "enum_payload_jobs_log_task_slug",
+  ["inline", "schedulePublish"],
+);
+export const enum_payload_jobs_log_state = pgEnum(
+  "enum_payload_jobs_log_state",
+  ["failed", "succeeded"],
+);
+export const enum_payload_jobs_task_slug = pgEnum(
+  "enum_payload_jobs_task_slug",
+  ["inline", "schedulePublish"],
+);
 
 export const images = pgTable(
   "images",
@@ -153,19 +174,20 @@ export const posts = pgTable(
   "posts",
   {
     id: uuid("id").defaultRandom().primaryKey(),
-    title: varchar("title").notNull(),
-    description: varchar("description").notNull(),
-    content: jsonb("content").notNull(),
-    coverImage: uuid("cover_image_id")
-      .notNull()
-      .references(() => images.id, {
-        onDelete: "set null",
-      }),
-    author: uuid("author_id")
-      .notNull()
-      .references(() => authors.id, {
-        onDelete: "set null",
-      }),
+    title: varchar("title"),
+    description: varchar("description"),
+    content: jsonb("content"),
+    meta_title: varchar("meta_title"),
+    meta_image: uuid("meta_image_id").references(() => images.id, {
+      onDelete: "set null",
+    }),
+    meta_description: varchar("meta_description"),
+    coverImage: uuid("cover_image_id").references(() => images.id, {
+      onDelete: "set null",
+    }),
+    author: uuid("author_id").references(() => authors.id, {
+      onDelete: "set null",
+    }),
     slug: varchar("slug"),
     slugLock: boolean("slug_lock").default(true),
     updatedAt: timestamp("updated_at", {
@@ -182,8 +204,12 @@ export const posts = pgTable(
     })
       .defaultNow()
       .notNull(),
+    _status: enum_posts_status("_status").default("draft"),
   },
   (columns) => ({
+    posts_meta_meta_image_idx: index("posts_meta_meta_image_idx").on(
+      columns.meta_image,
+    ),
     posts_cover_image_idx: index("posts_cover_image_idx").on(
       columns.coverImage,
     ),
@@ -191,6 +217,99 @@ export const posts = pgTable(
     posts_slug_idx: index("posts_slug_idx").on(columns.slug),
     posts_updated_at_idx: index("posts_updated_at_idx").on(columns.updatedAt),
     posts_created_at_idx: index("posts_created_at_idx").on(columns.createdAt),
+    posts__status_idx: index("posts__status_idx").on(columns._status),
+  }),
+);
+
+export const _posts_v = pgTable(
+  "_posts_v",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    parent: uuid("parent_id").references(() => posts.id, {
+      onDelete: "set null",
+    }),
+    version_title: varchar("version_title"),
+    version_description: varchar("version_description"),
+    version_content: jsonb("version_content"),
+    version_meta_title: varchar("version_meta_title"),
+    version_meta_image: uuid("version_meta_image_id").references(
+      () => images.id,
+      {
+        onDelete: "set null",
+      },
+    ),
+    version_meta_description: varchar("version_meta_description"),
+    version_coverImage: uuid("version_cover_image_id").references(
+      () => images.id,
+      {
+        onDelete: "set null",
+      },
+    ),
+    version_author: uuid("version_author_id").references(() => authors.id, {
+      onDelete: "set null",
+    }),
+    version_slug: varchar("version_slug"),
+    version_slugLock: boolean("version_slug_lock").default(true),
+    version_updatedAt: timestamp("version_updated_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    version_createdAt: timestamp("version_created_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    version__status:
+      enum__posts_v_version_status("version__status").default("draft"),
+    createdAt: timestamp("created_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    updatedAt: timestamp("updated_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    latest: boolean("latest"),
+    autosave: boolean("autosave"),
+  },
+  (columns) => ({
+    _posts_v_parent_idx: index("_posts_v_parent_idx").on(columns.parent),
+    _posts_v_version_meta_version_meta_image_idx: index(
+      "_posts_v_version_meta_version_meta_image_idx",
+    ).on(columns.version_meta_image),
+    _posts_v_version_version_cover_image_idx: index(
+      "_posts_v_version_version_cover_image_idx",
+    ).on(columns.version_coverImage),
+    _posts_v_version_version_author_idx: index(
+      "_posts_v_version_version_author_idx",
+    ).on(columns.version_author),
+    _posts_v_version_version_slug_idx: index(
+      "_posts_v_version_version_slug_idx",
+    ).on(columns.version_slug),
+    _posts_v_version_version_updated_at_idx: index(
+      "_posts_v_version_version_updated_at_idx",
+    ).on(columns.version_updatedAt),
+    _posts_v_version_version_created_at_idx: index(
+      "_posts_v_version_version_created_at_idx",
+    ).on(columns.version_createdAt),
+    _posts_v_version_version__status_idx: index(
+      "_posts_v_version_version__status_idx",
+    ).on(columns.version__status),
+    _posts_v_created_at_idx: index("_posts_v_created_at_idx").on(
+      columns.createdAt,
+    ),
+    _posts_v_updated_at_idx: index("_posts_v_updated_at_idx").on(
+      columns.updatedAt,
+    ),
+    _posts_v_latest_idx: index("_posts_v_latest_idx").on(columns.latest),
+    _posts_v_autosave_idx: index("_posts_v_autosave_idx").on(columns.autosave),
   }),
 );
 
@@ -222,6 +341,105 @@ export const authors = pgTable(
       columns.updatedAt,
     ),
     authors_created_at_idx: index("authors_created_at_idx").on(
+      columns.createdAt,
+    ),
+  }),
+);
+
+export const payload_jobs_log = pgTable(
+  "payload_jobs_log",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: uuid("_parent_id").notNull(),
+    id: varchar("id").primaryKey(),
+    executedAt: timestamp("executed_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }).notNull(),
+    completedAt: timestamp("completed_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }).notNull(),
+    taskSlug: enum_payload_jobs_log_task_slug("task_slug").notNull(),
+    taskID: varchar("task_i_d").notNull(),
+    input: jsonb("input"),
+    output: jsonb("output"),
+    state: enum_payload_jobs_log_state("state").notNull(),
+    error: jsonb("error"),
+  },
+  (columns) => ({
+    _orderIdx: index("payload_jobs_log_order_idx").on(columns._order),
+    _parentIDIdx: index("payload_jobs_log_parent_id_idx").on(columns._parentID),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [payload_jobs.id],
+      name: "payload_jobs_log_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const payload_jobs = pgTable(
+  "payload_jobs",
+  {
+    id: uuid("id").defaultRandom().primaryKey(),
+    input: jsonb("input"),
+    completedAt: timestamp("completed_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    totalTried: numeric("total_tried").default("0"),
+    hasError: boolean("has_error").default(false),
+    error: jsonb("error"),
+    taskSlug: enum_payload_jobs_task_slug("task_slug"),
+    queue: varchar("queue").default("default"),
+    waitUntil: timestamp("wait_until", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    }),
+    processing: boolean("processing").default(false),
+    updatedAt: timestamp("updated_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp("created_at", {
+      mode: "string",
+      withTimezone: true,
+      precision: 3,
+    })
+      .defaultNow()
+      .notNull(),
+  },
+  (columns) => ({
+    payload_jobs_completed_at_idx: index("payload_jobs_completed_at_idx").on(
+      columns.completedAt,
+    ),
+    payload_jobs_total_tried_idx: index("payload_jobs_total_tried_idx").on(
+      columns.totalTried,
+    ),
+    payload_jobs_has_error_idx: index("payload_jobs_has_error_idx").on(
+      columns.hasError,
+    ),
+    payload_jobs_task_slug_idx: index("payload_jobs_task_slug_idx").on(
+      columns.taskSlug,
+    ),
+    payload_jobs_queue_idx: index("payload_jobs_queue_idx").on(columns.queue),
+    payload_jobs_wait_until_idx: index("payload_jobs_wait_until_idx").on(
+      columns.waitUntil,
+    ),
+    payload_jobs_processing_idx: index("payload_jobs_processing_idx").on(
+      columns.processing,
+    ),
+    payload_jobs_updated_at_idx: index("payload_jobs_updated_at_idx").on(
+      columns.updatedAt,
+    ),
+    payload_jobs_created_at_idx: index("payload_jobs_created_at_idx").on(
       columns.createdAt,
     ),
   }),
@@ -271,6 +489,7 @@ export const payload_locked_documents_rels = pgTable(
     usersID: uuid("users_id"),
     postsID: uuid("posts_id"),
     authorsID: uuid("authors_id"),
+    "payload-jobsID": uuid("payload_jobs_id"),
   },
   (columns) => ({
     order: index("payload_locked_documents_rels_order_idx").on(columns.order),
@@ -290,6 +509,9 @@ export const payload_locked_documents_rels = pgTable(
     payload_locked_documents_rels_authors_id_idx: index(
       "payload_locked_documents_rels_authors_id_idx",
     ).on(columns.authorsID),
+    payload_locked_documents_rels_payload_jobs_id_idx: index(
+      "payload_locked_documents_rels_payload_jobs_id_idx",
+    ).on(columns["payload-jobsID"]),
     parentFk: foreignKey({
       columns: [columns["parent"]],
       foreignColumns: [payload_locked_documents.id],
@@ -314,6 +536,11 @@ export const payload_locked_documents_rels = pgTable(
       columns: [columns["authorsID"]],
       foreignColumns: [authors.id],
       name: "payload_locked_documents_rels_authors_fk",
+    }).onDelete("cascade"),
+    "payload-jobsIdFk": foreignKey({
+      columns: [columns["payload-jobsID"]],
+      foreignColumns: [payload_jobs.id],
+      name: "payload_locked_documents_rels_payload_jobs_fk",
     }).onDelete("cascade"),
   }),
 );
@@ -508,6 +735,11 @@ export const goccia = pgTable("goccia", {
 export const relations_images = relations(images, () => ({}));
 export const relations_users = relations(users, () => ({}));
 export const relations_posts = relations(posts, ({ one }) => ({
+  meta_image: one(images, {
+    fields: [posts.meta_image],
+    references: [images.id],
+    relationName: "meta_image",
+  }),
   coverImage: one(images, {
     fields: [posts.coverImage],
     references: [images.id],
@@ -519,7 +751,44 @@ export const relations_posts = relations(posts, ({ one }) => ({
     relationName: "author",
   }),
 }));
+export const relations__posts_v = relations(_posts_v, ({ one }) => ({
+  parent: one(posts, {
+    fields: [_posts_v.parent],
+    references: [posts.id],
+    relationName: "parent",
+  }),
+  version_meta_image: one(images, {
+    fields: [_posts_v.version_meta_image],
+    references: [images.id],
+    relationName: "version_meta_image",
+  }),
+  version_coverImage: one(images, {
+    fields: [_posts_v.version_coverImage],
+    references: [images.id],
+    relationName: "version_coverImage",
+  }),
+  version_author: one(authors, {
+    fields: [_posts_v.version_author],
+    references: [authors.id],
+    relationName: "version_author",
+  }),
+}));
 export const relations_authors = relations(authors, () => ({}));
+export const relations_payload_jobs_log = relations(
+  payload_jobs_log,
+  ({ one }) => ({
+    _parentID: one(payload_jobs, {
+      fields: [payload_jobs_log._parentID],
+      references: [payload_jobs.id],
+      relationName: "log",
+    }),
+  }),
+);
+export const relations_payload_jobs = relations(payload_jobs, ({ many }) => ({
+  log: many(payload_jobs_log, {
+    relationName: "log",
+  }),
+}));
 export const relations_payload_locked_documents_rels = relations(
   payload_locked_documents_rels,
   ({ one }) => ({
@@ -547,6 +816,11 @@ export const relations_payload_locked_documents_rels = relations(
       fields: [payload_locked_documents_rels.authorsID],
       references: [authors.id],
       relationName: "authors",
+    }),
+    "payload-jobsID": one(payload_jobs, {
+      fields: [payload_locked_documents_rels["payload-jobsID"]],
+      references: [payload_jobs.id],
+      relationName: "payload-jobs",
     }),
   }),
 );
@@ -627,10 +901,18 @@ export const relations_goccia = relations(goccia, ({ many }) => ({
 }));
 
 type DatabaseSchema = {
+  enum_posts_status: typeof enum_posts_status;
+  enum__posts_v_version_status: typeof enum__posts_v_version_status;
+  enum_payload_jobs_log_task_slug: typeof enum_payload_jobs_log_task_slug;
+  enum_payload_jobs_log_state: typeof enum_payload_jobs_log_state;
+  enum_payload_jobs_task_slug: typeof enum_payload_jobs_task_slug;
   images: typeof images;
   users: typeof users;
   posts: typeof posts;
+  _posts_v: typeof _posts_v;
   authors: typeof authors;
+  payload_jobs_log: typeof payload_jobs_log;
+  payload_jobs: typeof payload_jobs;
   payload_locked_documents: typeof payload_locked_documents;
   payload_locked_documents_rels: typeof payload_locked_documents_rels;
   payload_preferences: typeof payload_preferences;
@@ -643,7 +925,10 @@ type DatabaseSchema = {
   relations_images: typeof relations_images;
   relations_users: typeof relations_users;
   relations_posts: typeof relations_posts;
+  relations__posts_v: typeof relations__posts_v;
   relations_authors: typeof relations_authors;
+  relations_payload_jobs_log: typeof relations_payload_jobs_log;
+  relations_payload_jobs: typeof relations_payload_jobs;
   relations_payload_locked_documents_rels: typeof relations_payload_locked_documents_rels;
   relations_payload_locked_documents: typeof relations_payload_locked_documents;
   relations_payload_preferences_rels: typeof relations_payload_preferences_rels;

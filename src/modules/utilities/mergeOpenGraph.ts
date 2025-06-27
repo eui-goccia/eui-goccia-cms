@@ -1,16 +1,17 @@
 import type { Metadata } from 'next';
-import { getServerSideURL } from './getURL';
 
 const defaultOpenGraph: Metadata['openGraph'] = {
 	type: 'website',
-	description: 'An open-source website built with Payload and Next.js.',
+	description: 'A project by EUI La Goccia.',
 	images: [
 		{
-			url: `${getServerSideURL()}/website-template-OG.webp`,
+			url: process.env.NEXT_PUBLIC_URL
+				? `${process.env.NEXT_PUBLIC_URL}/og-image.webp`
+				: '/og-image.webp',
 		},
 	],
-	siteName: 'Planetary Compendium Platform',
-	title: 'Planetary Compendium Platform',
+	siteName: 'EUI La Goccia',
+	title: 'EUI - La Goccia',
 };
 
 export const mergeOpenGraph = (

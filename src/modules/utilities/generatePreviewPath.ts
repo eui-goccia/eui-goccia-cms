@@ -19,7 +19,6 @@ export const generatePreviewPath = ({ collection, slug }: Props) => {
 	});
 
 	const url = `/next/preview?${encodedParams.toString()}`;
-	// console.log('url', url)
 
 	return url;
 };

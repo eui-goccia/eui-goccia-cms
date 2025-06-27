@@ -6,14 +6,13 @@ import type {
 	GenerateURL,
 } from 'node_modules/@payloadcms/plugin-seo/dist/types';
 import type { Plugin } from 'payload';
-import { getServerSideURL } from '@/modules/utilities/getURL';
 
 const generateTitle: GenerateTitle<Post> = ({ doc }) => {
 	return doc?.title ? `${doc.title} | EUI Goccia` : 'EUI Goccia';
 };
 
 const generateURL: GenerateURL<Post> = ({ doc }) => {
-	const url = getServerSideURL();
+	const url = process.env.NEXT_PUBLIC_URL!;
 
 	return doc?.slug ? `${url}/${doc.slug}` : url;
 };

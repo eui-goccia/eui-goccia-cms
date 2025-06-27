@@ -1,12 +1,11 @@
 import type { Config, Image, Post } from '@payload-types';
 import type { Metadata } from 'next';
-import { getServerSideURL } from './getURL';
 import { mergeOpenGraph } from './mergeOpenGraph';
 
 const getImageURL = (image?: Image | Config['db']['defaultIDType'] | null) => {
-	const serverUrl = getServerSideURL();
+	const serverUrl = process.env.NEXT_PUBLIC_URL!;
 
-	let url = `${serverUrl}/eui-goccia-og.webp`;
+	let url = `${serverUrl}/og-image.webp`;
 
 	if (image && typeof image === 'object' && 'url' in image) {
 		const ogUrl = image.sizes?.og?.url;
@@ -22,16 +21,16 @@ export const generateMeta = async (args: {
 }): Promise<Metadata> => {
 	const { doc } = args;
 
-	const ogImage = getImageURL(doc?.coverImage);
+	const ogImage = getImageURL(doc?.meta?.image);
 
-	const title = doc?.title
-		? `${doc?.title} | EUI Goccia`
-		: 'Payload Website Template';
+	const title = doc?.meta?.title
+		? `${doc?.meta?.title} | EUI - La Goccia`
+		: 'EUI - La Goccia';
 
 	return {
-		description: doc?.description,
+		description: doc?.meta?.description,
 		openGraph: mergeOpenGraph({
-			description: doc?.description || '',
+			description: doc?.meta?.description || '',
 			images: ogImage
 				? [
 						{

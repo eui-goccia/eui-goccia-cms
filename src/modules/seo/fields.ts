@@ -9,7 +9,7 @@ import type { Tab } from 'payload';
 
 export const seoTab: Tab = {
 	name: 'meta',
-	label: 'SEO',
+	label: 'Seo',
 	fields: [
 		OverviewField({
 			titlePath: 'meta.title',

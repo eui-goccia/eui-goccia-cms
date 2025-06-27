@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload';
 import { slugField } from '../payload/fields/slug';
+import { seoTab } from '../seo/fields';
+import { generatePreviewPath } from '../utilities/generatePreviewPath';
 
 export const Posts: CollectionConfig = {
 	slug: 'posts',
@@ -9,25 +11,53 @@ export const Posts: CollectionConfig = {
 	},
 	admin: {
 		useAsTitle: 'title',
+		livePreview: {
+			url: ({ data, req }) => {
+				const path = generatePreviewPath({
+					slug: typeof data?.slug === 'string' ? data.slug : '',
+					collection: 'posts',
+					req,
+				});
+
+				return path;
+			},
+		},
+		preview: (data, { req }) =>
+			generatePreviewPath({
+				slug: typeof data?.slug === 'string' ? data.slug : '',
+				collection: 'posts',
+				req,
+			}),
 	},
 	fields: [
 		{
-			name: 'title',
-			label: 'Titolo',
-			type: 'text',
-			required: true,
-		},
-		{
-			name: 'description',
-			type: 'textarea',
-			required: true,
-			label: 'Descrizione',
-		},
-		{
-			name: 'content',
-			type: 'richText',
-			required: true,
-			label: 'Contenuto',
+			type: 'tabs',
+			tabs: [
+				{
+					label: 'Data',
+					fields: [
+						{
+							name: 'title',
+							label: 'Titolo',
+							type: 'text',
+							required: true,
+						},
+						{
+							name: 'description',
+							type: 'textarea',
+							required: true,
+							label: 'Descrizione',
+						},
+						{
+							name: 'content',
+							type: 'richText',
+							required: true,
+							label: 'Contenuto',
+						},
+					],
+				},
+				seoTab,
+			],
 		},
 		{
 			name: 'coverImage',
@@ -53,4 +83,13 @@ export const Posts: CollectionConfig = {
 		},
 		...slugField('title'),
 	],
+	versions: {
+		drafts: {
+			autosave: {
+				interval: 300,
+			},
+			schedulePublish: true,
+		},
+		maxPerDoc: 50,
+	},
 };
