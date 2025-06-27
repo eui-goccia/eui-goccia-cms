@@ -13,7 +13,7 @@ export const Plausible = ({ children }: { children: React.ReactNode }) => {
 			hash={true}
 			revenue={false}
 			taggedEvents={true}
-			trackLocalhost={true}
+			trackLocalhost={false}
 			trackFileDownloads={true}
 			trackOutboundLinks={true}
 			pageviewProps={{
