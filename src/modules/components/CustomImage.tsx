@@ -7,12 +7,14 @@ import { cn } from '@/modules/utilities/cnUtils';
 
 type Props = {
 	image: ImageType | undefined;
-	size: 'thumbnail' | 'medium' | 'large' | 'og';
+	size: 'thumbnail' | 'medium' | 'large' | 'og' | 'xlarge';
 	alt: string;
 	className?: string;
+	captionClassName?: string;
 	quality?: number;
 	priority?: boolean;
 	loading?: 'lazy' | 'eager';
+	showCaption?: boolean;
 };
 
 export function CustomImage({
@@ -23,42 +25,57 @@ export function CustomImage({
 	quality = 60,
 	priority = false,
 	loading = 'lazy',
+	showCaption = false,
+	captionClassName,
 }: Props) {
 	const [isLoaded, setIsLoaded] = useState(false);
-	const src = image ? image.sizes?.[size]?.url || image.url! : '/og-image.webp';
+	const src = image ? image.sizes?.[size]?.url || image.url : '/og-image.webp';
 	const blurDataURL = image
-		? image.blurHash!
+		? image.blurHash
 		: 'data:image/png;base64,WERy8KHe?ErexDer%3WVaxoLWBj[}cnlE0S4SdofM{ofogR*t7ay';
 
 	const refined_alt = image ? image.caption || alt : alt;
 	return (
-		<Image
-			className={cn(
-				className,
-				`h-full w-full object-cover duration-500 ease-in-out ${isLoaded ? 'blur-0' : 'blur-sm'}`
-			)}
-			priority={priority}
-			width={
-				image
-					? image.sizes?.[size]?.width
+		<>
+			<Image
+				className={cn(
+					className,
+					`duration-500 ease-in-out ${isLoaded ? 'blur-0' : 'blur-sm'}`,
+					`h-full w-full`
+				)}
+				priority={priority}
+				width={
+					image
 						? image.sizes?.[size]?.width
-						: image.width!
-					: 300
-			}
-			height={
-				image
-					? image.sizes?.[size]?.height
+							? image.sizes?.[size]?.width
+							: image.width || 300
+						: 300
+				}
+				height={
+					image
 						? image.sizes?.[size]?.height
-						: image.height!
-					: 300
-			}
-			src={src}
-			alt={refined_alt}
-			quality={quality}
-			placeholder='blur'
-			blurDataURL={blurDataURL}
-			loading={loading}
-			onLoad={() => setIsLoaded(true)}
-		/>
+							? image.sizes?.[size]?.height
+							: image.height || 300
+						: 300
+				}
+				src={src || ''}
+				alt={refined_alt}
+				quality={quality}
+				placeholder='blur'
+				blurDataURL={blurDataURL || ''}
+				loading={loading}
+				onLoad={() => setIsLoaded(true)}
+			/>
+			{showCaption && image?.caption && (
+				<p
+					className={cn(
+						'font-greed varW600 text-lg w-full mb-2 flex items-start',
+						captionClassName
+					)}
+				>
+					{image.caption}
+				</p>
+			)}
+		</>
 	);
 }

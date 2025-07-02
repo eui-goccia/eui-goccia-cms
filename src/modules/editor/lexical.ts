@@ -11,6 +11,7 @@ import {
 	ParagraphFeature,
 	StrikethroughFeature,
 	UnderlineFeature,
+	UploadFeature,
 } from '@payloadcms/richtext-lexical';
 
 export const defaultLexical = lexicalEditor({
@@ -20,11 +21,12 @@ export const defaultLexical = lexicalEditor({
 		ItalicFeature(),
 		UnderlineFeature(),
 		StrikethroughFeature(),
+		UploadFeature(),
 		AlignFeature(),
 		IndentFeature(),
 		HorizontalRuleFeature(),
 		HeadingFeature({
-			enabledHeadingSizes: ['h3', 'h4', 'h5', 'h6'],
+			enabledHeadingSizes: ['h2', 'h3', 'h4', 'h5', 'h6'],
 		}),
 		ParagraphFeature(),
 		LinkFeature(),

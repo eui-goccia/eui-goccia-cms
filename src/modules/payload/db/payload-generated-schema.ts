@@ -6,104 +6,73 @@
  * and re-run `payload generate:db-schema` to regenerate this file.
  */
 
-import type {} from "@payloadcms/db-vercel-postgres";
+import type {} from "@payloadcms/db-sqlite";
 import {
-  pgTable,
+  sqliteTable,
   index,
   uniqueIndex,
   foreignKey,
-  uuid,
-  varchar,
-  timestamp,
+  text,
   numeric,
-  jsonb,
-  boolean,
   integer,
-  serial,
-  pgEnum,
-} from "@payloadcms/db-vercel-postgres/drizzle/pg-core";
-import { sql, relations } from "@payloadcms/db-vercel-postgres/drizzle";
-export const enum_posts_status = pgEnum("enum_posts_status", [
-  "draft",
-  "published",
-]);
-export const enum__posts_v_version_status = pgEnum(
-  "enum__posts_v_version_status",
-  ["draft", "published"],
-);
-export const enum_payload_jobs_log_task_slug = pgEnum(
-  "enum_payload_jobs_log_task_slug",
-  ["inline", "schedulePublish"],
-);
-export const enum_payload_jobs_log_state = pgEnum(
-  "enum_payload_jobs_log_state",
-  ["failed", "succeeded"],
-);
-export const enum_payload_jobs_task_slug = pgEnum(
-  "enum_payload_jobs_task_slug",
-  ["inline", "schedulePublish"],
-);
+} from "@payloadcms/db-sqlite/drizzle/sqlite-core";
+import { sql, relations } from "@payloadcms/db-sqlite/drizzle";
+import { randomUUID } from "crypto";
 
-export const images = pgTable(
+export const images = sqliteTable(
   "images",
   {
-    id: uuid("id").defaultRandom().primaryKey(),
-    caption: varchar("caption").notNull(),
-    blurHash: varchar("blur_hash"),
-    prefix: varchar("prefix").default("images"),
-    updatedAt: timestamp("updated_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    })
-      .defaultNow()
-      .notNull(),
-    createdAt: timestamp("created_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    })
-      .defaultNow()
-      .notNull(),
-    url: varchar("url"),
-    thumbnailURL: varchar("thumbnail_u_r_l"),
-    filename: varchar("filename"),
-    mimeType: varchar("mime_type"),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    caption: text("caption").notNull(),
+    blurHash: text("blur_hash"),
+    prefix: text("prefix").default("images"),
+    updatedAt: text("updated_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    url: text("url"),
+    thumbnailURL: text("thumbnail_u_r_l"),
+    filename: text("filename"),
+    mimeType: text("mime_type"),
     filesize: numeric("filesize"),
     width: numeric("width"),
     height: numeric("height"),
     focalX: numeric("focal_x"),
     focalY: numeric("focal_y"),
-    sizes_thumbnail_url: varchar("sizes_thumbnail_url"),
+    sizes_thumbnail_url: text("sizes_thumbnail_url"),
     sizes_thumbnail_width: numeric("sizes_thumbnail_width"),
     sizes_thumbnail_height: numeric("sizes_thumbnail_height"),
-    sizes_thumbnail_mimeType: varchar("sizes_thumbnail_mime_type"),
+    sizes_thumbnail_mimeType: text("sizes_thumbnail_mime_type"),
     sizes_thumbnail_filesize: numeric("sizes_thumbnail_filesize"),
-    sizes_thumbnail_filename: varchar("sizes_thumbnail_filename"),
-    sizes_medium_url: varchar("sizes_medium_url"),
+    sizes_thumbnail_filename: text("sizes_thumbnail_filename"),
+    sizes_medium_url: text("sizes_medium_url"),
     sizes_medium_width: numeric("sizes_medium_width"),
     sizes_medium_height: numeric("sizes_medium_height"),
-    sizes_medium_mimeType: varchar("sizes_medium_mime_type"),
+    sizes_medium_mimeType: text("sizes_medium_mime_type"),
     sizes_medium_filesize: numeric("sizes_medium_filesize"),
-    sizes_medium_filename: varchar("sizes_medium_filename"),
-    sizes_large_url: varchar("sizes_large_url"),
+    sizes_medium_filename: text("sizes_medium_filename"),
+    sizes_large_url: text("sizes_large_url"),
     sizes_large_width: numeric("sizes_large_width"),
     sizes_large_height: numeric("sizes_large_height"),
-    sizes_large_mimeType: varchar("sizes_large_mime_type"),
+    sizes_large_mimeType: text("sizes_large_mime_type"),
     sizes_large_filesize: numeric("sizes_large_filesize"),
-    sizes_large_filename: varchar("sizes_large_filename"),
-    sizes_xlarge_url: varchar("sizes_xlarge_url"),
+    sizes_large_filename: text("sizes_large_filename"),
+    sizes_xlarge_url: text("sizes_xlarge_url"),
     sizes_xlarge_width: numeric("sizes_xlarge_width"),
     sizes_xlarge_height: numeric("sizes_xlarge_height"),
-    sizes_xlarge_mimeType: varchar("sizes_xlarge_mime_type"),
+    sizes_xlarge_mimeType: text("sizes_xlarge_mime_type"),
     sizes_xlarge_filesize: numeric("sizes_xlarge_filesize"),
-    sizes_xlarge_filename: varchar("sizes_xlarge_filename"),
-    sizes_og_url: varchar("sizes_og_url"),
+    sizes_xlarge_filename: text("sizes_xlarge_filename"),
+    sizes_og_url: text("sizes_og_url"),
     sizes_og_width: numeric("sizes_og_width"),
     sizes_og_height: numeric("sizes_og_height"),
-    sizes_og_mimeType: varchar("sizes_og_mime_type"),
+    sizes_og_mimeType: text("sizes_og_mime_type"),
     sizes_og_filesize: numeric("sizes_og_filesize"),
-    sizes_og_filename: varchar("sizes_og_filename"),
+    sizes_og_filename: text("sizes_og_filename"),
   },
   (columns) => ({
     images_updated_at_idx: index("images_updated_at_idx").on(columns.updatedAt),
@@ -129,39 +98,53 @@ export const images = pgTable(
   }),
 );
 
-export const users = pgTable(
+export const users_sessions = sqliteTable(
+  "users_sessions",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    id: text("id").primaryKey(),
+    createdAt: text("created_at").default(
+      sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+    ),
+    expiresAt: text("expires_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+  },
+  (columns) => ({
+    _orderIdx: index("users_sessions_order_idx").on(columns._order),
+    _parentIDIdx: index("users_sessions_parent_id_idx").on(columns._parentID),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [users.id],
+      name: "users_sessions_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const users = sqliteTable(
   "users",
   {
-    id: uuid("id").defaultRandom().primaryKey(),
-    updatedAt: timestamp("updated_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    })
-      .defaultNow()
-      .notNull(),
-    createdAt: timestamp("created_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    })
-      .defaultNow()
-      .notNull(),
-    email: varchar("email").notNull(),
-    resetPasswordToken: varchar("reset_password_token"),
-    resetPasswordExpiration: timestamp("reset_password_expiration", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    }),
-    salt: varchar("salt"),
-    hash: varchar("hash"),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    updatedAt: text("updated_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    email: text("email").notNull(),
+    resetPasswordToken: text("reset_password_token"),
+    resetPasswordExpiration: text("reset_password_expiration").default(
+      sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+    ),
+    salt: text("salt"),
+    hash: text("hash"),
     loginAttempts: numeric("login_attempts").default("0"),
-    lockUntil: timestamp("lock_until", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    }),
+    lockUntil: text("lock_until").default(
+      sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+    ),
   },
   (columns) => ({
     users_updated_at_idx: index("users_updated_at_idx").on(columns.updatedAt),
@@ -170,41 +153,187 @@ export const users = pgTable(
   }),
 );
 
-export const posts = pgTable(
+export const posts_blocks_text = sqliteTable(
+  "posts_blocks_text",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id").primaryKey(),
+    content: text("content"),
+    vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
+      "top",
+    ),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("left"),
+    blockName: text("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("posts_blocks_text_order_idx").on(columns._order),
+    _parentIDIdx: index("posts_blocks_text_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("posts_blocks_text_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [posts.id],
+      name: "posts_blocks_text_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const posts_blocks_rich_text = sqliteTable(
+  "posts_blocks_rich_text",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id").primaryKey(),
+    content: text("content", { mode: "json" }),
+    vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
+      "top",
+    ),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("left"),
+    blockName: text("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("posts_blocks_rich_text_order_idx").on(columns._order),
+    _parentIDIdx: index("posts_blocks_rich_text_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("posts_blocks_rich_text_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [posts.id],
+      name: "posts_blocks_rich_text_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const posts_blocks_quote = sqliteTable(
+  "posts_blocks_quote",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id").primaryKey(),
+    content: text("content", { mode: "json" }),
+    author: text("author"),
+    vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
+      "bottom",
+    ),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("right"),
+    blockName: text("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("posts_blocks_quote_order_idx").on(columns._order),
+    _parentIDIdx: index("posts_blocks_quote_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("posts_blocks_quote_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [posts.id],
+      name: "posts_blocks_quote_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const posts_blocks_image = sqliteTable(
+  "posts_blocks_image",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id").primaryKey(),
+    image: text("image_id").references(() => images.id, {
+      onDelete: "set null",
+    }),
+    width: text("width", { enum: ["full", "half", "third"] }).default("full"),
+    vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
+      "center",
+    ),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("center"),
+    blockName: text("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("posts_blocks_image_order_idx").on(columns._order),
+    _parentIDIdx: index("posts_blocks_image_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("posts_blocks_image_path_idx").on(columns._path),
+    posts_blocks_image_image_idx: index("posts_blocks_image_image_idx").on(
+      columns.image,
+    ),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [posts.id],
+      name: "posts_blocks_image_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const posts_blocks_grid = sqliteTable(
+  "posts_blocks_grid",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id").primaryKey(),
+    blockName: text("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("posts_blocks_grid_order_idx").on(columns._order),
+    _parentIDIdx: index("posts_blocks_grid_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("posts_blocks_grid_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [posts.id],
+      name: "posts_blocks_grid_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const posts = sqliteTable(
   "posts",
   {
-    id: uuid("id").defaultRandom().primaryKey(),
-    title: varchar("title"),
-    description: varchar("description"),
-    content: jsonb("content"),
-    meta_title: varchar("meta_title"),
-    meta_image: uuid("meta_image_id").references(() => images.id, {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    title: text("title"),
+    description: text("description"),
+    meta_title: text("meta_title"),
+    meta_image: text("meta_image_id").references(() => images.id, {
       onDelete: "set null",
     }),
-    meta_description: varchar("meta_description"),
-    coverImage: uuid("cover_image_id").references(() => images.id, {
+    meta_description: text("meta_description"),
+    coverImage: text("cover_image_id").references(() => images.id, {
       onDelete: "set null",
     }),
-    author: uuid("author_id").references(() => authors.id, {
+    author: text("author_id").references(() => authors.id, {
       onDelete: "set null",
     }),
-    slug: varchar("slug"),
-    slugLock: boolean("slug_lock").default(true),
-    updatedAt: timestamp("updated_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    })
-      .defaultNow()
-      .notNull(),
-    createdAt: timestamp("created_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    })
-      .defaultNow()
-      .notNull(),
-    _status: enum_posts_status("_status").default("draft"),
+    publishedAt: text("published_at").default(
+      sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+    ),
+    slug: text("slug"),
+    slugLock: integer("slug_lock", { mode: "boolean" }).default(true),
+    updatedAt: text("updated_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    _status: text("_status", { enum: ["draft", "published"] }).default("draft"),
   },
   (columns) => ({
     posts_meta_meta_image_idx: index("posts_meta_meta_image_idx").on(
@@ -221,63 +350,223 @@ export const posts = pgTable(
   }),
 );
 
-export const _posts_v = pgTable(
+export const _posts_v_blocks_text = sqliteTable(
+  "_posts_v_blocks_text",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    content: text("content"),
+    vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
+      "top",
+    ),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("left"),
+    _uuid: text("_uuid"),
+    blockName: text("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("_posts_v_blocks_text_order_idx").on(columns._order),
+    _parentIDIdx: index("_posts_v_blocks_text_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("_posts_v_blocks_text_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_posts_v.id],
+      name: "_posts_v_blocks_text_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _posts_v_blocks_rich_text = sqliteTable(
+  "_posts_v_blocks_rich_text",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    content: text("content", { mode: "json" }),
+    vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
+      "top",
+    ),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("left"),
+    _uuid: text("_uuid"),
+    blockName: text("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("_posts_v_blocks_rich_text_order_idx").on(columns._order),
+    _parentIDIdx: index("_posts_v_blocks_rich_text_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("_posts_v_blocks_rich_text_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_posts_v.id],
+      name: "_posts_v_blocks_rich_text_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _posts_v_blocks_quote = sqliteTable(
+  "_posts_v_blocks_quote",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    content: text("content", { mode: "json" }),
+    author: text("author"),
+    vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
+      "bottom",
+    ),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("right"),
+    _uuid: text("_uuid"),
+    blockName: text("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("_posts_v_blocks_quote_order_idx").on(columns._order),
+    _parentIDIdx: index("_posts_v_blocks_quote_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("_posts_v_blocks_quote_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_posts_v.id],
+      name: "_posts_v_blocks_quote_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _posts_v_blocks_image = sqliteTable(
+  "_posts_v_blocks_image",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    image: text("image_id").references(() => images.id, {
+      onDelete: "set null",
+    }),
+    width: text("width", { enum: ["full", "half", "third"] }).default("full"),
+    vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
+      "center",
+    ),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("center"),
+    _uuid: text("_uuid"),
+    blockName: text("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("_posts_v_blocks_image_order_idx").on(columns._order),
+    _parentIDIdx: index("_posts_v_blocks_image_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("_posts_v_blocks_image_path_idx").on(columns._path),
+    _posts_v_blocks_image_image_idx: index(
+      "_posts_v_blocks_image_image_idx",
+    ).on(columns.image),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_posts_v.id],
+      name: "_posts_v_blocks_image_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _posts_v_blocks_grid = sqliteTable(
+  "_posts_v_blocks_grid",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    _uuid: text("_uuid"),
+    blockName: text("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("_posts_v_blocks_grid_order_idx").on(columns._order),
+    _parentIDIdx: index("_posts_v_blocks_grid_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("_posts_v_blocks_grid_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_posts_v.id],
+      name: "_posts_v_blocks_grid_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _posts_v = sqliteTable(
   "_posts_v",
   {
-    id: uuid("id").defaultRandom().primaryKey(),
-    parent: uuid("parent_id").references(() => posts.id, {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    parent: text("parent_id").references(() => posts.id, {
       onDelete: "set null",
     }),
-    version_title: varchar("version_title"),
-    version_description: varchar("version_description"),
-    version_content: jsonb("version_content"),
-    version_meta_title: varchar("version_meta_title"),
-    version_meta_image: uuid("version_meta_image_id").references(
+    version_title: text("version_title"),
+    version_description: text("version_description"),
+    version_meta_title: text("version_meta_title"),
+    version_meta_image: text("version_meta_image_id").references(
       () => images.id,
       {
         onDelete: "set null",
       },
     ),
-    version_meta_description: varchar("version_meta_description"),
-    version_coverImage: uuid("version_cover_image_id").references(
+    version_meta_description: text("version_meta_description"),
+    version_coverImage: text("version_cover_image_id").references(
       () => images.id,
       {
         onDelete: "set null",
       },
     ),
-    version_author: uuid("version_author_id").references(() => authors.id, {
+    version_author: text("version_author_id").references(() => authors.id, {
       onDelete: "set null",
     }),
-    version_slug: varchar("version_slug"),
-    version_slugLock: boolean("version_slug_lock").default(true),
-    version_updatedAt: timestamp("version_updated_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    }),
-    version_createdAt: timestamp("version_created_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    }),
-    version__status:
-      enum__posts_v_version_status("version__status").default("draft"),
-    createdAt: timestamp("created_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    })
-      .defaultNow()
-      .notNull(),
-    updatedAt: timestamp("updated_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    })
-      .defaultNow()
-      .notNull(),
-    latest: boolean("latest"),
-    autosave: boolean("autosave"),
+    version_publishedAt: text("version_published_at").default(
+      sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+    ),
+    version_slug: text("version_slug"),
+    version_slugLock: integer("version_slug_lock", { mode: "boolean" }).default(
+      true,
+    ),
+    version_updatedAt: text("version_updated_at").default(
+      sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+    ),
+    version_createdAt: text("version_created_at").default(
+      sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+    ),
+    version__status: text("version__status", {
+      enum: ["draft", "published"],
+    }).default("draft"),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    updatedAt: text("updated_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    latest: integer("latest", { mode: "boolean" }),
+    autosave: integer("autosave", { mode: "boolean" }),
   },
   (columns) => ({
     _posts_v_parent_idx: index("_posts_v_parent_idx").on(columns.parent),
@@ -313,27 +602,22 @@ export const _posts_v = pgTable(
   }),
 );
 
-export const authors = pgTable(
+export const authors = sqliteTable(
   "authors",
   {
-    id: uuid("id").defaultRandom().primaryKey(),
-    name: varchar("name").notNull(),
-    slug: varchar("slug"),
-    slugLock: boolean("slug_lock").default(true),
-    updatedAt: timestamp("updated_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    })
-      .defaultNow()
-      .notNull(),
-    createdAt: timestamp("created_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    })
-      .defaultNow()
-      .notNull(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    name: text("name").notNull(),
+    bio: text("bio"),
+    slug: text("slug"),
+    slugLock: integer("slug_lock", { mode: "boolean" }).default(true),
+    updatedAt: text("updated_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
   },
   (columns) => ({
     authors_slug_idx: index("authors_slug_idx").on(columns.slug),
@@ -346,28 +630,26 @@ export const authors = pgTable(
   }),
 );
 
-export const payload_jobs_log = pgTable(
+export const payload_jobs_log = sqliteTable(
   "payload_jobs_log",
   {
     _order: integer("_order").notNull(),
-    _parentID: uuid("_parent_id").notNull(),
-    id: varchar("id").primaryKey(),
-    executedAt: timestamp("executed_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
+    _parentID: text("_parent_id").notNull(),
+    id: text("id").primaryKey(),
+    executedAt: text("executed_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    completedAt: text("completed_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    taskSlug: text("task_slug", {
+      enum: ["inline", "schedulePublish"],
     }).notNull(),
-    completedAt: timestamp("completed_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    }).notNull(),
-    taskSlug: enum_payload_jobs_log_task_slug("task_slug").notNull(),
-    taskID: varchar("task_i_d").notNull(),
-    input: jsonb("input"),
-    output: jsonb("output"),
-    state: enum_payload_jobs_log_state("state").notNull(),
-    error: jsonb("error"),
+    taskID: text("task_i_d").notNull(),
+    input: text("input", { mode: "json" }),
+    output: text("output", { mode: "json" }),
+    state: text("state", { enum: ["failed", "succeeded"] }).notNull(),
+    error: text("error", { mode: "json" }),
   },
   (columns) => ({
     _orderIdx: index("payload_jobs_log_order_idx").on(columns._order),
@@ -380,41 +662,31 @@ export const payload_jobs_log = pgTable(
   }),
 );
 
-export const payload_jobs = pgTable(
+export const payload_jobs = sqliteTable(
   "payload_jobs",
   {
-    id: uuid("id").defaultRandom().primaryKey(),
-    input: jsonb("input"),
-    completedAt: timestamp("completed_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    }),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    input: text("input", { mode: "json" }),
+    completedAt: text("completed_at").default(
+      sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+    ),
     totalTried: numeric("total_tried").default("0"),
-    hasError: boolean("has_error").default(false),
-    error: jsonb("error"),
-    taskSlug: enum_payload_jobs_task_slug("task_slug"),
-    queue: varchar("queue").default("default"),
-    waitUntil: timestamp("wait_until", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    }),
-    processing: boolean("processing").default(false),
-    updatedAt: timestamp("updated_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    })
-      .defaultNow()
-      .notNull(),
-    createdAt: timestamp("created_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    })
-      .defaultNow()
-      .notNull(),
+    hasError: integer("has_error", { mode: "boolean" }).default(false),
+    error: text("error", { mode: "json" }),
+    taskSlug: text("task_slug", { enum: ["inline", "schedulePublish"] }),
+    queue: text("queue").default("default"),
+    waitUntil: text("wait_until").default(
+      sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+    ),
+    processing: integer("processing", { mode: "boolean" }).default(false),
+    updatedAt: text("updated_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
   },
   (columns) => ({
     payload_jobs_completed_at_idx: index("payload_jobs_completed_at_idx").on(
@@ -445,25 +717,19 @@ export const payload_jobs = pgTable(
   }),
 );
 
-export const payload_locked_documents = pgTable(
+export const payload_locked_documents = sqliteTable(
   "payload_locked_documents",
   {
-    id: uuid("id").defaultRandom().primaryKey(),
-    globalSlug: varchar("global_slug"),
-    updatedAt: timestamp("updated_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    })
-      .defaultNow()
-      .notNull(),
-    createdAt: timestamp("created_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    })
-      .defaultNow()
-      .notNull(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    globalSlug: text("global_slug"),
+    updatedAt: text("updated_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
   },
   (columns) => ({
     payload_locked_documents_global_slug_idx: index(
@@ -478,18 +744,18 @@ export const payload_locked_documents = pgTable(
   }),
 );
 
-export const payload_locked_documents_rels = pgTable(
+export const payload_locked_documents_rels = sqliteTable(
   "payload_locked_documents_rels",
   {
-    id: serial("id").primaryKey(),
+    id: integer("id").primaryKey(),
     order: integer("order"),
-    parent: uuid("parent_id").notNull(),
-    path: varchar("path").notNull(),
-    imagesID: uuid("images_id"),
-    usersID: uuid("users_id"),
-    postsID: uuid("posts_id"),
-    authorsID: uuid("authors_id"),
-    "payload-jobsID": uuid("payload_jobs_id"),
+    parent: text("parent_id").notNull(),
+    path: text("path").notNull(),
+    imagesID: text("images_id"),
+    usersID: text("users_id"),
+    postsID: text("posts_id"),
+    authorsID: text("authors_id"),
+    "payload-jobsID": text("payload_jobs_id"),
   },
   (columns) => ({
     order: index("payload_locked_documents_rels_order_idx").on(columns.order),
@@ -545,26 +811,20 @@ export const payload_locked_documents_rels = pgTable(
   }),
 );
 
-export const payload_preferences = pgTable(
+export const payload_preferences = sqliteTable(
   "payload_preferences",
   {
-    id: uuid("id").defaultRandom().primaryKey(),
-    key: varchar("key"),
-    value: jsonb("value"),
-    updatedAt: timestamp("updated_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    })
-      .defaultNow()
-      .notNull(),
-    createdAt: timestamp("created_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    })
-      .defaultNow()
-      .notNull(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    key: text("key"),
+    value: text("value", { mode: "json" }),
+    updatedAt: text("updated_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
   },
   (columns) => ({
     payload_preferences_key_idx: index("payload_preferences_key_idx").on(
@@ -579,14 +839,14 @@ export const payload_preferences = pgTable(
   }),
 );
 
-export const payload_preferences_rels = pgTable(
+export const payload_preferences_rels = sqliteTable(
   "payload_preferences_rels",
   {
-    id: serial("id").primaryKey(),
+    id: integer("id").primaryKey(),
     order: integer("order"),
-    parent: uuid("parent_id").notNull(),
-    path: varchar("path").notNull(),
-    usersID: uuid("users_id"),
+    parent: text("parent_id").notNull(),
+    path: text("path").notNull(),
+    usersID: text("users_id"),
   },
   (columns) => ({
     order: index("payload_preferences_rels_order_idx").on(columns.order),
@@ -608,26 +868,20 @@ export const payload_preferences_rels = pgTable(
   }),
 );
 
-export const payload_migrations = pgTable(
+export const payload_migrations = sqliteTable(
   "payload_migrations",
   {
-    id: uuid("id").defaultRandom().primaryKey(),
-    name: varchar("name"),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    name: text("name"),
     batch: numeric("batch"),
-    updatedAt: timestamp("updated_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    })
-      .defaultNow()
-      .notNull(),
-    createdAt: timestamp("created_at", {
-      mode: "string",
-      withTimezone: true,
-      precision: 3,
-    })
-      .defaultNow()
-      .notNull(),
+    updatedAt: text("updated_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
   },
   (columns) => ({
     payload_migrations_updated_at_idx: index(
@@ -639,59 +893,199 @@ export const payload_migrations = pgTable(
   }),
 );
 
-export const about_partners = pgTable(
-  "about_partners",
+export const project_blocks_text = sqliteTable(
+  "project_blocks_text",
   {
     _order: integer("_order").notNull(),
-    _parentID: uuid("_parent_id").notNull(),
-    id: varchar("id").primaryKey(),
-    name: varchar("name").notNull(),
-    bio: varchar("bio").notNull(),
-    logo: uuid("logo_id").references(() => images.id, {
-      onDelete: "set null",
-    }),
-    members: varchar("members"),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id").primaryKey(),
+    content: text("content").notNull(),
+    vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
+      "top",
+    ),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("left"),
+    blockName: text("block_name"),
   },
   (columns) => ({
-    _orderIdx: index("about_partners_order_idx").on(columns._order),
-    _parentIDIdx: index("about_partners_parent_id_idx").on(columns._parentID),
-    about_partners_logo_idx: index("about_partners_logo_idx").on(columns.logo),
-    _parentIDFk: foreignKey({
+    _orderIdx: index("project_blocks_text_order_idx").on(columns._order),
+    _parentIDIdx: index("project_blocks_text_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("project_blocks_text_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
       columns: [columns["_parentID"]],
-      foreignColumns: [about.id],
-      name: "about_partners_parent_id_fk",
+      foreignColumns: [project.id],
+      name: "project_blocks_text_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
 
-export const about = pgTable("about", {
-  id: uuid("id").defaultRandom().primaryKey(),
-  description: varchar("description")
-    .notNull()
-    .default(
-      "La Cordata di progetto è guidata dal Comune di Milano e composta da Ambiente Italia Srl, Climateflux GmbH, Eutropian Association, FROM, Open Impact, Osservatorio La Goccia, Politecnico di Milano.",
+export const project_blocks_rich_text = sqliteTable(
+  "project_blocks_rich_text",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id").primaryKey(),
+    content: text("content", { mode: "json" }),
+    vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
+      "top",
     ),
-  updatedAt: timestamp("updated_at", {
-    mode: "string",
-    withTimezone: true,
-    precision: 3,
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("left"),
+    blockName: text("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("project_blocks_rich_text_order_idx").on(columns._order),
+    _parentIDIdx: index("project_blocks_rich_text_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("project_blocks_rich_text_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [project.id],
+      name: "project_blocks_rich_text_parent_id_fk",
+    }).onDelete("cascade"),
   }),
-  createdAt: timestamp("created_at", {
-    mode: "string",
-    withTimezone: true,
-    precision: 3,
+);
+
+export const project_blocks_quote = sqliteTable(
+  "project_blocks_quote",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id").primaryKey(),
+    content: text("content", { mode: "json" }),
+    author: text("author"),
+    vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
+      "bottom",
+    ),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("right"),
+    blockName: text("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("project_blocks_quote_order_idx").on(columns._order),
+    _parentIDIdx: index("project_blocks_quote_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("project_blocks_quote_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [project.id],
+      name: "project_blocks_quote_parent_id_fk",
+    }).onDelete("cascade"),
   }),
+);
+
+export const project_blocks_image = sqliteTable(
+  "project_blocks_image",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id").primaryKey(),
+    image: text("image_id")
+      .notNull()
+      .references(() => images.id, {
+        onDelete: "set null",
+      }),
+    width: text("width", { enum: ["full", "half", "third"] }).default("full"),
+    vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
+      "center",
+    ),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("center"),
+    blockName: text("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("project_blocks_image_order_idx").on(columns._order),
+    _parentIDIdx: index("project_blocks_image_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("project_blocks_image_path_idx").on(columns._path),
+    project_blocks_image_image_idx: index("project_blocks_image_image_idx").on(
+      columns.image,
+    ),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [project.id],
+      name: "project_blocks_image_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const project_blocks_grid = sqliteTable(
+  "project_blocks_grid",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id").primaryKey(),
+    blockName: text("block_name"),
+  },
+  (columns) => ({
+    _orderIdx: index("project_blocks_grid_order_idx").on(columns._order),
+    _parentIDIdx: index("project_blocks_grid_parent_id_idx").on(
+      columns._parentID,
+    ),
+    _pathIdx: index("project_blocks_grid_path_idx").on(columns._path),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [project.id],
+      name: "project_blocks_grid_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const project_sections = sqliteTable(
+  "project_sections",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    id: text("id").primaryKey(),
+    title: text("title").notNull(),
+    url: text("url").notNull(),
+  },
+  (columns) => ({
+    _orderIdx: index("project_sections_order_idx").on(columns._order),
+    _parentIDIdx: index("project_sections_parent_id_idx").on(columns._parentID),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [project.id],
+      name: "project_sections_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const project = sqliteTable("project", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => randomUUID()),
+  updatedAt: text("updated_at").default(
+    sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+  ),
+  createdAt: text("created_at").default(
+    sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+  ),
 });
 
-export const goccia_timeline = pgTable(
+export const goccia_timeline = sqliteTable(
   "goccia_timeline",
   {
     _order: integer("_order").notNull(),
-    _parentID: uuid("_parent_id").notNull(),
-    id: varchar("id").primaryKey(),
-    title: varchar("title").notNull(),
-    description: varchar("description").notNull(),
-    cover: uuid("cover_id")
+    _parentID: text("_parent_id").notNull(),
+    id: text("id").primaryKey(),
+    title: text("title").notNull(),
+    description: text("description").notNull(),
+    cover: text("cover_id")
       .notNull()
       .references(() => images.id, {
         onDelete: "set null",
@@ -713,28 +1107,144 @@ export const goccia_timeline = pgTable(
   }),
 );
 
-export const goccia = pgTable("goccia", {
-  id: uuid("id").defaultRandom().primaryKey(),
-  description: varchar("description")
-    .notNull()
-    .default(
-      "Nata come area industriale tra fine Ottocento e inizio Novecento, poi dismessa e abbandonata tra gli anni ‘70 e ‘90, la Goccia è oggi è al centro di progetti di rigenerazione che intrecciano memoria industriale, ambiente e futuro urbano.",
-    ),
-  updatedAt: timestamp("updated_at", {
-    mode: "string",
-    withTimezone: true,
-    precision: 3,
+export const goccia = sqliteTable("goccia", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => randomUUID()),
+  description: text("description").notNull(),
+  updatedAt: text("updated_at").default(
+    sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+  ),
+  createdAt: text("created_at").default(
+    sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+  ),
+});
+
+export const about_partners = sqliteTable(
+  "about_partners",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    id: text("id").primaryKey(),
+    name: text("name").notNull(),
+    bio: text("bio").notNull(),
+    logo: text("logo_id").references(() => images.id, {
+      onDelete: "set null",
+    }),
+    members: text("members"),
+  },
+  (columns) => ({
+    _orderIdx: index("about_partners_order_idx").on(columns._order),
+    _parentIDIdx: index("about_partners_parent_id_idx").on(columns._parentID),
+    about_partners_logo_idx: index("about_partners_logo_idx").on(columns.logo),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [about.id],
+      name: "about_partners_parent_id_fk",
+    }).onDelete("cascade"),
   }),
-  createdAt: timestamp("created_at", {
-    mode: "string",
-    withTimezone: true,
-    precision: 3,
-  }),
+);
+
+export const about = sqliteTable("about", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => randomUUID()),
+  description: text("description").notNull(),
+  updatedAt: text("updated_at").default(
+    sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+  ),
+  createdAt: text("created_at").default(
+    sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+  ),
 });
 
 export const relations_images = relations(images, () => ({}));
-export const relations_users = relations(users, () => ({}));
-export const relations_posts = relations(posts, ({ one }) => ({
+export const relations_users_sessions = relations(
+  users_sessions,
+  ({ one }) => ({
+    _parentID: one(users, {
+      fields: [users_sessions._parentID],
+      references: [users.id],
+      relationName: "sessions",
+    }),
+  }),
+);
+export const relations_users = relations(users, ({ many }) => ({
+  sessions: many(users_sessions, {
+    relationName: "sessions",
+  }),
+}));
+export const relations_posts_blocks_text = relations(
+  posts_blocks_text,
+  ({ one }) => ({
+    _parentID: one(posts, {
+      fields: [posts_blocks_text._parentID],
+      references: [posts.id],
+      relationName: "_blocks_text",
+    }),
+  }),
+);
+export const relations_posts_blocks_rich_text = relations(
+  posts_blocks_rich_text,
+  ({ one }) => ({
+    _parentID: one(posts, {
+      fields: [posts_blocks_rich_text._parentID],
+      references: [posts.id],
+      relationName: "_blocks_richText",
+    }),
+  }),
+);
+export const relations_posts_blocks_quote = relations(
+  posts_blocks_quote,
+  ({ one }) => ({
+    _parentID: one(posts, {
+      fields: [posts_blocks_quote._parentID],
+      references: [posts.id],
+      relationName: "_blocks_quote",
+    }),
+  }),
+);
+export const relations_posts_blocks_image = relations(
+  posts_blocks_image,
+  ({ one }) => ({
+    _parentID: one(posts, {
+      fields: [posts_blocks_image._parentID],
+      references: [posts.id],
+      relationName: "_blocks_image",
+    }),
+    image: one(images, {
+      fields: [posts_blocks_image.image],
+      references: [images.id],
+      relationName: "image",
+    }),
+  }),
+);
+export const relations_posts_blocks_grid = relations(
+  posts_blocks_grid,
+  ({ one }) => ({
+    _parentID: one(posts, {
+      fields: [posts_blocks_grid._parentID],
+      references: [posts.id],
+      relationName: "_blocks_grid",
+    }),
+  }),
+);
+export const relations_posts = relations(posts, ({ one, many }) => ({
+  _blocks_text: many(posts_blocks_text, {
+    relationName: "_blocks_text",
+  }),
+  _blocks_richText: many(posts_blocks_rich_text, {
+    relationName: "_blocks_richText",
+  }),
+  _blocks_quote: many(posts_blocks_quote, {
+    relationName: "_blocks_quote",
+  }),
+  _blocks_image: many(posts_blocks_image, {
+    relationName: "_blocks_image",
+  }),
+  _blocks_grid: many(posts_blocks_grid, {
+    relationName: "_blocks_grid",
+  }),
   meta_image: one(images, {
     fields: [posts.meta_image],
     references: [images.id],
@@ -751,11 +1261,81 @@ export const relations_posts = relations(posts, ({ one }) => ({
     relationName: "author",
   }),
 }));
-export const relations__posts_v = relations(_posts_v, ({ one }) => ({
+export const relations__posts_v_blocks_text = relations(
+  _posts_v_blocks_text,
+  ({ one }) => ({
+    _parentID: one(_posts_v, {
+      fields: [_posts_v_blocks_text._parentID],
+      references: [_posts_v.id],
+      relationName: "_blocks_text",
+    }),
+  }),
+);
+export const relations__posts_v_blocks_rich_text = relations(
+  _posts_v_blocks_rich_text,
+  ({ one }) => ({
+    _parentID: one(_posts_v, {
+      fields: [_posts_v_blocks_rich_text._parentID],
+      references: [_posts_v.id],
+      relationName: "_blocks_richText",
+    }),
+  }),
+);
+export const relations__posts_v_blocks_quote = relations(
+  _posts_v_blocks_quote,
+  ({ one }) => ({
+    _parentID: one(_posts_v, {
+      fields: [_posts_v_blocks_quote._parentID],
+      references: [_posts_v.id],
+      relationName: "_blocks_quote",
+    }),
+  }),
+);
+export const relations__posts_v_blocks_image = relations(
+  _posts_v_blocks_image,
+  ({ one }) => ({
+    _parentID: one(_posts_v, {
+      fields: [_posts_v_blocks_image._parentID],
+      references: [_posts_v.id],
+      relationName: "_blocks_image",
+    }),
+    image: one(images, {
+      fields: [_posts_v_blocks_image.image],
+      references: [images.id],
+      relationName: "image",
+    }),
+  }),
+);
+export const relations__posts_v_blocks_grid = relations(
+  _posts_v_blocks_grid,
+  ({ one }) => ({
+    _parentID: one(_posts_v, {
+      fields: [_posts_v_blocks_grid._parentID],
+      references: [_posts_v.id],
+      relationName: "_blocks_grid",
+    }),
+  }),
+);
+export const relations__posts_v = relations(_posts_v, ({ one, many }) => ({
   parent: one(posts, {
     fields: [_posts_v.parent],
     references: [posts.id],
     relationName: "parent",
+  }),
+  _blocks_text: many(_posts_v_blocks_text, {
+    relationName: "_blocks_text",
+  }),
+  _blocks_richText: many(_posts_v_blocks_rich_text, {
+    relationName: "_blocks_richText",
+  }),
+  _blocks_quote: many(_posts_v_blocks_quote, {
+    relationName: "_blocks_quote",
+  }),
+  _blocks_image: many(_posts_v_blocks_image, {
+    relationName: "_blocks_image",
+  }),
+  _blocks_grid: many(_posts_v_blocks_grid, {
+    relationName: "_blocks_grid",
   }),
   version_meta_image: one(images, {
     fields: [_posts_v.version_meta_image],
@@ -859,24 +1439,89 @@ export const relations_payload_migrations = relations(
   payload_migrations,
   () => ({}),
 );
-export const relations_about_partners = relations(
-  about_partners,
+export const relations_project_blocks_text = relations(
+  project_blocks_text,
   ({ one }) => ({
-    _parentID: one(about, {
-      fields: [about_partners._parentID],
-      references: [about.id],
-      relationName: "partners",
-    }),
-    logo: one(images, {
-      fields: [about_partners.logo],
-      references: [images.id],
-      relationName: "logo",
+    _parentID: one(project, {
+      fields: [project_blocks_text._parentID],
+      references: [project.id],
+      relationName: "_blocks_text",
     }),
   }),
 );
-export const relations_about = relations(about, ({ many }) => ({
-  partners: many(about_partners, {
-    relationName: "partners",
+export const relations_project_blocks_rich_text = relations(
+  project_blocks_rich_text,
+  ({ one }) => ({
+    _parentID: one(project, {
+      fields: [project_blocks_rich_text._parentID],
+      references: [project.id],
+      relationName: "_blocks_richText",
+    }),
+  }),
+);
+export const relations_project_blocks_quote = relations(
+  project_blocks_quote,
+  ({ one }) => ({
+    _parentID: one(project, {
+      fields: [project_blocks_quote._parentID],
+      references: [project.id],
+      relationName: "_blocks_quote",
+    }),
+  }),
+);
+export const relations_project_blocks_image = relations(
+  project_blocks_image,
+  ({ one }) => ({
+    _parentID: one(project, {
+      fields: [project_blocks_image._parentID],
+      references: [project.id],
+      relationName: "_blocks_image",
+    }),
+    image: one(images, {
+      fields: [project_blocks_image.image],
+      references: [images.id],
+      relationName: "image",
+    }),
+  }),
+);
+export const relations_project_blocks_grid = relations(
+  project_blocks_grid,
+  ({ one }) => ({
+    _parentID: one(project, {
+      fields: [project_blocks_grid._parentID],
+      references: [project.id],
+      relationName: "_blocks_grid",
+    }),
+  }),
+);
+export const relations_project_sections = relations(
+  project_sections,
+  ({ one }) => ({
+    _parentID: one(project, {
+      fields: [project_sections._parentID],
+      references: [project.id],
+      relationName: "sections",
+    }),
+  }),
+);
+export const relations_project = relations(project, ({ many }) => ({
+  _blocks_text: many(project_blocks_text, {
+    relationName: "_blocks_text",
+  }),
+  _blocks_richText: many(project_blocks_rich_text, {
+    relationName: "_blocks_richText",
+  }),
+  _blocks_quote: many(project_blocks_quote, {
+    relationName: "_blocks_quote",
+  }),
+  _blocks_image: many(project_blocks_image, {
+    relationName: "_blocks_image",
+  }),
+  _blocks_grid: many(project_blocks_grid, {
+    relationName: "_blocks_grid",
+  }),
+  sections: many(project_sections, {
+    relationName: "sections",
   }),
 }));
 export const relations_goccia_timeline = relations(
@@ -899,16 +1544,42 @@ export const relations_goccia = relations(goccia, ({ many }) => ({
     relationName: "timeline",
   }),
 }));
+export const relations_about_partners = relations(
+  about_partners,
+  ({ one }) => ({
+    _parentID: one(about, {
+      fields: [about_partners._parentID],
+      references: [about.id],
+      relationName: "partners",
+    }),
+    logo: one(images, {
+      fields: [about_partners.logo],
+      references: [images.id],
+      relationName: "logo",
+    }),
+  }),
+);
+export const relations_about = relations(about, ({ many }) => ({
+  partners: many(about_partners, {
+    relationName: "partners",
+  }),
+}));
 
 type DatabaseSchema = {
-  enum_posts_status: typeof enum_posts_status;
-  enum__posts_v_version_status: typeof enum__posts_v_version_status;
-  enum_payload_jobs_log_task_slug: typeof enum_payload_jobs_log_task_slug;
-  enum_payload_jobs_log_state: typeof enum_payload_jobs_log_state;
-  enum_payload_jobs_task_slug: typeof enum_payload_jobs_task_slug;
   images: typeof images;
+  users_sessions: typeof users_sessions;
   users: typeof users;
+  posts_blocks_text: typeof posts_blocks_text;
+  posts_blocks_rich_text: typeof posts_blocks_rich_text;
+  posts_blocks_quote: typeof posts_blocks_quote;
+  posts_blocks_image: typeof posts_blocks_image;
+  posts_blocks_grid: typeof posts_blocks_grid;
   posts: typeof posts;
+  _posts_v_blocks_text: typeof _posts_v_blocks_text;
+  _posts_v_blocks_rich_text: typeof _posts_v_blocks_rich_text;
+  _posts_v_blocks_quote: typeof _posts_v_blocks_quote;
+  _posts_v_blocks_image: typeof _posts_v_blocks_image;
+  _posts_v_blocks_grid: typeof _posts_v_blocks_grid;
   _posts_v: typeof _posts_v;
   authors: typeof authors;
   payload_jobs_log: typeof payload_jobs_log;
@@ -918,13 +1589,31 @@ type DatabaseSchema = {
   payload_preferences: typeof payload_preferences;
   payload_preferences_rels: typeof payload_preferences_rels;
   payload_migrations: typeof payload_migrations;
-  about_partners: typeof about_partners;
-  about: typeof about;
+  project_blocks_text: typeof project_blocks_text;
+  project_blocks_rich_text: typeof project_blocks_rich_text;
+  project_blocks_quote: typeof project_blocks_quote;
+  project_blocks_image: typeof project_blocks_image;
+  project_blocks_grid: typeof project_blocks_grid;
+  project_sections: typeof project_sections;
+  project: typeof project;
   goccia_timeline: typeof goccia_timeline;
   goccia: typeof goccia;
+  about_partners: typeof about_partners;
+  about: typeof about;
   relations_images: typeof relations_images;
+  relations_users_sessions: typeof relations_users_sessions;
   relations_users: typeof relations_users;
+  relations_posts_blocks_text: typeof relations_posts_blocks_text;
+  relations_posts_blocks_rich_text: typeof relations_posts_blocks_rich_text;
+  relations_posts_blocks_quote: typeof relations_posts_blocks_quote;
+  relations_posts_blocks_image: typeof relations_posts_blocks_image;
+  relations_posts_blocks_grid: typeof relations_posts_blocks_grid;
   relations_posts: typeof relations_posts;
+  relations__posts_v_blocks_text: typeof relations__posts_v_blocks_text;
+  relations__posts_v_blocks_rich_text: typeof relations__posts_v_blocks_rich_text;
+  relations__posts_v_blocks_quote: typeof relations__posts_v_blocks_quote;
+  relations__posts_v_blocks_image: typeof relations__posts_v_blocks_image;
+  relations__posts_v_blocks_grid: typeof relations__posts_v_blocks_grid;
   relations__posts_v: typeof relations__posts_v;
   relations_authors: typeof relations_authors;
   relations_payload_jobs_log: typeof relations_payload_jobs_log;
@@ -934,13 +1623,20 @@ type DatabaseSchema = {
   relations_payload_preferences_rels: typeof relations_payload_preferences_rels;
   relations_payload_preferences: typeof relations_payload_preferences;
   relations_payload_migrations: typeof relations_payload_migrations;
-  relations_about_partners: typeof relations_about_partners;
-  relations_about: typeof relations_about;
+  relations_project_blocks_text: typeof relations_project_blocks_text;
+  relations_project_blocks_rich_text: typeof relations_project_blocks_rich_text;
+  relations_project_blocks_quote: typeof relations_project_blocks_quote;
+  relations_project_blocks_image: typeof relations_project_blocks_image;
+  relations_project_blocks_grid: typeof relations_project_blocks_grid;
+  relations_project_sections: typeof relations_project_sections;
+  relations_project: typeof relations_project;
   relations_goccia_timeline: typeof relations_goccia_timeline;
   relations_goccia: typeof relations_goccia;
+  relations_about_partners: typeof relations_about_partners;
+  relations_about: typeof relations_about;
 };
 
-declare module "@payloadcms/db-vercel-postgres" {
+declare module "@payloadcms/db-sqlite" {
   export interface GeneratedDatabaseSchema {
     schema: DatabaseSchema;
   }

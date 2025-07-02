@@ -1,9 +1,7 @@
 import Link from 'next/link';
 import MarqueeLogo from '@/modules/components/MarqueeLogo';
 
-{
-	/* TODO add grid like the other pages */
-}
+/* TODO add grid like the other pages */
 export default function SectionIntroText() {
 	return (
 		<article className='bg-blue-200 text-2xl md:text-3xl lg:text-4xl items-center flex flex-col lg:gap-20 md:gap-16 gap-12 xl:gap-28 font-greed lg:py-12 md:py-10 py-8 xl:py-16'>

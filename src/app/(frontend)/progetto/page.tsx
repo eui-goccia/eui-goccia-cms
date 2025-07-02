@@ -1,3 +1,9 @@
-export default function ProjectPage() {
-	return <div>Project</div>;
+import type { Project } from '@payload-types';
+import { getCachedGlobal } from '@/modules/utilities/getGlobals';
+import ProgettoClient from './page.client';
+
+export default async function Progetto() {
+	const project: Project = await getCachedGlobal('project', 1);
+
+	return <ProgettoClient project={project} />;
 }

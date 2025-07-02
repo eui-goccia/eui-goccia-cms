@@ -95,12 +95,14 @@ export interface Config {
     defaultIDType: string;
   };
   globals: {
-    about: About;
+    project: Project;
     goccia: Goccia;
+    about: About;
   };
   globalsSelect: {
-    about: AboutSelect<false> | AboutSelect<true>;
+    project: ProjectSelect<false> | ProjectSelect<true>;
     goccia: GocciaSelect<false> | GocciaSelect<true>;
+    about: AboutSelect<false> | AboutSelect<true>;
   };
   locale: null;
   user: User & {
@@ -216,6 +218,13 @@ export interface User {
   hash?: string | null;
   loginAttempts?: number | null;
   lockUntil?: string | null;
+  sessions?:
+    | {
+        id: string;
+        createdAt?: string | null;
+        expiresAt: string;
+      }[]
+    | null;
   password?: string | null;
 }
 /**
@@ -225,8 +234,43 @@ export interface User {
 export interface Post {
   id: string;
   title: string;
-  description: string;
-  content: {
+  description?: string | null;
+  content: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | GridBlock)[];
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Image;
+    description?: string | null;
+  };
+  coverImage: string | Image;
+  author: string | Author;
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBlock".
+ */
+export interface TextBlock {
+  content: string;
+  vertical?: ('top' | 'center' | 'bottom') | null;
+  horizontal?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'text';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RichTextBlock".
+ */
+export interface RichTextBlock {
+  content?: {
     root: {
       type: string;
       children: {
@@ -240,22 +284,65 @@ export interface Post {
       version: number;
     };
     [k: string]: unknown;
-  };
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Image;
-    description?: string | null;
-  };
-  coverImage: string | Image;
-  author: string | Author;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
+  } | null;
+  vertical?: ('top' | 'center' | 'bottom') | null;
+  horizontal?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'richText';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "QuoteBlock".
+ */
+export interface QuoteBlock {
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  author?: string | null;
+  vertical?: ('top' | 'center' | 'bottom') | null;
+  horizontal?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'quote';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageBlock".
+ */
+export interface ImageBlock {
+  image: string | Image;
+  width?: ('full' | 'half' | 'third') | null;
+  vertical?: ('top' | 'center' | 'bottom') | null;
+  horizontal?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'image';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GridBlock".
+ */
+export interface GridBlock {
+  /**
+   * Add up to 4 items, they will be displayed in a single row
+   */
+  items?: (ImageBlock | TextBlock | RichTextBlock)[] | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'grid';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -264,6 +351,7 @@ export interface Post {
 export interface Author {
   id: string;
   name: string;
+  bio?: string | null;
   posts?: {
     docs?: (string | Post)[];
     hasNextPage?: boolean;
@@ -523,6 +611,13 @@ export interface UsersSelect<T extends boolean = true> {
   hash?: T;
   loginAttempts?: T;
   lockUntil?: T;
+  sessions?:
+    | T
+    | {
+        id?: T;
+        createdAt?: T;
+        expiresAt?: T;
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -531,7 +626,15 @@ export interface UsersSelect<T extends boolean = true> {
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
   description?: T;
-  content?: T;
+  content?:
+    | T
+    | {
+        text?: T | TextBlockSelect<T>;
+        richText?: T | RichTextBlockSelect<T>;
+        quote?: T | QuoteBlockSelect<T>;
+        image?: T | ImageBlockSelect<T>;
+        grid?: T | GridBlockSelect<T>;
+      };
   meta?:
     | T
     | {
@@ -541,6 +644,7 @@ export interface PostsSelect<T extends boolean = true> {
       };
   coverImage?: T;
   author?: T;
+  publishedAt?: T;
   slug?: T;
   slugLock?: T;
   updatedAt?: T;
@@ -549,10 +653,72 @@ export interface PostsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBlock_select".
+ */
+export interface TextBlockSelect<T extends boolean = true> {
+  content?: T;
+  vertical?: T;
+  horizontal?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RichTextBlock_select".
+ */
+export interface RichTextBlockSelect<T extends boolean = true> {
+  content?: T;
+  vertical?: T;
+  horizontal?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "QuoteBlock_select".
+ */
+export interface QuoteBlockSelect<T extends boolean = true> {
+  content?: T;
+  author?: T;
+  vertical?: T;
+  horizontal?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageBlock_select".
+ */
+export interface ImageBlockSelect<T extends boolean = true> {
+  image?: T;
+  width?: T;
+  vertical?: T;
+  horizontal?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GridBlock_select".
+ */
+export interface GridBlockSelect<T extends boolean = true> {
+  items?:
+    | T
+    | {
+        image?: T | ImageBlockSelect<T>;
+        text?: T | TextBlockSelect<T>;
+        richText?: T | RichTextBlockSelect<T>;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "authors_select".
  */
 export interface AuthorsSelect<T extends boolean = true> {
   name?: T;
+  bio?: T;
   posts?: T;
   slug?: T;
   slugLock?: T;
@@ -624,17 +790,15 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "about".
+ * via the `definition` "project".
  */
-export interface About {
+export interface Project {
   id: string;
-  description: string;
-  partners?:
+  sections?:
     | {
-        name: string;
-        bio: string;
-        logo?: (string | null) | Image;
-        members?: string | null;
+        title: string;
+        content: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | GridBlock)[];
+        url: string;
         id?: string | null;
       }[]
     | null;
@@ -669,17 +833,42 @@ export interface Goccia {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "about_select".
+ * via the `definition` "about".
  */
-export interface AboutSelect<T extends boolean = true> {
-  description?: T;
+export interface About {
+  id: string;
+  description: string;
   partners?:
+    | {
+        name: string;
+        bio: string;
+        logo?: (string | null) | Image;
+        members?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "project_select".
+ */
+export interface ProjectSelect<T extends boolean = true> {
+  sections?:
     | T
     | {
-        name?: T;
-        bio?: T;
-        logo?: T;
-        members?: T;
+        title?: T;
+        content?:
+          | T
+          | {
+              text?: T | TextBlockSelect<T>;
+              richText?: T | RichTextBlockSelect<T>;
+              quote?: T | QuoteBlockSelect<T>;
+              image?: T | ImageBlockSelect<T>;
+              grid?: T | GridBlockSelect<T>;
+            };
+        url?: T;
         id?: T;
       };
   updatedAt?: T;
@@ -700,6 +889,25 @@ export interface GocciaSelect<T extends boolean = true> {
         cover?: T;
         start?: T;
         end?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about_select".
+ */
+export interface AboutSelect<T extends boolean = true> {
+  description?: T;
+  partners?:
+    | T
+    | {
+        name?: T;
+        bio?: T;
+        logo?: T;
+        members?: T;
         id?: T;
       };
   updatedAt?: T;

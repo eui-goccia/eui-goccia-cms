@@ -1,15 +1,15 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres';
+import { sqliteAdapter } from '@payloadcms/db-sqlite';
 import { en } from '@payloadcms/translations/languages/en';
 import { it } from '@payloadcms/translations/languages/it';
-import { buildConfig } from 'payload';
+import { buildConfig, type PayloadRequest } from 'payload';
 import sharp from 'sharp';
 import { defaultLexical } from '../editor/lexical';
 import { seoPlugin } from '../seo/plugin';
 import { storagePlugin } from '../storage/plugin';
 import { collections } from './collections';
-import { migrations } from './db/migrations';
+// import { migrations } from './db/migrations';
 import { globals } from './globals';
 
 const filename = fileURLToPath(import.meta.url);
@@ -60,18 +60,34 @@ export default buildConfig({
 	typescript: {
 		outputFile: path.resolve(dirname, 'payload-types.ts'),
 	},
-	db: vercelPostgresAdapter({
+	db: sqliteAdapter({
 		idType: 'uuid',
 		generateSchemaOutputFile: path.resolve(
 			dirname,
 			'./db/payload-generated-schema.ts'
 		),
 		migrationDir: path.resolve(dirname, './db/migrations'),
-		prodMigrations: migrations,
-		pool: {
-			connectionString: process.env.DATABASE_URL || '',
+		// prodMigrations: migrations,
+		client: {
+			url: process.env.DATABASE_URL || '',
+			authToken: process.env.DATABASE_AUTH_TOKEN,
 		},
 	}),
+	jobs: {
+		access: {
+			run: ({ req }: { req: PayloadRequest }): boolean => {
+				// Allow logged in users to execute this endpoint (default)
+				if (req.user) return true;
+
+				// If there is no logged in user, then check
+				// for the Vercel Cron secret to be present as an
+				// Authorization header:
+				const authHeader = req.headers.get('authorization');
+				return authHeader === `Bearer ${process.env.CRON_SECRET}`;
+			},
+		},
+		tasks: [],
+	},
 	sharp,
 	plugins: [seoPlugin, storagePlugin],
 });

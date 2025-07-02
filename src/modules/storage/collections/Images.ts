@@ -37,7 +37,6 @@ export const Images: CollectionConfig = {
 		plural: 'Immagini',
 	},
 	admin: {
-		defaultColumns: ['thumbnail', 'alt'],
 		group: 'Storage',
 	},
 	access: {

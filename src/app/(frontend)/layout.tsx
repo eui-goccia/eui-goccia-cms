@@ -5,6 +5,7 @@ import { Plausible } from '@/modules/analytics/plausible';
 import Footer from '@/modules/components/shared/Footer';
 import Header from '@/modules/components/shared/Header';
 import NewsletterSignup from '@/modules/components/shared/NewsletterSignup';
+import { cn } from '@/modules/utilities/cnUtils';
 import { ReactLenis } from '@/modules/utilities/lenis';
 
 export const metadata: Metadata = {
@@ -76,7 +77,12 @@ export default function RootLayout({
 			<Plausible>
 				<ReactLenis root>
 					<body
-						className={`${ghost.variable} ${tagada.variable} ${greed.variable} antialiased flex flex-col justify-between h-dvh`}
+						className={cn(
+							ghost.variable,
+							tagada.variable,
+							greed.variable,
+							'antialiased flex flex-col justify-between h-dvh'
+						)}
 					>
 						<Header />
 						<main className='mb-auto'>{children}</main>

@@ -1,13 +1,13 @@
-import Image, { type StaticImageData } from 'next/image';
-import React, { type ComponentType } from 'react';
+import type { Image } from '@payload-types';
 import { cn } from '@/modules/utilities/cnUtils';
+import { CustomImage } from './CustomImage';
 
 interface PartnerCardProps {
 	bgColor: string;
 	partnerName: string;
 	partnerBio: string;
-	logo: ComponentType<React.SVGProps<SVGSVGElement>> | StaticImageData;
-	members?: string;
+	logo: Image;
+	members?: string | null;
 }
 
 export default function PartnerCard({
@@ -47,22 +47,14 @@ export default function PartnerCard({
 					)}
 				</div>
 				<div className='w-full md:w-1/4 flex justify-start md:justify-end items-start'>
-					{logo &&
-						(typeof logo === 'object' && 'src' in logo ? (
-							<Image
-								src={logo}
-								alt={partnerName}
-								quality={90}
-								className='w-auto h-full max-h-20 max-w-60 object-contain'
-							/>
-						) : (
-							React.createElement(
-								logo as ComponentType<React.SVGProps<SVGSVGElement>>,
-								{
-									className: 'max-h-20 max-w-60',
-								}
-							)
-						))}
+					{logo && (
+						<CustomImage
+							image={logo}
+							size='medium'
+							alt={logo.caption}
+							className='max-h-20 max-w-60 object-contain'
+						/>
+					)}
 				</div>
 			</div>
 		</div>

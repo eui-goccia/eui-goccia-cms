@@ -1,4 +1,7 @@
 import type { CollectionConfig } from 'payload';
+import { defaultBlocks } from '../blocks';
+import { authenticated } from '../payload/access/authenticated';
+import { authenticatedOrPublished } from '../payload/access/authenticatedOrPublished';
 import { slugField } from '../payload/fields/slug';
 import { seoTab } from '../seo/fields';
 import { generatePreviewPath } from '../utilities/generatePreviewPath';
@@ -8,6 +11,26 @@ export const Posts: CollectionConfig = {
 	labels: {
 		singular: 'Articolo',
 		plural: 'Articoli',
+	},
+	defaultPopulate: {
+		author: {
+			select: {
+				name: true,
+			},
+		},
+		coverImage: true,
+		content: true,
+		description: true,
+		title: true,
+		slug: true,
+		publishedAt: true,
+		_status: true,
+	},
+	access: {
+		read: authenticatedOrPublished,
+		create: authenticated,
+		update: authenticated,
+		delete: authenticated,
 	},
 	admin: {
 		useAsTitle: 'title',
@@ -45,14 +68,14 @@ export const Posts: CollectionConfig = {
 						{
 							name: 'description',
 							type: 'textarea',
-							required: true,
 							label: 'Descrizione',
 						},
 						{
 							name: 'content',
-							type: 'richText',
+							type: 'blocks',
 							required: true,
 							label: 'Contenuto',
+							blocks: defaultBlocks,
 						},
 					],
 				},
@@ -79,6 +102,27 @@ export const Posts: CollectionConfig = {
 			required: true,
 			admin: {
 				position: 'sidebar',
+			},
+		},
+		{
+			name: 'publishedAt',
+			type: 'date',
+			label: 'Data di pubblicazione',
+			admin: {
+				position: 'sidebar',
+				date: {
+					pickerAppearance: 'dayAndTime',
+				},
+			},
+			hooks: {
+				beforeChange: [
+					({ siblingData, value }) => {
+						if (siblingData._status === 'published' && !value) {
+							return new Date();
+						}
+						return value;
+					},
+				],
 			},
 		},
 		...slugField('title'),

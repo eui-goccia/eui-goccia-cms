@@ -1,15 +1,23 @@
 {
 	"$schema": "https://biomejs.dev/schemas/2.0.6/schema.json",
 	"files": {
-		"includes": ["**", "!**/importMap.js", "!**/db/**"]
+		"includes": [
+			"**",
+			"!**/importMap.js",
+			"!**/global.css",
+			"!**/.next/**",
+			"!**/.vscode/**",
+			"!**/(payload)/**",
+			"!**/db/**"
+		]
 	},
 	"linter": {
 		"enabled": true,
 		"includes": [
 			"**",
+			"!**/global.css",
 			"!**/node_modules/**",
 			"!**/.turbo/**",
-			"!**/.next/**",
 			"!**/payload-types.ts",
 			"!**/seed/**"
 		],
@@ -51,9 +59,9 @@
 		"formatWithErrors": true,
 		"includes": [
 			"**",
+			"!**/global.css",
 			"!**/node_modules/**",
 			"!**/.turbo/**",
-			"!**/.next/**",
 			"!**/payload-types.ts",
 			"!**/seed/**"
 		]
@@ -65,6 +73,9 @@
 	},
 	"css": {
 		"formatter": {
+			"enabled": true
+		},
+		"assist": {
 			"enabled": true
 		}
 	},

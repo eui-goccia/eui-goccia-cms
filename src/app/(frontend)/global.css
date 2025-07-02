@@ -4,14 +4,6 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  /* fluid typography */
-  /*   --text-6xl: clamp(
-    1.875rem,
-    1.2566rem + 2.6385vw,
-    3.75rem
-  );
-  --text-5xl: clamp(1.625rem, 1.1715rem + 1.9349vw, 3rem); */
-
   /* custom fonts */
   --font-tagada: var(--font-tagada);
   --font-ghost: var(--font-ghost);

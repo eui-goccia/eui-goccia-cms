@@ -11,7 +11,7 @@ export default function MapGocciaOverview() {
 
 	useEffect(() => {
 		if (!mapContainerRef.current) return;
-		mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!;
+		mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || '';
 		mapRef.current = new mapboxgl.Map({
 			container: mapContainerRef.current,
 			center: [9.15216, 45.50638],

@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { mergeOpenGraph } from './mergeOpenGraph';
 
 const getImageURL = (image?: Image | Config['db']['defaultIDType'] | null) => {
-	const serverUrl = process.env.NEXT_PUBLIC_URL!;
+	const serverUrl = process.env.NEXT_PUBLIC_URL || '';
 
 	let url = `${serverUrl}/og-image.webp`;
 
