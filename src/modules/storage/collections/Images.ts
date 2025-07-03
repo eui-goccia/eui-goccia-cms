@@ -56,6 +56,7 @@ export const Images: CollectionConfig = {
 			admin: {
 				description: 'Caption/Alt/Copyright of the image',
 			},
+			localized: true,
 		},
 		{
 			name: 'blurHash',

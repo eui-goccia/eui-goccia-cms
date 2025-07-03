@@ -19,6 +19,7 @@ export const Project: GlobalConfig = {
 					type: 'text',
 					required: true,
 					label: 'Titolo',
+					localized: true,
 				},
 				{
 					name: 'content',

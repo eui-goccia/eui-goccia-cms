@@ -577,10 +577,10 @@ export const seed = async ({
 	try {
 		console.log('🌱 Starting database seeding...');
 
-		const { posts }: { posts: Post[] } = await import('../../../app/(frontend)/blog/data');
-		const { goccia }: { goccia: LaGoccia } = await import('../../../app/(frontend)/la-goccia/data');
-		const { project }: { project: Progetto } = await import('../../../app/(frontend)/progetto/data');
-		const { about }: { about: About } = await import('../../../app/(frontend)/about/data');
+		const { posts }: { posts: Post[] } = await import('../../../app/(frontend)/[locale]/blog/data');
+		const { goccia }: { goccia: LaGoccia } = await import('../../../app/(frontend)/[locale]/la-goccia/data');
+		const { project }: { project: Progetto } = await import('../../../app/(frontend)/[locale]/progetto/data');
+		const { about }: { about: About } = await import('../../../app/(frontend)/[locale]/about/data');
 
 		console.log('🔄 Preparing to seed data (will overwrite existing data)...');
 

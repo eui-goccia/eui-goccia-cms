@@ -103,7 +103,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
 				<CustomImage
 					className='aspect-16/10 rounded-2xl'
 					image={image}
-					size='large'
+					size='xlarge'
 					alt={image.caption}
 					showCaption={true}
 				/>

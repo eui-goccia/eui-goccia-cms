@@ -104,7 +104,7 @@ export interface Config {
     'la-goccia': LaGocciaSelect<false> | LaGocciaSelect<true>;
     about: AboutSelect<false> | AboutSelect<true>;
   };
-  locale: null;
+  locale: 'en' | 'it';
   user: User & {
     collection: 'users';
   };

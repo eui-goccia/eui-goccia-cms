@@ -18,6 +18,7 @@ export const QuoteBlock: Block = {
 		{
 			name: 'content',
 			type: 'richText',
+			localized: true,
 			editor: lexicalEditor({
 				features: () => {
 					return [
@@ -36,6 +37,7 @@ export const QuoteBlock: Block = {
 			name: 'author',
 			type: 'text',
 			label: 'Autore',
+			localized: true,
 		},
 		...alignFields('bottom', 'right'),
 	],

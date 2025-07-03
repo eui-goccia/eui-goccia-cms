@@ -13,6 +13,7 @@ export const About: GlobalConfig = {
 			type: 'textarea',
 			required: true,
 			label: 'Descrizione',
+			localized: true,
 		},
 		{
 			name: 'partners',
@@ -24,12 +25,14 @@ export const About: GlobalConfig = {
 					type: 'text',
 					required: true,
 					label: 'Nome',
+					localized: true,
 				},
 				{
 					name: 'bio',
 					type: 'textarea',
 					required: true,
 					label: 'Biografia',
+					localized: true,
 				},
 				{
 					name: 'logo',
@@ -41,6 +44,7 @@ export const About: GlobalConfig = {
 					name: 'members',
 					type: 'textarea',
 					label: 'Membri',
+					localized: true,
 				},
 			],
 		},

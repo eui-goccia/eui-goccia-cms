@@ -13,6 +13,7 @@ export const Goccia: GlobalConfig = {
 			type: 'textarea',
 			required: true,
 			label: 'Descrizione',
+			localized: true,
 		},
 		{
 			name: 'timeline',
@@ -24,12 +25,14 @@ export const Goccia: GlobalConfig = {
 					type: 'text',
 					required: true,
 					label: 'Titolo',
+					localized: true,
 				},
 				{
 					name: 'description',
 					type: 'textarea',
 					required: true,
 					label: 'Descrizione',
+					localized: true,
 				},
 				{
 					name: 'cover',

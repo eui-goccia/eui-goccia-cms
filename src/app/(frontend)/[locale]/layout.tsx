@@ -1,7 +1,13 @@
 import type { Metadata } from 'next';
 import { ghost, greed, tagada } from '@/modules/utilities/customFonts';
-import '@/app/(frontend)/global.css';
+import '@/app/(frontend)/[locale]/global.css';
+import { notFound } from 'next/navigation';
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages, setRequestLocale } from 'next-intl/server';
+import type { TypedLocale } from 'payload';
+import { routing } from '@/i18n/routing';
 import { Plausible } from '@/modules/analytics/plausible';
+import { LivePreviewListener } from '@/modules/components/LivePreviewListener';
 import Footer from '@/modules/components/shared/Footer';
 import Header from '@/modules/components/shared/Header';
 import NewsletterSignup from '@/modules/components/shared/NewsletterSignup';
@@ -67,29 +73,43 @@ export const metadata: Metadata = {
 	metadataBase: new URL('https://eui-goccia.eu'),
 };
 
-export default function RootLayout({
-	children,
-}: Readonly<{
+type Args = {
 	children: React.ReactNode;
-}>) {
+	params: Promise<{
+		locale: TypedLocale;
+	}>;
+};
+
+export default async function RootLayout({ children, params }: Readonly<Args>) {
+	const { locale } = await params;
+
+	if (!routing.locales.includes(locale as TypedLocale)) {
+		notFound();
+	}
+	setRequestLocale(locale);
+	const messages = await getMessages();
+
 	return (
-		<html lang='it' className='scroll-smooth'>
+		<html lang={locale} className='scroll-smooth'>
 			<Plausible>
-				<ReactLenis root>
-					<body
-						className={cn(
-							ghost.variable,
-							tagada.variable,
-							greed.variable,
-							'antialiased flex flex-col justify-between h-dvh'
-						)}
-					>
-						<Header />
-						<main className='mb-auto'>{children}</main>
-						<NewsletterSignup />
-						<Footer />
-					</body>
-				</ReactLenis>
+				<NextIntlClientProvider messages={messages}>
+					<ReactLenis root>
+						<LivePreviewListener />
+						<body
+							className={cn(
+								ghost.variable,
+								tagada.variable,
+								greed.variable,
+								'antialiased flex flex-col justify-between h-dvh'
+							)}
+						>
+							<Header />
+							<main className='mb-auto'>{children}</main>
+							<NewsletterSignup />
+							<Footer />
+						</body>
+					</ReactLenis>
+				</NextIntlClientProvider>
 			</Plausible>
 		</html>
 	);

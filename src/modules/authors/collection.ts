@@ -34,6 +34,7 @@ export const Authors: CollectionConfig = {
 			name: 'bio',
 			type: 'text',
 			label: 'Biografia',
+			localized: true,
 		},
 		{
 			name: 'posts',

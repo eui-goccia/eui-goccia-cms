@@ -8,6 +8,7 @@ export const RichTextBlock: Block = {
 		{
 			name: 'content',
 			type: 'richText',
+			localized: true,
 		},
 		...alignFields(),
 	],

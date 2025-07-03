@@ -69,11 +69,13 @@ export const Posts: CollectionConfig = {
 							label: 'Titolo',
 							type: 'text',
 							required: true,
+							localized: true,
 						},
 						{
 							name: 'description',
 							type: 'textarea',
 							label: 'Descrizione',
+							localized: true,
 						},
 						{
 							name: 'content',

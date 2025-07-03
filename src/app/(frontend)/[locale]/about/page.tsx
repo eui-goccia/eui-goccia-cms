@@ -11,9 +11,7 @@ export default async function ChiSiamo() {
 			<div className='pt-30 md:pt-50 grid grid-cols-12 pb-20 md:pb-40 items-center text-3xl justify-center'>
 				<h1 className='sr-only'>Chi Siamo</h1>
 				<p className='text-white col-start-2 varW600 col-span-10 font-ghost text-3xl md:text-4xl lg:text-5xl uppercase'>
-					La Cordata di progetto è guidata dal Comune di Milano e composta da
-					Ambiente Italia Srl, Climateflux GmbH, Eutropian Association, FROM,
-					Open Impact, Osservatorio La Goccia, Politecnico di Milano.
+					{about.description}
 				</p>
 			</div>
 			<section className='w-full'>

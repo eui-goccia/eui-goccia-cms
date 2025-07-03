@@ -17,7 +17,7 @@ export default function CardArticle({ post }: CardArticleProps) {
 			<CustomImage
 				image={image}
 				alt={image.caption || post.title}
-				size='large'
+				size='xlarge'
 				className='w-full border h-full object-contain rounded-4xl border-white transition-all'
 			/>
 			<div className='px-2.5 w-full'>

@@ -9,7 +9,7 @@ export const revalidateGlobal: GlobalAfterChangeHook = ({
 	if (!context.disableRevalidate) {
 		payload.logger.info(`Revalidating ${global.slug} page`);
 		revalidatePath('/');
-		revalidatePath(`/(frontend)/${global.slug}`, 'page');
+		revalidatePath(`/(frontend)/[locale]/${global.slug}`, 'page');
 	}
 	return global;
 };

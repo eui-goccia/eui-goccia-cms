@@ -9,6 +9,7 @@ export const TextBlock: Block = {
 			name: 'content',
 			type: 'text',
 			required: true,
+			localized: true,
 		},
 		...alignFields(),
 	],

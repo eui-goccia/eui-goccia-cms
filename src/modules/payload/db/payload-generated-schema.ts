@@ -25,7 +25,6 @@ export const images = sqliteTable(
     id: text("id")
       .primaryKey()
       .$defaultFn(() => randomUUID()),
-    caption: text("caption").notNull(),
     blurHash: text("blur_hash"),
     prefix: text("prefix").default("images"),
     updatedAt: text("updated_at")
@@ -98,6 +97,27 @@ export const images = sqliteTable(
   }),
 );
 
+export const images_locales = sqliteTable(
+  "images_locales",
+  {
+    caption: text("caption").notNull(),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    _localeParent: uniqueIndex("images_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [images.id],
+      name: "images_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
 export const users_sessions = sqliteTable(
   "users_sessions",
   {
@@ -160,7 +180,6 @@ export const posts_blocks_text = sqliteTable(
     _parentID: text("_parent_id").notNull(),
     _path: text("_path").notNull(),
     id: text("id").primaryKey(),
-    content: text("content"),
     vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
       "top",
     ),
@@ -183,6 +202,26 @@ export const posts_blocks_text = sqliteTable(
   }),
 );
 
+export const posts_blocks_text_locales = sqliteTable(
+  "posts_blocks_text_locales",
+  {
+    content: text("content"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    _localeParent: uniqueIndex(
+      "posts_blocks_text_locales_locale_parent_id_unique",
+    ).on(columns._locale, columns._parentID),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [posts_blocks_text.id],
+      name: "posts_blocks_text_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
 export const posts_blocks_rich_text = sqliteTable(
   "posts_blocks_rich_text",
   {
@@ -190,7 +229,6 @@ export const posts_blocks_rich_text = sqliteTable(
     _parentID: text("_parent_id").notNull(),
     _path: text("_path").notNull(),
     id: text("id").primaryKey(),
-    content: text("content", { mode: "json" }),
     vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
       "top",
     ),
@@ -213,6 +251,26 @@ export const posts_blocks_rich_text = sqliteTable(
   }),
 );
 
+export const posts_blocks_rich_text_locales = sqliteTable(
+  "posts_blocks_rich_text_locales",
+  {
+    content: text("content", { mode: "json" }),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    _localeParent: uniqueIndex(
+      "posts_blocks_rich_text_locales_locale_parent_id_unique",
+    ).on(columns._locale, columns._parentID),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [posts_blocks_rich_text.id],
+      name: "posts_blocks_rich_text_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
 export const posts_blocks_quote = sqliteTable(
   "posts_blocks_quote",
   {
@@ -220,8 +278,6 @@ export const posts_blocks_quote = sqliteTable(
     _parentID: text("_parent_id").notNull(),
     _path: text("_path").notNull(),
     id: text("id").primaryKey(),
-    content: text("content", { mode: "json" }),
-    author: text("author"),
     vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
       "bottom",
     ),
@@ -240,6 +296,27 @@ export const posts_blocks_quote = sqliteTable(
       columns: [columns["_parentID"]],
       foreignColumns: [posts.id],
       name: "posts_blocks_quote_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const posts_blocks_quote_locales = sqliteTable(
+  "posts_blocks_quote_locales",
+  {
+    content: text("content", { mode: "json" }),
+    author: text("author"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    _localeParent: uniqueIndex(
+      "posts_blocks_quote_locales_locale_parent_id_unique",
+    ).on(columns._locale, columns._parentID),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [posts_blocks_quote.id],
+      name: "posts_blocks_quote_locales_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
@@ -309,13 +386,6 @@ export const posts = sqliteTable(
     id: text("id")
       .primaryKey()
       .$defaultFn(() => randomUUID()),
-    title: text("title"),
-    description: text("description"),
-    meta_title: text("meta_title"),
-    meta_image: text("meta_image_id").references(() => images.id, {
-      onDelete: "set null",
-    }),
-    meta_description: text("meta_description"),
     coverImage: text("cover_image_id").references(() => images.id, {
       onDelete: "set null",
     }),
@@ -336,9 +406,6 @@ export const posts = sqliteTable(
     _status: text("_status", { enum: ["draft", "published"] }).default("draft"),
   },
   (columns) => ({
-    posts_meta_meta_image_idx: index("posts_meta_meta_image_idx").on(
-      columns.meta_image,
-    ),
     posts_cover_image_idx: index("posts_cover_image_idx").on(
       columns.coverImage,
     ),
@@ -347,6 +414,37 @@ export const posts = sqliteTable(
     posts_updated_at_idx: index("posts_updated_at_idx").on(columns.updatedAt),
     posts_created_at_idx: index("posts_created_at_idx").on(columns.createdAt),
     posts__status_idx: index("posts__status_idx").on(columns._status),
+  }),
+);
+
+export const posts_locales = sqliteTable(
+  "posts_locales",
+  {
+    title: text("title"),
+    description: text("description"),
+    meta_title: text("meta_title"),
+    meta_image: text("meta_image_id").references(() => images.id, {
+      onDelete: "set null",
+    }),
+    meta_description: text("meta_description"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    posts_meta_meta_image_idx: index("posts_meta_meta_image_idx").on(
+      columns.meta_image,
+      columns._locale,
+    ),
+    _localeParent: uniqueIndex("posts_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [posts.id],
+      name: "posts_locales_parent_id_fk",
+    }).onDelete("cascade"),
   }),
 );
 
@@ -359,7 +457,6 @@ export const _posts_v_blocks_text = sqliteTable(
     id: text("id")
       .primaryKey()
       .$defaultFn(() => randomUUID()),
-    content: text("content"),
     vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
       "top",
     ),
@@ -383,6 +480,26 @@ export const _posts_v_blocks_text = sqliteTable(
   }),
 );
 
+export const _posts_v_blocks_text_locales = sqliteTable(
+  "_posts_v_blocks_text_locales",
+  {
+    content: text("content"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    _localeParent: uniqueIndex(
+      "_posts_v_blocks_text_locales_locale_parent_id_unique",
+    ).on(columns._locale, columns._parentID),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_posts_v_blocks_text.id],
+      name: "_posts_v_blocks_text_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
 export const _posts_v_blocks_rich_text = sqliteTable(
   "_posts_v_blocks_rich_text",
   {
@@ -392,7 +509,6 @@ export const _posts_v_blocks_rich_text = sqliteTable(
     id: text("id")
       .primaryKey()
       .$defaultFn(() => randomUUID()),
-    content: text("content", { mode: "json" }),
     vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
       "top",
     ),
@@ -416,6 +532,26 @@ export const _posts_v_blocks_rich_text = sqliteTable(
   }),
 );
 
+export const _posts_v_blocks_rich_text_locales = sqliteTable(
+  "_posts_v_blocks_rich_text_locales",
+  {
+    content: text("content", { mode: "json" }),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    _localeParent: uniqueIndex(
+      "_posts_v_blocks_rich_text_locales_locale_parent_id_unique",
+    ).on(columns._locale, columns._parentID),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_posts_v_blocks_rich_text.id],
+      name: "_posts_v_blocks_rich_text_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
 export const _posts_v_blocks_quote = sqliteTable(
   "_posts_v_blocks_quote",
   {
@@ -425,8 +561,6 @@ export const _posts_v_blocks_quote = sqliteTable(
     id: text("id")
       .primaryKey()
       .$defaultFn(() => randomUUID()),
-    content: text("content", { mode: "json" }),
-    author: text("author"),
     vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
       "bottom",
     ),
@@ -446,6 +580,27 @@ export const _posts_v_blocks_quote = sqliteTable(
       columns: [columns["_parentID"]],
       foreignColumns: [_posts_v.id],
       name: "_posts_v_blocks_quote_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const _posts_v_blocks_quote_locales = sqliteTable(
+  "_posts_v_blocks_quote_locales",
+  {
+    content: text("content", { mode: "json" }),
+    author: text("author"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    _localeParent: uniqueIndex(
+      "_posts_v_blocks_quote_locales_locale_parent_id_unique",
+    ).on(columns._locale, columns._parentID),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_posts_v_blocks_quote.id],
+      name: "_posts_v_blocks_quote_locales_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
@@ -524,16 +679,6 @@ export const _posts_v = sqliteTable(
     parent: text("parent_id").references(() => posts.id, {
       onDelete: "set null",
     }),
-    version_title: text("version_title"),
-    version_description: text("version_description"),
-    version_meta_title: text("version_meta_title"),
-    version_meta_image: text("version_meta_image_id").references(
-      () => images.id,
-      {
-        onDelete: "set null",
-      },
-    ),
-    version_meta_description: text("version_meta_description"),
     version_coverImage: text("version_cover_image_id").references(
       () => images.id,
       {
@@ -565,14 +710,13 @@ export const _posts_v = sqliteTable(
     updatedAt: text("updated_at")
       .notNull()
       .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    snapshot: integer("snapshot", { mode: "boolean" }),
+    publishedLocale: text("published_locale", { enum: ["en", "it"] }),
     latest: integer("latest", { mode: "boolean" }),
     autosave: integer("autosave", { mode: "boolean" }),
   },
   (columns) => ({
     _posts_v_parent_idx: index("_posts_v_parent_idx").on(columns.parent),
-    _posts_v_version_meta_version_meta_image_idx: index(
-      "_posts_v_version_meta_version_meta_image_idx",
-    ).on(columns.version_meta_image),
     _posts_v_version_version_cover_image_idx: index(
       "_posts_v_version_version_cover_image_idx",
     ).on(columns.version_coverImage),
@@ -597,8 +741,45 @@ export const _posts_v = sqliteTable(
     _posts_v_updated_at_idx: index("_posts_v_updated_at_idx").on(
       columns.updatedAt,
     ),
+    _posts_v_snapshot_idx: index("_posts_v_snapshot_idx").on(columns.snapshot),
+    _posts_v_published_locale_idx: index("_posts_v_published_locale_idx").on(
+      columns.publishedLocale,
+    ),
     _posts_v_latest_idx: index("_posts_v_latest_idx").on(columns.latest),
     _posts_v_autosave_idx: index("_posts_v_autosave_idx").on(columns.autosave),
+  }),
+);
+
+export const _posts_v_locales = sqliteTable(
+  "_posts_v_locales",
+  {
+    version_title: text("version_title"),
+    version_description: text("version_description"),
+    version_meta_title: text("version_meta_title"),
+    version_meta_image: text("version_meta_image_id").references(
+      () => images.id,
+      {
+        onDelete: "set null",
+      },
+    ),
+    version_meta_description: text("version_meta_description"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    _posts_v_version_meta_version_meta_image_idx: index(
+      "_posts_v_version_meta_version_meta_image_idx",
+    ).on(columns.version_meta_image, columns._locale),
+    _localeParent: uniqueIndex("_posts_v_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_posts_v.id],
+      name: "_posts_v_locales_parent_id_fk",
+    }).onDelete("cascade"),
   }),
 );
 
@@ -609,7 +790,6 @@ export const authors = sqliteTable(
       .primaryKey()
       .$defaultFn(() => randomUUID()),
     name: text("name").notNull(),
-    bio: text("bio"),
     slug: text("slug"),
     slugLock: integer("slug_lock", { mode: "boolean" }).default(true),
     updatedAt: text("updated_at")
@@ -627,6 +807,27 @@ export const authors = sqliteTable(
     authors_created_at_idx: index("authors_created_at_idx").on(
       columns.createdAt,
     ),
+  }),
+);
+
+export const authors_locales = sqliteTable(
+  "authors_locales",
+  {
+    bio: text("bio"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    _localeParent: uniqueIndex("authors_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [authors.id],
+      name: "authors_locales_parent_id_fk",
+    }).onDelete("cascade"),
   }),
 );
 
@@ -900,7 +1101,6 @@ export const progetto_blocks_text = sqliteTable(
     _parentID: text("_parent_id").notNull(),
     _path: text("_path").notNull(),
     id: text("id").primaryKey(),
-    content: text("content").notNull(),
     vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
       "top",
     ),
@@ -923,6 +1123,26 @@ export const progetto_blocks_text = sqliteTable(
   }),
 );
 
+export const progetto_blocks_text_locales = sqliteTable(
+  "progetto_blocks_text_locales",
+  {
+    content: text("content").notNull(),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    _localeParent: uniqueIndex(
+      "progetto_blocks_text_locales_locale_parent_id_unique",
+    ).on(columns._locale, columns._parentID),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [progetto_blocks_text.id],
+      name: "progetto_blocks_text_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
 export const progetto_blocks_rich_text = sqliteTable(
   "progetto_blocks_rich_text",
   {
@@ -930,7 +1150,6 @@ export const progetto_blocks_rich_text = sqliteTable(
     _parentID: text("_parent_id").notNull(),
     _path: text("_path").notNull(),
     id: text("id").primaryKey(),
-    content: text("content", { mode: "json" }),
     vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
       "top",
     ),
@@ -953,6 +1172,26 @@ export const progetto_blocks_rich_text = sqliteTable(
   }),
 );
 
+export const progetto_blocks_rich_text_locales = sqliteTable(
+  "progetto_blocks_rich_text_locales",
+  {
+    content: text("content", { mode: "json" }),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    _localeParent: uniqueIndex(
+      "progetto_blocks_rich_text_locales_locale_parent_id_unique",
+    ).on(columns._locale, columns._parentID),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [progetto_blocks_rich_text.id],
+      name: "progetto_blocks_rich_text_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
 export const progetto_blocks_quote = sqliteTable(
   "progetto_blocks_quote",
   {
@@ -960,8 +1199,6 @@ export const progetto_blocks_quote = sqliteTable(
     _parentID: text("_parent_id").notNull(),
     _path: text("_path").notNull(),
     id: text("id").primaryKey(),
-    content: text("content", { mode: "json" }),
-    author: text("author"),
     vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
       "bottom",
     ),
@@ -980,6 +1217,27 @@ export const progetto_blocks_quote = sqliteTable(
       columns: [columns["_parentID"]],
       foreignColumns: [progetto.id],
       name: "progetto_blocks_quote_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const progetto_blocks_quote_locales = sqliteTable(
+  "progetto_blocks_quote_locales",
+  {
+    content: text("content", { mode: "json" }),
+    author: text("author"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    _localeParent: uniqueIndex(
+      "progetto_blocks_quote_locales_locale_parent_id_unique",
+    ).on(columns._locale, columns._parentID),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [progetto_blocks_quote.id],
+      name: "progetto_blocks_quote_locales_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
@@ -1051,7 +1309,6 @@ export const progetto_sections = sqliteTable(
     _order: integer("_order").notNull(),
     _parentID: text("_parent_id").notNull(),
     id: text("id").primaryKey(),
-    title: text("title").notNull(),
     url: text("url").notNull(),
   },
   (columns) => ({
@@ -1063,6 +1320,26 @@ export const progetto_sections = sqliteTable(
       columns: [columns["_parentID"]],
       foreignColumns: [progetto.id],
       name: "progetto_sections_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const progetto_sections_locales = sqliteTable(
+  "progetto_sections_locales",
+  {
+    title: text("title").notNull(),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    _localeParent: uniqueIndex(
+      "progetto_sections_locales_locale_parent_id_unique",
+    ).on(columns._locale, columns._parentID),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [progetto_sections.id],
+      name: "progetto_sections_locales_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
@@ -1085,8 +1362,6 @@ export const la_goccia_timeline = sqliteTable(
     _order: integer("_order").notNull(),
     _parentID: text("_parent_id").notNull(),
     id: text("id").primaryKey(),
-    title: text("title").notNull(),
-    description: text("description").notNull(),
     cover: text("cover_id")
       .notNull()
       .references(() => images.id, {
@@ -1111,11 +1386,31 @@ export const la_goccia_timeline = sqliteTable(
   }),
 );
 
+export const la_goccia_timeline_locales = sqliteTable(
+  "la_goccia_timeline_locales",
+  {
+    title: text("title").notNull(),
+    description: text("description").notNull(),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    _localeParent: uniqueIndex(
+      "la_goccia_timeline_locales_locale_parent_id_unique",
+    ).on(columns._locale, columns._parentID),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [la_goccia_timeline.id],
+      name: "la_goccia_timeline_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
 export const la_goccia = sqliteTable("la_goccia", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => randomUUID()),
-  description: text("description").notNull(),
   updatedAt: text("updated_at").default(
     sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
   ),
@@ -1124,18 +1419,36 @@ export const la_goccia = sqliteTable("la_goccia", {
   ),
 });
 
+export const la_goccia_locales = sqliteTable(
+  "la_goccia_locales",
+  {
+    description: text("description").notNull(),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    _localeParent: uniqueIndex("la_goccia_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [la_goccia.id],
+      name: "la_goccia_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
 export const about_partners = sqliteTable(
   "about_partners",
   {
     _order: integer("_order").notNull(),
     _parentID: text("_parent_id").notNull(),
     id: text("id").primaryKey(),
-    name: text("name").notNull(),
-    bio: text("bio").notNull(),
     logo: text("logo_id").references(() => images.id, {
       onDelete: "set null",
     }),
-    members: text("members"),
   },
   (columns) => ({
     _orderIdx: index("about_partners_order_idx").on(columns._order),
@@ -1149,11 +1462,32 @@ export const about_partners = sqliteTable(
   }),
 );
 
+export const about_partners_locales = sqliteTable(
+  "about_partners_locales",
+  {
+    name: text("name").notNull(),
+    bio: text("bio").notNull(),
+    members: text("members"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    _localeParent: uniqueIndex(
+      "about_partners_locales_locale_parent_id_unique",
+    ).on(columns._locale, columns._parentID),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [about_partners.id],
+      name: "about_partners_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
 export const about = sqliteTable("about", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => randomUUID()),
-  description: text("description").notNull(),
   updatedAt: text("updated_at").default(
     sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
   ),
@@ -1162,7 +1496,42 @@ export const about = sqliteTable("about", {
   ),
 });
 
-export const relations_images = relations(images, () => ({}));
+export const about_locales = sqliteTable(
+  "about_locales",
+  {
+    description: text("description").notNull(),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    _localeParent: uniqueIndex("about_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [about.id],
+      name: "about_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const relations_images_locales = relations(
+  images_locales,
+  ({ one }) => ({
+    _parentID: one(images, {
+      fields: [images_locales._parentID],
+      references: [images.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_images = relations(images, ({ many }) => ({
+  _locales: many(images_locales, {
+    relationName: "_locales",
+  }),
+}));
 export const relations_users_sessions = relations(
   users_sessions,
   ({ one }) => ({
@@ -1178,33 +1547,72 @@ export const relations_users = relations(users, ({ many }) => ({
     relationName: "sessions",
   }),
 }));
+export const relations_posts_blocks_text_locales = relations(
+  posts_blocks_text_locales,
+  ({ one }) => ({
+    _parentID: one(posts_blocks_text, {
+      fields: [posts_blocks_text_locales._parentID],
+      references: [posts_blocks_text.id],
+      relationName: "_locales",
+    }),
+  }),
+);
 export const relations_posts_blocks_text = relations(
   posts_blocks_text,
-  ({ one }) => ({
+  ({ one, many }) => ({
     _parentID: one(posts, {
       fields: [posts_blocks_text._parentID],
       references: [posts.id],
       relationName: "_blocks_text",
     }),
+    _locales: many(posts_blocks_text_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_posts_blocks_rich_text_locales = relations(
+  posts_blocks_rich_text_locales,
+  ({ one }) => ({
+    _parentID: one(posts_blocks_rich_text, {
+      fields: [posts_blocks_rich_text_locales._parentID],
+      references: [posts_blocks_rich_text.id],
+      relationName: "_locales",
+    }),
   }),
 );
 export const relations_posts_blocks_rich_text = relations(
   posts_blocks_rich_text,
-  ({ one }) => ({
+  ({ one, many }) => ({
     _parentID: one(posts, {
       fields: [posts_blocks_rich_text._parentID],
       references: [posts.id],
       relationName: "_blocks_richText",
     }),
+    _locales: many(posts_blocks_rich_text_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_posts_blocks_quote_locales = relations(
+  posts_blocks_quote_locales,
+  ({ one }) => ({
+    _parentID: one(posts_blocks_quote, {
+      fields: [posts_blocks_quote_locales._parentID],
+      references: [posts_blocks_quote.id],
+      relationName: "_locales",
+    }),
   }),
 );
 export const relations_posts_blocks_quote = relations(
   posts_blocks_quote,
-  ({ one }) => ({
+  ({ one, many }) => ({
     _parentID: one(posts, {
       fields: [posts_blocks_quote._parentID],
       references: [posts.id],
       relationName: "_blocks_quote",
+    }),
+    _locales: many(posts_blocks_quote_locales, {
+      relationName: "_locales",
     }),
   }),
 );
@@ -1233,6 +1641,18 @@ export const relations_posts_blocks_grid = relations(
     }),
   }),
 );
+export const relations_posts_locales = relations(posts_locales, ({ one }) => ({
+  _parentID: one(posts, {
+    fields: [posts_locales._parentID],
+    references: [posts.id],
+    relationName: "_locales",
+  }),
+  meta_image: one(images, {
+    fields: [posts_locales.meta_image],
+    references: [images.id],
+    relationName: "meta_image",
+  }),
+}));
 export const relations_posts = relations(posts, ({ one, many }) => ({
   _blocks_text: many(posts_blocks_text, {
     relationName: "_blocks_text",
@@ -1249,11 +1669,6 @@ export const relations_posts = relations(posts, ({ one, many }) => ({
   _blocks_grid: many(posts_blocks_grid, {
     relationName: "_blocks_grid",
   }),
-  meta_image: one(images, {
-    fields: [posts.meta_image],
-    references: [images.id],
-    relationName: "meta_image",
-  }),
   coverImage: one(images, {
     fields: [posts.coverImage],
     references: [images.id],
@@ -1264,34 +1679,76 @@ export const relations_posts = relations(posts, ({ one, many }) => ({
     references: [authors.id],
     relationName: "author",
   }),
+  _locales: many(posts_locales, {
+    relationName: "_locales",
+  }),
 }));
+export const relations__posts_v_blocks_text_locales = relations(
+  _posts_v_blocks_text_locales,
+  ({ one }) => ({
+    _parentID: one(_posts_v_blocks_text, {
+      fields: [_posts_v_blocks_text_locales._parentID],
+      references: [_posts_v_blocks_text.id],
+      relationName: "_locales",
+    }),
+  }),
+);
 export const relations__posts_v_blocks_text = relations(
   _posts_v_blocks_text,
-  ({ one }) => ({
+  ({ one, many }) => ({
     _parentID: one(_posts_v, {
       fields: [_posts_v_blocks_text._parentID],
       references: [_posts_v.id],
       relationName: "_blocks_text",
     }),
+    _locales: many(_posts_v_blocks_text_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations__posts_v_blocks_rich_text_locales = relations(
+  _posts_v_blocks_rich_text_locales,
+  ({ one }) => ({
+    _parentID: one(_posts_v_blocks_rich_text, {
+      fields: [_posts_v_blocks_rich_text_locales._parentID],
+      references: [_posts_v_blocks_rich_text.id],
+      relationName: "_locales",
+    }),
   }),
 );
 export const relations__posts_v_blocks_rich_text = relations(
   _posts_v_blocks_rich_text,
-  ({ one }) => ({
+  ({ one, many }) => ({
     _parentID: one(_posts_v, {
       fields: [_posts_v_blocks_rich_text._parentID],
       references: [_posts_v.id],
       relationName: "_blocks_richText",
     }),
+    _locales: many(_posts_v_blocks_rich_text_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations__posts_v_blocks_quote_locales = relations(
+  _posts_v_blocks_quote_locales,
+  ({ one }) => ({
+    _parentID: one(_posts_v_blocks_quote, {
+      fields: [_posts_v_blocks_quote_locales._parentID],
+      references: [_posts_v_blocks_quote.id],
+      relationName: "_locales",
+    }),
   }),
 );
 export const relations__posts_v_blocks_quote = relations(
   _posts_v_blocks_quote,
-  ({ one }) => ({
+  ({ one, many }) => ({
     _parentID: one(_posts_v, {
       fields: [_posts_v_blocks_quote._parentID],
       references: [_posts_v.id],
       relationName: "_blocks_quote",
+    }),
+    _locales: many(_posts_v_blocks_quote_locales, {
+      relationName: "_locales",
     }),
   }),
 );
@@ -1320,6 +1777,21 @@ export const relations__posts_v_blocks_grid = relations(
     }),
   }),
 );
+export const relations__posts_v_locales = relations(
+  _posts_v_locales,
+  ({ one }) => ({
+    _parentID: one(_posts_v, {
+      fields: [_posts_v_locales._parentID],
+      references: [_posts_v.id],
+      relationName: "_locales",
+    }),
+    version_meta_image: one(images, {
+      fields: [_posts_v_locales.version_meta_image],
+      references: [images.id],
+      relationName: "version_meta_image",
+    }),
+  }),
+);
 export const relations__posts_v = relations(_posts_v, ({ one, many }) => ({
   parent: one(posts, {
     fields: [_posts_v.parent],
@@ -1341,11 +1813,6 @@ export const relations__posts_v = relations(_posts_v, ({ one, many }) => ({
   _blocks_grid: many(_posts_v_blocks_grid, {
     relationName: "_blocks_grid",
   }),
-  version_meta_image: one(images, {
-    fields: [_posts_v.version_meta_image],
-    references: [images.id],
-    relationName: "version_meta_image",
-  }),
   version_coverImage: one(images, {
     fields: [_posts_v.version_coverImage],
     references: [images.id],
@@ -1356,8 +1823,25 @@ export const relations__posts_v = relations(_posts_v, ({ one, many }) => ({
     references: [authors.id],
     relationName: "version_author",
   }),
+  _locales: many(_posts_v_locales, {
+    relationName: "_locales",
+  }),
 }));
-export const relations_authors = relations(authors, () => ({}));
+export const relations_authors_locales = relations(
+  authors_locales,
+  ({ one }) => ({
+    _parentID: one(authors, {
+      fields: [authors_locales._parentID],
+      references: [authors.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_authors = relations(authors, ({ many }) => ({
+  _locales: many(authors_locales, {
+    relationName: "_locales",
+  }),
+}));
 export const relations_payload_jobs_log = relations(
   payload_jobs_log,
   ({ one }) => ({
@@ -1443,33 +1927,72 @@ export const relations_payload_migrations = relations(
   payload_migrations,
   () => ({}),
 );
+export const relations_progetto_blocks_text_locales = relations(
+  progetto_blocks_text_locales,
+  ({ one }) => ({
+    _parentID: one(progetto_blocks_text, {
+      fields: [progetto_blocks_text_locales._parentID],
+      references: [progetto_blocks_text.id],
+      relationName: "_locales",
+    }),
+  }),
+);
 export const relations_progetto_blocks_text = relations(
   progetto_blocks_text,
-  ({ one }) => ({
+  ({ one, many }) => ({
     _parentID: one(progetto, {
       fields: [progetto_blocks_text._parentID],
       references: [progetto.id],
       relationName: "_blocks_text",
     }),
+    _locales: many(progetto_blocks_text_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_progetto_blocks_rich_text_locales = relations(
+  progetto_blocks_rich_text_locales,
+  ({ one }) => ({
+    _parentID: one(progetto_blocks_rich_text, {
+      fields: [progetto_blocks_rich_text_locales._parentID],
+      references: [progetto_blocks_rich_text.id],
+      relationName: "_locales",
+    }),
   }),
 );
 export const relations_progetto_blocks_rich_text = relations(
   progetto_blocks_rich_text,
-  ({ one }) => ({
+  ({ one, many }) => ({
     _parentID: one(progetto, {
       fields: [progetto_blocks_rich_text._parentID],
       references: [progetto.id],
       relationName: "_blocks_richText",
     }),
+    _locales: many(progetto_blocks_rich_text_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_progetto_blocks_quote_locales = relations(
+  progetto_blocks_quote_locales,
+  ({ one }) => ({
+    _parentID: one(progetto_blocks_quote, {
+      fields: [progetto_blocks_quote_locales._parentID],
+      references: [progetto_blocks_quote.id],
+      relationName: "_locales",
+    }),
   }),
 );
 export const relations_progetto_blocks_quote = relations(
   progetto_blocks_quote,
-  ({ one }) => ({
+  ({ one, many }) => ({
     _parentID: one(progetto, {
       fields: [progetto_blocks_quote._parentID],
       references: [progetto.id],
       relationName: "_blocks_quote",
+    }),
+    _locales: many(progetto_blocks_quote_locales, {
+      relationName: "_locales",
     }),
   }),
 );
@@ -1498,13 +2021,26 @@ export const relations_progetto_blocks_grid = relations(
     }),
   }),
 );
+export const relations_progetto_sections_locales = relations(
+  progetto_sections_locales,
+  ({ one }) => ({
+    _parentID: one(progetto_sections, {
+      fields: [progetto_sections_locales._parentID],
+      references: [progetto_sections.id],
+      relationName: "_locales",
+    }),
+  }),
+);
 export const relations_progetto_sections = relations(
   progetto_sections,
-  ({ one }) => ({
+  ({ one, many }) => ({
     _parentID: one(progetto, {
       fields: [progetto_sections._parentID],
       references: [progetto.id],
       relationName: "sections",
+    }),
+    _locales: many(progetto_sections_locales, {
+      relationName: "_locales",
     }),
   }),
 );
@@ -1528,13 +2064,26 @@ export const relations_progetto = relations(progetto, ({ many }) => ({
     relationName: "sections",
   }),
 }));
+export const relations_la_goccia_timeline_locales = relations(
+  la_goccia_timeline_locales,
+  ({ one }) => ({
+    _parentID: one(la_goccia_timeline, {
+      fields: [la_goccia_timeline_locales._parentID],
+      references: [la_goccia_timeline.id],
+      relationName: "_locales",
+    }),
+  }),
+);
 export const relations_la_goccia_timeline = relations(
   la_goccia_timeline,
-  ({ one }) => ({
+  ({ one, many }) => ({
     _parentID: one(la_goccia, {
       fields: [la_goccia_timeline._parentID],
       references: [la_goccia.id],
       relationName: "timeline",
+    }),
+    _locales: many(la_goccia_timeline_locales, {
+      relationName: "_locales",
     }),
     cover: one(images, {
       fields: [la_goccia_timeline.cover],
@@ -1543,18 +2092,44 @@ export const relations_la_goccia_timeline = relations(
     }),
   }),
 );
+export const relations_la_goccia_locales = relations(
+  la_goccia_locales,
+  ({ one }) => ({
+    _parentID: one(la_goccia, {
+      fields: [la_goccia_locales._parentID],
+      references: [la_goccia.id],
+      relationName: "_locales",
+    }),
+  }),
+);
 export const relations_la_goccia = relations(la_goccia, ({ many }) => ({
   timeline: many(la_goccia_timeline, {
     relationName: "timeline",
   }),
+  _locales: many(la_goccia_locales, {
+    relationName: "_locales",
+  }),
 }));
+export const relations_about_partners_locales = relations(
+  about_partners_locales,
+  ({ one }) => ({
+    _parentID: one(about_partners, {
+      fields: [about_partners_locales._parentID],
+      references: [about_partners.id],
+      relationName: "_locales",
+    }),
+  }),
+);
 export const relations_about_partners = relations(
   about_partners,
-  ({ one }) => ({
+  ({ one, many }) => ({
     _parentID: one(about, {
       fields: [about_partners._parentID],
       references: [about.id],
       relationName: "partners",
+    }),
+    _locales: many(about_partners_locales, {
+      relationName: "_locales",
     }),
     logo: one(images, {
       fields: [about_partners.logo],
@@ -1563,29 +2138,49 @@ export const relations_about_partners = relations(
     }),
   }),
 );
+export const relations_about_locales = relations(about_locales, ({ one }) => ({
+  _parentID: one(about, {
+    fields: [about_locales._parentID],
+    references: [about.id],
+    relationName: "_locales",
+  }),
+}));
 export const relations_about = relations(about, ({ many }) => ({
   partners: many(about_partners, {
     relationName: "partners",
+  }),
+  _locales: many(about_locales, {
+    relationName: "_locales",
   }),
 }));
 
 type DatabaseSchema = {
   images: typeof images;
+  images_locales: typeof images_locales;
   users_sessions: typeof users_sessions;
   users: typeof users;
   posts_blocks_text: typeof posts_blocks_text;
+  posts_blocks_text_locales: typeof posts_blocks_text_locales;
   posts_blocks_rich_text: typeof posts_blocks_rich_text;
+  posts_blocks_rich_text_locales: typeof posts_blocks_rich_text_locales;
   posts_blocks_quote: typeof posts_blocks_quote;
+  posts_blocks_quote_locales: typeof posts_blocks_quote_locales;
   posts_blocks_image: typeof posts_blocks_image;
   posts_blocks_grid: typeof posts_blocks_grid;
   posts: typeof posts;
+  posts_locales: typeof posts_locales;
   _posts_v_blocks_text: typeof _posts_v_blocks_text;
+  _posts_v_blocks_text_locales: typeof _posts_v_blocks_text_locales;
   _posts_v_blocks_rich_text: typeof _posts_v_blocks_rich_text;
+  _posts_v_blocks_rich_text_locales: typeof _posts_v_blocks_rich_text_locales;
   _posts_v_blocks_quote: typeof _posts_v_blocks_quote;
+  _posts_v_blocks_quote_locales: typeof _posts_v_blocks_quote_locales;
   _posts_v_blocks_image: typeof _posts_v_blocks_image;
   _posts_v_blocks_grid: typeof _posts_v_blocks_grid;
   _posts_v: typeof _posts_v;
+  _posts_v_locales: typeof _posts_v_locales;
   authors: typeof authors;
+  authors_locales: typeof authors_locales;
   payload_jobs_log: typeof payload_jobs_log;
   payload_jobs: typeof payload_jobs;
   payload_locked_documents: typeof payload_locked_documents;
@@ -1594,31 +2189,49 @@ type DatabaseSchema = {
   payload_preferences_rels: typeof payload_preferences_rels;
   payload_migrations: typeof payload_migrations;
   progetto_blocks_text: typeof progetto_blocks_text;
+  progetto_blocks_text_locales: typeof progetto_blocks_text_locales;
   progetto_blocks_rich_text: typeof progetto_blocks_rich_text;
+  progetto_blocks_rich_text_locales: typeof progetto_blocks_rich_text_locales;
   progetto_blocks_quote: typeof progetto_blocks_quote;
+  progetto_blocks_quote_locales: typeof progetto_blocks_quote_locales;
   progetto_blocks_image: typeof progetto_blocks_image;
   progetto_blocks_grid: typeof progetto_blocks_grid;
   progetto_sections: typeof progetto_sections;
+  progetto_sections_locales: typeof progetto_sections_locales;
   progetto: typeof progetto;
   la_goccia_timeline: typeof la_goccia_timeline;
+  la_goccia_timeline_locales: typeof la_goccia_timeline_locales;
   la_goccia: typeof la_goccia;
+  la_goccia_locales: typeof la_goccia_locales;
   about_partners: typeof about_partners;
+  about_partners_locales: typeof about_partners_locales;
   about: typeof about;
+  about_locales: typeof about_locales;
+  relations_images_locales: typeof relations_images_locales;
   relations_images: typeof relations_images;
   relations_users_sessions: typeof relations_users_sessions;
   relations_users: typeof relations_users;
+  relations_posts_blocks_text_locales: typeof relations_posts_blocks_text_locales;
   relations_posts_blocks_text: typeof relations_posts_blocks_text;
+  relations_posts_blocks_rich_text_locales: typeof relations_posts_blocks_rich_text_locales;
   relations_posts_blocks_rich_text: typeof relations_posts_blocks_rich_text;
+  relations_posts_blocks_quote_locales: typeof relations_posts_blocks_quote_locales;
   relations_posts_blocks_quote: typeof relations_posts_blocks_quote;
   relations_posts_blocks_image: typeof relations_posts_blocks_image;
   relations_posts_blocks_grid: typeof relations_posts_blocks_grid;
+  relations_posts_locales: typeof relations_posts_locales;
   relations_posts: typeof relations_posts;
+  relations__posts_v_blocks_text_locales: typeof relations__posts_v_blocks_text_locales;
   relations__posts_v_blocks_text: typeof relations__posts_v_blocks_text;
+  relations__posts_v_blocks_rich_text_locales: typeof relations__posts_v_blocks_rich_text_locales;
   relations__posts_v_blocks_rich_text: typeof relations__posts_v_blocks_rich_text;
+  relations__posts_v_blocks_quote_locales: typeof relations__posts_v_blocks_quote_locales;
   relations__posts_v_blocks_quote: typeof relations__posts_v_blocks_quote;
   relations__posts_v_blocks_image: typeof relations__posts_v_blocks_image;
   relations__posts_v_blocks_grid: typeof relations__posts_v_blocks_grid;
+  relations__posts_v_locales: typeof relations__posts_v_locales;
   relations__posts_v: typeof relations__posts_v;
+  relations_authors_locales: typeof relations_authors_locales;
   relations_authors: typeof relations_authors;
   relations_payload_jobs_log: typeof relations_payload_jobs_log;
   relations_payload_jobs: typeof relations_payload_jobs;
@@ -1627,16 +2240,24 @@ type DatabaseSchema = {
   relations_payload_preferences_rels: typeof relations_payload_preferences_rels;
   relations_payload_preferences: typeof relations_payload_preferences;
   relations_payload_migrations: typeof relations_payload_migrations;
+  relations_progetto_blocks_text_locales: typeof relations_progetto_blocks_text_locales;
   relations_progetto_blocks_text: typeof relations_progetto_blocks_text;
+  relations_progetto_blocks_rich_text_locales: typeof relations_progetto_blocks_rich_text_locales;
   relations_progetto_blocks_rich_text: typeof relations_progetto_blocks_rich_text;
+  relations_progetto_blocks_quote_locales: typeof relations_progetto_blocks_quote_locales;
   relations_progetto_blocks_quote: typeof relations_progetto_blocks_quote;
   relations_progetto_blocks_image: typeof relations_progetto_blocks_image;
   relations_progetto_blocks_grid: typeof relations_progetto_blocks_grid;
+  relations_progetto_sections_locales: typeof relations_progetto_sections_locales;
   relations_progetto_sections: typeof relations_progetto_sections;
   relations_progetto: typeof relations_progetto;
+  relations_la_goccia_timeline_locales: typeof relations_la_goccia_timeline_locales;
   relations_la_goccia_timeline: typeof relations_la_goccia_timeline;
+  relations_la_goccia_locales: typeof relations_la_goccia_locales;
   relations_la_goccia: typeof relations_la_goccia;
+  relations_about_partners_locales: typeof relations_about_partners_locales;
   relations_about_partners: typeof relations_about_partners;
+  relations_about_locales: typeof relations_about_locales;
   relations_about: typeof relations_about;
 };
 
