@@ -448,6 +448,33 @@ export const posts_locales = sqliteTable(
   }),
 );
 
+export const posts_rels = sqliteTable(
+  "posts_rels",
+  {
+    id: integer("id").primaryKey(),
+    order: integer("order"),
+    parent: text("parent_id").notNull(),
+    path: text("path").notNull(),
+    tagsID: text("tags_id"),
+  },
+  (columns) => ({
+    order: index("posts_rels_order_idx").on(columns.order),
+    parentIdx: index("posts_rels_parent_idx").on(columns.parent),
+    pathIdx: index("posts_rels_path_idx").on(columns.path),
+    posts_rels_tags_id_idx: index("posts_rels_tags_id_idx").on(columns.tagsID),
+    parentFk: foreignKey({
+      columns: [columns["parent"]],
+      foreignColumns: [posts.id],
+      name: "posts_rels_parent_fk",
+    }).onDelete("cascade"),
+    tagsIdFk: foreignKey({
+      columns: [columns["tagsID"]],
+      foreignColumns: [tags.id],
+      name: "posts_rels_tags_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
 export const _posts_v_blocks_text = sqliteTable(
   "_posts_v_blocks_text",
   {
@@ -783,6 +810,35 @@ export const _posts_v_locales = sqliteTable(
   }),
 );
 
+export const _posts_v_rels = sqliteTable(
+  "_posts_v_rels",
+  {
+    id: integer("id").primaryKey(),
+    order: integer("order"),
+    parent: text("parent_id").notNull(),
+    path: text("path").notNull(),
+    tagsID: text("tags_id"),
+  },
+  (columns) => ({
+    order: index("_posts_v_rels_order_idx").on(columns.order),
+    parentIdx: index("_posts_v_rels_parent_idx").on(columns.parent),
+    pathIdx: index("_posts_v_rels_path_idx").on(columns.path),
+    _posts_v_rels_tags_id_idx: index("_posts_v_rels_tags_id_idx").on(
+      columns.tagsID,
+    ),
+    parentFk: foreignKey({
+      columns: [columns["parent"]],
+      foreignColumns: [_posts_v.id],
+      name: "_posts_v_rels_parent_fk",
+    }).onDelete("cascade"),
+    tagsIdFk: foreignKey({
+      columns: [columns["tagsID"]],
+      foreignColumns: [tags.id],
+      name: "_posts_v_rels_tags_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
 export const authors = sqliteTable(
   "authors",
   {
@@ -827,6 +883,54 @@ export const authors_locales = sqliteTable(
       columns: [columns["_parentID"]],
       foreignColumns: [authors.id],
       name: "authors_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const tags = sqliteTable(
+  "tags",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    slug: text("slug"),
+    slugLock: integer("slug_lock", { mode: "boolean" }).default(true),
+    updatedAt: text("updated_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+  },
+  (columns) => ({
+    tags_slug_idx: index("tags_slug_idx").on(columns.slug),
+    tags_updated_at_idx: index("tags_updated_at_idx").on(columns.updatedAt),
+    tags_created_at_idx: index("tags_created_at_idx").on(columns.createdAt),
+  }),
+);
+
+export const tags_locales = sqliteTable(
+  "tags_locales",
+  {
+    name: text("name").notNull(),
+    description: text("description"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    tags_name_idx: uniqueIndex("tags_name_idx").on(
+      columns.name,
+      columns._locale,
+    ),
+    _localeParent: uniqueIndex("tags_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [tags.id],
+      name: "tags_locales_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
@@ -956,6 +1060,7 @@ export const payload_locked_documents_rels = sqliteTable(
     usersID: text("users_id"),
     postsID: text("posts_id"),
     authorsID: text("authors_id"),
+    tagsID: text("tags_id"),
     "payload-jobsID": text("payload_jobs_id"),
   },
   (columns) => ({
@@ -976,6 +1081,9 @@ export const payload_locked_documents_rels = sqliteTable(
     payload_locked_documents_rels_authors_id_idx: index(
       "payload_locked_documents_rels_authors_id_idx",
     ).on(columns.authorsID),
+    payload_locked_documents_rels_tags_id_idx: index(
+      "payload_locked_documents_rels_tags_id_idx",
+    ).on(columns.tagsID),
     payload_locked_documents_rels_payload_jobs_id_idx: index(
       "payload_locked_documents_rels_payload_jobs_id_idx",
     ).on(columns["payload-jobsID"]),
@@ -1003,6 +1111,11 @@ export const payload_locked_documents_rels = sqliteTable(
       columns: [columns["authorsID"]],
       foreignColumns: [authors.id],
       name: "payload_locked_documents_rels_authors_fk",
+    }).onDelete("cascade"),
+    tagsIdFk: foreignKey({
+      columns: [columns["tagsID"]],
+      foreignColumns: [tags.id],
+      name: "payload_locked_documents_rels_tags_fk",
     }).onDelete("cascade"),
     "payload-jobsIdFk": foreignKey({
       columns: [columns["payload-jobsID"]],
@@ -1449,6 +1562,10 @@ export const about_partners = sqliteTable(
     logo: text("logo_id").references(() => images.id, {
       onDelete: "set null",
     }),
+    links_website: text("links_website"),
+    links_instagram: text("links_instagram"),
+    links_facebook: text("links_facebook"),
+    links_linkedin: text("links_linkedin"),
   },
   (columns) => ({
     _orderIdx: index("about_partners_order_idx").on(columns._order),
@@ -1653,6 +1770,18 @@ export const relations_posts_locales = relations(posts_locales, ({ one }) => ({
     relationName: "meta_image",
   }),
 }));
+export const relations_posts_rels = relations(posts_rels, ({ one }) => ({
+  parent: one(posts, {
+    fields: [posts_rels.parent],
+    references: [posts.id],
+    relationName: "_rels",
+  }),
+  tagsID: one(tags, {
+    fields: [posts_rels.tagsID],
+    references: [tags.id],
+    relationName: "tags",
+  }),
+}));
 export const relations_posts = relations(posts, ({ one, many }) => ({
   _blocks_text: many(posts_blocks_text, {
     relationName: "_blocks_text",
@@ -1681,6 +1810,9 @@ export const relations_posts = relations(posts, ({ one, many }) => ({
   }),
   _locales: many(posts_locales, {
     relationName: "_locales",
+  }),
+  _rels: many(posts_rels, {
+    relationName: "_rels",
   }),
 }));
 export const relations__posts_v_blocks_text_locales = relations(
@@ -1792,6 +1924,18 @@ export const relations__posts_v_locales = relations(
     }),
   }),
 );
+export const relations__posts_v_rels = relations(_posts_v_rels, ({ one }) => ({
+  parent: one(_posts_v, {
+    fields: [_posts_v_rels.parent],
+    references: [_posts_v.id],
+    relationName: "_rels",
+  }),
+  tagsID: one(tags, {
+    fields: [_posts_v_rels.tagsID],
+    references: [tags.id],
+    relationName: "tags",
+  }),
+}));
 export const relations__posts_v = relations(_posts_v, ({ one, many }) => ({
   parent: one(posts, {
     fields: [_posts_v.parent],
@@ -1826,6 +1970,9 @@ export const relations__posts_v = relations(_posts_v, ({ one, many }) => ({
   _locales: many(_posts_v_locales, {
     relationName: "_locales",
   }),
+  _rels: many(_posts_v_rels, {
+    relationName: "_rels",
+  }),
 }));
 export const relations_authors_locales = relations(
   authors_locales,
@@ -1839,6 +1986,18 @@ export const relations_authors_locales = relations(
 );
 export const relations_authors = relations(authors, ({ many }) => ({
   _locales: many(authors_locales, {
+    relationName: "_locales",
+  }),
+}));
+export const relations_tags_locales = relations(tags_locales, ({ one }) => ({
+  _parentID: one(tags, {
+    fields: [tags_locales._parentID],
+    references: [tags.id],
+    relationName: "_locales",
+  }),
+}));
+export const relations_tags = relations(tags, ({ many }) => ({
+  _locales: many(tags_locales, {
     relationName: "_locales",
   }),
 }));
@@ -1884,6 +2043,11 @@ export const relations_payload_locked_documents_rels = relations(
       fields: [payload_locked_documents_rels.authorsID],
       references: [authors.id],
       relationName: "authors",
+    }),
+    tagsID: one(tags, {
+      fields: [payload_locked_documents_rels.tagsID],
+      references: [tags.id],
+      relationName: "tags",
     }),
     "payload-jobsID": one(payload_jobs, {
       fields: [payload_locked_documents_rels["payload-jobsID"]],
@@ -2169,6 +2333,7 @@ type DatabaseSchema = {
   posts_blocks_grid: typeof posts_blocks_grid;
   posts: typeof posts;
   posts_locales: typeof posts_locales;
+  posts_rels: typeof posts_rels;
   _posts_v_blocks_text: typeof _posts_v_blocks_text;
   _posts_v_blocks_text_locales: typeof _posts_v_blocks_text_locales;
   _posts_v_blocks_rich_text: typeof _posts_v_blocks_rich_text;
@@ -2179,8 +2344,11 @@ type DatabaseSchema = {
   _posts_v_blocks_grid: typeof _posts_v_blocks_grid;
   _posts_v: typeof _posts_v;
   _posts_v_locales: typeof _posts_v_locales;
+  _posts_v_rels: typeof _posts_v_rels;
   authors: typeof authors;
   authors_locales: typeof authors_locales;
+  tags: typeof tags;
+  tags_locales: typeof tags_locales;
   payload_jobs_log: typeof payload_jobs_log;
   payload_jobs: typeof payload_jobs;
   payload_locked_documents: typeof payload_locked_documents;
@@ -2220,6 +2388,7 @@ type DatabaseSchema = {
   relations_posts_blocks_image: typeof relations_posts_blocks_image;
   relations_posts_blocks_grid: typeof relations_posts_blocks_grid;
   relations_posts_locales: typeof relations_posts_locales;
+  relations_posts_rels: typeof relations_posts_rels;
   relations_posts: typeof relations_posts;
   relations__posts_v_blocks_text_locales: typeof relations__posts_v_blocks_text_locales;
   relations__posts_v_blocks_text: typeof relations__posts_v_blocks_text;
@@ -2230,9 +2399,12 @@ type DatabaseSchema = {
   relations__posts_v_blocks_image: typeof relations__posts_v_blocks_image;
   relations__posts_v_blocks_grid: typeof relations__posts_v_blocks_grid;
   relations__posts_v_locales: typeof relations__posts_v_locales;
+  relations__posts_v_rels: typeof relations__posts_v_rels;
   relations__posts_v: typeof relations__posts_v;
   relations_authors_locales: typeof relations_authors_locales;
   relations_authors: typeof relations_authors;
+  relations_tags_locales: typeof relations_tags_locales;
+  relations_tags: typeof relations_tags;
   relations_payload_jobs_log: typeof relations_payload_jobs_log;
   relations_payload_jobs: typeof relations_payload_jobs;
   relations_payload_locked_documents_rels: typeof relations_payload_locked_documents_rels;

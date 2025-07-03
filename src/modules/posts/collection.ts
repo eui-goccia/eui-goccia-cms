@@ -132,6 +132,13 @@ export const Posts: CollectionConfig = {
 				],
 			},
 		},
+		{
+			name: 'tags',
+			type: 'relationship',
+			label: 'Tags',
+			relationTo: 'tags',
+			hasMany: true,
+		},
 		...slugField('title'),
 	],
 	versions: {

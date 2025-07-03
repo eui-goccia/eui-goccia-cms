@@ -1,6 +1,6 @@
 import config from '@payload-config';
 import { headers } from 'next/headers';
-import { createLocalReq, getPayload, User } from 'payload';
+import { createLocalReq, getPayload } from 'payload';
 import { seed } from '@/modules/payload/seed';
 
 export const maxDuration = 60; // This function can run for a maximum of 60 seconds
@@ -19,7 +19,7 @@ export async function POST(): Promise<Response> {
 	try {
 		// Create a Payload request object to pass to the Local API for transactions
 		// At this point you should pass in a user, locale, and any other context you need for the Local API
-		const payloadReq = await createLocalReq({ user: user as User }, payload);
+		const payloadReq = await createLocalReq({ user }, payload);
 
 		await seed({ payload, req: payloadReq });
 

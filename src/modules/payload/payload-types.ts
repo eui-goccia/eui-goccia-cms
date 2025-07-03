@@ -71,6 +71,7 @@ export interface Config {
     users: User;
     posts: Post;
     authors: Author;
+    tags: Tag;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -80,12 +81,16 @@ export interface Config {
     authors: {
       posts: 'posts';
     };
+    tags: {
+      posts: 'posts';
+    };
   };
   collectionsSelect: {
     images: ImagesSelect<false> | ImagesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     authors: AuthorsSelect<false> | AuthorsSelect<true>;
+    tags: TagsSelect<false> | TagsSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -247,6 +252,7 @@ export interface Post {
   coverImage: string | Image;
   author: string | Author;
   publishedAt?: string | null;
+  tags?: (string | Tag)[] | null;
   slug?: string | null;
   slugLock?: boolean | null;
   updatedAt: string;
@@ -352,6 +358,24 @@ export interface Author {
   id: string;
   name: string;
   bio?: string | null;
+  posts?: {
+    docs?: (string | Post)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: string;
+  name: string;
+  description?: string | null;
   posts?: {
     docs?: (string | Post)[];
     hasNextPage?: boolean;
@@ -476,6 +500,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'authors';
         value: string | Author;
+      } | null)
+    | ({
+        relationTo: 'tags';
+        value: string | Tag;
       } | null)
     | ({
         relationTo: 'payload-jobs';
@@ -645,6 +673,7 @@ export interface PostsSelect<T extends boolean = true> {
   coverImage?: T;
   author?: T;
   publishedAt?: T;
+  tags?: T;
   slug?: T;
   slugLock?: T;
   updatedAt?: T;
@@ -719,6 +748,19 @@ export interface GridBlockSelect<T extends boolean = true> {
 export interface AuthorsSelect<T extends boolean = true> {
   name?: T;
   bio?: T;
+  posts?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags_select".
+ */
+export interface TagsSelect<T extends boolean = true> {
+  name?: T;
+  description?: T;
   posts?: T;
   slug?: T;
   slugLock?: T;
@@ -844,6 +886,12 @@ export interface About {
         bio: string;
         logo?: (string | null) | Image;
         members?: string | null;
+        links?: {
+          website?: string | null;
+          instagram?: string | null;
+          facebook?: string | null;
+          linkedin?: string | null;
+        };
         id?: string | null;
       }[]
     | null;
@@ -908,6 +956,14 @@ export interface AboutSelect<T extends boolean = true> {
         bio?: T;
         logo?: T;
         members?: T;
+        links?:
+          | T
+          | {
+              website?: T;
+              instagram?: T;
+              facebook?: T;
+              linkedin?: T;
+            };
         id?: T;
       };
   updatedAt?: T;

@@ -46,6 +46,34 @@ export const About: GlobalConfig = {
 					label: 'Membri',
 					localized: true,
 				},
+				{
+					name: 'links',
+					type: 'group',
+					label: 'Contatti',
+					required: false,
+					fields: [
+						{
+							name: 'website',
+							type: 'text',
+							label: 'Sito web',
+						},
+						{
+							name: 'instagram',
+							type: 'text',
+							label: 'Instagram',
+						},
+						{
+							name: 'facebook',
+							type: 'text',
+							label: 'Facebook',
+						},
+						{
+							name: 'linkedin',
+							type: 'text',
+							label: 'LinkedIn',
+						},
+					],
+				},
 			],
 		},
 	],

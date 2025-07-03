@@ -101,7 +101,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
 			const image = node.value as Image;
 			return (
 				<CustomImage
-					className='aspect-16/10 rounded-2xl'
+					className='aspect-16/10 rounded-2xl object-cover'
 					image={image}
 					size='xlarge'
 					alt={image.caption}

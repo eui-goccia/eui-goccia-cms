@@ -9,7 +9,7 @@ import type {
 export const revalidatePost: CollectionAfterChangeHook<Post | Author> = ({
 	doc,
 	previousDoc,
-	req: { payload, context, locale },
+	req: { payload, context },
 	operation,
 }) => {
 	if (!context.disableRevalidate) {
@@ -19,19 +19,19 @@ export const revalidatePost: CollectionAfterChangeHook<Post | Author> = ({
 				posts.length > 0 &&
 				posts.forEach((post) => {
 					if (post._status === 'published') {
-						const path = `/${locale}/blog/${post.slug}`;
+						const path = `/(frontend)/[locale]/blog/${post.slug}`;
 						payload.logger.info(`Revalidating page at path: ${path}`);
-						revalidatePath(path);
+						revalidatePath(path, 'page');
 					}
 				});
 		}
 
 		if (doc && '_status' in doc && doc._status === 'published') {
-			const path = `/${locale}/blog/${doc.slug}`;
+			const path = `/(frontend)/[locale]/blog/${doc.slug}`;
 
 			payload.logger.info(`Revalidating page at path: ${path}`);
 
-			revalidatePath(path);
+			revalidatePath(path, 'page');
 			// revalidateTag('blog-sitemap')
 		}
 
@@ -44,11 +44,11 @@ export const revalidatePost: CollectionAfterChangeHook<Post | Author> = ({
 			'_status' in doc &&
 			doc._status !== 'published'
 		) {
-			const oldPath = `/${locale}/blog/${previousDoc.slug}`;
+			const oldPath = `/(frontend)/[locale]/blog/${previousDoc.slug}`;
 
 			payload.logger.info(`Revalidating old page at path: ${oldPath}`);
 
-			revalidatePath(oldPath);
+			revalidatePath(oldPath, 'page');
 			// revalidateTag('blog-sitemap')
 		}
 		if (previousDoc && 'posts' in previousDoc) {
@@ -57,9 +57,9 @@ export const revalidatePost: CollectionAfterChangeHook<Post | Author> = ({
 				posts.length > 0 &&
 				posts.forEach((post) => {
 					if (post._status === 'published') {
-						const path = `/${locale}/blog/${post.slug}`;
+						const path = `/(frontend)/[locale]/blog/${post.slug}`;
 						payload.logger.info(`Revalidating page at path: ${path}`);
-						revalidatePath(path);
+						revalidatePath(path, 'page');
 					}
 				});
 		}
@@ -75,7 +75,7 @@ export const revalidatePost: CollectionAfterChangeHook<Post | Author> = ({
 
 export const revalidateDelete: CollectionAfterDeleteHook<Post | Author> = ({
 	doc,
-	req: { context, payload, locale },
+	req: { context, payload },
 }) => {
 	if (!context.disableRevalidate) {
 		if (doc && 'posts' in doc) {
@@ -83,15 +83,15 @@ export const revalidateDelete: CollectionAfterDeleteHook<Post | Author> = ({
 			posts &&
 				posts.length > 0 &&
 				posts.forEach((post) => {
-					const path = `/${locale}/blog/${post.slug}`;
+					const path = `/(frontend)/[locale]/blog/${post.slug}`;
 					payload.logger.info(`Revalidating page at path: ${path}`);
-					revalidatePath(path);
+					revalidatePath(path, 'page');
 				});
 		}
 		if (doc && '_status' in doc && doc._status === 'published') {
-			const path = `/${locale}/blog/${doc.slug}`;
+			const path = `/(frontend)/[locale]/blog/${doc.slug}`;
 			payload.logger.info(`Revalidating page at path: ${path}`);
-			revalidatePath(path);
+			revalidatePath(path, 'page');
 		}
 		revalidatePath('/');
 		revalidatePath('/(frontend)/[locale]/blog', 'page');
