@@ -83,6 +83,9 @@ importers:
       postcss:
         specifier: ^8.5.6
         version: 8.5.6
+      prettier:
+        specifier: ^3.6.2
+        version: 3.6.2
       react:
         specifier: ^19.1.0
         version: 19.1.0
@@ -155,8 +158,8 @@ packages:
   '@aws-crypto/util@5.2.0':
     resolution: {integrity: sha512-4RkU9EsI6ZpBve5fseQlGNUWKMa1RLPQ1dnjnQoe07ldfIzcsGb5hC5W0Dm7u423KWzawlrpbjXBrXCEv9zazQ==}
 
-  '@aws-sdk/client-s3@3.840.0':
-    resolution: {integrity: sha512-dRuo03EqGBbl9+PTogpwY9bYmGWIjn8nB82HN5Qj20otgjUvhLOdEkkip9mroYsrvqNoKbMedWdCudIcB/YY1w==}
+  '@aws-sdk/client-s3@3.842.0':
+    resolution: {integrity: sha512-T5Rh72Rcq1xIaM8KkTr1Wpr7/WPCYO++KrM+/Em0rq2jxpjMMhj77ITpgH7eEmNxWmwIndTwqpgfmbpNfk7Gbw==}
     engines: {node: '>=18.0.0'}
 
   '@aws-sdk/client-sso@3.840.0':
@@ -195,11 +198,11 @@ packages:
     resolution: {integrity: sha512-dpEeVXG8uNZSmVXReE4WP0lwoioX2gstk4RnUgrdUE3YaPq8A+hJiVAyc3h+cjDeIqfbsQbZm9qFetKC2LF9dQ==}
     engines: {node: '>=18.0.0'}
 
-  '@aws-sdk/lib-storage@3.840.0':
-    resolution: {integrity: sha512-P3w05N26fW01loe9f6gAIYt9hdP8M3rI13Rj3dZgJ6jykrjSB7+6ekAshUbzLp1uDHdmSkcUutzk2EIYtvPjlQ==}
+  '@aws-sdk/lib-storage@3.842.0':
+    resolution: {integrity: sha512-QRWu+/I6Sgy4Kj2gq9srdw0/YSDiybSiMiQMUgcw4iI4mgWUcEwRPw7rGUFRWwdZUAhYGUv1T37Ydz2GXDFnJQ==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      '@aws-sdk/client-s3': ^3.840.0
+      '@aws-sdk/client-s3': ^3.842.0
 
   '@aws-sdk/middleware-bucket-endpoint@3.840.0':
     resolution: {integrity: sha512-+gkQNtPwcSMmlwBHFd4saVVS11In6ID1HczNzpM3MXKXRBfSlbZJbCt6wN//AZ8HMklZEik4tcEOG0qa9UY8SQ==}
@@ -249,8 +252,8 @@ packages:
     resolution: {integrity: sha512-Qjnxd/yDv9KpIMWr90ZDPtRj0v75AqGC92Lm9+oHXZ8p1MjG5JE2CW0HL8JRgK9iKzgKBL7pPQRXI8FkvEVfrA==}
     engines: {node: '>=18.0.0'}
 
-  '@aws-sdk/s3-request-presigner@3.840.0':
-    resolution: {integrity: sha512-1jcrhVoSZjiAQJGNswI0RGR36/+OG6yTV42wQamHdNHk+/68dn9MGTUVr+58AEFOyEAPE/EvkiYRD6n5WkUjMg==}
+  '@aws-sdk/s3-request-presigner@3.842.0':
+    resolution: {integrity: sha512-daS69IJ20X+BzsiEtj3XuyyM765iFOdZ648lrptHncQHRWdpzahk67/nP/SKYhWvnNrQ4pw2vYlVxpOs9vl1yg==}
     engines: {node: '>=18.0.0'}
 
   '@aws-sdk/signature-v4-multi-region@3.840.0':
@@ -3495,7 +3498,7 @@ snapshots:
       '@smithy/util-utf8': 2.3.0
       tslib: 2.8.1
 
-  '@aws-sdk/client-s3@3.840.0':
+  '@aws-sdk/client-s3@3.842.0':
     dependencies:
       '@aws-crypto/sha1-browser': 5.2.0
       '@aws-crypto/sha256-browser': 5.2.0
@@ -3708,9 +3711,9 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  '@aws-sdk/lib-storage@3.840.0(@aws-sdk/client-s3@3.840.0)':
+  '@aws-sdk/lib-storage@3.842.0(@aws-sdk/client-s3@3.842.0)':
     dependencies:
-      '@aws-sdk/client-s3': 3.840.0
+      '@aws-sdk/client-s3': 3.842.0
       '@smithy/abort-controller': 4.0.4
       '@smithy/middleware-endpoint': 4.1.13
       '@smithy/smithy-client': 4.4.5
@@ -3863,7 +3866,7 @@ snapshots:
       '@smithy/util-middleware': 4.0.4
       tslib: 2.8.1
 
-  '@aws-sdk/s3-request-presigner@3.840.0':
+  '@aws-sdk/s3-request-presigner@3.842.0':
     dependencies:
       '@aws-sdk/signature-v4-multi-region': 3.840.0
       '@aws-sdk/types': 3.840.0
@@ -5009,9 +5012,9 @@ snapshots:
 
   '@payloadcms/storage-s3@3.44.0(@types/react@19.1.8)(monaco-editor@0.52.2)(next@15.3.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.44.0(bufferutil@4.0.9)(graphql@16.11.0)(typescript@5.8.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3)':
     dependencies:
-      '@aws-sdk/client-s3': 3.840.0
-      '@aws-sdk/lib-storage': 3.840.0(@aws-sdk/client-s3@3.840.0)
-      '@aws-sdk/s3-request-presigner': 3.840.0
+      '@aws-sdk/client-s3': 3.842.0
+      '@aws-sdk/lib-storage': 3.842.0(@aws-sdk/client-s3@3.842.0)
+      '@aws-sdk/s3-request-presigner': 3.842.0
       '@payloadcms/plugin-cloud-storage': 3.44.0(@types/react@19.1.8)(monaco-editor@0.52.2)(next@15.3.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.44.0(bufferutil@4.0.9)(graphql@16.11.0)(typescript@5.8.3)(utf-8-validate@6.0.5))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3)
       payload: 3.44.0(bufferutil@4.0.9)(graphql@16.11.0)(typescript@5.8.3)(utf-8-validate@6.0.5)
     transitivePeerDependencies:
