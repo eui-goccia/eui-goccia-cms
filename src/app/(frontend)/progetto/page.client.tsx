@@ -1,12 +1,12 @@
 'use client';
-import type { Project } from '@payload-types';
+import type { Progetto } from '@payload-types';
 import Link from 'next/link';
 import { Fragment, useEffect, useState } from 'react';
 import { BlockRenderer } from '@/modules/blocks/BlockRenderer';
-import BlockHeading from '@/modules/components/blocks/BlockHeading';
+import BlockHeading from '@/modules/components/BlockHeading';
 import SectionBreakFill from '@/modules/components/shared/SectionBreakFill';
 
-export default function ProgettoClient({ project }: { project: Project }) {
+export default function ProgettoClient({ project }: { project: Progetto }) {
 	const [activeSection, setActiveSection] = useState('');
 
 	useEffect(() => {

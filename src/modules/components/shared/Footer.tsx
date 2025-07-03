@@ -19,7 +19,7 @@ const pages: PagesProps[] = [
 	},
 	{
 		name: 'Il Progetto',
-		url: '/il-progetto',
+		url: '/progetto',
 	},
 	{
 		name: 'La Goccia',

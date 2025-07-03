@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 import { anyone } from '../payload/access/anyone';
 import { authenticated } from '../payload/access/authenticated';
 import { slugField } from '../payload/fields/slug';
+import { revalidateDelete, revalidatePost } from '../posts/revalidate';
 
 export const Authors: CollectionConfig = {
 	slug: 'authors',
@@ -10,6 +11,10 @@ export const Authors: CollectionConfig = {
 		create: authenticated,
 		update: authenticated,
 		delete: authenticated,
+	},
+	hooks: {
+		afterChange: [revalidatePost],
+		afterDelete: [revalidateDelete],
 	},
 	labels: {
 		singular: 'Autore',

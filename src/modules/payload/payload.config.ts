@@ -9,7 +9,7 @@ import { defaultLexical } from '../editor/lexical';
 import { seoPlugin } from '../seo/plugin';
 import { storagePlugin } from '../storage/plugin';
 import { collections } from './collections';
-// import { migrations } from './db/migrations';
+import { migrations } from './db/migrations';
 import { globals } from './globals';
 
 const filename = fileURLToPath(import.meta.url);
@@ -29,6 +29,9 @@ export default buildConfig({
 		user: 'users',
 		importMap: {
 			baseDir: path.resolve(dirname),
+		},
+		components: {
+			beforeDashboard: ['./fields/BeforeDashboard'],
 		},
 		livePreview: {
 			breakpoints: [
@@ -67,7 +70,7 @@ export default buildConfig({
 			'./db/payload-generated-schema.ts'
 		),
 		migrationDir: path.resolve(dirname, './db/migrations'),
-		// prodMigrations: migrations,
+		prodMigrations: migrations,
 		client: {
 			url: process.env.DATABASE_URL || '',
 			authToken: process.env.DATABASE_AUTH_TOKEN,

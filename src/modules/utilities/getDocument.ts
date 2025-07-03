@@ -6,7 +6,12 @@ import { getPayload, type Where } from 'payload';
 
 type Collection = keyof Config['collections'];
 
-async function getDocument(collection: Collection, slug: string, depth = 0) {
+async function getDocument(
+	collection: Collection,
+	slug: string,
+	depth = 0,
+	draft = false
+) {
 	const payload = await getPayload({ config: configPromise });
 
 	const page = await payload.find({
@@ -17,6 +22,7 @@ async function getDocument(collection: Collection, slug: string, depth = 0) {
 				equals: slug,
 			},
 		},
+		draft,
 	});
 
 	return page.docs[0];
@@ -28,10 +34,11 @@ async function getDocument(collection: Collection, slug: string, depth = 0) {
 export const getCachedDocument = (
 	collection: Collection,
 	slug: string,
-	depth = 0
+	depth = 0,
+	draft = false
 ) => {
 	const cachedFn = unstable_cache(
-		async () => getDocument(collection, slug, depth),
+		async () => getDocument(collection, slug, depth, draft),
 		[collection, slug],
 		{
 			tags: [`${collection}_${slug}`],

@@ -5,6 +5,7 @@ import { authenticatedOrPublished } from '../payload/access/authenticatedOrPubli
 import { slugField } from '../payload/fields/slug';
 import { seoTab } from '../seo/fields';
 import { generatePreviewPath } from '../utilities/generatePreviewPath';
+import { revalidateDelete, revalidatePost } from './revalidate';
 
 export const Posts: CollectionConfig = {
 	slug: 'posts',
@@ -31,6 +32,10 @@ export const Posts: CollectionConfig = {
 		create: authenticated,
 		update: authenticated,
 		delete: authenticated,
+	},
+	hooks: {
+		afterChange: [revalidatePost],
+		afterDelete: [revalidateDelete],
 	},
 	admin: {
 		useAsTitle: 'title',

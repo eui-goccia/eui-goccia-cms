@@ -893,8 +893,8 @@ export const payload_migrations = sqliteTable(
   }),
 );
 
-export const project_blocks_text = sqliteTable(
-  "project_blocks_text",
+export const progetto_blocks_text = sqliteTable(
+  "progetto_blocks_text",
   {
     _order: integer("_order").notNull(),
     _parentID: text("_parent_id").notNull(),
@@ -910,21 +910,21 @@ export const project_blocks_text = sqliteTable(
     blockName: text("block_name"),
   },
   (columns) => ({
-    _orderIdx: index("project_blocks_text_order_idx").on(columns._order),
-    _parentIDIdx: index("project_blocks_text_parent_id_idx").on(
+    _orderIdx: index("progetto_blocks_text_order_idx").on(columns._order),
+    _parentIDIdx: index("progetto_blocks_text_parent_id_idx").on(
       columns._parentID,
     ),
-    _pathIdx: index("project_blocks_text_path_idx").on(columns._path),
+    _pathIdx: index("progetto_blocks_text_path_idx").on(columns._path),
     _parentIdFk: foreignKey({
       columns: [columns["_parentID"]],
-      foreignColumns: [project.id],
-      name: "project_blocks_text_parent_id_fk",
+      foreignColumns: [progetto.id],
+      name: "progetto_blocks_text_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
 
-export const project_blocks_rich_text = sqliteTable(
-  "project_blocks_rich_text",
+export const progetto_blocks_rich_text = sqliteTable(
+  "progetto_blocks_rich_text",
   {
     _order: integer("_order").notNull(),
     _parentID: text("_parent_id").notNull(),
@@ -940,21 +940,21 @@ export const project_blocks_rich_text = sqliteTable(
     blockName: text("block_name"),
   },
   (columns) => ({
-    _orderIdx: index("project_blocks_rich_text_order_idx").on(columns._order),
-    _parentIDIdx: index("project_blocks_rich_text_parent_id_idx").on(
+    _orderIdx: index("progetto_blocks_rich_text_order_idx").on(columns._order),
+    _parentIDIdx: index("progetto_blocks_rich_text_parent_id_idx").on(
       columns._parentID,
     ),
-    _pathIdx: index("project_blocks_rich_text_path_idx").on(columns._path),
+    _pathIdx: index("progetto_blocks_rich_text_path_idx").on(columns._path),
     _parentIdFk: foreignKey({
       columns: [columns["_parentID"]],
-      foreignColumns: [project.id],
-      name: "project_blocks_rich_text_parent_id_fk",
+      foreignColumns: [progetto.id],
+      name: "progetto_blocks_rich_text_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
 
-export const project_blocks_quote = sqliteTable(
-  "project_blocks_quote",
+export const progetto_blocks_quote = sqliteTable(
+  "progetto_blocks_quote",
   {
     _order: integer("_order").notNull(),
     _parentID: text("_parent_id").notNull(),
@@ -971,21 +971,21 @@ export const project_blocks_quote = sqliteTable(
     blockName: text("block_name"),
   },
   (columns) => ({
-    _orderIdx: index("project_blocks_quote_order_idx").on(columns._order),
-    _parentIDIdx: index("project_blocks_quote_parent_id_idx").on(
+    _orderIdx: index("progetto_blocks_quote_order_idx").on(columns._order),
+    _parentIDIdx: index("progetto_blocks_quote_parent_id_idx").on(
       columns._parentID,
     ),
-    _pathIdx: index("project_blocks_quote_path_idx").on(columns._path),
+    _pathIdx: index("progetto_blocks_quote_path_idx").on(columns._path),
     _parentIdFk: foreignKey({
       columns: [columns["_parentID"]],
-      foreignColumns: [project.id],
-      name: "project_blocks_quote_parent_id_fk",
+      foreignColumns: [progetto.id],
+      name: "progetto_blocks_quote_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
 
-export const project_blocks_image = sqliteTable(
-  "project_blocks_image",
+export const progetto_blocks_image = sqliteTable(
+  "progetto_blocks_image",
   {
     _order: integer("_order").notNull(),
     _parentID: text("_parent_id").notNull(),
@@ -1006,24 +1006,24 @@ export const project_blocks_image = sqliteTable(
     blockName: text("block_name"),
   },
   (columns) => ({
-    _orderIdx: index("project_blocks_image_order_idx").on(columns._order),
-    _parentIDIdx: index("project_blocks_image_parent_id_idx").on(
+    _orderIdx: index("progetto_blocks_image_order_idx").on(columns._order),
+    _parentIDIdx: index("progetto_blocks_image_parent_id_idx").on(
       columns._parentID,
     ),
-    _pathIdx: index("project_blocks_image_path_idx").on(columns._path),
-    project_blocks_image_image_idx: index("project_blocks_image_image_idx").on(
-      columns.image,
-    ),
+    _pathIdx: index("progetto_blocks_image_path_idx").on(columns._path),
+    progetto_blocks_image_image_idx: index(
+      "progetto_blocks_image_image_idx",
+    ).on(columns.image),
     _parentIdFk: foreignKey({
       columns: [columns["_parentID"]],
-      foreignColumns: [project.id],
-      name: "project_blocks_image_parent_id_fk",
+      foreignColumns: [progetto.id],
+      name: "progetto_blocks_image_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
 
-export const project_blocks_grid = sqliteTable(
-  "project_blocks_grid",
+export const progetto_blocks_grid = sqliteTable(
+  "progetto_blocks_grid",
   {
     _order: integer("_order").notNull(),
     _parentID: text("_parent_id").notNull(),
@@ -1032,21 +1032,21 @@ export const project_blocks_grid = sqliteTable(
     blockName: text("block_name"),
   },
   (columns) => ({
-    _orderIdx: index("project_blocks_grid_order_idx").on(columns._order),
-    _parentIDIdx: index("project_blocks_grid_parent_id_idx").on(
+    _orderIdx: index("progetto_blocks_grid_order_idx").on(columns._order),
+    _parentIDIdx: index("progetto_blocks_grid_parent_id_idx").on(
       columns._parentID,
     ),
-    _pathIdx: index("project_blocks_grid_path_idx").on(columns._path),
+    _pathIdx: index("progetto_blocks_grid_path_idx").on(columns._path),
     _parentIdFk: foreignKey({
       columns: [columns["_parentID"]],
-      foreignColumns: [project.id],
-      name: "project_blocks_grid_parent_id_fk",
+      foreignColumns: [progetto.id],
+      name: "progetto_blocks_grid_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
 
-export const project_sections = sqliteTable(
-  "project_sections",
+export const progetto_sections = sqliteTable(
+  "progetto_sections",
   {
     _order: integer("_order").notNull(),
     _parentID: text("_parent_id").notNull(),
@@ -1055,17 +1055,19 @@ export const project_sections = sqliteTable(
     url: text("url").notNull(),
   },
   (columns) => ({
-    _orderIdx: index("project_sections_order_idx").on(columns._order),
-    _parentIDIdx: index("project_sections_parent_id_idx").on(columns._parentID),
+    _orderIdx: index("progetto_sections_order_idx").on(columns._order),
+    _parentIDIdx: index("progetto_sections_parent_id_idx").on(
+      columns._parentID,
+    ),
     _parentIDFk: foreignKey({
       columns: [columns["_parentID"]],
-      foreignColumns: [project.id],
-      name: "project_sections_parent_id_fk",
+      foreignColumns: [progetto.id],
+      name: "progetto_sections_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
 
-export const project = sqliteTable("project", {
+export const progetto = sqliteTable("progetto", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => randomUUID()),
@@ -1077,8 +1079,8 @@ export const project = sqliteTable("project", {
   ),
 });
 
-export const goccia_timeline = sqliteTable(
-  "goccia_timeline",
+export const la_goccia_timeline = sqliteTable(
+  "la_goccia_timeline",
   {
     _order: integer("_order").notNull(),
     _parentID: text("_parent_id").notNull(),
@@ -1094,20 +1096,22 @@ export const goccia_timeline = sqliteTable(
     end: numeric("end"),
   },
   (columns) => ({
-    _orderIdx: index("goccia_timeline_order_idx").on(columns._order),
-    _parentIDIdx: index("goccia_timeline_parent_id_idx").on(columns._parentID),
-    goccia_timeline_cover_idx: index("goccia_timeline_cover_idx").on(
+    _orderIdx: index("la_goccia_timeline_order_idx").on(columns._order),
+    _parentIDIdx: index("la_goccia_timeline_parent_id_idx").on(
+      columns._parentID,
+    ),
+    la_goccia_timeline_cover_idx: index("la_goccia_timeline_cover_idx").on(
       columns.cover,
     ),
     _parentIDFk: foreignKey({
       columns: [columns["_parentID"]],
-      foreignColumns: [goccia.id],
-      name: "goccia_timeline_parent_id_fk",
+      foreignColumns: [la_goccia.id],
+      name: "la_goccia_timeline_parent_id_fk",
     }).onDelete("cascade"),
   }),
 );
 
-export const goccia = sqliteTable("goccia", {
+export const la_goccia = sqliteTable("la_goccia", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => randomUUID()),
@@ -1439,108 +1443,108 @@ export const relations_payload_migrations = relations(
   payload_migrations,
   () => ({}),
 );
-export const relations_project_blocks_text = relations(
-  project_blocks_text,
+export const relations_progetto_blocks_text = relations(
+  progetto_blocks_text,
   ({ one }) => ({
-    _parentID: one(project, {
-      fields: [project_blocks_text._parentID],
-      references: [project.id],
+    _parentID: one(progetto, {
+      fields: [progetto_blocks_text._parentID],
+      references: [progetto.id],
       relationName: "_blocks_text",
     }),
   }),
 );
-export const relations_project_blocks_rich_text = relations(
-  project_blocks_rich_text,
+export const relations_progetto_blocks_rich_text = relations(
+  progetto_blocks_rich_text,
   ({ one }) => ({
-    _parentID: one(project, {
-      fields: [project_blocks_rich_text._parentID],
-      references: [project.id],
+    _parentID: one(progetto, {
+      fields: [progetto_blocks_rich_text._parentID],
+      references: [progetto.id],
       relationName: "_blocks_richText",
     }),
   }),
 );
-export const relations_project_blocks_quote = relations(
-  project_blocks_quote,
+export const relations_progetto_blocks_quote = relations(
+  progetto_blocks_quote,
   ({ one }) => ({
-    _parentID: one(project, {
-      fields: [project_blocks_quote._parentID],
-      references: [project.id],
+    _parentID: one(progetto, {
+      fields: [progetto_blocks_quote._parentID],
+      references: [progetto.id],
       relationName: "_blocks_quote",
     }),
   }),
 );
-export const relations_project_blocks_image = relations(
-  project_blocks_image,
+export const relations_progetto_blocks_image = relations(
+  progetto_blocks_image,
   ({ one }) => ({
-    _parentID: one(project, {
-      fields: [project_blocks_image._parentID],
-      references: [project.id],
+    _parentID: one(progetto, {
+      fields: [progetto_blocks_image._parentID],
+      references: [progetto.id],
       relationName: "_blocks_image",
     }),
     image: one(images, {
-      fields: [project_blocks_image.image],
+      fields: [progetto_blocks_image.image],
       references: [images.id],
       relationName: "image",
     }),
   }),
 );
-export const relations_project_blocks_grid = relations(
-  project_blocks_grid,
+export const relations_progetto_blocks_grid = relations(
+  progetto_blocks_grid,
   ({ one }) => ({
-    _parentID: one(project, {
-      fields: [project_blocks_grid._parentID],
-      references: [project.id],
+    _parentID: one(progetto, {
+      fields: [progetto_blocks_grid._parentID],
+      references: [progetto.id],
       relationName: "_blocks_grid",
     }),
   }),
 );
-export const relations_project_sections = relations(
-  project_sections,
+export const relations_progetto_sections = relations(
+  progetto_sections,
   ({ one }) => ({
-    _parentID: one(project, {
-      fields: [project_sections._parentID],
-      references: [project.id],
+    _parentID: one(progetto, {
+      fields: [progetto_sections._parentID],
+      references: [progetto.id],
       relationName: "sections",
     }),
   }),
 );
-export const relations_project = relations(project, ({ many }) => ({
-  _blocks_text: many(project_blocks_text, {
+export const relations_progetto = relations(progetto, ({ many }) => ({
+  _blocks_text: many(progetto_blocks_text, {
     relationName: "_blocks_text",
   }),
-  _blocks_richText: many(project_blocks_rich_text, {
+  _blocks_richText: many(progetto_blocks_rich_text, {
     relationName: "_blocks_richText",
   }),
-  _blocks_quote: many(project_blocks_quote, {
+  _blocks_quote: many(progetto_blocks_quote, {
     relationName: "_blocks_quote",
   }),
-  _blocks_image: many(project_blocks_image, {
+  _blocks_image: many(progetto_blocks_image, {
     relationName: "_blocks_image",
   }),
-  _blocks_grid: many(project_blocks_grid, {
+  _blocks_grid: many(progetto_blocks_grid, {
     relationName: "_blocks_grid",
   }),
-  sections: many(project_sections, {
+  sections: many(progetto_sections, {
     relationName: "sections",
   }),
 }));
-export const relations_goccia_timeline = relations(
-  goccia_timeline,
+export const relations_la_goccia_timeline = relations(
+  la_goccia_timeline,
   ({ one }) => ({
-    _parentID: one(goccia, {
-      fields: [goccia_timeline._parentID],
-      references: [goccia.id],
+    _parentID: one(la_goccia, {
+      fields: [la_goccia_timeline._parentID],
+      references: [la_goccia.id],
       relationName: "timeline",
     }),
     cover: one(images, {
-      fields: [goccia_timeline.cover],
+      fields: [la_goccia_timeline.cover],
       references: [images.id],
       relationName: "cover",
     }),
   }),
 );
-export const relations_goccia = relations(goccia, ({ many }) => ({
-  timeline: many(goccia_timeline, {
+export const relations_la_goccia = relations(la_goccia, ({ many }) => ({
+  timeline: many(la_goccia_timeline, {
     relationName: "timeline",
   }),
 }));
@@ -1589,15 +1593,15 @@ type DatabaseSchema = {
   payload_preferences: typeof payload_preferences;
   payload_preferences_rels: typeof payload_preferences_rels;
   payload_migrations: typeof payload_migrations;
-  project_blocks_text: typeof project_blocks_text;
-  project_blocks_rich_text: typeof project_blocks_rich_text;
-  project_blocks_quote: typeof project_blocks_quote;
-  project_blocks_image: typeof project_blocks_image;
-  project_blocks_grid: typeof project_blocks_grid;
-  project_sections: typeof project_sections;
-  project: typeof project;
-  goccia_timeline: typeof goccia_timeline;
-  goccia: typeof goccia;
+  progetto_blocks_text: typeof progetto_blocks_text;
+  progetto_blocks_rich_text: typeof progetto_blocks_rich_text;
+  progetto_blocks_quote: typeof progetto_blocks_quote;
+  progetto_blocks_image: typeof progetto_blocks_image;
+  progetto_blocks_grid: typeof progetto_blocks_grid;
+  progetto_sections: typeof progetto_sections;
+  progetto: typeof progetto;
+  la_goccia_timeline: typeof la_goccia_timeline;
+  la_goccia: typeof la_goccia;
   about_partners: typeof about_partners;
   about: typeof about;
   relations_images: typeof relations_images;
@@ -1623,15 +1627,15 @@ type DatabaseSchema = {
   relations_payload_preferences_rels: typeof relations_payload_preferences_rels;
   relations_payload_preferences: typeof relations_payload_preferences;
   relations_payload_migrations: typeof relations_payload_migrations;
-  relations_project_blocks_text: typeof relations_project_blocks_text;
-  relations_project_blocks_rich_text: typeof relations_project_blocks_rich_text;
-  relations_project_blocks_quote: typeof relations_project_blocks_quote;
-  relations_project_blocks_image: typeof relations_project_blocks_image;
-  relations_project_blocks_grid: typeof relations_project_blocks_grid;
-  relations_project_sections: typeof relations_project_sections;
-  relations_project: typeof relations_project;
-  relations_goccia_timeline: typeof relations_goccia_timeline;
-  relations_goccia: typeof relations_goccia;
+  relations_progetto_blocks_text: typeof relations_progetto_blocks_text;
+  relations_progetto_blocks_rich_text: typeof relations_progetto_blocks_rich_text;
+  relations_progetto_blocks_quote: typeof relations_progetto_blocks_quote;
+  relations_progetto_blocks_image: typeof relations_progetto_blocks_image;
+  relations_progetto_blocks_grid: typeof relations_progetto_blocks_grid;
+  relations_progetto_sections: typeof relations_progetto_sections;
+  relations_progetto: typeof relations_progetto;
+  relations_la_goccia_timeline: typeof relations_la_goccia_timeline;
+  relations_la_goccia: typeof relations_la_goccia;
   relations_about_partners: typeof relations_about_partners;
   relations_about: typeof relations_about;
 };

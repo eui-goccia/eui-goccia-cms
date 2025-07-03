@@ -1,8 +1,12 @@
 import type { GlobalConfig } from 'payload';
+import { revalidateGlobal } from '../utilities/revalidateGlobal';
 
 export const Goccia: GlobalConfig = {
-	slug: 'goccia',
+	slug: 'la-goccia',
 	label: 'La Goccia',
+	hooks: {
+		afterChange: [revalidateGlobal],
+	},
 	fields: [
 		{
 			name: 'description',

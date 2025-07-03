@@ -1,8 +1,12 @@
 import type { GlobalConfig } from 'payload';
+import { revalidateGlobal } from '../utilities/revalidateGlobal';
 
 export const About: GlobalConfig = {
 	slug: 'about',
 	label: 'Chi Siamo',
+	hooks: {
+		afterChange: [revalidateGlobal],
+	},
 	fields: [
 		{
 			name: 'description',

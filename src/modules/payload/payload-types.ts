@@ -95,13 +95,13 @@ export interface Config {
     defaultIDType: string;
   };
   globals: {
-    project: Project;
-    goccia: Goccia;
+    progetto: Progetto;
+    'la-goccia': LaGoccia;
     about: About;
   };
   globalsSelect: {
-    project: ProjectSelect<false> | ProjectSelect<true>;
-    goccia: GocciaSelect<false> | GocciaSelect<true>;
+    progetto: ProgettoSelect<false> | ProgettoSelect<true>;
+    'la-goccia': LaGocciaSelect<false> | LaGocciaSelect<true>;
     about: AboutSelect<false> | AboutSelect<true>;
   };
   locale: null;
@@ -790,9 +790,9 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "project".
+ * via the `definition` "progetto".
  */
-export interface Project {
+export interface Progetto {
   id: string;
   sections?:
     | {
@@ -807,9 +807,9 @@ export interface Project {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "goccia".
+ * via the `definition` "la-goccia".
  */
-export interface Goccia {
+export interface LaGoccia {
   id: string;
   description: string;
   timeline?:
@@ -852,9 +852,9 @@ export interface About {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "project_select".
+ * via the `definition` "progetto_select".
  */
-export interface ProjectSelect<T extends boolean = true> {
+export interface ProgettoSelect<T extends boolean = true> {
   sections?:
     | T
     | {
@@ -877,9 +877,9 @@ export interface ProjectSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "goccia_select".
+ * via the `definition` "la-goccia_select".
  */
-export interface GocciaSelect<T extends boolean = true> {
+export interface LaGocciaSelect<T extends boolean = true> {
   description?: T;
   timeline?:
     | T

@@ -1,6 +1,6 @@
-import type { Goccia } from '@payload-types';
+import type { LaGoccia } from '@payload-types';
 
-export const goccia: Goccia = {
+export const goccia: LaGoccia = {
 	id: 'b282bcd8-0fee-44aa-9b44-81ee73928c9f',
 	description:
 		"Nata come area industriale tra fine Ottocento e inizio Novecento, poi dismessa e abbandonata tra gli anni ‘70 e '90, la Goccia è oggi è al centro di progetti di rigenerazione che intrecciano memoria industriale, ambiente e futuro urbano.",
@@ -166,7 +166,7 @@ export const goccia: Goccia = {
 
 			cover: {
 				id: '7b8c3047-f14f-482f-a15a-dd5520eafa99',
-				caption: 'NA',
+				caption: ' ',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAICAIAAABPmPnhAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA4ElEQVR4nCXLoaqGMBiA4SWb9QSxWr0AMQjDJoh3ILuFlQ9WLIMfwTIGggwsgjCWhYHRIHzgTXgDVtvh/OeJL7wkTVPGmBDCGOOcM8YAwOfzGceRc06SJGnbVggxDINzbp5nKSUAcM6NMSQIgrIsKaV93yOilHL5klIqpUhRFFrr/7Su63Ec3vvzPL330zSRpmkopQDQdZ21dt/3+77f90XErutIFEVZlnHOtdbP8wCAtfY4juu6/u6fL0QUQsRxzBjTWk/TtCwLIhJCSBiGSZLkeV5VVV3XALBt2zzPSqlf3h558wlLqIwAAAAASUVORK5CYII=',
 				prefix: 'images',
@@ -467,7 +467,7 @@ export const goccia: Goccia = {
 
 			cover: {
 				id: 'c322b37c-9ece-41e8-a923-1662758fa2b1',
-				caption: 'La Goccia',
+				caption: ' ',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AEQ8Mfvmy6ORh15MQWCKsmik3FFIQ//83uXOujk0LwBUS0D45MiGenJZPzhmUE1bUVhtVU3ErZreybRRSUYAXEY2l3ZlVkZEfXNqZWVoPTlAZFFPUkdGjmdQQjInAEk6MVtTXXhfYnBNSmZbYUZAPU9BQT09Sp+CdlVDOwAlIyQmICF/ZltfQkpvaW6CkqZPVVA7Ly5hcW5ra2AAGxodPTo7MzE1KCgqUFRdY2+HKCwrFxgdOz84UVxMAGVgWjs2NzIuMggICgsMFAECBxswRTxLVVRNTDg6On/hSQ0387rfAAAAAElFTkSuQmCC',
 				prefix: 'images',

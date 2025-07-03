@@ -1,6 +1,6 @@
-import type { Project } from '@payload-types';
+import type { Progetto } from '@payload-types';
 
-export const project: Project = {
+export const project: Progetto = {
 	id: 'b2879814-6daa-4748-afaf-00ea1443d6a9',
 	sections: [
 		{

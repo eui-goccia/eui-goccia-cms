@@ -1,10 +1,14 @@
 import type { GlobalConfig } from 'payload';
 import { defaultBlocks } from '../blocks';
 import { formatSlug } from '../payload/fields/slug/formatSlug';
+import { revalidateGlobal } from '../utilities/revalidateGlobal';
 
 export const Project: GlobalConfig = {
-	slug: 'project',
+	slug: 'progetto',
 	label: 'Progetto',
+	hooks: {
+		afterChange: [revalidateGlobal],
+	},
 	fields: [
 		{
 			name: 'sections',

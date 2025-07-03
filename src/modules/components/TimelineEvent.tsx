@@ -1,10 +1,10 @@
-import type { Goccia, Image } from '@payload-types';
+import type { Image, LaGoccia } from '@payload-types';
 import { CustomImage } from './CustomImage';
 
 export default function TimelineEvent({
 	event,
 }: {
-	event: NonNullable<Goccia['timeline']>[number];
+	event: NonNullable<LaGoccia['timeline']>[number];
 	key: React.Key;
 }) {
 	const cover = event.cover as Image;

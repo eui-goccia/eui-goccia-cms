@@ -1,16 +1,35 @@
 import type { Author, Image, Post } from '@payload-types';
+import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
+import type { PaginatedDocs } from 'payload';
 import { BlockRenderer } from '@/modules/blocks/BlockRenderer';
 import HeaderArticle from '@/modules/components/HeaderArticle';
-import { getCachedDocument } from '@/modules/utilities/getDocument';
+import {
+	getCachedDocument,
+	getCachedDocuments,
+} from '@/modules/utilities/getDocument';
 
 interface PageProps {
 	params: Promise<{ slug: string }>;
 }
 
+export async function generateStaticParams() {
+	const posts = (await getCachedDocuments(
+		'posts',
+		2,
+		100
+	)) as PaginatedDocs<Post>;
+	const params = posts.docs.map(({ slug }) => {
+		return { slug };
+	});
+
+	return params;
+}
+
 export default async function BlogPost({ params }: PageProps) {
 	const { slug } = await params;
-	const post = (await getCachedDocument('posts', slug, 2)) as Post;
+	const { isEnabled: draft } = await draftMode();
+	const post = (await getCachedDocument('posts', slug, 2, draft)) as Post;
 
 	if (!post) {
 		notFound();

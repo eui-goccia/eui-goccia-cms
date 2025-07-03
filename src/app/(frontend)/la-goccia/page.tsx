@@ -1,10 +1,10 @@
-import type { Goccia } from '@payload-types';
+import type { LaGoccia } from '@payload-types';
 import SectionBreakText from '@/modules/components/shared/SectionBreakText';
 import TimelineEvent from '@/modules/components/TimelineEvent';
 import { getCachedGlobal } from '@/modules/utilities/getGlobals';
 
 export default async function GocciaPage() {
-	const goccia = (await getCachedGlobal('goccia', 1)) as Goccia;
+	const goccia = (await getCachedGlobal('la-goccia', 1)) as LaGoccia;
 	return (
 		<main className='mb-auto'>
 			<h1 className='sr-only'>La Goccia</h1>

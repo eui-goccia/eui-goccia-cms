@@ -3,6 +3,9 @@ import CardArticle from '@/modules/components/CardArticle';
 import type { Post } from '@/modules/payload/payload-types';
 import { getCachedDocuments } from '@/modules/utilities/getDocument';
 
+export const dynamic = 'force-static';
+export const revalidate = 600;
+
 export default async function Blog() {
 	const posts = (await getCachedDocuments('posts', 2)) as PaginatedDocs<Post>;
 
