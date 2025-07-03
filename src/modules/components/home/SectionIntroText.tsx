@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import MarqueeLogo from '@/modules/components/MarqueeLogo';
 
 /* TODO add grid like the other pages */

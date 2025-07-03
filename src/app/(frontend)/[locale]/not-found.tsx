@@ -1,7 +1,7 @@
 'use client';
 
-import Link from 'next/link';
 import { usePlausible } from 'next-plausible';
+import { Link } from '@/i18n/routing';
 import { Button } from '@/modules/components/ui/button';
 
 export default function NotFound() {

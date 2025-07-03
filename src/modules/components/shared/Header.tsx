@@ -1,8 +1,8 @@
 'use client';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Fragment, useState } from 'react';
+import { Link } from '@/i18n/routing';
 import LogoGoccia from '@/modules/components/logos/LogoGoccia';
 
 export default function Header() {

@@ -1,5 +1,5 @@
 import type { Image as ImageType, Post } from '@payload-types';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { CustomImage } from './CustomImage';
 
 interface CardArticleProps {

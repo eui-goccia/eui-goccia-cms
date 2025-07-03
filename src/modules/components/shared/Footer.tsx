@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import LogoEU from '../logos/LogoEU';
 import LogoEUI from '../logos/LogoEUI';
 import LogoGoccia from '../logos/LogoGoccia';

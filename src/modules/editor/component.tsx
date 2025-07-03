@@ -17,7 +17,7 @@ import {
 	type JSXConverter,
 	type JSXConvertersFunction,
 } from '@payloadcms/richtext-lexical/react';
-import Link from 'next/link';
+import { Link } from '@/i18n/routing';
 import { cn } from '@/modules/utilities/cnUtils';
 import { CustomImage } from '../components/CustomImage';
 

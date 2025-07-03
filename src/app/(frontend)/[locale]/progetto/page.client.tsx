@@ -1,7 +1,7 @@
 'use client';
 import type { Progetto } from '@payload-types';
-import Link from 'next/link';
 import { Fragment, useEffect, useState } from 'react';
+import { Link } from '@/i18n/routing';
 import { BlockRenderer } from '@/modules/blocks/BlockRenderer';
 import BlockHeading from '@/modules/components/BlockHeading';
 import SectionBreakFill from '@/modules/components/shared/SectionBreakFill';
