@@ -111,13 +111,22 @@ const getAssetPath = (filename: string): string | null => {
 		'progetto_3.webp': 'src/assets/images/progetto/progetto_3.webp',
 		'progetto_4.webp': 'src/assets/images/progetto/progetto_4.webp',
 		
-		// Blog images
+		// Blog images - Post 1
 		'goccia_terrapreta.webp': 'src/assets/images/posts/1/goccia_terrapreta.webp',
 		'torre_terrapreta.webp': 'src/assets/images/posts/1/torre_terrapreta.webp', 
 		'gasometro_terrapreta.webp': 'src/assets/images/posts/1/gasometro_terrapreta.webp',
 		'vincenzi.webp': 'src/assets/images/posts/1/vincenzi.webp',
 		'goccia-damare.webp': 'src/assets/images/posts/1/goccia-damare.webp',
 		'cover_merati.webp': 'src/assets/images/posts/1/cover_merati.webp',
+		
+		// Blog images - Post 2
+		'cover.webp': 'src/assets/images/posts/2/cover.webp',
+		
+		// Blog images - Post 3
+		'galasso.webp': 'src/assets/images/posts/3/galasso.webp',
+		'specie.webp': 'src/assets/images/posts/3/specie.webp',
+		'margherite.webp': 'src/assets/images/posts/3/margherite.webp',
+		'cover-1.webp': 'src/assets/images/posts/3/cover-1.webp',
 		
 		// Partner logos
 		'milano.webp': 'src/assets/images/logos/milano.png',
@@ -567,6 +576,51 @@ const createAboutData = async (payload: BasePayload, aboutData: About): Promise<
 	}
 };
 
+const cleanupDatabase = async (payload: BasePayload): Promise<void> => {
+	try {
+		console.log('🧹 Cleaning up existing data...');
+
+		// Delete posts first
+		console.log('🗑️  Deleting all posts...');
+		
+			await payload.delete({
+				collection: 'posts',
+				where:{
+					exists:{}
+				}
+			});
+		console.log(`✅ Deleted all posts`);
+
+		// Delete authors
+		console.log('🗑️  Deleting all authors...');
+		
+		
+			await payload.delete({
+				collection: 'authors',
+				where:{
+					exists:{}
+				}
+			});
+		console.log(`✅ Deleted all authors`);
+
+		// Delete images
+		console.log('🗑️  Deleting all images...');
+		
+			await payload.delete({
+				collection: 'images',
+				where:{
+					exists:{}
+				}
+			});
+		console.log(`✅ Deleted all images`);
+
+		console.log('🎯 Database cleanup completed!');
+	} catch (error) {
+		console.error('❌ Error during cleanup:', error);
+		throw error;
+	}
+};
+
 export const seed = async ({
 	payload,
 	req: _req,
@@ -582,7 +636,10 @@ export const seed = async ({
 		const { project }: { project: Progetto } = await import('../../../app/(frontend)/[locale]/progetto/data');
 		const { about }: { about: About } = await import('../../../app/(frontend)/[locale]/about/data');
 
-		console.log('🔄 Preparing to seed data (will overwrite existing data)...');
+		// Clean up existing data first
+		await cleanupDatabase(payload);
+
+		console.log('🔄 Preparing to seed fresh data...');
 
 		console.log('📝 Creating blog posts...');
 		for (const post of posts) {

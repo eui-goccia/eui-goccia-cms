@@ -1125,4 +1125,1365 @@ export const posts: Post[] = [
 		createdAt: '2025-07-02T22:00:01.939Z',
 		_status: 'published',
 	},
+	{
+		id: 'fd4ce606-201e-4d3f-9f29-e8f42e5b0190',
+		title: 'The Forest that Come Back: A Life in La Goccia',
+		description: null,
+
+		content: [
+			{
+				id: '686658a5e37b1222d22a6234',
+				vertical: 'top',
+				horizontal: 'left',
+				blockName: null,
+				blockType: 'richText',
+
+				content: {
+					root: {
+						children: [
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'My first memory of La Goccia is a blur — I was very young then. A long time has passed, but I will never forget it. One day, people arrived with machines and cut down many trees to build structures and lay down rails and pipes. I remember those huge metal towers holding giant spheres. That sight left a lasting impression on me.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'After that, everything changed. The air had a sharp, pungent smell, like when a forest burns and even the stones catch fire. Everything around me vibrated with motion: trains screeched in and out, workers shouted above the hiss of the pipes, and the sky glowed orange at night, lit up by the flames escaping the metal chimneys.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'Back then, my neighbourhood was unlike any other in Milan. Those steel giants — gasometers, they called them — towered over the few trees that had survived, casting long shadows over the cracked concrete and rooftops blackened by dust. The green that once prevailed gave way to grey and the brown of rust. Some said there was something in the soil that killed life. Even so, I grew — a little lonely, since there were no others my age nearby. And in my solitude, I watched everything change.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'In those days, La Goccia was an industrial zone. People in soot-covered overalls and hard hats moved with determination, working tirelessly until a whistle blew. I didn’t understand much of what they did, but I could feel the frantic activity. Something important was happening there, important enough for so many people and machines to come and go.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'Until one day, the rhythm stopped.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'No more trains arrived. No more footsteps echoed. Just silence.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'The gas plant had closed. I didn’t know why, and I didn’t really care. The silence lingered for a long time — heavy and unsettling, like a breath held too long. The machines stood still, slowly rusting under the weight of time. Some collapsed. Others stood, like rocks weathered by ocean waves.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'Then something unexpected happened.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'It started with tiny cracks in the concrete. A blade of grass here, a stubborn shrub there. A few birds returned. So did the wind, slipping through the empty structures, carrying with it fresher air. I was no longer alone. Others like me arrived — tall and slender, or knotty and full. My neighbourhood, once a factory, was becoming a forest. A spontaneous forest.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'For some reason, that poison in the soil didn’t stop plants, trees or lichens from growing. I was thrilled to meet my new neighbours. They didn’t speak, but I knew them by their scent, the rustle of their leaves, the shapes of their crowns. It had been a long time since youth filled this neighbourhood. But life returned to every corner, sprouting over concrete, through the windows of old buildings, and between the rails.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'For years, we lived in peace, and I was a happy tree — although all of us lived with a quiet fear that people and machines would one day return. And sometimes they did, but they never stayed long.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'I remember the day we heard footsteps again. But this time, they were different.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'At first, we were afraid. Were they coming to destroy everything again? The wind carried old rumours of people wanting to build, erase, begin anew. But these steps were slower. Curious. Gentle.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'They didn’t bring machines. They brought notebooks. Cameras. Questions. And wonder at what they saw and felt',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'They walked slowly, sometimes in groups, sometimes alone. They paused often. I saw them pointing at fungi on tree trunks, photographing bark, crouching to watch butterflies. They called this place La Goccia. They spoke of it not as an abandoned industrial site, but as a “spontaneous forest,” a space of resistance, of possibility. Some said it was “a world that begins where the pavement ends.”',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'They began gathering in one of the old Polytechnic buildings. I could hear them talk — researchers, artists, architects, city representatives. They spoke of things I still don’t fully understand, even after all my years: phytoremediation, interspecies governance, new urban models, climate adaptation... Strange words, but their intentions were clear. They hadn’t come to take — they had come to learn.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'Humans are strange. It’s not enough for them to hear, see and touch. They want to get to the bottom of things. They dig into the soil to take samples. Sometimes they scratch my old bark and it tickles. I’ve heard them say they are like doctors, and I’ve heard them mention that the poison in the soil is disappearing thanks to us.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'Not long ago, they came in a group, accompanied by an expert from far away. They spoke for hours, their voices drifting through the forest’s silence.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: '“You need to open a different kind of gaze when you enter this place,” one of them said. “Until you do, you cannot truly grasp the symbolic power of what’s here.”',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'They spoke of inviting more people in, and dreamt of turning my home into a living laboratory for learning, healing and coexisting. They wanted people to understand the forest not only with their eyes, but with their imagination.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'They mentioned something called the European Urban Initiative — a programme that supports bold ideas for transforming cities. La Goccia, they said, had been selected for an Innovative Action project. It would become a testing ground for new models — where urban regeneration meets environmental justice, and where policies are shaped not only for nature, but with it.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'I listened, still and silent. How could we ever take part in human matters? Trees don’t speak. But we do remember.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'From deep within my roots, I remembered the fire and the silence. The soot and the sprouts. And now, I welcomed something new: care.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'La Goccia is no longer a forgotten industrial corner of Milan. It is a space of imagination, where the boundaries between past and future blur — and where the forest is no longer hidden: it is centre stage.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'And I, the old tree at the heart of it all, still stand — holding the memory of the city in my rings.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+						],
+						direction: 'ltr',
+						format: '',
+						indent: 0,
+						type: 'root',
+						version: 1,
+					},
+				},
+			},
+		],
+
+		meta: {
+			title: null,
+			image: null,
+			description: null,
+		},
+
+		coverImage: {
+			id: '12cb34b2-6a04-4c53-80b5-465d6e9fac7c',
+			caption: '©Luisa Facchinetti e Tommaso Tresso',
+			blurHash:
+				'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAKCAIAAAD3rtNaAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA50lEQVR4nAHcACP/AMzMYPv8m21yKCUgAAgIAKaqN7a2RQBxeBnU2VTIx2s5OwmAgi358pjp5ZUAfX8gk5Ut0MxZPUILgoM80c5r2NeCAHV9H3R6JL69Tis2AIeNP6+lVfjwfgCFhTvAwlxaXSM3QAOXkkj/94br72oAmaBVoadcYWMfGxsA0Mhr+u6A+fqJAIuWQYGPMJuZTSIkAIeBNc3AYP//mgCCkCqCiipBRQYvOwCzs1vS1W2lqkgAa3UYT1QOJysASFgLpK1fucBru8B3AFleF1RjDU9hC2N0H4OPPXuCPHN+MVjSYLvBr3n/AAAAAElFTkSuQmCC',
+			prefix: 'images',
+			updatedAt: '2025-07-03T10:16:34.400Z',
+			createdAt: '2025-07-03T10:16:34.401Z',
+			url: '/api/images/file/cover.webp',
+			thumbnailURL: '/api/images/file/cover-300x450.webp',
+			filename: 'cover.webp',
+			mimeType: 'image/webp',
+			filesize: 1687436,
+			width: 2500,
+			height: 3750,
+			focalX: 50,
+			focalY: 50,
+
+			sizes: {
+				thumbnail: {
+					url: '/api/images/file/cover-300x450.webp',
+					width: 300,
+					height: 450,
+					mimeType: 'image/webp',
+					filesize: 57260,
+					filename: 'cover-300x450.webp',
+				},
+
+				medium: {
+					url: '/api/images/file/cover-900x1350.webp',
+					width: 900,
+					height: 1350,
+					mimeType: 'image/webp',
+					filesize: 388378,
+					filename: 'cover-900x1350.webp',
+				},
+
+				large: {
+					url: '/api/images/file/cover-1400x2100.webp',
+					width: 1400,
+					height: 2100,
+					mimeType: 'image/webp',
+					filesize: 750694,
+					filename: 'cover-1400x2100.webp',
+				},
+
+				xlarge: {
+					url: '/api/images/file/cover-1920x2880.webp',
+					width: 1920,
+					height: 2880,
+					mimeType: 'image/webp',
+					filesize: 1136506,
+					filename: 'cover-1920x2880.webp',
+				},
+
+				og: {
+					url: '/api/images/file/cover-420x630.webp',
+					width: 420,
+					height: 630,
+					mimeType: 'image/webp',
+					filesize: 105600,
+					filename: 'cover-420x630.webp',
+				},
+			},
+		},
+
+		author: {
+			id: '784668b8-7694-4c92-bf6b-10e2a56a53e4',
+			name: 'José Costero',
+
+			posts: {
+				docs: ['fd4ce606-201e-4d3f-9f29-e8f42e5b0190'],
+				hasNextPage: false,
+			},
+			slug: 'jos-costero',
+			slugLock: true,
+			updatedAt: '2025-07-03T10:15:57.081Z',
+			createdAt: '2025-07-03T10:15:57.081Z',
+		},
+		publishedAt: '2025-06-26T22:00:00.000Z',
+		slug: 'the-forest-that-come-back-a-life-in-la-goccia',
+		slugLock: true,
+		updatedAt: '2025-07-03T10:19:48.705Z',
+		createdAt: '2025-07-03T10:15:07.562Z',
+		_status: 'published',
+	},
+	{
+		id: 'cc2f90da-a17f-4001-9f89-1fa159e3288b',
+		title: 'Breve viaggio tra la flora della Goccia',
+		description: null,
+
+		content: [
+			{
+				id: '68665a17e37b1222d22a6236',
+				vertical: 'top',
+				horizontal: 'left',
+				blockName: null,
+				blockType: 'richText',
+
+				content: {
+					root: {
+						children: [
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'Molte delle piante cresciute all’interno della foresta della Goccia hanno la caratteristica di apprezzare un suolo povero, sassoso, abbandonato. E non potrebbe essere altrimenti, visto che questa foresta urbana – che confina con i quartieri di Quarto Oggiaro, Villapizzone e Bovisa, a nord di Milano – sorge su quello che per circa un secolo, a partire dal 1908, è stato un sito industriale. Per la precisione, un sito per la produzione del gas a partire dalla distillazione del carbone, necessario per l’illuminazione cittadina prima e per gli usi domestici e industriali dopo. Da poco più di tre decenni, vale a dire dalla definitiva dismissione, nel 1994, delle cosiddette “Officine del Gas”, il verde sta riconquistando il suo spazio, dando vita a una foresta racchiusa dalle mura di cemento che circondano la Goccia, nascondendola alla vista dei passanti.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: "Degli oltre trenta ettari complessivi che costituiscono l’area della Goccia, così chiamata per via della caratteristica forma che assume se osservata dall’alto, circa 18 saranno destinati alla valorizzazione del foresta che si è fatto largo tra edifici industriali, tombini di ghisa, piattaforme di cemento che ospitavano i carichi di carbone giunti sui treni e casupole che in tempi più recenti hanno ospitato qualche decina di abitanti abusivi. Un bosco, cresciuto su chiazze di asfalto e contaminato dai diversi scarti della lavorazione del carbone, che verrà sottoposto a un processo di bonifica sperimentale, tramite lo strumento della 'bioremediation'.",
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: '“Di fatto ci troviamo all’interno di una foresta, ma formalmente si tratta di un’area inquinata soggetta a bonifica”, mi spiega Gabriele Galasso, botanico del Museo Civico di Storia Naturale di Milano che, assieme alla collega Lara Quaglini, mi accompagna nella visita di un luogo ancora interdetto al pubblico, ma che per molti anni è stato visitato, più o meno abusivamente, da curiosi e gruppi di Urbex (esploratori urbani), spesso attratti dai ruderi delle architetture industriali dalle sagome dei due gasometri, sono diventati il simbolo stesso della Bovisa e del suo passato industriale. Entriamo nella Goccia dall’ingresso situato a nord-ovest, dalla parte opposta rispetto ai lavori di costruzione, che interessano invece l’area più vicina ai gasometri, e dove i binari della ferrovia separano la Bovisa dal quartiere Villapizzone. Da qui, un tempo, entravano i carichi di carbone destinati alla distillazione. Oggi invece crescono spontaneamente piante e fiori che amano i luoghi abbandonati e che in questo paesaggio post-industriale hanno trovato il loro habitat ideale: il verbasco, che cresce nelle crepe dell’asfalto ed è ricoperto di peli per difendersi dai raggi solari e dalla disidratazione; la sassifraga, una specie protetta, un tempo diffusa sui bastioni milanesi e che oggi resiste soltanto in zone ferroviarie e contesti marginali (com’è ovviamente quello in cui ci troviamo); il senecione sudafricano, una specie invasiva che per diffondersi sfrutta le ferrovie e le altre vie di comunicazione, adattandosi, come mi spiega Galasso, “a situazioni di grande stress e degrado ambientale”.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								type: 'upload',
+								version: 3,
+								format: '',
+								id: '68665a494d81ec1e29f8216d',
+								fields: null,
+								relationTo: 'images',
+
+								value: {
+									id: '0ca65a7f-0e27-4db6-9feb-a9f51ba30087',
+									caption:
+										'Gabriele Galasso, Botanico del Museo Civico di Storia Naturale di Miano',
+									blurHash:
+										'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAw0lEQVR4nGMQN+XVDVJxybPKnxDy/++tzLYQtzRb82g9s2B9cSNhBmUbef0gTdc8p4VL6p8fXpdTHhTVFGCdaCplJSZtIsYgpC7sW+ybNDlt8drW7VNqqvriAyp9HLNtTaJ0xY1EGcR0xQyCDOxTbZs76ltSfZySrcNbA01CNDXcFXilWRkkDMUNfay9QzOVDMK8HGwllPR13YzFjYQ5pVjYxBgZGDgYOMVkxaSVeaVsWLmkmHhk+cQF2cQY2cWYGQUZAJbYLlK4lGWKAAAAAElFTkSuQmCC',
+									prefix: 'images',
+									updatedAt: '2025-07-03T10:24:09.470Z',
+									createdAt: '2025-07-03T10:24:09.471Z',
+									url: '/api/images/file/galasso.webp',
+									thumbnailURL: '/api/images/file/galasso-300x169.webp',
+									filename: 'galasso.webp',
+									mimeType: 'image/webp',
+									filesize: 125374,
+									width: 2500,
+									height: 1407,
+									focalX: 50,
+									focalY: 50,
+
+									sizes: {
+										thumbnail: {
+											url: '/api/images/file/galasso-300x169.webp',
+											width: 300,
+											height: 169,
+											mimeType: 'image/webp',
+											filesize: 7028,
+											filename: 'galasso-300x169.webp',
+										},
+
+										medium: {
+											url: '/api/images/file/galasso-900x507.webp',
+											width: 900,
+											height: 507,
+											mimeType: 'image/webp',
+											filesize: 29538,
+											filename: 'galasso-900x507.webp',
+										},
+
+										large: {
+											url: '/api/images/file/galasso-1400x788.webp',
+											width: 1400,
+											height: 788,
+											mimeType: 'image/webp',
+											filesize: 56972,
+											filename: 'galasso-1400x788.webp',
+										},
+
+										xlarge: {
+											url: '/api/images/file/galasso-1920x1081.webp',
+											width: 1920,
+											height: 1081,
+											mimeType: 'image/webp',
+											filesize: 85254,
+											filename: 'galasso-1920x1081.webp',
+										},
+
+										og: {
+											url: '/api/images/file/galasso-1119x630.webp',
+											width: 1119,
+											height: 630,
+											mimeType: 'image/webp',
+											filesize: 41520,
+											filename: 'galasso-1119x630.webp',
+										},
+									},
+								},
+							},
+						],
+						direction: 'ltr',
+						format: '',
+						indent: 0,
+						type: 'root',
+						version: 1,
+					},
+				},
+			},
+
+			{
+				id: '68665a56e37b1222d22a6238',
+				vertical: 'top',
+				horizontal: 'left',
+				blockName: null,
+				blockType: 'richText',
+
+				content: {
+					root: {
+						children: [
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'E poi c’è la Petrorhagia dubia (anche nota come garofanina vellutata): una pianta che ama i luoghi abbandonati, il suolo povero e ghiaioso, ma con elevato contenuto di acqua, e che proprio qui è stata per la prima volta trovata in Lombardia, essendo una pianta tipica della zona mediterranea (e che potrebbe essere giunta fino in Bovisa a causa del riscaldamento dell’ambiente o portata dall’attività umana). Per queste ragioni, la Petrorhagia dubia sarà a breve protagonista di una pubblicazione sulla rivista scientifica del Natural History Sciences, la rivista scientifica del Museo Civico di Storia Naturale di Milano (pubblicata fin dal 1870, ma precedentemente nota con il più arcaico nome di Atti della Società Italiana di Scienze Naturali). Tra le tante piante che apprezzano questo panorama post-industriale e contribuiscono alla sua rinascita, ne sbucano altre che, invece, rappresentano la memoria storica della zona di Milano e la popolano da prima che la città stessa, attorno al V secolo a.C., venisse fondata. È il caso dell’orchidea selvatica (Cephalanthera longifolia): una pianta nativa la cui diffusione da queste parti precede sia l’epoca industriale sia quella agricola.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'Osservando lo spaccasassi e le tante altre piante in grado di farsi largo tra l’asfalto e impossessarsi degli edifici abbandonati, l’immaginazione corre a un possibile futuro in stile The Last of Us o di altri racconti post-apocalittici, in cui la zona di Milano viene riconquistata dalle foreste che qui vivevano prima che si insediasse l’essere umano:',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: '“L’area di Milano era ricoperta da una foresta costituita, sotto la linea dei fontanili, da farnie, carpino bianco e acero campestre; mentre al di sopra, cioè dove ci troviamo adesso e in particolare nei boschi delle vicine Affori e Bruzzano, c’erano soprattutto roveri e un altro tipo di quercia, simile alla farnia ma più adatta ai terreni poveri d’acqua”, spiega Gabriele Galasso.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: "La linea dei fontanili (sorgenti d'acqua tipiche del territorio del Parco Agricolo Sud Milano) demarca il passaggio dall’alta alla bassa pianura padana, dove il terreno cambia e da ghiaioso diventa argilloso. Nell’alta pianura padana, l’acqua piovana percola quindi nella ghiaia, si accumula nella falda e poi, incontrando lo strato argilloso della bassa pianura, affiora naturalmente in superficie sotto forma di fontanili, permettendo – a partire dall’arrivo dei monaci cistercensi e certosini attorno al 1100 circa – di sviluppare la tecnica di coltura delle marcite e dando il via alla zootecnia padana, alla produzione di abbondante fieno e, di conseguenza, anche alla nascita del Grana Padano.",
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'È per questa ragione che la zona sud di Milano è rimasta a lungo agricola e in parte lo è ancora oggi, mentre la zona nord è stata la prima a industrializzarsi. Un differente destino di cui gli alberi autoctoni presenti nella Goccia – mancano le farnie, ma ci sono ciliegi e anche aceri – conservano la memoria delle foreste planiziali. Nella foresta della Bovisa non ci sono però solo specie autoctone, anzi: “Abbiamo censito circa 250 specie, il numero di specie native è risultato superiore rispetto all’atteso, mentre nel comune di Milano solitamente ne troviamo un numero inferiore”, prosegue il botanico del Museo di Scienze Naturali. “Anche il numero di specie esotiche, che sono circa il 25-30%, è superiore all’atteso, ma è un valore simile a quello che riscontriamo nel resto di Milano e nella Pianura Padana, dove le piante esotiche vengono portate dal movimento delle persone”.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'Tra le specie aliene che hanno trovato casa nella Goccia, ce ne sono alcune invasive e infestanti, capaci di alterare l’equilibrio ecologico e di occupare con rapidità gli spazi lasciati liberi. È il caso dell’ailanto, un albero originario della Cina incluso nella black list dell’Unione Europea per la sua elevata aggressività: le sue radici rilasciano infatti sostanze che impediscono la crescita delle altre piante. “Per il momento, all’interno della Goccia cresce solo residualmente”, prosegue Galasso. “Ma bisogna stare attenti, perché si espande facilmente ed eliminarlo è molto complesso”.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'Un altro esempio è il già citato senecione sudafricano: una pianta erbacea che sfrutta le vie di comunicazione — ferrovie, strade, sentieri di montagna — per diffondersi e che si adatta con facilità a situazioni di forte stress ambientale. “Come succede per molte specie esotiche, gli viene assegnato lo status di specie invasiva perché può avere impatti negativi sulle specie native, sulle infrastrutture o persino sulla salute”, mi spiega Lara Quaglini. “Ma spesso mancano studi a conferma di questi effetti. Per questo abbiamo condotto e pubblicato una ricerca per valutare l’impatto ecologico del senecione sulla flora e sui microorganismi del suolo, ma non abbiamo riscontrato effetti significativi. Certo, può diventare localmente abbondante, ma tende a comparire dove la vegetazione è rada: quando l’ambiente si chiude, non riesce più a competere. In ogni caso, essendo tossico per l’essere umano e per il bestiame, va tenuto d’occhio”.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								type: 'upload',
+								version: 3,
+								format: '',
+								id: '68665aa44d81ec1e29f8216e',
+								fields: null,
+								relationTo: 'images',
+
+								value: {
+									id: '46b76323-4921-4a4a-b3fb-d151785c1a71',
+									caption: 'Sono circa 250 le piante censite alla Goccia',
+									blurHash:
+										'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAxUlEQVR4nAG6AEX/AA0cFTtWIpCFVaSfYjteJCpMG0pxMERxLipMGx08EwADChNggjt2mERyez65rnExViBNczQ4YycvVSAcOxIACxEdQ1YlapVISm4uemI8TWMxM04gPF4nQW4qLlMcAAAGBmaDRWKMPC1CFxAYA0xvNXWjVUBrLUd4Ly9cIgAAAwFbbj1VbDBDWigmLhFQgTdoqkiBzlpoqkg7ZCUAAgQDP0wlT1YuXnQ7XolEcrNPvf+Cd7hLVo82NWIgQpc1AEO0FQ8AAAAASUVORK5CYII=',
+									prefix: 'images',
+									updatedAt: '2025-07-03T10:25:40.260Z',
+									createdAt: '2025-07-03T10:25:40.261Z',
+									url: '/api/images/file/specie.webp',
+									thumbnailURL: '/api/images/file/specie-300x169.webp',
+									filename: 'specie.webp',
+									mimeType: 'image/webp',
+									filesize: 193342,
+									width: 2500,
+									height: 1407,
+									focalX: 50,
+									focalY: 50,
+
+									sizes: {
+										thumbnail: {
+											url: '/api/images/file/specie-300x169.webp',
+											width: 300,
+											height: 169,
+											mimeType: 'image/webp',
+											filesize: 12894,
+											filename: 'specie-300x169.webp',
+										},
+
+										medium: {
+											url: '/api/images/file/specie-900x507.webp',
+											width: 900,
+											height: 507,
+											mimeType: 'image/webp',
+											filesize: 56286,
+											filename: 'specie-900x507.webp',
+										},
+
+										large: {
+											url: '/api/images/file/specie-1400x788.webp',
+											width: 1400,
+											height: 788,
+											mimeType: 'image/webp',
+											filesize: 99940,
+											filename: 'specie-1400x788.webp',
+										},
+
+										xlarge: {
+											url: '/api/images/file/specie-1920x1081.webp',
+											width: 1920,
+											height: 1081,
+											mimeType: 'image/webp',
+											filesize: 136918,
+											filename: 'specie-1920x1081.webp',
+										},
+
+										og: {
+											url: '/api/images/file/specie-1119x630.webp',
+											width: 1119,
+											height: 630,
+											mimeType: 'image/webp',
+											filesize: 73852,
+											filename: 'specie-1119x630.webp',
+										},
+									},
+								},
+							},
+						],
+						direction: 'ltr',
+						format: '',
+						indent: 0,
+						type: 'root',
+						version: 1,
+					},
+				},
+			},
+
+			{
+				id: '68665ab6e37b1222d22a623a',
+				vertical: 'top',
+				horizontal: 'left',
+				blockName: null,
+				blockType: 'richText',
+
+				content: {
+					root: {
+						children: [
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'Oltre al controllo sulla diffusione e la nocività delle specie invasive, è di fondamentale importanza monitorare la bonifica, che, come accennato, sta avvenendo anche per processi naturali e di cui si possono già individuare dei segnali importanti e positivi. Uno di questi è la presenza, nel cuore della foresta della Goccia, della Cladonia rei: una specie di lichene che non può crescere in un terreno contaminato e la cui presenza indica che almeno una porzione di suolo è stata bonificata naturalmente e non richiede interventi ulteriori. Gli esperti che si prendono cura della Goccia stanno infatti studiando in che modo le piante stesse, con l’aiuto di funghi e batteri, possono contribuire alla bonifica dell’area, assorbendo e metabolizzando idrocarburi e metalli pesanti. Capire come funzionano le dinamiche di questo processo, conosciuto come biorisanamento, aiuterà a decidere se, dove, come e quanto intervenire con soluzioni naturali.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: '“Milano un tempo era considerato un ‘deserto lichenico’”, spiega Galasso. “La presenza dei licheni qui, in varie specie, significa che l’aria è pulita dagli ossidi”. Lo conferma anche la presenza della Bacidina adastra, un’altra specie di lichene che, in Lombardia, è stata identificata per la prima volta nella Goccia.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'Mentre ci addentriamo nel bosco sempre più fitto incontriamo la vitalba, una liana nativa della zona; rovi che producono more; felci nate probabilmente all’interno degli edifici abbandonati e che hanno poi trovato nuovo spazio nel bosco; la cicoria spontanea, caratterizzata dai fiori azzurri che si aprono solo a inizio giornata per poi richiudersi quando aumenta il caldo; la pianta parassita phelipanche, con i suoi vistosi fiori simili a piccole orchidee; e ancora orzo selvatico, malva, fiordaliso dei prati, menta e anche alberi definiti “pionieri”, perché capaci di colonizzare rapidamente i suoli disturbati, come pioppi, olmi e robinie. ',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'Alcune trovano il loro habitat ideale nel centro della foresta, ma molte altre piante, come abbiamo visto, prediligono i suoli poveri e il sole, concentrandosi là dove ci sono i prati arborati e le radure. Ed è per permettere la loro permanenza, e quindi l’arricchimento della biodiversità, che la foresta dev’essere attivamente gestita, come mi spiegano Galasso e Quaglini: “Le piante che apprezzano questi spazi rischiano di essere eliminate quando il bosco si amplia e riempie anche le radure. In natura, quando gli alberi cadono si creano delle chiarie e il ciclo naturale riprende, ma nelle aree circoscritte questo fenomeno è abbastanza bloccato. Se si vogliono mantenere questi ambienti e preservare la biodiversità, occorre rimuovere di tanto in tanto le chiazze di muschio e di erba per far ripartire il ciclo, altrimenti nel giro di 10 o 20 anni diventa tutto bosco, riducendo il numero di specie. La biodiversità, d’altra parte, è data dalla somma degli ambienti e delle specie che le popolano, se diventa un ambiente solo ci sarà necessariamente una biodiversità inferiore”.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								type: 'upload',
+								version: 3,
+								format: '',
+								id: '68665ae84d81ec1e29f8216f',
+								fields: null,
+								relationTo: 'images',
+
+								value: {
+									id: 'f82c1333-5197-42e4-81e1-06d1cec7f4e9',
+									caption: 'Le margherite della Goccia',
+									blurHash:
+										'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAxUlEQVR4nAG6AEX/ACksE1daM3l/SXiUUW6QUsTXolx3PXWEUiExExcjCAAFFwB0cEeBiVLA1JGBnGCQrGhzj013f0g0RyIcKQ4AAAAAPEwrpLB12OWbucuHn65jw9aTjJxeiZpsRlIzAAAMADtKLcTXn/X/vrvBge7yocrRhvH2vG13SEpRLQAeHBVTXECMmGeiq3LKxoDJwn7I1Y96d01jaEIaFwUAaFpVqp+Tr6OIwLWRzcmG3N+ZvsKLiIdiYllHJiAX7zRSx8eBZ58AAAAASUVORK5CYII=',
+									prefix: 'images',
+									updatedAt: '2025-07-03T10:26:48.715Z',
+									createdAt: '2025-07-03T10:26:48.717Z',
+									url: '/api/images/file/margherite.webp',
+									thumbnailURL: '/api/images/file/margherite-300x169.webp',
+									filename: 'margherite.webp',
+									mimeType: 'image/webp',
+									filesize: 111520,
+									width: 2500,
+									height: 1407,
+									focalX: 50,
+									focalY: 50,
+
+									sizes: {
+										thumbnail: {
+											url: '/api/images/file/margherite-300x169.webp',
+											width: 300,
+											height: 169,
+											mimeType: 'image/webp',
+											filesize: 9018,
+											filename: 'margherite-300x169.webp',
+										},
+
+										medium: {
+											url: '/api/images/file/margherite-900x507.webp',
+											width: 900,
+											height: 507,
+											mimeType: 'image/webp',
+											filesize: 35450,
+											filename: 'margherite-900x507.webp',
+										},
+
+										large: {
+											url: '/api/images/file/margherite-1400x788.webp',
+											width: 1400,
+											height: 788,
+											mimeType: 'image/webp',
+											filesize: 59686,
+											filename: 'margherite-1400x788.webp',
+										},
+
+										xlarge: {
+											url: '/api/images/file/margherite-1920x1081.webp',
+											width: 1920,
+											height: 1081,
+											mimeType: 'image/webp',
+											filesize: 83026,
+											filename: 'margherite-1920x1081.webp',
+										},
+
+										og: {
+											url: '/api/images/file/margherite-1119x630.webp',
+											width: 1119,
+											height: 630,
+											mimeType: 'image/webp',
+											filesize: 45828,
+											filename: 'margherite-1119x630.webp',
+										},
+									},
+								},
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'Biodiversità a cui contribuisce anche la fauna che caratterizza la Goccia, dove sono stati osservati numerosi animali: volpi (giunte da nord seguendo la ferrovia), allocchi, poiane, ricci, picchi, bisce, gufi. Una fauna che ha trovato ospitalità in una foresta cresciuta dove prima c’erano cemento e carbone.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+
+							{
+								children: [
+									{
+										detail: 0,
+										format: 0,
+										mode: 'normal',
+										style: '',
+										text: 'A differenza di altre zone verdi sorte di recente a Milano, la foresta della Goccia non è un luogo instagrammabile, ma da attraversare e contemplare: uno spazio parzialmente salvato dalla speculazione edilizia e dalle mire di chi aveva provato a definire “vuoto urbano” quello che invece è un bosco nato spontaneamente nella periferia industriale di Milano, popolato da centinaia di specie vegetali e numerose specie animali. E che simboleggia la capacità della natura di rigenerare, in un tempo eccezionalmente breve, quei deserti industriali che, senza nemmeno saperlo, abbandoniamo alle sue cure.',
+										type: 'text',
+										version: 1,
+									},
+								],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'paragraph',
+								version: 1,
+								textFormat: 0,
+								textStyle: '',
+							},
+						],
+						direction: 'ltr',
+						format: '',
+						indent: 0,
+						type: 'root',
+						version: 1,
+					},
+				},
+			},
+		],
+
+		meta: {
+			title: null,
+			image: null,
+			description: null,
+		},
+
+		coverImage: {
+			id: '0a3c38df-7ddf-400e-aa12-60b9e36a875b',
+			caption: 'Lara Quaglini, Botanica, nel verde della Goccia',
+			blurHash:
+				'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAxUlEQVR4nAG6AEX/ABktCjVRHWSFRk1tOFR2RG6UXWmRVWiQSl2COyxMFwBSbS9zlEmoznaizXi35ZC24JBhcEWo1Hpsk0o8VSMAQ18gYHs4mL1j5f+n0/+aUWFQsrR9dZpKU3M6KkMbACM+CUdjIXWUQpvCZZS9ag0ZCkhNKDBLFzdUHzlSIQAACQADEAAYJABJZCd6nFArPxwYFwIAAAAJFQAjMRIAGSIAAhQAJTsRLUMWRV8pTGMzAA8AFCIFERwAPFMlpFA4M0YIn3IAAAAASUVORK5CYII=',
+			prefix: 'images',
+			updatedAt: '2025-07-03T10:22:59.948Z',
+			createdAt: '2025-07-03T10:22:59.950Z',
+			url: '/api/images/file/cover-1.webp',
+			thumbnailURL: '/api/images/file/cover-1-300x169.webp',
+			filename: 'cover-1.webp',
+			mimeType: 'image/webp',
+			filesize: 495172,
+			width: 2500,
+			height: 1407,
+			focalX: 50,
+			focalY: 50,
+
+			sizes: {
+				thumbnail: {
+					url: '/api/images/file/cover-1-300x169.webp',
+					width: 300,
+					height: 169,
+					mimeType: 'image/webp',
+					filesize: 17190,
+					filename: 'cover-1-300x169.webp',
+				},
+
+				medium: {
+					url: '/api/images/file/cover-1-900x507.webp',
+					width: 900,
+					height: 507,
+					mimeType: 'image/webp',
+					filesize: 115996,
+					filename: 'cover-1-900x507.webp',
+				},
+
+				large: {
+					url: '/api/images/file/cover-1-1400x788.webp',
+					width: 1400,
+					height: 788,
+					mimeType: 'image/webp',
+					filesize: 224248,
+					filename: 'cover-1-1400x788.webp',
+				},
+
+				xlarge: {
+					url: '/api/images/file/cover-1-1920x1081.webp',
+					width: 1920,
+					height: 1081,
+					mimeType: 'image/webp',
+					filesize: 340488,
+					filename: 'cover-1-1920x1081.webp',
+				},
+
+				og: {
+					url: '/api/images/file/cover-1-1119x630.webp',
+					width: 1119,
+					height: 630,
+					mimeType: 'image/webp',
+					filesize: 163074,
+					filename: 'cover-1-1119x630.webp',
+				},
+			},
+		},
+
+		author: {
+			id: '4090d646-20df-4644-befb-d0ab41dfcce7',
+			name: 'Daniele Signorelli',
+
+			posts: {
+				docs: ['cc2f90da-a17f-4001-9f89-1fa159e3288b'],
+				hasNextPage: false,
+			},
+			slug: 'daniele-signorelli',
+			slugLock: true,
+			updatedAt: '2025-07-03T10:22:40.652Z',
+			createdAt: '2025-07-03T10:22:40.653Z',
+		},
+		publishedAt: '2025-06-29T22:00:00.000Z',
+		slug: 'breve-viaggio-tra-la-flora-della-goccia',
+		slugLock: true,
+		updatedAt: '2025-07-03T10:27:13.732Z',
+		createdAt: '2025-07-03T10:22:10.564Z',
+		_status: 'published',
+	},
 ];
