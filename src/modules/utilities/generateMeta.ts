@@ -1,9 +1,10 @@
 import type { Config, Image, Post } from '@payload-types';
 import type { Metadata } from 'next';
+import { getServerSideURL } from '@/modules/utilities/getURL';
 import { mergeOpenGraph } from './mergeOpenGraph';
 
 const getImageURL = (image?: Image | Config['db']['defaultIDType'] | null) => {
-	const serverUrl = process.env.NEXT_PUBLIC_URL || '';
+	const serverUrl = getServerSideURL();
 
 	let url = `${serverUrl}/og-image.webp`;
 

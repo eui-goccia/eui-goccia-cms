@@ -23,6 +23,24 @@ const nextConfig = {
 	turbopack: {
 		resolveExtensions: ['.ts', '.tsx', '.js', '.jsx', '.cjs', '.mjs'],
 	},
+	images: {
+		remotePatterns: [
+			{
+				protocol: 'http',
+				hostname:
+					process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL ??
+					process.env.NEXT_PUBLIC_VERCEL_URL ??
+					process.env.NEXT_PUBLIC_VERCEL_BRANCH_URL,
+			},
+			{
+				protocol: 'https',
+				hostname:
+					process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL ??
+					process.env.NEXT_PUBLIC_VERCEL_URL ??
+					process.env.NEXT_PUBLIC_VERCEL_BRANCH_URL,
+			},
+		],
+	},
 	rewrites,
 };
 

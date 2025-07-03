@@ -1,13 +1,14 @@
 'use client';
 import { usePathname } from 'next/navigation';
 import PlausibleProvider from 'next-plausible';
+import { getClientSideURL } from '../utilities/getURL';
 
 export const Plausible = ({ children }: { children: React.ReactNode }) => {
 	const pathname = usePathname();
 	return (
 		<PlausibleProvider
 			enabled={true}
-			customDomain={`${process.env.NEXT_PUBLIC_URL}/plausible`}
+			customDomain={`${getClientSideURL()}/plausible`}
 			domain={'eui-goccia.eu'}
 			selfHosted={false}
 			hash={true}

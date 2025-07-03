@@ -80,6 +80,10 @@ type Args = {
 	}>;
 };
 
+export const generateStaticParams = async () => {
+	return routing.locales.map((locale) => ({ locale }));
+};
+
 export default async function RootLayout({ children, params }: Readonly<Args>) {
 	const { locale } = await params;
 
