@@ -21,6 +21,29 @@ export const Goccia: GlobalConfig = {
 			label: 'Timeline',
 			fields: [
 				{
+					type: 'row',
+					fields: [
+						{
+							name: 'start',
+							type: 'number',
+							required: true,
+							label: 'Inizio Periodo',
+							admin: {
+								description:
+									"Inserire l'anno di inizio del periodo. IE: `2020`",
+							},
+						},
+						{
+							name: 'end',
+							type: 'number',
+							label: 'Fine Periodo',
+							admin: {
+								description: "Inserire l'anno di fine del periodo. IE: `2025`",
+							},
+						},
+					],
+				},
+				{
 					name: 'title',
 					type: 'text',
 					required: true,
@@ -40,23 +63,6 @@ export const Goccia: GlobalConfig = {
 					relationTo: 'images',
 					required: true,
 					label: 'Immagine di copertina',
-				},
-				{
-					name: 'start',
-					type: 'number',
-					required: true,
-					label: 'Inizio Periodo',
-					admin: {
-						description: "Inserire l'anno di inizio del periodo. IE: `2020`",
-					},
-				},
-				{
-					name: 'end',
-					type: 'number',
-					label: 'Fine Periodo',
-					admin: {
-						description: "Inserire l'anno di fine del periodo. IE: `2025`",
-					},
 				},
 			],
 		},

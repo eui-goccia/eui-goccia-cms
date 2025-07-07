@@ -846,6 +846,9 @@ export const authors = sqliteTable(
       .primaryKey()
       .$defaultFn(() => randomUUID()),
     name: text("name").notNull(),
+    image: text("image_id").references(() => images.id, {
+      onDelete: "set null",
+    }),
     slug: text("slug"),
     slugLock: integer("slug_lock", { mode: "boolean" }).default(true),
     updatedAt: text("updated_at")
@@ -856,6 +859,7 @@ export const authors = sqliteTable(
       .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
   },
   (columns) => ({
+    authors_image_idx: index("authors_image_idx").on(columns.image),
     authors_slug_idx: index("authors_slug_idx").on(columns.slug),
     authors_updated_at_idx: index("authors_updated_at_idx").on(
       columns.updatedAt,
@@ -870,6 +874,7 @@ export const authors_locales = sqliteTable(
   "authors_locales",
   {
     bio: text("bio"),
+    partner: text("partner"),
     id: integer("id").primaryKey(),
     _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
     _parentID: text("_parent_id").notNull(),
@@ -1475,13 +1480,13 @@ export const la_goccia_timeline = sqliteTable(
     _order: integer("_order").notNull(),
     _parentID: text("_parent_id").notNull(),
     id: text("id").primaryKey(),
+    start: numeric("start").notNull(),
+    end: numeric("end"),
     cover: text("cover_id")
       .notNull()
       .references(() => images.id, {
         onDelete: "set null",
       }),
-    start: numeric("start").notNull(),
-    end: numeric("end"),
   },
   (columns) => ({
     _orderIdx: index("la_goccia_timeline_order_idx").on(columns._order),
@@ -1984,7 +1989,12 @@ export const relations_authors_locales = relations(
     }),
   }),
 );
-export const relations_authors = relations(authors, ({ many }) => ({
+export const relations_authors = relations(authors, ({ one, many }) => ({
+  image: one(images, {
+    fields: [authors.image],
+    references: [images.id],
+    relationName: "image",
+  }),
   _locales: many(authors_locales, {
     relationName: "_locales",
   }),

@@ -78,6 +78,13 @@ export const Posts: CollectionConfig = {
 							localized: true,
 						},
 						{
+							name: 'tags',
+							type: 'relationship',
+							label: 'Tags',
+							relationTo: 'tags',
+							hasMany: true,
+						},
+						{
 							name: 'content',
 							type: 'blocks',
 							required: true,
@@ -131,13 +138,6 @@ export const Posts: CollectionConfig = {
 					},
 				],
 			},
-		},
-		{
-			name: 'tags',
-			type: 'relationship',
-			label: 'Tags',
-			relationTo: 'tags',
-			hasMany: true,
 		},
 		...slugField('title'),
 	],

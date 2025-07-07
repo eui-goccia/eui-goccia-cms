@@ -32,8 +32,20 @@ export const Authors: CollectionConfig = {
 		},
 		{
 			name: 'bio',
-			type: 'text',
+			type: 'textarea',
 			label: 'Biografia',
+			localized: true,
+		},
+		{
+			name: 'image',
+			type: 'upload',
+			relationTo: 'images',
+			label: 'Immagine',
+		},
+		{
+			name: 'partner',
+			type: 'textarea',
+			label: 'Partner',
 			localized: true,
 		},
 		{

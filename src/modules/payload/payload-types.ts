@@ -240,6 +240,7 @@ export interface Post {
   id: string;
   title: string;
   description?: string | null;
+  tags?: (string | Tag)[] | null;
   content: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | GridBlock)[];
   meta?: {
     title?: string | null;
@@ -252,12 +253,29 @@ export interface Post {
   coverImage: string | Image;
   author: string | Author;
   publishedAt?: string | null;
-  tags?: (string | Tag)[] | null;
   slug?: string | null;
   slugLock?: boolean | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: string;
+  name: string;
+  description?: string | null;
+  posts?: {
+    docs?: (string | Post)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -358,24 +376,8 @@ export interface Author {
   id: string;
   name: string;
   bio?: string | null;
-  posts?: {
-    docs?: (string | Post)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  slug?: string | null;
-  slugLock?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tags".
- */
-export interface Tag {
-  id: string;
-  name: string;
-  description?: string | null;
+  image?: (string | null) | Image;
+  partner?: string | null;
   posts?: {
     docs?: (string | Post)[];
     hasNextPage?: boolean;
@@ -654,6 +656,7 @@ export interface UsersSelect<T extends boolean = true> {
 export interface PostsSelect<T extends boolean = true> {
   title?: T;
   description?: T;
+  tags?: T;
   content?:
     | T
     | {
@@ -673,7 +676,6 @@ export interface PostsSelect<T extends boolean = true> {
   coverImage?: T;
   author?: T;
   publishedAt?: T;
-  tags?: T;
   slug?: T;
   slugLock?: T;
   updatedAt?: T;
@@ -748,6 +750,8 @@ export interface GridBlockSelect<T extends boolean = true> {
 export interface AuthorsSelect<T extends boolean = true> {
   name?: T;
   bio?: T;
+  image?: T;
+  partner?: T;
   posts?: T;
   slug?: T;
   slugLock?: T;
@@ -856,9 +860,6 @@ export interface LaGoccia {
   description: string;
   timeline?:
     | {
-        title: string;
-        description: string;
-        cover: string | Image;
         /**
          * Inserire l'anno di inizio del periodo. IE: `2020`
          */
@@ -867,6 +868,9 @@ export interface LaGoccia {
          * Inserire l'anno di fine del periodo. IE: `2025`
          */
         end?: number | null;
+        title: string;
+        description: string;
+        cover: string | Image;
         id?: string | null;
       }[]
     | null;
@@ -932,11 +936,11 @@ export interface LaGocciaSelect<T extends boolean = true> {
   timeline?:
     | T
     | {
+        start?: T;
+        end?: T;
         title?: T;
         description?: T;
         cover?: T;
-        start?: T;
-        end?: T;
         id?: T;
       };
   updatedAt?: T;
