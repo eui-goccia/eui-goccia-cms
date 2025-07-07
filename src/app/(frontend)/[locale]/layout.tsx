@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { ghost, greed, tagada } from '@/modules/utilities/customFonts';
 import '@/app/(frontend)/[locale]/global.css';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
@@ -95,6 +96,7 @@ export default async function RootLayout({ children, params }: Readonly<Args>) {
 
 	return (
 		<html lang={locale} className='scroll-smooth'>
+			<SpeedInsights />
 			<Plausible>
 				<NextIntlClientProvider messages={messages}>
 					<ReactLenis root>
