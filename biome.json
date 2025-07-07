@@ -7,6 +7,9 @@
 			"!**/global.css",
 			"!**/.next/**",
 			"!**/.vscode/**",
+			"!**/.pnpm-store/**",
+			"!**/.turbo/**",
+			"!**/node_modules/**",
 			"!**/(payload)/**",
 			"!**/db/**"
 		]
