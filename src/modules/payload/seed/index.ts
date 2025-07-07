@@ -680,3 +680,103 @@ export const seed = async ({
 		throw error;
 	}
 };
+
+// Individual seed functions for specific phases
+export const seedCleanup = async ({
+	payload,
+	req: _req,
+}: {
+	payload: BasePayload;
+	req: PayloadRequest;
+}): Promise<void> => {
+	try {
+		console.log('🧹 Starting database cleanup...');
+		await cleanupDatabase(payload);
+		console.log('🎉 Database cleanup completed successfully!');
+	} catch (error) {
+		console.error('❌ Error during cleanup:', error);
+		throw error;
+	}
+};
+
+export const seedPosts = async ({
+	payload,
+	req: _req,
+}: {
+	payload: BasePayload;
+	req: PayloadRequest;
+}): Promise<void> => {
+	try {
+		console.log('📝 Starting posts seeding...');
+		const { posts }: { posts: Post[] } = await import('../../../app/(frontend)/[locale]/blog/data');
+		
+		for (const post of posts) {
+			await createBlogPost(payload, post);
+		}
+		
+		console.log('🎉 Posts seeding completed successfully!');
+	} catch (error) {
+		console.error('❌ Error during posts seeding:', error);
+		throw error;
+	}
+};
+
+export const seedTimeline = async ({
+	payload,
+	req: _req,
+}: {
+	payload: BasePayload;
+	req: PayloadRequest;
+}): Promise<void> => {
+	try {
+		console.log('🕐 Starting timeline seeding...');
+		const { goccia }: { goccia: LaGoccia } = await import('../../../app/(frontend)/[locale]/la-goccia/data');
+		
+		await createGocciaData(payload, goccia);
+		
+		console.log('🎉 Timeline seeding completed successfully!');
+	} catch (error) {
+		console.error('❌ Error during timeline seeding:', error);
+		throw error;
+	}
+};
+
+export const seedAbout = async ({
+	payload,
+	req: _req,
+}: {
+	payload: BasePayload;
+	req: PayloadRequest;
+}): Promise<void> => {
+	try {
+		console.log('ℹ️ Starting about seeding...');
+		const { about }: { about: About } = await import('../../../app/(frontend)/[locale]/about/data');
+		
+		await createAboutData(payload, about);
+		
+		console.log('🎉 About seeding completed successfully!');
+	} catch (error) {
+		console.error('❌ Error during about seeding:', error);
+		throw error;
+	}
+};
+
+export const seedProgetto = async ({
+	payload,
+	req: _req,
+}: {
+	payload: BasePayload;
+	req: PayloadRequest;
+}): Promise<void> => {
+	try {
+		console.log('🏗️ Starting progetto seeding...');
+		const { project }: { project: Progetto } = await import('../../../app/(frontend)/[locale]/progetto/data');
+		
+		await createProjectData(payload, project);
+		
+		console.log('🎉 Progetto seeding completed successfully!');
+	} catch (error) {
+		console.error('❌ Error during progetto seeding:', error);
+		throw error;
+	}
+};
