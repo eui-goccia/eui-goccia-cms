@@ -1,7 +1,7 @@
+import heroTexture from '@public/images/homepage/heroTexture.webp';
+import heroTitle from '@public/images/homepage/heroTitle.webp';
+import heroImage from '@public/images/homepage/home_1.webp';
 import Image from 'next/image';
-import heroTexture from '@/assets/images/homepage/heroTexture.webp';
-import heroTitle from '@/assets/images/homepage/heroTitle.webp';
-import heroImage from '@/assets/images/homepage/home_1.webp';
 
 export default function SectionHero() {
 	return (

@@ -1,5 +1,5 @@
+import mask from '@public/images/meta/BreakText.webp';
 import Image from 'next/image';
-import mask from '@/assets/images/meta/BreakText.webp';
 
 interface SectionProps {
 	text: string;

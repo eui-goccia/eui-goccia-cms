@@ -97,46 +97,46 @@ const processRichTextContent = async (
 const getAssetPath = (filename: string): string | null => {
 	const assetMappings: Record<string, string> = {
 		// La Goccia timeline events
-		'event_1.webp': 'src/assets/images/la-goccia/event_1.webp',
-		'event_2.webp': 'src/assets/images/la-goccia/event_2.webp',
-		'event_3.webp': 'src/assets/images/la-goccia/event_3.webp',
-		'event_4.webp': 'src/assets/images/la-goccia/event_4.webp',
-		'event_5.webp': 'src/assets/images/la-goccia/event_5.webp',
-		'event_6.webp': 'src/assets/images/la-goccia/event_6.webp',
-		'event_7.webp': 'src/assets/images/la-goccia/event_7.webp',
+		'event_1.webp': 'public/images/la-goccia/event_1.webp',
+		'event_2.webp': 'public/images/la-goccia/event_2.webp',
+		'event_3.webp': 'public/images/la-goccia/event_3.webp',
+		'event_4.webp': 'public/images/la-goccia/event_4.webp',
+		'event_5.webp': 'public/images/la-goccia/event_5.webp',
+		'event_6.webp': 'public/images/la-goccia/event_6.webp',
+		'event_7.webp': 'public/images/la-goccia/event_7.webp',
 		
 		// Project images
-		'progetto_1.webp': 'src/assets/images/progetto/progetto_1.webp',
-		'progetto_2.webp': 'src/assets/images/progetto/progetto_2.webp',
-		'progetto_3.webp': 'src/assets/images/progetto/progetto_3.webp',
-		'progetto_4.webp': 'src/assets/images/progetto/progetto_4.webp',
+		'progetto_1.webp': 'public/images/progetto/progetto_1.webp',
+		'progetto_2.webp': 'public/images/progetto/progetto_2.webp',
+		'progetto_3.webp': 'public/images/progetto/progetto_3.webp',
+		'progetto_4.webp': 'public/images/progetto/progetto_4.webp',
 		
 		// Blog images - Post 1
-		'goccia_terrapreta.webp': 'src/assets/images/posts/1/goccia_terrapreta.webp',
-		'torre_terrapreta.webp': 'src/assets/images/posts/1/torre_terrapreta.webp', 
-		'gasometro_terrapreta.webp': 'src/assets/images/posts/1/gasometro_terrapreta.webp',
-		'vincenzi.webp': 'src/assets/images/posts/1/vincenzi.webp',
-		'goccia-damare.webp': 'src/assets/images/posts/1/goccia-damare.webp',
-		'cover_merati.webp': 'src/assets/images/posts/1/cover_merati.webp',
+		'goccia_terrapreta.webp': 'public/images/posts/1/goccia_terrapreta.webp',
+		'torre_terrapreta.webp': 'public/images/posts/1/torre_terrapreta.webp', 
+		'gasometro_terrapreta.webp': 'public/images/posts/1/gasometro_terrapreta.webp',
+		'vincenzi.webp': 'public/images/posts/1/vincenzi.webp',
+		'goccia-damare.webp': 'public/images/posts/1/goccia-damare.webp',
+		'cover_merati.webp': 'public/images/posts/1/cover_merati.webp',
 		
 		// Blog images - Post 2
-		'cover.webp': 'src/assets/images/posts/2/cover.webp',
+		'cover.webp': 'public/images/posts/2/cover.webp',
 		
 		// Blog images - Post 3
-		'galasso.webp': 'src/assets/images/posts/3/galasso.webp',
-		'specie.webp': 'src/assets/images/posts/3/specie.webp',
-		'margherite.webp': 'src/assets/images/posts/3/margherite.webp',
-		'cover-1.webp': 'src/assets/images/posts/3/cover-1.webp',
+		'galasso.webp': 'public/images/posts/3/galasso.webp',
+		'specie.webp': 'public/images/posts/3/specie.webp',
+		'margherite.webp': 'public/images/posts/3/margherite.webp',
+		'cover-1.webp': 'public/images/posts/3/cover-1.webp',
 		
 		// Partner logos
-		'milano.webp': 'src/assets/images/logos/milano.png',
-		'ambiente_italia.webp': 'src/assets/images/logos/ambiente_italia.webp',
-		'climate_flux.webp': 'src/assets/images/logos/climate_flux.webp',
-		'eutropian.webp': 'src/assets/images/logos/eutropian.webp',
-		'from.webp': 'src/assets/images/logos/from.png',
-		'open_impact.webp': 'src/assets/images/logos/open_impact.webp',
-		'osservatoriogoccia.webp': 'src/assets/images/logos/osservatoriogoccia.png',
-		'polimi.webp': 'src/assets/images/logos/polimi.png',
+		'milano.webp': 'public/images/logos/milano.png',
+		'ambiente_italia.webp': 'public/images/logos/ambiente_italia.webp',
+		'climate_flux.webp': 'public/images/logos/climate_flux.webp',
+		'eutropian.webp': 'public/images/logos/eutropian.webp',
+		'from.webp': 'public/images/logos/from.png',
+		'open_impact.webp': 'public/images/logos/open_impact.webp',
+		'osservatoriogoccia.webp': 'public/images/logos/osservatoriogoccia.png',
+		'polimi.webp': 'public/images/logos/polimi.png',
 	};
 
 	return assetMappings[filename] || null;
@@ -170,7 +170,7 @@ const getOrCreateImage = async (
 		}
 
 		if (!assetPath) {
-			assetPath = `src/assets/images/homepage/home_1.webp`;
+			assetPath = `public/images/homepage/home_1.webp`;
 		}
 
 		if (assetPath && fs.existsSync(assetPath)) {
@@ -178,7 +178,7 @@ const getOrCreateImage = async (
 			finalFilename = path.basename(assetPath);
 		} else {
 			console.warn(`Asset not found for "${caption}", filename: "${filename}". Using fallback.`);
-			const fallbackPath = 'src/assets/images/homepage/home_1.webp';
+			const fallbackPath = 'public/images/homepage/home_1.webp';
 			if (fs.existsSync(fallbackPath)) {
 				fileData = fs.readFileSync(fallbackPath);
 				finalFilename = 'fallback.webp';

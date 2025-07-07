@@ -1,5 +1,5 @@
+import mask from '@public/images/meta/BreakFill.webp';
 import Image from 'next/image';
-import mask from '@/assets/images/meta/BreakFill.webp';
 
 export default function SectionBreakFill() {
 	return (
