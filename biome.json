@@ -7,9 +7,10 @@
 			"!**/global.css",
 			"!**/.next/**",
 			"!**/.vscode/**",
+			"!**/node_modules/**",
 			"!**/.pnpm-store/**",
 			"!**/.turbo/**",
-			"!**/node_modules/**",
+			"!**/.vercel/**",
 			"!**/(payload)/**",
 			"!**/db/**"
 		]
