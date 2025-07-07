@@ -38,9 +38,10 @@
 		"framer-motion": "^12.23.0",
 		"graphql": "^16.11.0",
 		"lenis": "^1.3.4",
+		"libsql": "^0.5.13",
 		"lucide-react": "^0.524.0",
 		"mapbox-gl": "^3.13.0",
-		"next": "^15.3.4",
+		"next": "^15.3.5",
 		"next-intl": "^4.3.4",
 		"next-plausible": "^3.12.4",
 		"payload": "latest",
@@ -58,7 +59,7 @@
 		"@types/react": "^19.1.8",
 		"@types/react-dom": "^19.1.6",
 		"husky": "^9.1.7",
-		"tw-animate-css": "^1.3.4",
+		"tw-animate-css": "^1.3.5",
 		"typescript": "^5.8.3"
 	},
 	"engines": {
