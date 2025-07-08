@@ -1,8 +1,8 @@
+import { LocaleSwitcher } from '@/i18n/LocaleSwitcher';
 import { Link } from '@/i18n/routing';
 import LogoEU from '../logos/LogoEU';
 import LogoEUI from '../logos/LogoEUI';
 import LogoGoccia from '../logos/LogoGoccia';
-import { LocaleSwitcher } from '@/i18n/LocaleSwitcher';
 
 interface PagesProps {
 	name: string;
@@ -116,7 +116,7 @@ export default function Footer() {
 			</div>
 			<div className='col-span-full lg:col-span-8 pt-8 col-start-1 space-y-2 xl:col-start-2'>
 				<h2 className='font-greed'>Languages</h2>
-			<LocaleSwitcher/>
+				<LocaleSwitcher />
 			</div>
 		</footer>
 	);
