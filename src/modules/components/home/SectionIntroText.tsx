@@ -24,7 +24,7 @@ export default function SectionIntroText() {
 				laboratorio vivente dove la natura non solo rigenera il suolo, ma
 				diventa anche protagonista della rigenerazione urbana.
 			</p>
-			<div className='w-full pb-24 md:pb-32'>
+			<div className='w-full max-w-6xl pb-24 md:pb-32'>
 				<Link
 					className='w-fit  hover:no-underline decoration-1 underline underline-offset-4 max-w-6xl px-5 md:px-10'
 					href='/progetto'
