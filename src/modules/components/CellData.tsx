@@ -42,7 +42,7 @@ export default function CellData({
 				src={CellPattern1}
 				fill={true}
 				sizes='(max-width: 1023px) 100vw, 50vw'
-				alt=''
+				alt={caption || ''}
 			/>
 		</div>
 	);

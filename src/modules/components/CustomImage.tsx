@@ -34,7 +34,7 @@ export function CustomImage({
 		? image.blurHash
 		: 'data:image/png;base64,WERy8KHe?ErexDer%3WVaxoLWBj[}cnlE0S4SdofM{ofogR*t7ay';
 
-	const refined_alt = image ? image.caption || alt : alt;
+	const refined_alt = image ? image.alt || image.caption || alt : alt;
 	return (
 		<>
 			<Image

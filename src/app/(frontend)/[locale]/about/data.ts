@@ -14,6 +14,7 @@ export const about: About = {
 			logo: {
 				id: '168a94ea-7891-40eb-b118-7420eff4a167',
 				caption: 'Logo Comune di Milano',
+				alt: 'Logo Comune di Milano',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAFCAYAAAB8ZH1oAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAaUlEQVR4nHXOsQqCUAAF0AMO9QGuEpFiFDi5tbYHoquDTQ4RQW1+Qz/gF/VX8eCt724XDpcLG1xwR4VMIgtO+GJAhwINahxjt2LGD0+8cUYbUcC7AB+44YUPrsjjyh4HlAFuMWFEn/r3B02TCngd+66YAAAAAElFTkSuQmCC',
 				prefix: 'images',
@@ -87,6 +88,7 @@ export const about: About = {
 			logo: {
 				id: '54f9bd78-7e50-424d-b0dc-1c78fdaf52c5',
 				caption: 'Logo Ambiente Italia',
+				alt: 'Logo Ambiente Italia',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAACCAYAAABhYU3QAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAXUlEQVR4nAFSAK3/AJubm0nn5+d58vLya/z7/G6bm5thrq6uayUlJU4cHBxtFBQUTDMzM0cALy8vGBEREQ1BQUEdT09PHwsLCwsfHx8UjIyMJ9TU1Cnj4+M73NzcOMszIQajsresAAAAAElFTkSuQmCC',
 				prefix: 'images',
@@ -160,6 +162,7 @@ export const about: About = {
 			logo: {
 				id: '7e1fbc58-827c-4966-b099-1bb608f71a37',
 				caption: 'Logo Climate Flux',
+				alt: 'Logo Climate Flux',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAECAYAAAC3OK7NAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAdklEQVR4nGMwNDQUSU1NdU5ISLBlYmJiwAnq6+sNGxsb9Xt6evIVFBT4GRgYBBkYGGA6GBkYGHjArLNnz4ZVVVUpNDc3l6ioqGgyMDDoMTAwmDMwMNgzMDC4MjAw2DEwMJgwHDlyxO7Xr185RUVFnjw8EM3YAAAxVRleoYcydAAAAABJRU5ErkJggg==',
 				prefix: 'images',
@@ -233,6 +236,7 @@ export const about: About = {
 			logo: {
 				id: '436df0dc-1f4b-436d-975c-d56769b24df1',
 				caption: 'Logo Eutropian',
+				alt: 'Logo Eutropian',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAAPoAAAD6AG1e1JrAAABT0lEQVR4nE2QP0sDQRDFV9limy1kWDiOJeVxoLLiNsrCFWnSrOhFgsLiH9SgnJFUBzaiYBAkcIm4KPkIadLcV0lz2NvZxSLVyZpEHHjV/Hhv3iA0H0ppQwjxYox5KopiuSgKtNB4PJ5Bnud10jQ91FobrXXLiTG2TwhZQv+c6u122xhj7kej0Za1Ns2y7EZrvckYu8UYz+BKpfIWhuGptXabUvqFECqdCCEflNINAKgvYvtxHJ8ZY7pBEJRRFJVSylIpVdZqtXOl1LVSiiDOeRaGIRJC9NxSCOGAXzhJkqsgCFqc82fnaDHGCADWMMbfi2jP8z47nc667/tHvu+/ujI7AHDgziCErAJAV0r5mOe5SJLkYTAYHDebzT3k3BhjdwDQmMMrQojLLMsu8jw/kVI+VKvVvy+56F3OuQWAHgD0oyh6Hw6H8XQ6RZPJBP0AOXNuOrxJ74wAAAAASUVORK5CYII=',
 				prefix: 'images',
@@ -306,6 +310,7 @@ export const about: About = {
 			logo: {
 				id: 'fadf8b35-cde8-404e-8bbe-34e478e92e43',
 				caption: 'Logo FROM',
+				alt: 'Logo FROM',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAACXBIWXMAAAPoAAAD6AG1e1JrAAABU0lEQVR4nGPg4OC4bWBgMI+Li+uajo7OMg4OjqciIiKn9fX1F3Jyct6Rk5NbzcDA8IlBS0tr5f///xlmzZol8+/fP4bOzk7nnJycwu/fvzMUFxe7ffjwgUFGRmYHSOEKkMKGhganO3fuMMbHx2fBFCopKa3PyMgoYGBg+AhSuByksKCgwEpcXHw2AwPDf5hCBgaGVyA+GEtJSR2ZM2eOp4qKymmYoJOT07xp06Z5MzAwfIYrBBEyMjK7WlpawuPi4ioYGRk/29vbL+jr6wt0c3Orc3FxqZOVlT3BICoqeuvBgwesIOtBuKSkJCknJycfZHVlZaXVjh07rIyMjJaD3LgepgiEN23aZISm0NrIyGglAxsb24eFCxcqghSBgsLW1nYqssItW7bYgBUyMDD8YmJiemdhYbFcRETkOMjNEhISZ8zNzedLS0vvlpCQ2MfDw3MfAOXZpTy+ySulAAAAAElFTkSuQmCC',
 				prefix: 'images',
@@ -379,6 +384,7 @@ export const about: About = {
 			logo: {
 				id: '7a961ce5-4905-48f2-ba0a-202850895154',
 				caption: 'Logo Open Impact',
+				alt: 'Logo Open Impact',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAABCAYAAADn9T9+AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAJ0lEQVR4nAXBoQ0AIAwAsD6FmZkZBrMDcCT8/8JauHg4SCwUPhobMTrTAvOaQg9DAAAAAElFTkSuQmCC',
 				prefix: 'images',
@@ -452,6 +458,7 @@ export const about: About = {
 			logo: {
 				id: '3ea4a753-6db5-494d-832d-cd821f4d7df7',
 				caption: 'Logo Osservatorio La Goccia',
+				alt: 'Logo Osservatorio La Goccia',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAACCAYAAABhYU3QAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAVUlEQVR4nGNYv3Zd9qF9B7K+fPjYvGD+/MxD+w7kHNp3IH/B/PmJ69euKwLJgdQwlBUVB2akpbsxQIGMjIzYpXMXitavXZe+fu26tEP7DuT1dHbFAgBR8yny/nBPwQAAAABJRU5ErkJggg==',
 				prefix: 'images',
@@ -526,6 +533,7 @@ export const about: About = {
 			logo: {
 				id: '4ed7b809-43c4-41c0-9b31-4bc9aa867648',
 				caption: 'Logo Politecnico di Milano',
+				alt: 'Logo Politecnico di Milano',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAADCAYAAACqPZ51AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAhklEQVR4nAF7AIT/ALa2thdbW1sltLS0GN/f3xrExMQj1tbWI8DAwCfQ0NAfxMTEJ8bGxiMANjY2KgMDAy1CQkIfnp6eLIGBgTqnp6czfn5+O56eni51dXVBcnJyPQDAwMAVe3p7IKKiohrv7+8R3NzcF9zc3Bbc3NwX+/v7DdDQ0BvOzs4bly4+4E14likAAAAASUVORK5CYII=',
 				prefix: 'images',

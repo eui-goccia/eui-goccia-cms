@@ -50,11 +50,20 @@ export const Images: CollectionConfig = {
 	},
 	fields: [
 		{
-			name: 'caption',
+			name: 'alt',
 			type: 'text',
 			required: true,
 			admin: {
-				description: 'Caption/Alt/Copyright of the image',
+				description: 'Alt text of the image',
+			},
+			localized: true,
+		},
+		{
+			name: 'caption',
+			type: 'text',
+			required: false,
+			admin: {
+				description: 'Caption/Copyright of the image',
 			},
 			localized: true,
 		},

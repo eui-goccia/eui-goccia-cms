@@ -103,6 +103,7 @@ export const project: Progetto = {
 					image: {
 						id: 'c0dd8b8f-b73a-41b6-9f53-92fe2c633181',
 						caption: 'Progetto 1',
+						alt: 'Progetto 1',
 						blurHash:
 							'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAxUlEQVR4nAG6AEX/AP7+/vv//ury8u7//+T4/drt+9Dj98TW7JOmu7bJ3AB3fHF1e3RnaWp5gX12fXFZXlFqbVdydmUqNDpfZVUAMTIQLi8iHhoaKicaMzoJMDUDPT8NT04DMzEFPjwEACUlED05IyQkDxISABodAB0jADo3EDs6ACcnAB8bAgAdGh00NB0iKQAZHQAXGQAkJQVGRwA8PwAjJQAEBAAAAAAHHiIAFhkABw4AKSknVFMALC4AMzMAOjoAJiYAThM1NRgAwBgAAAAASUVORK5CYII=',
 						prefix: 'images',
@@ -275,6 +276,7 @@ export const project: Progetto = {
 							image: {
 								id: 'c437d9a2-6e2f-4831-b1e6-0af71f450dd5',
 								caption: 'Progetto 2',
+								alt: 'Progetto 2',
 								blurHash:
 									'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AH+Uq5Wtxrjr/6Ld/4vC7YC/8nGy6oCr2mCUzEaJzQCGkp+bo7Hm+//Q6vu5ytvD3fG42/iwvcuawN6Nzv0Aam9xcnJypKShurq6fXl4sKumlY6IeG1dhomJgYSGAAAAABUAAB8LACUWAyUWAEIvHk89J0EyGjosFishEgAiFAA6KRA7KBNGMBpGMBpcQyVmTCh+ZjhwXy9wXC4AZ1kzfW1CX04sW0spW0smdmk3aVcneWYxe2gsaVsgAEU7GyIaABwWACIaACYjADArACAWADQnAzAmAx8UACuSU2Hf1rP/AAAAAElFTkSuQmCC',
 								prefix: 'images',
@@ -350,6 +352,7 @@ export const project: Progetto = {
 							image: {
 								id: 'e80c8c76-fdf4-463c-8b3f-9f2e5feab869',
 								caption: 'Progetto 3',
+								alt: 'Progetto 3',
 								blurHash:
 									'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAKCAIAAAD3rtNaAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA50lEQVR4nAHcACP/AHl2dYmEgb+7tqyknuDc1+fk3/P06wCDfnmUioSZkY2IkJZPVl9mZmnQy8AAX1ZRPkNHWWBjX2luYGBgb29vsqWSAIN5ckRLTXN1cjI8QFdbXomEgf/+8ACdnJRaWVEgJCUsLi5BQT+DhYZFRksAaG1vjop6wLCTuaaJlId1AAEIAAARAEpIRT09On93ZU1IQHFrYD1GSwAIFwBVVlRfXVNpaF+MgnWqn4mqmoAjIyEALy8v9ujL1MWnkohy++XExLKUgnllAC4rKZqDbYFzXrmigcW1mr+vmoyGeZeGYm3CMKc2AAAAAElFTkSuQmCC',
 								prefix: 'images',
@@ -571,6 +574,7 @@ export const project: Progetto = {
 					image: {
 						id: '8c32ac24-098a-4a52-9566-ab0b4dfe5d2d',
 						caption: 'Progetto 4',
+						alt: 'Progetto 4',
 						blurHash:
 							'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAYAAAD68A/GAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA60lEQVR4nDXDrUsDYQDH8a9JxaiCp9wM252cd2zTwXQvTNwYE/GlTAarvgSLYHJhYXbRYDf6j9hMFk0iqPx4FgwiyD2InMkPfBj+Jvb/209i321iX74S+/SRxA+vSXz3+Pl9/2xjri8OhleX++as3zaHJw1z3KuZ0/6uub3pmfNB23SPArPT9Q2lDVTdQlEZRVVU2BxVroFy5RF5q6jeQctriPUOCiooXUCz8yhTQUstlG+iqInmPFTaRjguGh9D0w5yfJRaRF4RuVk0k0bhClrIIzIRSnloYgpNuihsoeIeytZRUEN+hLwQ/QEwEm299bC3/AAAAABJRU5ErkJggg==',
 						prefix: 'images',

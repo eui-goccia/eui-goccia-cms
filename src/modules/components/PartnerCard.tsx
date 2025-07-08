@@ -51,7 +51,7 @@ export default function PartnerCard({
 						<CustomImage
 							image={logo}
 							size='medium'
-							alt={logo.caption}
+							alt={logo.alt || logo.caption || ''}
 							className='max-h-20 max-w-60 object-contain'
 						/>
 					)}

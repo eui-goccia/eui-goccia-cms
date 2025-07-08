@@ -35,7 +35,7 @@ export default function HeaderArticle({
 			<CustomImage
 				image={coverImage}
 				className='w-full aspect-3/2 object-cover object-center rounded-4xl'
-				alt={coverImage.caption}
+				alt={coverImage.alt || coverImage.caption || ''}
 				size='xlarge'
 				showCaption={true}
 				captionClassName='w-full pt-2.5 px-5 flex items-start'

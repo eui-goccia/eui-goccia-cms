@@ -16,6 +16,7 @@ export const goccia: LaGoccia = {
 				id: '21d7127d-0643-4059-979f-522a319740c4',
 				caption:
 					'Dipinto di Giovanni Segantini – La raccolta dei bozzoli, 1881-1883',
+				alt: 'Dipinto di Giovanni Segantini – La raccolta dei bozzoli, 1881-1883',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAxUlEQVR4nAG6AEX/AJuNeJWLeJmNeqqdibCnkMC2n9HEqt7Qt+vdwfjqzADCtZzEtp7RxKre0Lfn2MD26Mz+79D77s7+79D//d0A5ta4692/6Nq98+XH693B3M6y//XX//PU+OrMw7ifAF5URlBHOE1GOmFXSVRMPVxVRmFXSVRNQDIsIx8aEwANAwBAOS5fVUdoXk9fVUdLRTlEPDA6MikmIhgIAAAAKSMaJR8XKSMaJyAYHhgQKCMaHBcOFg4DDAEAFxAFtNtX++Be4n0AAAAASUVORK5CYII=',
 				prefix: 'images',
@@ -92,6 +93,7 @@ export const goccia: LaGoccia = {
 				id: '0083e042-dfb8-4d29-b185-0f96c0d5349c',
 				caption:
 					'©Fondo fotografico zona 9, Archivio Regione Lombardia. Officine del Gas e del quartiere Bovisa',
+				alt: '©Fondo fotografico zona 9, Archivio Regione Lombardia. Officine del Gas e del quartiere Bovisa',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA0UlEQVR4nB3BIcqFMAAA4AXD/5IgLi9bvIPtPUFtege7LAo2k8EgHsIriFcQlA22oQgGhyjK2gP54X0foJQyxsZx5Jxv2yZ/juNQSl3XBRhjQog8z6uqWpZFSrnvu1LqeZ7v9wsIIfM8J0kSRRHnfF1XKeV5nvd9K6UApVQIQSntui7LMoxxmqZlWXLOp2kCfd8Pw0AIaZrm9feCEJqmiRBq2zbPcxDHcVEUdV1jjA3D0DQNQogQ+rw/uq4Dy7Icxwl+wjD0PC8IAt/3Xde1bfsflNeAGMYmr/kAAAAASUVORK5CYII=',
 				prefix: 'images',
@@ -166,7 +168,7 @@ export const goccia: LaGoccia = {
 
 			cover: {
 				id: '7b8c3047-f14f-482f-a15a-dd5520eafa99',
-				caption: ' ',
+				alt: ' ',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAICAIAAABPmPnhAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA4ElEQVR4nCXLoaqGMBiA4SWb9QSxWr0AMQjDJoh3ILuFlQ9WLIMfwTIGggwsgjCWhYHRIHzgTXgDVtvh/OeJL7wkTVPGmBDCGOOcM8YAwOfzGceRc06SJGnbVggxDINzbp5nKSUAcM6NMSQIgrIsKaV93yOilHL5klIqpUhRFFrr/7Su63Ec3vvzPL330zSRpmkopQDQdZ21dt/3+77f90XErutIFEVZlnHOtdbP8wCAtfY4juu6/u6fL0QUQsRxzBjTWk/TtCwLIhJCSBiGSZLkeV5VVV3XALBt2zzPSqlf3h558wlLqIwAAAAASUVORK5CYII=',
 				prefix: 'images',
@@ -242,6 +244,7 @@ export const goccia: LaGoccia = {
 			cover: {
 				id: '903e1545-7863-4bdf-8976-d1bbd005205a',
 				caption: '©Google Maps, Ortofoto 1998',
+				alt: '©Google Maps, Ortofoto 1998',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA4UlEQVR4nGOQ0dNglhZkYGNgFxP3C/TLzEopLi60tLGWUJDmEBNiUDPQElaQFJaVEpKWYxYVdfJw+/3/n7GJMa+4iK6xPoO8jqpzoIdvmJ+6qZGMmhoDB9fEiRO9vLx8fLxaWhoZojNiyhrLzOwslQ30/EODrexsBcQklFRVPdycIiLDGAxtzc3sLCOiQxlFxUxtbAQlpBk5+VQ1VLXV1VwdnRicXRwY+Dg9PV2rqksLC3MNDAxys9O8PNy11dVsLSwZvF0cxKSk5ZSVdLV0Q8PCMrMyQgKDfD1ddTW1rE0tARMiMR0TinfTAAAAAElFTkSuQmCC',
 				prefix: 'images',
@@ -317,6 +320,7 @@ export const goccia: LaGoccia = {
 			cover: {
 				id: 'a1a0c22d-7b32-4f02-af50-36a014acecff',
 				caption: '©Marco Merati',
+				alt: '©Marco Merati',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAyElEQVR4nB3BMcqGIAAAUK+QS1CCEDUoOAQlbh2rsQs41uwBQoKmlpb/BhFCQ6tQBErU1vLD9x4wxkzTpJRq21ZKqbWWUtZ13TRN13VAa62UGsdx+Pn76ft+GIZ5nsG6rtZa59x93977932tted5Oue2bQPHcXjvv+97nue6rvu+rbXLsuz7bowBhJA4jgEAaZoihCCECKGyLLMsS5IERFFECMEYE0I453meM8aCIAjDkFIKMMYQwqqqhBCcc0opY4xSKoQoiuIfxn1qloRbZHkAAAAASUVORK5CYII=',
 				prefix: 'images',
@@ -393,6 +397,7 @@ export const goccia: LaGoccia = {
 				id: '7339a924-2c18-4679-9e89-8e1633be9de7',
 				caption:
 					'©Asja Castelli, Scritta lungo via Pacuvio che testimonia la pesenza di un bosco aldilà del muro di recinzione, 2020',
+				alt: '©Asja Castelli, Scritta lungo via Pacuvio che testimonia la pesenza di un bosco aldilà del muro di recinzione, 2020',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAuUlEQVR4nAXBsQpAQAAA0PMD/IEMsl7ddpPFxGojo1JK3aJ0pZw7gyt1ZLEqk0yKfJQfMHgPGIah6zqE0DRN27YRQmmaUkq/73vfF2ia5jiO53kYY8uyMMYQQoRQWZa+74MwDAkhXdcxxrIsC4LAdd0kSZqmqesa5HnOORdCSCmLoojjOIoiQkjbtn3fg6qqGGNKqXmep2kahmEcR6WUEIJSCpZl2bbtOI7rup7nue/7PM9939d1lVL+3oJPw11clPkAAAAASUVORK5CYII=',
 				prefix: 'images',
@@ -467,7 +472,7 @@ export const goccia: LaGoccia = {
 
 			cover: {
 				id: 'c322b37c-9ece-41e8-a923-1662758fa2b1',
-				caption: ' ',
+				alt: ' ',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AEQ8Mfvmy6ORh15MQWCKsmik3FFIQ//83uXOujk0LwBUS0D45MiGenJZPzhmUE1bUVhtVU3ErZreybRRSUYAXEY2l3ZlVkZEfXNqZWVoPTlAZFFPUkdGjmdQQjInAEk6MVtTXXhfYnBNSmZbYUZAPU9BQT09Sp+CdlVDOwAlIyQmICF/ZltfQkpvaW6CkqZPVVA7Ly5hcW5ra2AAGxodPTo7MzE1KCgqUFRdY2+HKCwrFxgdOz84UVxMAGVgWjs2NzIuMggICgsMFAECBxswRTxLVVRNTDg6On/hSQ0387rfAAAAAElFTkSuQmCC',
 				prefix: 'images',

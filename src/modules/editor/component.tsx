@@ -104,7 +104,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
 					className='aspect-16/10 rounded-2xl object-cover'
 					image={image}
 					size='xlarge'
-					alt={image.caption}
+					alt={image.alt || image.caption || ''}
 					showCaption={true}
 				/>
 			);

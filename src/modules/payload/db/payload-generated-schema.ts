@@ -100,7 +100,8 @@ export const images = sqliteTable(
 export const images_locales = sqliteTable(
   "images_locales",
   {
-    caption: text("caption").notNull(),
+    alt: text("alt").notNull(),
+    caption: text("caption"),
     id: integer("id").primaryKey(),
     _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
     _parentID: text("_parent_id").notNull(),

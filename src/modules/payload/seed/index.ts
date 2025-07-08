@@ -58,7 +58,8 @@ const processRichTextContent = async (
 			const imageData = node.value as Image;
 			const imageId = await getOrCreateImage(
 				payload,
-				imageData.caption,
+				imageData.alt || imageData.caption || '',
+				imageData.caption || undefined,
 				imageData.filename || undefined
 			);
 			const resultNode = { ...node, value: imageId };
@@ -164,67 +165,75 @@ const resolveAssetPath = (relativePath: string): string | null => {
 
 const getOrCreateImage = async (
 	payload: BasePayload,
-	caption: string,
+	alt: string,
+	caption?: string,
 	filename?: string
 ): Promise<string> => {
 	try {
-		const existingImages = await payload.find({
-			collection: 'images',
-			where: {
-				caption: {
-					equals: caption,
-				},
-			},
-		});
-
-		if (existingImages.docs.length > 0) {
-			return existingImages.docs[0].id;
-		}
-
 		let fileData: Buffer;
-		let finalFilename: string;
+		let originalFilename: string;
 		let assetPath: string | null = null;
 
 		if (filename) {
 			assetPath = getAssetPath(filename);
+			originalFilename = filename;
+		} else {
+			// Generate unique fallback filename to prevent collisions
+			const timestamp = Date.now();
+			const altHash = Buffer.from(alt).toString('base64').substring(0, 8);
+			originalFilename = `fallback_${timestamp}_${altHash}.webp`;
 		}
 
 		if (!assetPath) {
 			assetPath = `images/homepage/home_1.webp`;
+			// Only change filename if we haven't already set a unique fallback
+			if (filename) {
+				const timestamp = Date.now();
+				const altHash = Buffer.from(alt).toString('base64').substring(0, 8);
+				originalFilename = `fallback_${timestamp}_${altHash}.webp`;
+			}
 		}
 
 		const resolvedPath = resolveAssetPath(assetPath);
 		if (resolvedPath) {
 			fileData = fs.readFileSync(resolvedPath);
-			finalFilename = path.basename(resolvedPath);
 		} else {
-			console.warn(`Asset not found for "${caption}", filename: "${filename}". Using fallback.`);
+			console.warn(`Asset not found for "${alt}", filename: "${filename}". Using fallback.`);
 			const fallbackPath = 'images/homepage/home_1.webp';
 			const resolvedFallbackPath = resolveAssetPath(fallbackPath);
 			if (resolvedFallbackPath) {
 				fileData = fs.readFileSync(resolvedFallbackPath);
-				finalFilename = 'fallback.webp';
+				// Ensure unique filename even for missing assets
+				if (!filename) {
+					const timestamp = Date.now();
+					const altHash = Buffer.from(alt).toString('base64').substring(0, 8);
+					originalFilename = `fallback_${timestamp}_${altHash}.webp`;
+				}
 			} else {
 				throw new Error(`No fallback asset available. Tried paths: ${fallbackPath}`);
 			}
 		}
 
+		// Use filePath method for uploading local files as recommended by Payload docs
+		// Payload will automatically handle filename uniqueness
 		const result = await payload.create({
 			collection: 'images',
 			data: {
+				alt: alt,
 				caption: caption,
 			},
 			file: {
 				data: fileData,
-				mimetype: path.extname(finalFilename).toLowerCase() === '.png' ? 'image/png' : 'image/webp',
-				name: finalFilename,
+				mimetype: path.extname(originalFilename).toLowerCase() === '.png' ? 'image/png' : 'image/webp',
+				name: originalFilename, // Use original filename, Payload will handle uniqueness
 				size: fileData.length,
 			},
 		});
 
+		console.log(`Created image for "${alt}" with filename "${originalFilename}"`);
 		return result.id;
 	} catch (error) {
-		console.error(`Error creating image "${caption}":`, error);
+		console.error(`Error creating image "${alt}":`, error);
 		throw error;
 	}
 };
@@ -279,12 +288,13 @@ const createBlogPost = async (payload: BasePayload, postData: Post): Promise<voi
 		);
 
 		const coverImageData = typeof postData.coverImage === 'string' 
-			? { caption: 'Cover Image', filename: undefined }
+			? { alt: 'Cover Image', caption: '', filename: undefined }
 			: postData.coverImage as Image;
 
 		const coverImageId = await getOrCreateImage(
 			payload,
-			coverImageData.caption,
+			coverImageData.alt,
+			coverImageData.caption || '',
 			coverImageData.filename || undefined
 		);
 
@@ -295,12 +305,13 @@ const createBlogPost = async (payload: BasePayload, postData: Post): Promise<voi
 				if (cleanBlock.blockType === 'image') {
 					const imageBlock = cleanBlock as ImageBlock;
 					const imageData = typeof imageBlock.image === 'string' 
-						? { caption: 'Content Image', filename: undefined }
+						? { alt: 'Content Image', caption: '', filename: undefined }
 						: imageBlock.image as Image;
 
 					const imageId = await getOrCreateImage(
 						payload, 
-						imageData.caption, 
+						imageData.alt, 
+						imageData.caption || '',
 						imageData.filename || undefined
 					);
 					return {
@@ -341,12 +352,13 @@ const createBlogPost = async (payload: BasePayload, postData: Post): Promise<voi
 								if (item.blockType === 'image') {
 									const imageItem = item as ImageBlock;
 									const imageData = typeof imageItem.image === 'string' 
-										? { caption: 'Grid Image', filename: undefined }
+										? { alt: 'Grid Image', caption: '', filename: undefined }
 										: imageItem.image as Image;
 
 									const imageId = await getOrCreateImage(
 										payload, 
-										imageData.caption, 
+										imageData.alt, 
+										imageData.caption || '',
 										imageData.filename || undefined
 									);
 									return {
@@ -410,12 +422,13 @@ const createGocciaData = async (payload: BasePayload, gocciaData: LaGoccia): Pro
 		const processedTimeline = gocciaData.timeline ? await Promise.all(
 			gocciaData.timeline.map(async (event) => {
 				const coverData = typeof event.cover === 'string' 
-					? { caption: event.title || 'Timeline Event', filename: undefined }
+					? { alt: event.title || 'Timeline Event', caption: '', filename: undefined }
 					: event.cover as Image;
 
 				const coverId = await getOrCreateImage(
 					payload, 
-					coverData.caption, 
+					coverData.alt,
+					coverData.caption || '',
 					coverData.filename || undefined
 				);
 				return {
@@ -453,12 +466,13 @@ const createProjectData = async (payload: BasePayload, projectData: Progetto): P
 						if (cleanBlock.blockType === 'image') {
 							const imageBlock = cleanBlock as ImageBlock;
 							const imageData = typeof imageBlock.image === 'string' 
-								? { caption: 'Project Image', filename: undefined }
+								? { alt: 'Project Image', caption: '', filename: undefined }
 								: imageBlock.image as Image;
 
 							const imageId = await getOrCreateImage(
 								payload, 
-								imageData.caption, 
+								imageData.alt, 
+								imageData.caption || '',
 								imageData.filename || undefined
 							);
 							return {
@@ -499,12 +513,13 @@ const createProjectData = async (payload: BasePayload, projectData: Progetto): P
 										if (item.blockType === 'image') {
 											const imageItem = item as ImageBlock;
 											const imageData = typeof imageItem.image === 'string' 
-												? { caption: 'Project Grid Image', filename: undefined }
+												? { alt: 'Project Grid Image', caption: '', filename: undefined }
 												: imageItem.image as Image;
 
 											const imageId = await getOrCreateImage(
 												payload, 
-												imageData.caption, 
+												imageData.alt, 
+												imageData.caption || '',
 												imageData.filename || undefined
 											);
 											return {
@@ -567,12 +582,13 @@ const createAboutData = async (payload: BasePayload, aboutData: About): Promise<
 		const processedPartners = aboutData.partners ? await Promise.all(
 			aboutData.partners.map(async (partner) => {
 				const logoData = typeof partner.logo === 'string' 
-					? { caption: `Logo ${partner.name}`, filename: undefined }
+					? { alt: `Logo ${partner.name}`, caption: '', filename: undefined }
 					: partner.logo as Image;
 
 				const logoId = await getOrCreateImage(
 					payload,
-					logoData.caption,
+					logoData.alt,
+					logoData.caption || '',
 					logoData.filename || undefined
 				);
 

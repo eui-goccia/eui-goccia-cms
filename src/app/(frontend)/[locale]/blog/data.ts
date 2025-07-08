@@ -138,6 +138,7 @@ export const posts: Post[] = [
 								value: {
 									id: 'c1c18791-b075-432d-9c7f-c53f4cc0739d',
 									caption: '©Terrapreta',
+									alt: '©Terrapreta',
 									blurHash:
 										'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA4ElEQVR4nGPw8nPTtjEqqiwoqyr2jQlqb6tdsHTe8uWL8/IyQxMTGNKSvCJTHc3cFZ0C1JyCVIMTTTs6i7ZtW3375q3fv/4zMIgxCKgwKJszKJszmbjzadqxqFkxKBkxyJswmDkqMXDIMohpgpCMEYO8KYOmA4OZN6OKNQOPPAOvLAODoAyDmAqDkjWDoQ+Dra+AlSePigODpCEDAz8DqxADA7s0g7g2g1sYY3Cs4LQpJZX1vg5+rO6ekjwSDALyDAzqtgwSGgzBYWIpmXqVhZ6xeSxRaRK+vtJi4gwMDAwA/ywxExQ29LEAAAAASUVORK5CYII=',
 									prefix: 'images',
@@ -256,6 +257,7 @@ export const posts: Post[] = [
 								value: {
 									id: 'b05f3881-1767-4424-b9a0-480440c41117',
 									caption: '©Terrapreta',
+									alt: '©Terrapreta',
 									blurHash:
 										'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AEVJXMXb5M3i6tXo7tbq7tHm7MDb5qnN3I60zhQcLgBeZHHf7/Dk8fLs9vbr+Pfh9vbb7u/H4emny90fJTQAZmxy5vbz8Pv38//89f/+8//86/j33fHxzuXoIyYwAF1dXbm+rM7Swubp3/Dy5Onn1sjPusTGuJyiniIlLQBMS0VrczN7gEGFhE+EeFJPVjRHTSpUVjUdJhwXGyIANjgreIEydoE1ipJAj4pJS1MmKjUbNz4gFxgYDhIaACEmH19kKWxzLmpxKHN9LnN9Lis3FxciDiMvEgAED198cWS+5ibRAAAAAElFTkSuQmCC',
 									prefix: 'images',
@@ -455,6 +457,7 @@ export const posts: Post[] = [
 								value: {
 									id: '95382d86-2191-40c9-b8a1-a13af9a784e4',
 									caption: '©Terrapreta',
+									alt: '©Terrapreta',
 									blurHash:
 										'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AN7r7en09O749en29eX08dvr67vN16e+0W2HoxglLADl7+zu+PXy/fry/ffq8+zl7uu+x8eLl5Q/SUYOFgYAo6up3OLb9P319//46O7jrrWmPEs6LzwqISQQAw4AAD1BOEdBNmphVpWajtfNt3VzXB0oFwUUAAcQAAAFAAAoNBQrKBlqYVOhmILEupaWhGddTj1aSzQ8LBsbFgAAgGdajmxcwKqS28Wq0bqewq2UpIh5mXZkd1pSSTgzAJl7cKOCcbGXg76qlLuhi8mqjcKfh6uGcYRjU2FHPKWucL1XVHIgAAAAAElFTkSuQmCC',
 									prefix: 'images',
@@ -612,6 +615,7 @@ export const posts: Post[] = [
 								value: {
 									id: 'b48857be-bfe9-4150-bf68-049ab9e118d4',
 									caption: '©C. Vincenzi',
+									alt: '©C. Vincenzi',
 									blurHash:
 										'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AL7Y+rvf/7jc/9fu/9nu/+z2//H5//H5//n7//P3/wBMVDGQpqOhury/3v/Q7//X7//c9f/f9P/p+f/i8f0AOD0kUFpDX2hSlKaSqr+ttsq4n6eA3OvyydvVnqhpACAjDRogDzE5HW99PHGBOlxoMXOCPHmGSoOMRVlmKAA3PB0CBQAoLRA1OhpCRyE5QRpYYjBNXCpXYSs+Th4AXmgSZnIWbXgYZnMWgYwhh5QjmKYqlqAopq8vbngZABUdAB8kABsjABsjACQvACg2Aj1HBj1HBkpRCUpQCOSlY/kqKu+XAAAAAElFTkSuQmCC',
 									prefix: 'images',
@@ -831,6 +835,7 @@ export const posts: Post[] = [
 								value: {
 									id: 'f1ad8cf9-d8f2-48c9-8554-606ed54be7f5',
 									caption: '©Comitato La Goccia',
+									alt: '©Comitato La Goccia',
 									blurHash:
 										'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAICAIAAABPmPnhAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABA0lEQVR4nAH4AAf/AHx2ZNPVy+Pg2HxxZUYzHqCHcc3Csv/+9763q4Z6agB2bVuQiHXGv62XkH1uVz+BY0qvn4vp3s+1q56AeWwAbWVTnpR+sqCQfW1WhGNAdlAvrJyFvq+YiHpjd2hVAGhbRpCDbYx6Z39pU1wzEGpAG6aUfKGOeYl5Y3BgTACFfWGypYWfkXKnmXYhAAAjAACzooOlkXaXhWpmVUAAkIdnlI1lnJBnjIBZcFlBdV1FgW5Rm4VtnY11e2lVAIZ6W4+EZpSIarKfh8KvmsCrlralkpuIcZuJbHZiUgB8bVGMemWxoIrNvarSwKnCrJfAq5aumYGHdlV4aFIrKnqYgSGdBQAAAABJRU5ErkJggg==',
 									prefix: 'images',
@@ -1041,6 +1046,7 @@ export const posts: Post[] = [
 		coverImage: {
 			id: '1ad45bc0-4d3b-414d-86c7-514a14e91d5a',
 			caption: '©Marco Merati',
+			alt: '©Marco Merati',
 			blurHash:
 				'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/ABohAFJgI3GDNY2bSnOCOzhBHQsYAFVbOiAmDwALAAAbIgAnNApHVRqfs02mslyOn0pWZydSXycmLw0WHAAACxIALzwQWWolfpA+lqRRm69Uq8BZi59GZngtKzcPACAoBUhUHF5uKYeXRYyQVZqnVcDUXq/EVZinTl5tKAALEgBQXSJdZinHy27//8D2+KCtuVNgcCcfKgEABQAAIygITUwlY2Ivp5di//jG/+7Bs6dxf4M+JywPFhgAADgzE0o+IVhNJnRmOnlsQ2ldOW1dQkE6JRoXAwAAAKS+Rm9/pwXSAAAAAElFTkSuQmCC',
 			prefix: 'images',
@@ -1685,6 +1691,7 @@ export const posts: Post[] = [
 		coverImage: {
 			id: '12cb34b2-6a04-4c53-80b5-465d6e9fac7c',
 			caption: '©Luisa Facchinetti e Tommaso Tresso',
+			alt: '©Luisa Facchinetti e Tommaso Tresso',
 			blurHash:
 				'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAKCAIAAAD3rtNaAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA50lEQVR4nAHcACP/AMzMYPv8m21yKCUgAAgIAKaqN7a2RQBxeBnU2VTIx2s5OwmAgi358pjp5ZUAfX8gk5Ut0MxZPUILgoM80c5r2NeCAHV9H3R6JL69Tis2AIeNP6+lVfjwfgCFhTvAwlxaXSM3QAOXkkj/94br72oAmaBVoadcYWMfGxsA0Mhr+u6A+fqJAIuWQYGPMJuZTSIkAIeBNc3AYP//mgCCkCqCiipBRQYvOwCzs1vS1W2lqkgAa3UYT1QOJysASFgLpK1fucBru8B3AFleF1RjDU9hC2N0H4OPPXuCPHN+MVjSYLvBr3n/AAAAAElFTkSuQmCC',
 			prefix: 'images',
@@ -1859,6 +1866,7 @@ export const posts: Post[] = [
 									id: '0ca65a7f-0e27-4db6-9feb-a9f51ba30087',
 									caption:
 										'Gabriele Galasso, Botanico del Museo Civico di Storia Naturale di Miano',
+									alt: 'Gabriele Galasso, Botanico del Museo Civico di Storia Naturale di Miano',
 									blurHash:
 										'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAw0lEQVR4nGMQN+XVDVJxybPKnxDy/++tzLYQtzRb82g9s2B9cSNhBmUbef0gTdc8p4VL6p8fXpdTHhTVFGCdaCplJSZtIsYgpC7sW+ybNDlt8drW7VNqqvriAyp9HLNtTaJ0xY1EGcR0xQyCDOxTbZs76ltSfZySrcNbA01CNDXcFXilWRkkDMUNfay9QzOVDMK8HGwllPR13YzFjYQ5pVjYxBgZGDgYOMVkxaSVeaVsWLmkmHhk+cQF2cQY2cWYGQUZAJbYLlK4lGWKAAAAAElFTkSuQmCC',
 									prefix: 'images',
@@ -2099,6 +2107,7 @@ export const posts: Post[] = [
 
 								value: {
 									id: '46b76323-4921-4a4a-b3fb-d151785c1a71',
+									alt: 'Sono circa 250 le piante censite alla Goccia',
 									caption: 'Sono circa 250 le piante censite alla Goccia',
 									blurHash:
 										'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAxUlEQVR4nAG6AEX/AA0cFTtWIpCFVaSfYjteJCpMG0pxMERxLipMGx08EwADChNggjt2mERyez65rnExViBNczQ4YycvVSAcOxIACxEdQ1YlapVISm4uemI8TWMxM04gPF4nQW4qLlMcAAAGBmaDRWKMPC1CFxAYA0xvNXWjVUBrLUd4Ly9cIgAAAwFbbj1VbDBDWigmLhFQgTdoqkiBzlpoqkg7ZCUAAgQDP0wlT1YuXnQ7XolEcrNPvf+Cd7hLVo82NWIgQpc1AEO0FQ8AAAAASUVORK5CYII=',
@@ -2278,6 +2287,7 @@ export const posts: Post[] = [
 								value: {
 									id: 'f82c1333-5197-42e4-81e1-06d1cec7f4e9',
 									caption: 'Le margherite della Goccia',
+									alt: 'Le margherite della Goccia',
 									blurHash:
 										'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAxUlEQVR4nAG6AEX/ACksE1daM3l/SXiUUW6QUsTXolx3PXWEUiExExcjCAAFFwB0cEeBiVLA1JGBnGCQrGhzj013f0g0RyIcKQ4AAAAAPEwrpLB12OWbucuHn65jw9aTjJxeiZpsRlIzAAAMADtKLcTXn/X/vrvBge7yocrRhvH2vG13SEpRLQAeHBVTXECMmGeiq3LKxoDJwn7I1Y96d01jaEIaFwUAaFpVqp+Tr6OIwLWRzcmG3N+ZvsKLiIdiYllHJiAX7zRSx8eBZ58AAAAASUVORK5CYII=',
 									prefix: 'images',
@@ -2403,6 +2413,7 @@ export const posts: Post[] = [
 		coverImage: {
 			id: '0a3c38df-7ddf-400e-aa12-60b9e36a875b',
 			caption: 'Lara Quaglini, Botanica, nel verde della Goccia',
+			alt: 'Lara Quaglini, Botanica, nel verde della Goccia',
 			blurHash:
 				'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAxUlEQVR4nAG6AEX/ABktCjVRHWSFRk1tOFR2RG6UXWmRVWiQSl2COyxMFwBSbS9zlEmoznaizXi35ZC24JBhcEWo1Hpsk0o8VSMAQ18gYHs4mL1j5f+n0/+aUWFQsrR9dZpKU3M6KkMbACM+CUdjIXWUQpvCZZS9ag0ZCkhNKDBLFzdUHzlSIQAACQADEAAYJABJZCd6nFArPxwYFwIAAAAJFQAjMRIAGSIAAhQAJTsRLUMWRV8pTGMzAA8AFCIFERwAPFMlpFA4M0YIn3IAAAAASUVORK5CYII=',
 			prefix: 'images',

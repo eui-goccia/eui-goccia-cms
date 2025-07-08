@@ -149,9 +149,13 @@ export interface UserAuthOperations {
 export interface Image {
   id: string;
   /**
-   * Caption/Alt/Copyright of the image
+   * Alt text of the image
    */
-  caption: string;
+  alt: string;
+  /**
+   * Caption/Copyright of the image
+   */
+  caption?: string | null;
   blurHash?: string | null;
   prefix?: string | null;
   updatedAt: string;
@@ -558,6 +562,7 @@ export interface PayloadMigration {
  * via the `definition` "images_select".
  */
 export interface ImagesSelect<T extends boolean = true> {
+  alt?: T;
   caption?: T;
   blurHash?: T;
   prefix?: T;
