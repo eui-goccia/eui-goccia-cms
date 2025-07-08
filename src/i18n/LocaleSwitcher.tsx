@@ -1,3 +1,5 @@
+"use client"
+
 import { useParams } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import type { TypedLocale } from 'payload';
@@ -34,7 +36,7 @@ export function LocaleSwitcher() {
 
 	return (
 		<Select onValueChange={onSelectChange} value={locale}>
-			<SelectTrigger className='w-full max-w-40 text-sm bg-transparent gap-2 pl-0 md:pl-3'>
+			<SelectTrigger className='w-full max-w-32 text-greed text-base bg-transparent gap-2'>
 				<SelectValue placeholder='Theme' />
 			</SelectTrigger>
 			<SelectContent>
