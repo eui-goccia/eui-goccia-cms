@@ -230,10 +230,10 @@ const getOrCreateImage = async (
 			},
 		});
 
-		console.log(`Created image for "${alt}" with filename "${originalFilename}"`);
+		payload.logger.info(`Created image for "${alt}" with filename "${originalFilename}"`);
 		return result.id;
 	} catch (error) {
-		console.error(`Error creating image "${alt}":`, error);
+		payload.logger.error(`Error creating image "${alt}":`, error);
 		throw error;
 	}
 };
@@ -268,14 +268,14 @@ const getOrCreateAuthor = async (
 
 		return result.id;
 	} catch (error) {
-		console.error(`Error creating author "${name}":`, error);
+		payload.logger.error(`Error creating author "${name}":`, error);
 		throw error;
 	}
 };
 
 const createBlogPost = async (payload: BasePayload, postData: Post): Promise<void> => {
 	try {
-		console.log(`Creating blog post: ${postData.title}`);
+		payload.logger.info(`Creating blog post: ${postData.title}`);
 
 		const authorData = typeof postData.author === 'string' 
 			? { name: 'Unknown Author', bio: '' }
@@ -408,16 +408,16 @@ const createBlogPost = async (payload: BasePayload, postData: Post): Promise<voi
 			},
 		});
 
-		console.log(`✅ Created blog post: ${postData.title}`);
+		payload.logger.info(`✅ Created blog post: ${postData.title}`);
 	} catch (error) {
-		console.error(`❌ Error creating blog post "${postData.title}":`, error);
+		payload.logger.error(`❌ Error creating blog post "${postData.title}":`, error);
 		throw error;
 	}
 };
 
 const createGocciaData = async (payload: BasePayload, gocciaData: LaGoccia): Promise<void> => {
 	try {
-		console.log('Creating Goccia timeline data...');
+		payload.logger.info('Creating Goccia timeline data...');
 
 		const processedTimeline = gocciaData.timeline ? await Promise.all(
 			gocciaData.timeline.map(async (event) => {
@@ -446,16 +446,16 @@ const createGocciaData = async (payload: BasePayload, gocciaData: LaGoccia): Pro
 			},
 		});
 
-		console.log('✅ Created Goccia data');
+		payload.logger.info('✅ Created Goccia data');
 	} catch (error) {
-		console.error('❌ Error creating Goccia data:', error);
+		payload.logger.error('❌ Error creating Goccia data:', error);
 		throw error;
 	}
 };
 
 const createProjectData = async (payload: BasePayload, projectData: Progetto): Promise<void> => {
 	try {
-		console.log('Creating Project data...');
+		payload.logger.info('Creating Project data...');
 
 		const processedSections = projectData.sections ? await Promise.all(
 			projectData.sections.map(async (section) => {
@@ -568,16 +568,16 @@ const createProjectData = async (payload: BasePayload, projectData: Progetto): P
 			},
 		});
 
-		console.log('✅ Created Project data');
+		payload.logger.info('✅ Created Project data');
 	} catch (error) {
-		console.error('❌ Error creating Project data:', error);
+		payload.logger.error('❌ Error creating Project data:', error);
 		throw error;
 	}
 };
 
 const createAboutData = async (payload: BasePayload, aboutData: About): Promise<void> => {
 	try {
-		console.log('Creating About data...');
+		payload.logger.info('Creating About data...');
 
 		const processedPartners = aboutData.partners ? await Promise.all(
 			aboutData.partners.map(async (partner) => {
@@ -607,19 +607,19 @@ const createAboutData = async (payload: BasePayload, aboutData: About): Promise<
 			},
 		});
 
-		console.log('✅ Created About data');
+		payload.logger.info('✅ Created About data');
 	} catch (error) {
-		console.error('❌ Error creating About data:', error);
+		payload.logger.error('❌ Error creating About data:', error);
 		throw error;
 	}
 };
 
 const cleanupDatabase = async (payload: BasePayload): Promise<void> => {
 	try {
-		console.log('🧹 Cleaning up existing data...');
+		payload.logger.info('🧹 Cleaning up existing data...');
 
 		// Delete posts first
-		console.log('🗑️  Deleting all posts...');
+		payload.logger.info('🗑️  Deleting all posts...');
 		
 			await payload.delete({
 				collection: 'posts',
@@ -627,10 +627,10 @@ const cleanupDatabase = async (payload: BasePayload): Promise<void> => {
 					exists:{}
 				}
 			});
-		console.log(`✅ Deleted all posts`);
+		payload.logger.info(`✅ Deleted all posts`);
 
 		// Delete authors
-		console.log('🗑️  Deleting all authors...');
+		payload.logger.info('🗑️  Deleting all authors...');
 		
 		
 			await payload.delete({
@@ -639,10 +639,10 @@ const cleanupDatabase = async (payload: BasePayload): Promise<void> => {
 					exists:{}
 				}
 			});
-		console.log(`✅ Deleted all authors`);
+		payload.logger.info(`✅ Deleted all authors`);
 
 		// Delete images
-		console.log('🗑️  Deleting all images...');
+		payload.logger.info('🗑️  Deleting all images...');
 		
 			await payload.delete({
 				collection: 'images',
@@ -650,11 +650,11 @@ const cleanupDatabase = async (payload: BasePayload): Promise<void> => {
 					exists:{}
 				}
 			});
-		console.log(`✅ Deleted all images`);
+		payload.logger.info(`✅ Deleted all images`);
 
-		console.log('🎯 Database cleanup completed!');
+		payload.logger.info('🎯 Database cleanup completed!');
 	} catch (error) {
-		console.error('❌ Error during cleanup:', error);
+		payload.logger.error('❌ Error during cleanup:', error);
 		throw error;
 	}
 };
@@ -667,7 +667,7 @@ export const seed = async ({
 	req: PayloadRequest;
 }): Promise<void> => {
 	try {
-		console.log('🌱 Starting database seeding...');
+		payload.logger.info('🌱 Starting database seeding...');
 
 		const { posts }: { posts: Post[] } = await import('../../../app/(frontend)/[locale]/blog/data');
 		const { goccia }: { goccia: LaGoccia } = await import('../../../app/(frontend)/[locale]/la-goccia/data');
@@ -677,9 +677,9 @@ export const seed = async ({
 		// Clean up existing data first
 		await cleanupDatabase(payload);
 
-		console.log('🔄 Preparing to seed fresh data...');
+		payload.logger.info('🔄 Preparing to seed fresh data...');
 
-		console.log('📝 Creating blog posts...');
+		payload.logger.info('📝 Creating blog posts...');
 		for (const post of posts) {
 			await createBlogPost(payload, post);
 		}
@@ -690,9 +690,9 @@ export const seed = async ({
 
 		await createAboutData(payload, about);
 
-		console.log('🎉 Database seeding completed successfully!');
+		payload.logger.info('🎉 Database seeding completed successfully!');
 	} catch (error) {
-		console.error('❌ Error during seeding:', error);
+		payload.logger.error('❌ Error during seeding:', error);
 		throw error;
 	}
 };
@@ -706,11 +706,11 @@ export const seedCleanup = async ({
 	req: PayloadRequest;
 }): Promise<void> => {
 	try {
-		console.log('🧹 Starting database cleanup...');
+		payload.logger.info('🧹 Starting database cleanup...');
 		await cleanupDatabase(payload);
-		console.log('🎉 Database cleanup completed successfully!');
+		payload.logger.info('🎉 Database cleanup completed successfully!');
 	} catch (error) {
-		console.error('❌ Error during cleanup:', error);
+		payload.logger.error('❌ Error during cleanup:', error);
 		throw error;
 	}
 };
@@ -723,16 +723,16 @@ export const seedPosts = async ({
 	req: PayloadRequest;
 }): Promise<void> => {
 	try {
-		console.log('📝 Starting posts seeding...');
+		payload.logger.info('📝 Starting posts seeding...');
 		const { posts }: { posts: Post[] } = await import('../../../app/(frontend)/[locale]/blog/data');
 		
 		for (const post of posts) {
 			await createBlogPost(payload, post);
 		}
 		
-		console.log('🎉 Posts seeding completed successfully!');
+		payload.logger.info('🎉 Posts seeding completed successfully!');
 	} catch (error) {
-		console.error('❌ Error during posts seeding:', error);
+		payload.logger.error('❌ Error during posts seeding:', error);
 		throw error;
 	}
 };
@@ -745,14 +745,14 @@ export const seedTimeline = async ({
 	req: PayloadRequest;
 }): Promise<void> => {
 	try {
-		console.log('🕐 Starting timeline seeding...');
+		payload.logger.info('🕐 Starting timeline seeding...');
 		const { goccia }: { goccia: LaGoccia } = await import('../../../app/(frontend)/[locale]/la-goccia/data');
 		
 		await createGocciaData(payload, goccia);
 		
-		console.log('🎉 Timeline seeding completed successfully!');
+		payload.logger.info('🎉 Timeline seeding completed successfully!');
 	} catch (error) {
-		console.error('❌ Error during timeline seeding:', error);
+		payload.logger.error('❌ Error during timeline seeding:', error);
 		throw error;
 	}
 };
@@ -765,14 +765,14 @@ export const seedAbout = async ({
 	req: PayloadRequest;
 }): Promise<void> => {
 	try {
-		console.log('ℹ️ Starting about seeding...');
+		payload.logger.info('ℹ️ Starting about seeding...');
 		const { about }: { about: About } = await import('../../../app/(frontend)/[locale]/about/data');
 		
 		await createAboutData(payload, about);
 		
-		console.log('🎉 About seeding completed successfully!');
+		payload.logger.info('🎉 About seeding completed successfully!');
 	} catch (error) {
-		console.error('❌ Error during about seeding:', error);
+		payload.logger.error('❌ Error during about seeding:', error);
 		throw error;
 	}
 };
@@ -785,14 +785,14 @@ export const seedProgetto = async ({
 	req: PayloadRequest;
 }): Promise<void> => {
 	try {
-		console.log('🏗️ Starting progetto seeding...');
+		payload.logger.info('🏗️ Starting progetto seeding...');
 		const { project }: { project: Progetto } = await import('../../../app/(frontend)/[locale]/progetto/data');
 		
 		await createProjectData(payload, project);
 		
-		console.log('🎉 Progetto seeding completed successfully!');
+		payload.logger.info('🎉 Progetto seeding completed successfully!');
 	} catch (error) {
-		console.error('❌ Error during progetto seeding:', error);
+		payload.logger.error('❌ Error during progetto seeding:', error);
 		throw error;
 	}
 };

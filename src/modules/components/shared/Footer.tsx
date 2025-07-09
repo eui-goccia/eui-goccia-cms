@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { LocaleSwitcher } from '@/i18n/LocaleSwitcher';
 import { Link } from '@/i18n/routing';
 import LogoEU from '../logos/LogoEU';
@@ -35,6 +35,7 @@ const socials: SocialsProp[] = [
 
 export default async function Footer() {
 	const t = await getTranslations();
+	const locale = await getLocale();
 	const pages: PagesProps[] = [
 		{
 			name: 'Homepage',
@@ -82,7 +83,11 @@ export default async function Footer() {
 						<ul>
 							{pages.map((page) => (
 								<li key={page.name}>
-									<Link className='hover:underline' href={page.url}>
+									<Link
+										locale={locale}
+										className='hover:underline'
+										href={page.url}
+									>
 										{page.name}
 									</Link>
 								</li>
@@ -109,7 +114,11 @@ export default async function Footer() {
 				</div>
 				<ul className=' md:flex-row font-greed flex flex-col'>
 					<li className='w-full'>
-						<Link className='hover:underline' href='/privacy-policy'>
+						<Link
+							locale={locale}
+							className='hover:underline'
+							href='/privacy-policy'
+						>
 							Privacy Policy
 						</Link>
 					</li>

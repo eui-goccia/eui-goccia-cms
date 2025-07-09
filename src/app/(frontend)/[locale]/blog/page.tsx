@@ -1,5 +1,4 @@
 import { draftMode } from 'next/headers';
-import { getLocale } from 'next-intl/server';
 import type { PaginatedDocs } from 'payload';
 import type { Locales } from '@/i18n/routing';
 import CardArticle from '@/modules/components/CardArticle';
@@ -9,14 +8,19 @@ import { getCachedDocuments } from '@/modules/utilities/getDocument';
 export const dynamic = 'force-static';
 export const revalidate = 600;
 
-export default async function Blog() {
-	const locale: Locales = (await getLocale()) as Locales;
+interface BlogProps {
+	params: Promise<{ locale: string }>;
+}
+
+export default async function Blog({ params }: BlogProps) {
+	const { locale } = await params;
 	const { isEnabled: draft } = await draftMode();
+
 	const posts = (await getCachedDocuments({
 		collection: 'posts',
 		depth: 2,
 		draft,
-		locale,
+		locale: locale as Locales,
 	})) as PaginatedDocs<Post>;
 
 	return (

@@ -1,13 +1,16 @@
 import type { About, Image } from '@payload-types';
-import { getLocale } from 'next-intl/server';
 import type { Locales } from '@/i18n/routing';
 import PartnerCard from '@/modules/components/PartnerCard';
 import SectionBreakFill from '@/modules/components/shared/SectionBreakFill';
 import { getCachedGlobal } from '@/modules/utilities/getGlobals';
 
-export default async function ChiSiamo() {
-	const locale: Locales = (await getLocale()) as Locales;
-	const about = (await getCachedGlobal('about', 1, locale)) as About;
+interface AboutPageProps {
+	params: Promise<{ locale: string }>;
+}
+
+export default async function ChiSiamo({ params }: AboutPageProps) {
+	const { locale } = await params;
+	const about = (await getCachedGlobal('about', 1, locale as Locales)) as About;
 	const partners = about.partners;
 	return (
 		<main className='mb-auto bg-black'>

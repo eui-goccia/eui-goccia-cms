@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload';
 import { defaultBlocks } from '../blocks';
 import { authenticated } from '../payload/access/authenticated';
 import { authenticatedOrPublished } from '../payload/access/authenticatedOrPublished';
-import { slugField } from '../payload/fields/slug';
+import { slugFieldFromItalian } from '../payload/fields/slug';
 import { seoTab } from '../seo/fields';
 import { generatePreviewPath } from '../utilities/generatePreviewPath';
 import { revalidateDelete, revalidatePost } from './revalidate';
@@ -139,7 +139,7 @@ export const Posts: CollectionConfig = {
 				],
 			},
 		},
-		...slugField('title'),
+		...slugFieldFromItalian('title'),
 	],
 	versions: {
 		drafts: {

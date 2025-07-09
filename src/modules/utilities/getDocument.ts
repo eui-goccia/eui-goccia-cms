@@ -50,9 +50,9 @@ export const getCachedDocument = ({
 }) => {
 	const cachedFn = unstable_cache(
 		async () => getDocument(collection, slug, depth, draft, locale),
-		[collection, slug],
+		[collection, slug, String(depth), String(draft), String(locale)],
 		{
-			tags: [`${collection}_${slug}`],
+			tags: [`${locale}_${collection}_${slug}`],
 		}
 	);
 	return cachedFn();
@@ -108,6 +108,10 @@ export const getCachedDocuments = async ({
 	select?: SelectFromCollectionSlug<Collection>;
 	locale?: Locales;
 }) => {
+	// Create a more specific cache key that includes all parameters
+	const whereKey = where ? JSON.stringify(where) : 'no-where';
+	const selectKey = select ? JSON.stringify(select) : 'no-select';
+
 	const cachedFn = unstable_cache(
 		async () =>
 			getPaginatedDocuments(
@@ -121,9 +125,19 @@ export const getCachedDocuments = async ({
 				select,
 				locale
 			),
-		[collection],
+		[
+			collection,
+			String(locale),
+			String(depth),
+			String(limit),
+			String(page),
+			sort,
+			String(draft),
+			whereKey,
+			selectKey,
+		],
 		{
-			tags: [`${collection}`],
+			tags: [`${locale}_${collection}`],
 		}
 	);
 	return await cachedFn();

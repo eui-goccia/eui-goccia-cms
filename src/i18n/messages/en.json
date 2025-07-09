@@ -11,5 +11,8 @@
 	"newsletter": {
 		"title": "Join Our Community",
 		"description": "Subscribe to our newsletter to follow how the Goccia grows together with the city"
+	},
+	"404": {
+		"description": "Page not found"
 	}
 }
