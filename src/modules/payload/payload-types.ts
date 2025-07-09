@@ -100,11 +100,13 @@ export interface Config {
     defaultIDType: string;
   };
   globals: {
+    home: Home;
     progetto: Progetto;
     'la-goccia': LaGoccia;
     about: About;
   };
   globalsSelect: {
+    home: HomeSelect<false> | HomeSelect<true>;
     progetto: ProgettoSelect<false> | ProgettoSelect<true>;
     'la-goccia': LaGocciaSelect<false> | LaGocciaSelect<true>;
     about: AboutSelect<false> | AboutSelect<true>;
@@ -841,6 +843,70 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home".
+ */
+export interface Home {
+  id: string;
+  hero_title: string | Image;
+  hero_texture: string | Image;
+  hero_image: string | Image;
+  /**
+   * Intro text (before marquee)
+   */
+  intro_text_1: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Intro text (after marquee)
+   */
+  intro_text_2: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  forest?:
+    | {
+        data?: string | null;
+        caption?: string | null;
+        image: string | Image;
+        id?: string | null;
+      }[]
+    | null;
+  what?:
+    | {
+        data?: string | null;
+        caption?: string | null;
+        image: string | Image;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "progetto".
  */
 export interface Progetto {
@@ -906,6 +972,36 @@ export interface About {
     | null;
   updatedAt?: string | null;
   createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "home_select".
+ */
+export interface HomeSelect<T extends boolean = true> {
+  hero_title?: T;
+  hero_texture?: T;
+  hero_image?: T;
+  intro_text_1?: T;
+  intro_text_2?: T;
+  forest?:
+    | T
+    | {
+        data?: T;
+        caption?: T;
+        image?: T;
+        id?: T;
+      };
+  what?:
+    | T
+    | {
+        data?: T;
+        caption?: T;
+        image?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

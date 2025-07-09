@@ -1,34 +1,46 @@
-import img6 from '@public/images/homepage/home_6.webp';
-import img7 from '@public/images/homepage/home_7.webp';
-import img8 from '@public/images/homepage/home_8.webp';
+import type { Home, Image } from '@payload-types';
+import { getTranslations } from 'next-intl/server';
 import CellData from '@/modules/components/CellData';
 import CellVisual from '@/modules/components/CellVisual';
 import GridRow from '@/modules/components/GridRow';
 import GridSection from '@/modules/components/GridSection';
 
-export default function SectionWhat() {
+type What = NonNullable<Home['what']>[number];
+
+export default async function SectionWhat({ home }: { home: Home }) {
+	const what = home.what as What[];
+	const t = await getTranslations();
 	return (
-		<GridSection sectionTitle='cosa facciamo'>
+		<GridSection sectionTitle={t('what_we_do')}>
 			<GridRow invertOrder={true}>
-				<CellVisual srcImage={img6} altContent='' />
-				<CellData
-					data='5 ettari'
-					caption='da bonificare tramite biorisanamento'
+				<CellVisual
+					srcImage={what[0].image as Image}
+					altContent={(what[0].image as Image).alt}
+					credits={(what[0].image as Image).caption}
 				/>
+				<CellData data={what[0].data} caption={what[0].caption} />
 			</GridRow>
 
 			<GridRow>
 				<CellData
-					caption='Recupero di un edificio industriale per attività di gestione forestale partecipate'
+					caption={what[1].caption}
 					captionClass='font-tagada normal-case xl:text-6xl md:text-5xl sm:text-4xl text-3xl'
 				/>
-				<CellVisual srcImage={img7} altContent='' />
+				<CellVisual
+					srcImage={what[1].image as Image}
+					altContent={(what[1].image as Image).alt}
+					credits={(what[1].image as Image).caption}
+				/>
 			</GridRow>
 
 			<GridRow invertOrder={true}>
-				<CellVisual credits='©Terrapreta' srcImage={img8} altContent='' />
+				<CellVisual
+					srcImage={what[2].image as Image}
+					altContent={(what[2].image as Image).alt}
+					credits={(what[2].image as Image).caption}
+				/>
 				<CellData
-					caption='Percorso etnografico e costruzione di una governance interdisciplinare e partecipata'
+					caption={what[2].caption}
 					captionClass='font-tagada normal-case xl:text-6xl md:text-5xl sm:text-4xl text-3xl'
 				/>
 			</GridRow>

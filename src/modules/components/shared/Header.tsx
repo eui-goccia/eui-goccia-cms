@@ -1,6 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { Fragment, useState } from 'react';
 import { Link } from '@/i18n/routing';
 import LogoGoccia from '@/modules/components/logos/LogoGoccia';
@@ -8,6 +9,7 @@ import LogoGoccia from '@/modules/components/logos/LogoGoccia';
 export default function Header() {
 	const [menuIsOpen, setMenuIsOpen] = useState(false);
 	const pathname = usePathname();
+	const t = useTranslations();
 
 	const toggleMenu = () => {
 		setMenuIsOpen((prev) => !prev);
@@ -60,7 +62,7 @@ export default function Header() {
 								}`}
 								href='/progetto'
 							>
-								Il Progetto
+								{t('project')}
 							</Link>
 						</li>
 						<li className='w-full flex items-center justify-center'>
@@ -70,7 +72,7 @@ export default function Header() {
 								}`}
 								href='/la-goccia'
 							>
-								La Goccia
+								{t('goccia')}
 							</Link>
 						</li>
 						<li className='w-full  flex items-center justify-center'>
@@ -88,7 +90,7 @@ export default function Header() {
 								}`}
 								href='/blog'
 							>
-								Blog
+								{t('blog')}
 							</Link>
 						</li>
 						<li className='w-full  flex items-center justify-center'>
@@ -98,7 +100,7 @@ export default function Header() {
 								}`}
 								href='/about'
 							>
-								Chi Siamo
+								{t('about')}
 							</Link>
 						</li>
 					</ul>
@@ -140,7 +142,7 @@ export default function Header() {
 										href='/progetto'
 										onClick={closeMenu}
 									>
-										Il Progetto
+										{t('project')}
 									</Link>
 								</motion.li>
 								<motion.li
@@ -161,7 +163,7 @@ export default function Header() {
 										href='/la-goccia'
 										onClick={closeMenu}
 									>
-										La Goccia
+										{t('goccia')}
 									</Link>
 								</motion.li>
 								<motion.li
@@ -180,7 +182,7 @@ export default function Header() {
 										href='/blog'
 										onClick={closeMenu}
 									>
-										Blog
+										{t('blog')}
 									</Link>
 								</motion.li>
 								<motion.li
@@ -199,7 +201,7 @@ export default function Header() {
 										href='/about'
 										onClick={closeMenu}
 									>
-										Chi Siamo
+										{t('about')}
 									</Link>
 								</motion.li>
 							</ul>

@@ -1,7 +1,9 @@
 import type { Author, Image, Post } from '@payload-types';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
+import { getLocale } from 'next-intl/server';
 import type { PaginatedDocs } from 'payload';
+import type { Locales } from '@/i18n/routing';
 import { BlockRenderer } from '@/modules/blocks/BlockRenderer';
 import HeaderArticle from '@/modules/components/HeaderArticle';
 import {
@@ -14,11 +16,14 @@ interface PageProps {
 }
 
 export async function generateStaticParams() {
-	const posts = (await getCachedDocuments(
-		'posts',
-		2,
-		100
-	)) as PaginatedDocs<Post>;
+	const locale: Locales = (await getLocale()) as Locales;
+	const posts = (await getCachedDocuments({
+		collection: 'posts',
+		depth: 2,
+		limit: 100,
+		draft: false,
+		locale,
+	})) as PaginatedDocs<Post>;
 	const params = posts.docs.map(({ slug }) => {
 		return { slug };
 	});
@@ -29,7 +34,14 @@ export async function generateStaticParams() {
 export default async function BlogPost({ params }: PageProps) {
 	const { slug } = await params;
 	const { isEnabled: draft } = await draftMode();
-	const post = (await getCachedDocument('posts', slug, 2, draft)) as Post;
+	const locale: Locales = (await getLocale()) as Locales;
+	const post = (await getCachedDocument({
+		collection: 'posts',
+		slug,
+		depth: 2,
+		draft,
+		locale,
+	})) as Post;
 
 	if (!post) {
 		notFound();

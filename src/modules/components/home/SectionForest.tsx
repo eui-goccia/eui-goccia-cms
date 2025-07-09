@@ -1,33 +1,42 @@
-import img2 from '@public/images/homepage/home_2.webp';
-import img3 from '@public/images/homepage/home_3.webp';
-import img5 from '@public/images/homepage/home_5.webp';
+import type { Home, Image } from '@payload-types';
+import { getTranslations } from 'next-intl/server';
 import CellData from '@/modules/components/CellData';
 import CellVisual from '@/modules/components/CellVisual';
 import GridRow from '@/modules/components/GridRow';
 import GridSection from '@/modules/components/GridSection';
 
-export default function SectionForest() {
+type Forest = NonNullable<Home['forest']>[number];
+
+export default async function SectionForest({ home }: { home: Home }) {
+	const forest = home.forest as Forest[];
+	const t = await getTranslations();
 	return (
-		<GridSection sectionTitle='la foresta'>
+		<GridSection sectionTitle={t('forest')}>
 			<GridRow>
-				<CellData
-					data='18 ettari'
-					caption='di foresta spontanea da valorizzare'
+				<CellData data={forest[0].data} caption={forest[0].caption} />
+				<CellVisual
+					srcImage={forest[0].image as Image}
+					altContent={(forest[0].image as Image).alt}
+					credits={(forest[0].image as Image).caption}
 				/>
-				<CellVisual srcImage={img2} altContent='' />
 			</GridRow>
 
 			<GridRow invertOrder={true}>
-				<CellVisual srcImage={img3} altContent='' />
-				<CellData
-					data='15.000+ alberi'
-					caption='specie più presenti: robinia, bagolaro, pioppo'
+				<CellVisual
+					srcImage={forest[1].image as Image}
+					altContent={(forest[1].image as Image).alt}
+					credits={(forest[1].image as Image).caption}
 				/>
+				<CellData data={forest[1].data} caption={forest[1].caption} />
 			</GridRow>
 
 			<GridRow>
-				<CellData data='40 specie di avifauna' />
-				<CellVisual credits='©Terrapreta' srcImage={img5} altContent='' />
+				<CellData data={forest[2].data} caption={forest[2].caption} />
+				<CellVisual
+					srcImage={forest[2].image as Image}
+					altContent={(forest[2].image as Image).alt}
+					credits={(forest[2].image as Image).caption}
+				/>
 			</GridRow>
 		</GridSection>
 	);
