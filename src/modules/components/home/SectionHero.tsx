@@ -6,10 +6,6 @@ export default function SectionHero({ home }: { home: Home }) {
 	const hero_texture = home.hero_texture as Image;
 	const hero_image = home.hero_image as Image;
 
-	if (!hero_title || !hero_texture || !hero_image) {
-		return null;
-	}
-
 	return (
 		<hgroup>
 			<h1 className='sr-only'>Homepage</h1>

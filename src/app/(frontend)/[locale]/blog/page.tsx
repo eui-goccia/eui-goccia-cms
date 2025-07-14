@@ -6,7 +6,8 @@ import type { Post } from '@/modules/payload/payload-types';
 import { getCachedDocuments } from '@/modules/utilities/getDocument';
 
 export const dynamic = 'force-static';
-export const revalidate = 600;
+// Longer revalidation since content rarely changes
+export const revalidate = 1800; // 30 minutes
 
 interface BlogProps {
 	params: Promise<{ locale: string }>;

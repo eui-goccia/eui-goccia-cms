@@ -7,7 +7,6 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	// Your Next.js config here
 	eslint: {
 		ignoreDuringBuilds: true,
 	},
@@ -40,6 +39,38 @@ const nextConfig = {
 					process.env.NEXT_PUBLIC_VERCEL_BRANCH_URL,
 			},
 		],
+	},
+	experimental: {
+		staleTimes: {
+			dynamic: 0,
+			static: 300,
+		},
+	},
+	async headers() {
+		return [
+			{
+				source: '/(.*)',
+				headers: [
+					{
+						key: 'X-Frame-Options',
+						value: 'DENY',
+					},
+					{
+						key: 'X-Content-Type-Options',
+						value: 'nosniff',
+					},
+				],
+			},
+			{
+				source: '/api/:path*',
+				headers: [
+					{
+						key: 'Cache-Control',
+						value: 'public, s-maxage=60, stale-while-revalidate=300',
+					},
+				],
+			},
+		];
 	},
 	rewrites,
 };

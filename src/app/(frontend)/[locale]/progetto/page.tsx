@@ -4,7 +4,8 @@ import { getCachedGlobal } from '@/modules/utilities/getGlobals';
 import ProgettoClient from './page.client';
 
 export const dynamic = 'force-static';
-export const revalidate = 600;
+// Longer revalidation since content rarely changes
+export const revalidate = 3600; // 1 hour
 
 interface ProgettoPageProps {
 	params: Promise<{ locale: string }>;

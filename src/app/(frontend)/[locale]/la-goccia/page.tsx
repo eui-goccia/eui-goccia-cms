@@ -5,7 +5,8 @@ import TimelineEvent from '@/modules/components/TimelineEvent';
 import { getCachedGlobal } from '@/modules/utilities/getGlobals';
 
 export const dynamic = 'force-static';
-export const revalidate = 600;
+// Longer revalidation since content rarely changes
+export const revalidate = 3600; // 1 hour
 
 interface GocciaPageProps {
 	params: Promise<{ locale: string }>;

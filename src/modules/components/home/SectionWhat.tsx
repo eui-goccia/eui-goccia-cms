@@ -11,10 +11,6 @@ export default async function SectionWhat({ home }: { home: Home }) {
 	const what = home.what as What[];
 	const t = await getTranslations();
 
-	if (!what || what.length === 0 || !what[0]?.image) {
-		return null;
-	}
-
 	return (
 		<GridSection sectionTitle={t('what_we_do')}>
 			<GridRow invertOrder={true}>
