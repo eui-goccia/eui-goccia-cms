@@ -50,6 +50,57 @@ const MAX_RECURSION_DEPTH = 20;
  * we keep the manual approach for each global for better type safety
  */
 
+/**
+ * Utility function to merge existing content blocks with new locale content blocks
+ * This preserves non-localized fields while updating only localized fields
+ */
+const mergeContentBlocks = (existingBlocks: any[], newBlocks: any[]): any[] => {
+	// Warn if block counts don't match
+	if (existingBlocks.length !== newBlocks.length) {
+		console.warn(`⚠️  Content block count mismatch: existing=${existingBlocks.length}, new=${newBlocks.length}`);
+	}
+
+	return existingBlocks.map((existingBlock: any, blockIndex: number) => {
+		const newBlock = newBlocks[blockIndex];
+		if (!newBlock) {
+			// No corresponding new block, keep existing block as-is
+			return existingBlock;
+		}
+
+		// Merge based on block type, preserving non-localized fields
+		const mergedBlock = { ...existingBlock };
+
+		// Update localized fields based on block type
+		if (existingBlock.blockType === 'text' && newBlock.blockType === 'text') {
+			mergedBlock.content = newBlock.content || existingBlock.content;
+		} else if (existingBlock.blockType === 'richText' && newBlock.blockType === 'richText') {
+			// For rich text, preserve structure but update content if available
+			mergedBlock.content = newBlock.content || existingBlock.content;
+		} else if (existingBlock.blockType === 'quote' && newBlock.blockType === 'quote') {
+			mergedBlock.content = newBlock.content || existingBlock.content;
+			mergedBlock.author = newBlock.author || existingBlock.author;
+		} else if (existingBlock.blockType === 'grid' && newBlock.blockType === 'grid') {
+			// For grid blocks, merge items array
+			if (Array.isArray(existingBlock.items) && Array.isArray(newBlock.items)) {
+				mergedBlock.items = existingBlock.items.map((existingItem: any, itemIndex: number) => {
+					const newItem = newBlock.items?.[itemIndex];
+					if (!newItem) return existingItem;
+
+					const mergedItem = { ...existingItem };
+					if (existingItem.blockType === 'text' && newItem.blockType === 'text') {
+						mergedItem.content = newItem.content || existingItem.content;
+					} else if (existingItem.blockType === 'richText' && newItem.blockType === 'richText') {
+						mergedItem.content = newItem.content || existingItem.content;
+					}
+					return mergedItem;
+				});
+			}
+		}
+
+		return mergedBlock;
+	});
+};
+
 const stripContentBlockIds = (block: ContentBlock): ContentBlock => {
 	const cleanBlock = { ...block };
 	
@@ -564,32 +615,10 @@ const createBlogPost = async (payload: BasePayload, postDataIt: Post, postDataEn
 				locale: 'it', // Get the Italian version to see the current structure
 			});
 
-			// Merge existing content structure with English localized fields
-			const contentWithEnglishLocalized = currentPost.content?.map((block: any, index: number) => {
-				const enBlock = processedContentEn[index];
-				if (!enBlock) {
-					// If no corresponding English block, keep the existing block as-is
-					return block;
-				}
-
-				return {
-					// Keep ALL existing fields from the current structure
-					...block,
-					// Update localized fields based on block type
-					...(block.blockType === 'text' && enBlock.blockType === 'text' && {
-						content: enBlock.content || block.content, // Update text content if available
-					}),
-					...(block.blockType === 'richText' && enBlock.blockType === 'richText' && {
-						content: enBlock.content || block.content, // Update rich text content if available
-					}),
-					...(block.blockType === 'quote' && enBlock.blockType === 'quote' && {
-						content: enBlock.content || block.content, // Update quote content if available
-						author: enBlock.author || block.author, // Update quote author if available
-					}),
-					// For image and grid blocks, typically only alt text and captions are localized
-					// but the images themselves are already processed and shared
-				};
-			});
+			// Merge existing content structure with English localized fields using utility function
+			const contentWithEnglishLocalized = currentPost.content && Array.isArray(currentPost.content) && Array.isArray(processedContentEn)
+				? mergeContentBlocks(currentPost.content, processedContentEn)
+				: currentPost.content;
 
 			await payload.update({
 				collection: 'posts',
@@ -756,27 +785,27 @@ const createProjectData = async (payload: BasePayload, projectDataIt: Progetto, 
 		});
 
 		// Update sections with SAME structure but English localized field values
-		const sectionsWithEnglishLocalized = await Promise.all(
-			(currentGlobal.sections || []).map(async (section: any, index: number) => {
-				const enSection = sectionsEn[index];
-				const baseSection = projectDataIt.sections?.[index] || projectDataIt.sections?.[0];
-				
-				// Process English content if available, otherwise reuse existing content
-				let processedContent = section.content; // Default to existing content
-				if (enSection?.content && baseSection) {
-					processedContent = await processContentBlocks(payload, enSection.content);
-				}
+		const sectionsWithEnglishLocalized = (currentGlobal.sections || []).map((section: any, index: number) => {
+			const enSection = sectionsEn[index];
+			
+			// CRITICAL: Content blocks themselves may contain localized fields
+			// We need to merge the existing content structure with English content, not replace it
+			let mergedContent = section.content; // Default to existing content
+			
+			if (enSection?.content && Array.isArray(section.content) && Array.isArray(enSection.content)) {
+				// Use utility function to merge content blocks properly
+				mergedContent = mergeContentBlocks(section.content, enSection.content);
+			}
 
-				return {
-					// Keep ALL existing fields from the current structure
-					...section,
-					// Update ONLY localized fields with English values
-					title: enSection?.title || section.title, // English title or fallback to current
-					// Update content if we have English content
-					content: processedContent,
-				};
-			})
-		);
+			return {
+				// Keep ALL existing fields from the current structure
+				...section,
+				// Update ONLY localized fields with English values
+				title: enSection?.title || section.title, // English title or fallback to current
+				// Use merged content that preserves Italian data
+				content: mergedContent,
+			};
+		});
 
 		// Update with English locale data - include the array with English localized values
 		await payload.updateGlobal({
