@@ -4,6 +4,9 @@ import { revalidateGlobal } from '../utilities/revalidateGlobal';
 export const Goccia: GlobalConfig = {
 	slug: 'la-goccia',
 	label: 'La Goccia',
+	admin: {
+		group: 'Pages',
+	},
 	hooks: {
 		afterChange: [revalidateGlobal],
 	},

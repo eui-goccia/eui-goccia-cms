@@ -4,6 +4,9 @@ import { revalidateGlobal } from '../utilities/revalidateGlobal';
 export const About: GlobalConfig = {
 	slug: 'about',
 	label: 'Chi Siamo',
+	admin: {
+		group: 'Pages',
+	},
 	hooks: {
 		afterChange: [revalidateGlobal],
 	},

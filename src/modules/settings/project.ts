@@ -6,6 +6,9 @@ import { revalidateGlobal } from '../utilities/revalidateGlobal';
 export const Project: GlobalConfig = {
 	slug: 'progetto',
 	label: 'Progetto',
+	admin: {
+		group: 'Pages',
+	},
 	hooks: {
 		afterChange: [revalidateGlobal],
 	},
