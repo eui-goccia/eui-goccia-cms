@@ -22,9 +22,7 @@ export default async function Home({ params }: HomeProps) {
 		2,
 		locale as Locales
 	)) as HomeType;
-	if (!home) {
-		return null;
-	}
+
 	return (
 		<main className='mb-auto'>
 			<SectionHero home={home} />
