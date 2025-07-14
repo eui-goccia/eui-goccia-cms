@@ -4,6 +4,9 @@ import PartnerCard from '@/modules/components/PartnerCard';
 import SectionBreakFill from '@/modules/components/shared/SectionBreakFill';
 import { getCachedGlobal } from '@/modules/utilities/getGlobals';
 
+export const dynamic = 'force-static';
+export const revalidate = 600;
+
 interface AboutPageProps {
 	params: Promise<{ locale: string }>;
 }

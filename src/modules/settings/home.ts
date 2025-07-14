@@ -1,4 +1,5 @@
 import type { Field, GlobalConfig } from 'payload';
+import { revalidateGlobal } from '../utilities/revalidateGlobal';
 
 const arrayFields: Field[] = [
 	{
@@ -21,6 +22,9 @@ const arrayFields: Field[] = [
 
 export const Home: GlobalConfig = {
 	slug: 'home',
+	hooks: {
+		afterChange: [revalidateGlobal],
+	},
 	fields: [
 		{
 			type: 'group',

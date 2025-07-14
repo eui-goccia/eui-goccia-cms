@@ -4,6 +4,9 @@ import SectionBreakText from '@/modules/components/shared/SectionBreakText';
 import TimelineEvent from '@/modules/components/TimelineEvent';
 import { getCachedGlobal } from '@/modules/utilities/getGlobals';
 
+export const dynamic = 'force-static';
+export const revalidate = 600;
+
 interface GocciaPageProps {
 	params: Promise<{ locale: string }>;
 }

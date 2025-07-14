@@ -1,6 +1,6 @@
 import type { Post } from '@payload-types';
 
-export const posts: Post[] = [
+export const posts_it: Post[] = [
 	{
 		id: '25197d6e-21f9-45a2-9952-1e7007937b55',
 		title: "Che cos'è La Goccia e perché merita la nostra attenzione",
@@ -1770,7 +1770,7 @@ export const posts: Post[] = [
 		},
 		publishedAt: '2025-06-26T22:00:00.000Z',
 		slug: 'the-forest-that-come-back-a-life-in-la-goccia',
-		slugLock: true,
+		slugLock: false,
 		updatedAt: '2025-07-03T10:19:48.705Z',
 		createdAt: '2025-07-03T10:15:07.562Z',
 		_status: 'published',
@@ -2492,7 +2492,7 @@ export const posts: Post[] = [
 		},
 		publishedAt: '2025-06-29T22:00:00.000Z',
 		slug: 'breve-viaggio-tra-la-flora-della-goccia',
-		slugLock: true,
+		slugLock: false,
 		updatedAt: '2025-07-03T10:27:13.732Z',
 		createdAt: '2025-07-03T10:22:10.564Z',
 		_status: 'published',

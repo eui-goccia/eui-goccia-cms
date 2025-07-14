@@ -3,6 +3,9 @@ import type { Locales } from '@/i18n/routing';
 import { getCachedGlobal } from '@/modules/utilities/getGlobals';
 import ProgettoClient from './page.client';
 
+export const dynamic = 'force-static';
+export const revalidate = 600;
+
 interface ProgettoPageProps {
 	params: Promise<{ locale: string }>;
 }
