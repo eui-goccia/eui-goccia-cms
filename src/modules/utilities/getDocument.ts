@@ -3,6 +3,7 @@ import type { Config } from '@payload-types';
 import { unstable_cache } from 'next/cache';
 import type { SelectFromCollectionSlug } from 'node_modules/payload/dist/collections/config/types';
 import { getPayload, type Where } from 'payload';
+import type { Locales } from '@/i18n/routing';
 
 type Collection = keyof Config['collections'];
 
@@ -10,7 +11,8 @@ async function getDocument(
 	collection: Collection,
 	slug: string,
 	depth = 0,
-	draft = false
+	draft = false,
+	locale?: Locales
 ) {
 	const payload = await getPayload({ config: configPromise });
 
@@ -23,6 +25,8 @@ async function getDocument(
 			},
 		},
 		draft,
+		locale,
+		overrideAccess: draft,
 	});
 
 	return page.docs[0];
@@ -31,17 +35,24 @@ async function getDocument(
 /**
  * Returns a unstable_cache function mapped with the cache tag for the slug
  */
-export const getCachedDocument = (
-	collection: Collection,
-	slug: string,
-	depth = 0,
-	draft = false
-) => {
+export const getCachedDocument = ({
+	collection,
+	slug,
+	depth,
+	draft,
+	locale,
+}: {
+	collection: Collection;
+	slug: string;
+	depth?: number;
+	draft?: boolean;
+	locale?: Locales;
+}) => {
 	const cachedFn = unstable_cache(
-		async () => getDocument(collection, slug, depth, draft),
-		[collection, slug],
+		async () => getDocument(collection, slug, depth, draft, locale),
+		[collection, slug, String(depth), String(draft), String(locale)],
 		{
-			tags: [`${collection}_${slug}`],
+			tags: [`${locale}_${collection}_${slug}`],
 		}
 	);
 	return cachedFn();
@@ -55,7 +66,8 @@ async function getPaginatedDocuments(
 	sort = 'publishedAt',
 	draft = false,
 	where?: Where,
-	select?: SelectFromCollectionSlug<Collection>
+	select?: SelectFromCollectionSlug<Collection>,
+	locale?: Locales
 ) {
 	const payload = await getPayload({ config: configPromise });
 
@@ -69,21 +81,37 @@ async function getPaginatedDocuments(
 		draft,
 		overrideAccess: draft,
 		select,
+		locale,
 	});
 
 	return documents;
 }
 
-export const getCachedDocuments = async (
-	collection: Collection,
+export const getCachedDocuments = async ({
+	collection,
 	depth = 0,
 	limit = 12,
 	page = 1,
 	sort = 'publishedAt',
 	draft = false,
-	where?: Where,
-	select?: SelectFromCollectionSlug<Collection>
-) => {
+	where,
+	select,
+	locale,
+}: {
+	collection: Collection;
+	depth?: number;
+	limit?: number;
+	page?: number;
+	sort?: string;
+	draft?: boolean;
+	where?: Where;
+	select?: SelectFromCollectionSlug<Collection>;
+	locale?: Locales;
+}) => {
+	// Create a more specific cache key that includes all parameters
+	const whereKey = where ? JSON.stringify(where) : 'no-where';
+	const selectKey = select ? JSON.stringify(select) : 'no-select';
+
 	const cachedFn = unstable_cache(
 		async () =>
 			getPaginatedDocuments(
@@ -94,11 +122,22 @@ export const getCachedDocuments = async (
 				sort,
 				draft,
 				where,
-				select
+				select,
+				locale
 			),
-		[collection],
+		[
+			collection,
+			String(locale),
+			String(depth),
+			String(limit),
+			String(page),
+			sort,
+			String(draft),
+			whereKey,
+			selectKey,
+		],
 		{
-			tags: [`${collection}`],
+			tags: [`${locale}_${collection}`],
 		}
 	);
 	return await cachedFn();

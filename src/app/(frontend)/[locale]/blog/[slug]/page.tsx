@@ -2,6 +2,8 @@ import type { Author, Image, Post } from '@payload-types';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 import type { PaginatedDocs } from 'payload';
+import localization from '@/i18n/localization';
+import type { Locales } from '@/i18n/routing';
 import { BlockRenderer } from '@/modules/blocks/BlockRenderer';
 import HeaderArticle from '@/modules/components/HeaderArticle';
 import {
@@ -10,26 +12,53 @@ import {
 } from '@/modules/utilities/getDocument';
 
 interface PageProps {
-	params: Promise<{ slug: string }>;
+	params: Promise<{ slug: string; locale: string }>;
 }
 
 export async function generateStaticParams() {
-	const posts = (await getCachedDocuments(
-		'posts',
-		2,
-		100
-	)) as PaginatedDocs<Post>;
-	const params = posts.docs.map(({ slug }) => {
-		return { slug };
-	});
+	// Generate static params for all unique slugs across locales
+	const slugSet = new Set<string>();
 
-	return params;
+	for (const localeConfig of localization.locales) {
+		const locale = localeConfig.code as Locales;
+
+		try {
+			const posts = (await getCachedDocuments({
+				collection: 'posts',
+				depth: 0, // We only need the slug, reduce depth for performance
+				limit: 100,
+				draft: false,
+				locale,
+			})) as PaginatedDocs<Post>;
+
+			// Add unique slugs to set
+			posts.docs.forEach(({ slug }) => {
+				if (slug && typeof slug === 'string') {
+					slugSet.add(slug);
+				}
+			});
+		} catch (error) {
+			console.warn(
+				`Failed to generate static params for locale ${locale}:`,
+				error
+			);
+		}
+	}
+
+	return Array.from(slugSet).map((slug) => ({ slug }));
 }
 
 export default async function BlogPost({ params }: PageProps) {
-	const { slug } = await params;
+	const { slug, locale } = await params;
 	const { isEnabled: draft } = await draftMode();
-	const post = (await getCachedDocument('posts', slug, 2, draft)) as Post;
+
+	const post = (await getCachedDocument({
+		collection: 'posts',
+		slug,
+		depth: 2,
+		draft,
+		locale: locale as Locales,
+	})) as Post;
 
 	if (!post) {
 		notFound();

@@ -1,3 +1,5 @@
+import { getLocale, getTranslations } from 'next-intl/server';
+import { LocaleSwitcher } from '@/i18n/LocaleSwitcher';
 import { Link } from '@/i18n/routing';
 import LogoEU from '../logos/LogoEU';
 import LogoEUI from '../logos/LogoEUI';
@@ -11,25 +13,6 @@ interface SocialsProp {
 	name: string;
 	url: string;
 }
-
-const pages: PagesProps[] = [
-	{
-		name: 'Homepage',
-		url: '/',
-	},
-	{
-		name: 'Il Progetto',
-		url: '/progetto',
-	},
-	{
-		name: 'La Goccia',
-		url: '/la-goccia',
-	},
-	{
-		name: 'Chi Siamo',
-		url: '/about',
-	},
-];
 
 const socials: SocialsProp[] = [
 	{
@@ -50,7 +33,27 @@ const socials: SocialsProp[] = [
 	},
 ];
 
-export default function Footer() {
+export default async function Footer() {
+	const t = await getTranslations();
+	const locale = await getLocale();
+	const pages: PagesProps[] = [
+		{
+			name: 'Homepage',
+			url: '/',
+		},
+		{
+			name: t('project'),
+			url: '/progetto',
+		},
+		{
+			name: t('goccia'),
+			url: '/la-goccia',
+		},
+		{
+			name: t('about'),
+			url: '/about',
+		},
+	];
 	return (
 		<footer className='bg-white p-10 flex flex-col lg:grid grid-cols-12 gap-5'>
 			<div className='col-span-full lg:col-span-8 col-start-1 space-y-12 xl:col-start-2'>
@@ -80,7 +83,11 @@ export default function Footer() {
 						<ul>
 							{pages.map((page) => (
 								<li key={page.name}>
-									<Link className='hover:underline' href={page.url}>
+									<Link
+										locale={locale}
+										className='hover:underline'
+										href={page.url}
+									>
 										{page.name}
 									</Link>
 								</li>
@@ -88,7 +95,7 @@ export default function Footer() {
 						</ul>
 					</nav>
 					<nav className='w-full font-greed md:w-1/2 '>
-						<h3 className='uppercase'>Contatti</h3>
+						<h3 className='uppercase'>{t('contacts')}</h3>
 						<ul>
 							{socials.map((social) => (
 								<li key={social.name}>
@@ -107,11 +114,19 @@ export default function Footer() {
 				</div>
 				<ul className=' md:flex-row font-greed flex flex-col'>
 					<li className='w-full'>
-						<Link className='hover:underline' href='/privacy-policy'>
+						<Link
+							locale={locale}
+							className='hover:underline'
+							href='/privacy-policy'
+						>
 							Privacy Policy
 						</Link>
 					</li>
 				</ul>
+			</div>
+			<div className='col-span-full lg:col-span-8 pt-8 col-start-1 space-y-2 xl:col-start-2'>
+				<h2 className='font-greed'>Languages</h2>
+				<LocaleSwitcher />
 			</div>
 		</footer>
 	);

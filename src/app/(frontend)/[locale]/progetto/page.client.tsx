@@ -1,5 +1,6 @@
 'use client';
 import type { Progetto } from '@payload-types';
+import { useLocale } from 'next-intl';
 import { Fragment, useEffect, useState } from 'react';
 import { Link } from '@/i18n/routing';
 import { BlockRenderer } from '@/modules/blocks/BlockRenderer';
@@ -8,7 +9,7 @@ import SectionBreakFill from '@/modules/components/shared/SectionBreakFill';
 
 export default function ProgettoClient({ project }: { project: Progetto }) {
 	const [activeSection, setActiveSection] = useState('');
-
+	const locale = useLocale();
 	useEffect(() => {
 		const handleScroll = () => {
 			const sections =
@@ -78,6 +79,7 @@ export default function ProgettoClient({ project }: { project: Progetto }) {
 			</div>
 			<div className=' hidden bg-rosa-300 grid-cols-12 gap-5 px-10 py-30'>
 				<Link
+					locale={locale}
 					className='underline hover:no-underline col-start-5 w-fit col-span-full font-greed uppercase text-3xl justify-center'
 					href='https://google.com'
 				>

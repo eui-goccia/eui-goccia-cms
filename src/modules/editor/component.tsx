@@ -17,6 +17,7 @@ import {
 	type JSXConverter,
 	type JSXConvertersFunction,
 } from '@payloadcms/richtext-lexical/react';
+import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/modules/utilities/cnUtils';
 import { CustomImage } from '../components/CustomImage';
@@ -57,6 +58,7 @@ const CustomLinkConverter: JSXConverter<SerializedLinkNode> = ({
 	parent,
 }) => {
 	const fields = node.fields as LinkField;
+	const locale = useLocale();
 
 	const renderedChildren = convertLexicalNodesToJSX({
 		nodes: node.children,
@@ -70,7 +72,11 @@ const CustomLinkConverter: JSXConverter<SerializedLinkNode> = ({
 		fields.doc?.value &&
 		isSluggableDoc(fields.doc.value)
 	) {
-		return <Link href={`/${fields.doc.value.slug}`}>{renderedChildren}</Link>;
+		return (
+			<Link locale={locale} href={`/${fields.doc.value.slug}`}>
+				{renderedChildren}
+			</Link>
+		);
 	}
 
 	// Default external/custom link rendering or fallback
@@ -80,7 +86,7 @@ const CustomLinkConverter: JSXConverter<SerializedLinkNode> = ({
 		: {};
 
 	return (
-		<Link href={href ?? '#'} {...newTabProps}>
+		<Link locale={locale} href={href ?? '#'} {...newTabProps}>
 			{renderedChildren}
 		</Link>
 	);

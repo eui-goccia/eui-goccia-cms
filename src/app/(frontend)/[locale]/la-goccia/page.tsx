@@ -1,10 +1,23 @@
 import type { LaGoccia } from '@payload-types';
+import type { Locales } from '@/i18n/routing';
 import SectionBreakText from '@/modules/components/shared/SectionBreakText';
 import TimelineEvent from '@/modules/components/TimelineEvent';
 import { getCachedGlobal } from '@/modules/utilities/getGlobals';
 
-export default async function GocciaPage() {
-	const goccia = (await getCachedGlobal('la-goccia', 1)) as LaGoccia;
+export const dynamic = 'force-static';
+export const revalidate = 600;
+
+interface GocciaPageProps {
+	params: Promise<{ locale: string }>;
+}
+
+export default async function GocciaPage({ params }: GocciaPageProps) {
+	const { locale } = await params;
+	const goccia = (await getCachedGlobal(
+		'la-goccia',
+		1,
+		locale as Locales
+	)) as LaGoccia;
 	return (
 		<main className='mb-auto'>
 			<h1 className='sr-only'>La Goccia</h1>

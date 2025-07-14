@@ -18,7 +18,7 @@ const dirname = path.dirname(filename);
 
 export default buildConfig({
 	i18n: {
-		fallbackLanguage: 'it',
+		fallbackLanguage: langs.defaultLocale,
 		supportedLanguages: { it, en },
 	},
 	localization: {

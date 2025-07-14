@@ -6,6 +6,7 @@ import type {
 	About,
 	Author,
 	GridBlock,
+	Home, 
 	Image, 
 	ImageBlock, 
 	LaGoccia, 
@@ -13,12 +14,41 @@ import type {
 	Progetto, 
 	QuoteBlock, 
 	RichTextBlock, 
-	TextBlock 
+	TextBlock
 } from '../payload-types';
 
-type ContentBlock = TextBlock | RichTextBlock | QuoteBlock | ImageBlock | GridBlock;
+// Import from our centralized data file
+import { getDataForLocale } from './data';
 
+type ContentBlock = TextBlock | RichTextBlock | QuoteBlock | ImageBlock | GridBlock;
 type GridItem = ImageBlock | TextBlock | RichTextBlock;
+
+// Cache for created images to avoid duplicates
+const imageCache = new Map<string, string>();
+
+// Processing depth limit to prevent stack overflow
+const MAX_RECURSION_DEPTH = 20;
+
+/**
+ * CRITICAL LOCALIZATION PATTERN:
+ * 
+ * When dealing with PayloadCMS arrays that are NOT localized but contain fields that ARE localized:
+ * 1. Arrays themselves are not localized - they share the same structure across all locales
+ * 2. Individual fields within arrays can be localized
+ * 3. When updating with a different locale, you MUST preserve ALL existing data
+ * 4. Only update the specific localized fields within the existing array structure
+ * 
+ * WRONG APPROACH: Creating new arrays for each locale (overwrites previous locale data)
+ * RIGHT APPROACH: Fetch existing structure, spread existing data, update only localized fields
+ */
+
+/**
+ * Utility function to safely update a global with localized data
+ * This ensures existing data is preserved when adding new locale data
+ * 
+ * NOTE: Due to TypeScript complexity with PayloadCMS globals, 
+ * we keep the manual approach for each global for better type safety
+ */
 
 const stripContentBlockIds = (block: ContentBlock): ContentBlock => {
 	const cleanBlock = { ...block };
@@ -49,11 +79,22 @@ const stripContentBlockIds = (block: ContentBlock): ContentBlock => {
 
 const processRichTextContent = async (
 	payload: BasePayload,
-	content: RichTextBlock['content']
+	content: RichTextBlock['content'],
+	depth: number = 0
 ): Promise<RichTextBlock['content']> => {
-	if (!content?.root?.children) return content;
+	if (!content?.root?.children || depth > MAX_RECURSION_DEPTH) {
+		return content;
+	}
 
-	const processNode = async (node: { [k: string]: unknown; type: string; version: number }): Promise<{ [k: string]: unknown; type: string; version: number }> => {
+	const processNode = async (
+		node: { [k: string]: unknown; type: string; version: number },
+		currentDepth: number
+	): Promise<{ [k: string]: unknown; type: string; version: number }> => {
+		if (currentDepth > MAX_RECURSION_DEPTH) {
+			payload.logger.warn(`Recursion depth limit reached, skipping node processing`);
+			return node;
+		}
+
 		if (node.type === 'upload' && node.relationTo === 'images' && node.value) {
 			const imageData = node.value as Image;
 			const imageId = await getOrCreateImage(
@@ -71,7 +112,9 @@ const processRichTextContent = async (
 
 		if (node.children && Array.isArray(node.children)) {
 			const processedChildren = await Promise.all(
-				(node.children as any[]).map(processNode)
+				(node.children as unknown[]).map((child: unknown) => 
+					processNode(child as { [k: string]: unknown; type: string; version: number }, currentDepth + 1)
+				)
 			);
 			return {
 				...node,
@@ -82,21 +125,39 @@ const processRichTextContent = async (
 		return node;
 	};
 
-	const processedChildren = await Promise.all(
-		(content.root.children as any[]).map(processNode)
-	);
+	try {
+		const processedChildren = await Promise.all(
+			(content.root.children as unknown[]).map((child: unknown) =>
+				processNode(child as { [k: string]: unknown; type: string; version: number }, depth + 1)
+			)
+		);
 
-	return {
-		...content,
-		root: {
-			...content.root,
-			children: processedChildren,
-		},
-	};
+		return {
+			...content,
+			root: {
+				...content.root,
+				children: processedChildren,
+			},
+		};
+	} catch (error) {
+		payload.logger.error('Error processing rich text content:', error);
+		return content;
+	}
 };
 
 const getAssetPath = (filename: string): string | null => {
 	const assetMappings: Record<string, string> = {
+		// Home/Hero images
+		'heroTitle.webp': 'images/homepage/heroTitle.webp',
+		'heroTexture.webp': 'images/homepage/heroTexture.webp',
+		'home_1.webp': 'images/homepage/home_1.webp',
+		'home_2.webp': 'images/homepage/home_2.webp',
+		'home_3.webp': 'images/homepage/home_3.webp',
+		'home_5.webp': 'images/homepage/home_5.webp',
+		'home_6.webp': 'images/homepage/home_6.webp',
+		'home_7.webp': 'images/homepage/home_7.webp',
+		'home_8.webp': 'images/homepage/home_8.webp',
+		
 		// La Goccia timeline events
 		'event_1.webp': 'images/la-goccia/event_1.webp',
 		'event_2.webp': 'images/la-goccia/event_2.webp',
@@ -169,6 +230,12 @@ const getOrCreateImage = async (
 	caption?: string,
 	filename?: string
 ): Promise<string> => {
+	// Create cache key to avoid duplicate processing
+	const cacheKey = `${alt}-${caption || ''}-${filename || ''}`;
+	if (imageCache.has(cacheKey)) {
+		return imageCache.get(cacheKey)!;
+	}
+
 	try {
 		let fileData: Buffer;
 		let originalFilename: string;
@@ -198,7 +265,7 @@ const getOrCreateImage = async (
 		if (resolvedPath) {
 			fileData = fs.readFileSync(resolvedPath);
 		} else {
-			console.warn(`Asset not found for "${alt}", filename: "${filename}". Using fallback.`);
+			payload.logger.warn(`Asset not found for "${alt}", filename: "${filename}". Using fallback.`);
 			const fallbackPath = 'images/homepage/home_1.webp';
 			const resolvedFallbackPath = resolveAssetPath(fallbackPath);
 			if (resolvedFallbackPath) {
@@ -215,7 +282,6 @@ const getOrCreateImage = async (
 		}
 
 		// Use filePath method for uploading local files as recommended by Payload docs
-		// Payload will automatically handle filename uniqueness
 		const result = await payload.create({
 			collection: 'images',
 			data: {
@@ -225,15 +291,21 @@ const getOrCreateImage = async (
 			file: {
 				data: fileData,
 				mimetype: path.extname(originalFilename).toLowerCase() === '.png' ? 'image/png' : 'image/webp',
-				name: originalFilename, // Use original filename, Payload will handle uniqueness
+				name: originalFilename,
 				size: fileData.length,
 			},
 		});
 
-		console.log(`Created image for "${alt}" with filename "${originalFilename}"`);
+		// Cache the result
+		imageCache.set(cacheKey, result.id);
+		payload.logger.info(`Created image for "${alt}" with filename "${originalFilename}"`);
+		
+		// Clear the file buffer from memory
+		fileData = Buffer.alloc(0);
+		
 		return result.id;
 	} catch (error) {
-		console.error(`Error creating image "${alt}":`, error);
+		payload.logger.error(`Error creating image "${alt}":`, error);
 		throw error;
 	}
 };
@@ -241,7 +313,8 @@ const getOrCreateImage = async (
 const getOrCreateAuthor = async (
 	payload: BasePayload,
 	name: string,
-	bio?: string
+	bioIt?: string,
+	bioEn?: string
 ): Promise<string> => {
 	try {
 		const existingAuthors = await payload.find({
@@ -257,52 +330,59 @@ const getOrCreateAuthor = async (
 			return existingAuthors.docs[0].id;
 		}
 
+		// Create author with Italian data first (default locale)
 		const result = await payload.create({
 			collection: 'authors',
 			data: {
 				name: name,
-				bio: bio || '',
+				bio: bioIt || '',
 				slug: name.toLowerCase().replace(/\s+/g, '-'),
 			},
 		});
 
+		// If we have English bio data, add it to the English locale
+		if (bioEn && bioEn !== bioIt) {
+			try {
+				await payload.update({
+					collection: 'authors',
+					id: result.id,
+					data: {
+						bio: bioEn,
+						// Don't include non-localized fields like name, slug
+					},
+					locale: 'en',
+				});
+			} catch (updateError) {
+				payload.logger.warn(`⚠️  Could not add English bio for author "${name}":`, updateError);
+			}
+		}
+
 		return result.id;
 	} catch (error) {
-		console.error(`Error creating author "${name}":`, error);
+		payload.logger.error(`Error creating author "${name}":`, error);
 		throw error;
 	}
 };
 
-const createBlogPost = async (payload: BasePayload, postData: Post): Promise<void> => {
-	try {
-		console.log(`Creating blog post: ${postData.title}`);
+// Optimized content block processing function
+const processContentBlocks = async (
+	payload: BasePayload, 
+	blocks: ContentBlock[]
+): Promise<ContentBlock[]> => {
+	return Promise.all(
+		blocks.map(async (block: ContentBlock): Promise<ContentBlock> => {
+			const cleanBlock = stripContentBlockIds(block);
+			
+			switch (cleanBlock.blockType) {
+				case 'text': {
+					const textBlock = cleanBlock as TextBlock;
+					if (!textBlock.content) {
+						throw new Error(`TextBlock missing required content field`);
+					}
+					return cleanBlock;
+				}
 
-		const authorData = typeof postData.author === 'string' 
-			? { name: 'Unknown Author', bio: '' }
-			: postData.author as Author;
-
-		const authorId = await getOrCreateAuthor(
-			payload, 
-			authorData.name, 
-			authorData.bio || ''
-		);
-
-		const coverImageData = typeof postData.coverImage === 'string' 
-			? { alt: 'Cover Image', caption: '', filename: undefined }
-			: postData.coverImage as Image;
-
-		const coverImageId = await getOrCreateImage(
-			payload,
-			coverImageData.alt,
-			coverImageData.caption || '',
-			coverImageData.filename || undefined
-		);
-
-		const processedContent = await Promise.all(
-			postData.content.map(async (block: ContentBlock): Promise<ContentBlock> => {
-				const cleanBlock = stripContentBlockIds(block);
-				
-				if (cleanBlock.blockType === 'image') {
+				case 'image': {
 					const imageBlock = cleanBlock as ImageBlock;
 					const imageData = typeof imageBlock.image === 'string' 
 						? { alt: 'Content Image', caption: '', filename: undefined }
@@ -320,7 +400,7 @@ const createBlogPost = async (payload: BasePayload, postData: Post): Promise<voi
 					};
 				}
 
-				if (cleanBlock.blockType === 'richText') {
+				case 'richText': {
 					const richTextBlock = cleanBlock as RichTextBlock;
 					const processedContent = await processRichTextContent(
 						payload,
@@ -328,11 +408,20 @@ const createBlogPost = async (payload: BasePayload, postData: Post): Promise<voi
 					);
 					return {
 						...richTextBlock,
-						content: processedContent,
+						content: processedContent || {
+							root: {
+								children: [],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'root',
+								version: 1,
+							},
+						},
 					};
 				}
 
-				if (cleanBlock.blockType === 'quote') {
+				case 'quote': {
 					const quoteBlock = cleanBlock as QuoteBlock;
 					const processedContent = await processRichTextContent(
 						payload,
@@ -340,11 +429,20 @@ const createBlogPost = async (payload: BasePayload, postData: Post): Promise<voi
 					);
 					return {
 						...quoteBlock,
-						content: processedContent,
+						content: processedContent || {
+							root: {
+								children: [],
+								direction: 'ltr',
+								format: '',
+								indent: 0,
+								type: 'root',
+								version: 1,
+							},
+						},
 					};
 				}
 				
-				if (cleanBlock.blockType === 'grid') {
+				case 'grid': {
 					const gridBlock = cleanBlock as GridBlock;
 					if (gridBlock.items) {
 						const processedItems = await Promise.all(
@@ -379,6 +477,14 @@ const createBlogPost = async (payload: BasePayload, postData: Post): Promise<voi
 									};
 								}
 
+								if (item.blockType === 'text') {
+									const textItem = item as TextBlock;
+									if (!textItem.content) {
+										throw new Error(`Grid TextBlock missing required content field`);
+									}
+									return textItem;
+								}
+
 								return item;
 							})
 						);
@@ -387,43 +493,155 @@ const createBlogPost = async (payload: BasePayload, postData: Post): Promise<voi
 							items: processedItems,
 						};
 					}
+					break;
 				}
-				
-				return cleanBlock;
-			})
+			}
+			
+			return cleanBlock;
+		})
+	);
+};
+
+const createBlogPost = async (payload: BasePayload, postDataIt: Post, postDataEn: Post): Promise<void> => {
+	try {
+		payload.logger.info(`Creating blog post: ${postDataIt.title}`);
+
+		// Get author data for both languages
+		const authorDataIt = typeof postDataIt.author === 'string' 
+			? { name: 'Unknown Author', bio: '' }
+			: postDataIt.author as Author;
+
+		const authorDataEn = typeof postDataEn.author === 'string' 
+			? { name: 'Unknown Author', bio: '' }
+			: postDataEn.author as Author;
+
+		const authorId = await getOrCreateAuthor(
+			payload, 
+			authorDataIt.name, 
+			authorDataIt.bio || '',
+			authorDataEn.bio || ''
 		);
 
-		await payload.create({
+		// Get cover image (same for both languages)
+		const coverImageData = typeof postDataIt.coverImage === 'string' 
+			? { alt: 'Cover Image', caption: '', filename: undefined }
+			: postDataIt.coverImage as Image;
+
+		const coverImageId = await getOrCreateImage(
+			payload,
+			coverImageData.alt,
+			coverImageData.caption || '',
+			coverImageData.filename || undefined
+		);
+
+		// Process content blocks for both locales
+		const processedContentIt = await processContentBlocks(payload, postDataIt.content);
+		const processedContentEn = await processContentBlocks(payload, postDataEn.content);
+
+		// Create the post with Italian data as the default locale (no locale specified uses defaultLocale)
+		const createdPost = await payload.create({
 			collection: 'posts',
 			data: {
-				title: postData.title,
-				description: postData.description,
-				content: processedContent,
-				meta: postData.meta,
+				title: postDataIt.title,
+				description: postDataIt.description,
+				content: processedContentIt,
+				meta: postDataIt.meta,
 				coverImage: coverImageId,
 				author: authorId,
-				publishedAt: postData.publishedAt,
-				slug: postData.slug,
-				_status: postData._status,
+				publishedAt: postDataIt.publishedAt,
+				slug: postDataIt.slug,
+				_status: postDataIt._status,
 			},
+			// Don't specify locale for initial creation - uses defaultLocale
 		});
 
-		console.log(`✅ Created blog post: ${postData.title}`);
+		// FIXED APPROACH: Fetch the current post data to get the content array structure,
+		// then update only the localized fields within the existing content blocks
+		try {
+			const currentPost = await payload.findByID({
+				collection: 'posts',
+				id: createdPost.id,
+				locale: 'it', // Get the Italian version to see the current structure
+			});
+
+			// Merge existing content structure with English localized fields
+			const contentWithEnglishLocalized = currentPost.content?.map((block: any, index: number) => {
+				const enBlock = processedContentEn[index];
+				if (!enBlock) {
+					// If no corresponding English block, keep the existing block as-is
+					return block;
+				}
+
+				return {
+					// Keep ALL existing fields from the current structure
+					...block,
+					// Update localized fields based on block type
+					...(block.blockType === 'text' && enBlock.blockType === 'text' && {
+						content: enBlock.content || block.content, // Update text content if available
+					}),
+					...(block.blockType === 'richText' && enBlock.blockType === 'richText' && {
+						content: enBlock.content || block.content, // Update rich text content if available
+					}),
+					...(block.blockType === 'quote' && enBlock.blockType === 'quote' && {
+						content: enBlock.content || block.content, // Update quote content if available
+						author: enBlock.author || block.author, // Update quote author if available
+					}),
+					// For image and grid blocks, typically only alt text and captions are localized
+					// but the images themselves are already processed and shared
+				};
+			});
+
+			await payload.update({
+				collection: 'posts',
+				id: createdPost.id,
+				data: {
+					title: postDataEn.title || postDataIt.title,
+					description: postDataEn.description || postDataIt.description,
+					content: contentWithEnglishLocalized,
+					// Don't include non-localized fields like coverImage, author, etc.
+					// as they're already set and shared across locales
+				},
+				locale: 'en', // Specify English locale for this update
+			});
+			payload.logger.info(`✅ Added English locale data for post with proper content structure`);
+		} catch (updateError) {
+			payload.logger.warn(`⚠️  Could not add English locale, but post created successfully:`, updateError);
+		}
+
+		payload.logger.info(`✅ Created bilingual blog post: ${postDataIt.title}`);
 	} catch (error) {
-		console.error(`❌ Error creating blog post "${postData.title}":`, error);
+		payload.logger.error(`❌ Error creating blog post "${postDataIt.title}":`, error);
 		throw error;
 	}
 };
 
-const createGocciaData = async (payload: BasePayload, gocciaData: LaGoccia): Promise<void> => {
+const createGocciaData = async (payload: BasePayload, gocciaDataIt: LaGoccia, gocciaDataEn: LaGoccia): Promise<void> => {
 	try {
-		console.log('Creating Goccia timeline data...');
+		payload.logger.info('Creating Goccia timeline data...');
 
-		const processedTimeline = gocciaData.timeline ? await Promise.all(
-			gocciaData.timeline.map(async (event) => {
-				const coverData = typeof event.cover === 'string' 
-					? { alt: event.title || 'Timeline Event', caption: '', filename: undefined }
-					: event.cover as Image;
+		// CRITICAL: Timeline array is NOT localized, but 'title' and 'description' fields within it ARE localized
+		// Strategy: Create with Italian values first, then fetch and merge English values properly
+
+		const timelineEn = gocciaDataEn.timeline || [];
+		
+		// Ensure both arrays have the same length by extending shorter one with fallback data
+		const maxTimelineLength = Math.max(gocciaDataIt.timeline?.length || 0, timelineEn.length);
+
+		// Process timeline array - create base structure with Italian localized field values
+		const processedTimelineIt = await Promise.all(
+			Array.from({ length: maxTimelineLength }, async (_, index) => {
+				const itEvent = gocciaDataIt.timeline?.[index];
+				const enEvent = timelineEn[index];
+				
+				// Use Italian event as base, fallback to first Italian event if needed
+				const baseEvent = itEvent || gocciaDataIt.timeline?.[0];
+				if (!baseEvent) {
+					throw new Error('No timeline events found in Italian data');
+				}
+
+				const coverData = typeof baseEvent.cover === 'string' 
+					? { alt: baseEvent.title || 'Timeline Event', caption: '', filename: undefined }
+					: baseEvent.cover as Image;
 
 				const coverId = await getOrCreateImage(
 					payload, 
@@ -431,230 +649,481 @@ const createGocciaData = async (payload: BasePayload, gocciaData: LaGoccia): Pro
 					coverData.caption || '',
 					coverData.filename || undefined
 				);
+				
 				return {
-					...event,
-					cover: coverId,
+					start: itEvent?.start || baseEvent.start, // Not localized
+					end: itEvent?.end || baseEvent.end, // Not localized
+					title: itEvent?.title || baseEvent.title, // Italian title (localized field)
+					description: itEvent?.description || baseEvent.description, // Italian description (localized field)
+					cover: coverId, // Not localized
 				};
 			})
-		) : [];
+		);
+
+		// Create/update global with Italian content as default locale
+		await payload.updateGlobal({
+			slug: 'la-goccia',
+			data: {
+				description: gocciaDataIt.description, // Italian description (localized)
+				timeline: processedTimelineIt, // Timeline with Italian localized field content
+			},
+			// Don't specify locale - uses defaultLocale (Italian)
+		});
+
+		// FIXED APPROACH: Fetch the current global data to get the array structure,
+		// then update only the localized fields within the existing array items
+		const currentGlobal = await payload.findGlobal({
+			slug: 'la-goccia',
+			locale: 'it', // Get the Italian version to see the current structure
+		});
+
+		// Update with English locale data - preserve the exact structure and only update localized fields
+		const timelineWithEnglishLocalized = currentGlobal.timeline?.map((event: any, index: number) => {
+			const enEvent = timelineEn[index];
+			return {
+				// Keep ALL existing fields from the current structure
+				...event,
+				// Update ONLY localized fields with English values
+				title: enEvent?.title || event.title, // English title or fallback to current
+				description: enEvent?.description || event.description, // English description or fallback to current
+			};
+		});
 
 		await payload.updateGlobal({
 			slug: 'la-goccia',
 			data: {
-				description: gocciaData.description,
-				timeline: processedTimeline,
+				description: gocciaDataEn.description, // English description (localized)
+				timeline: timelineWithEnglishLocalized, // Timeline with SAME structure but English localized field values
 			},
+			locale: 'en', // Specify English locale to update English values
 		});
 
-		console.log('✅ Created Goccia data');
+		payload.logger.info('✅ Created bilingual Goccia data');
 	} catch (error) {
-		console.error('❌ Error creating Goccia data:', error);
+		payload.logger.error('❌ Error creating Goccia data:', error);
 		throw error;
 	}
 };
 
-const createProjectData = async (payload: BasePayload, projectData: Progetto): Promise<void> => {
+const createProjectData = async (payload: BasePayload, projectDataIt: Progetto, projectDataEn: Progetto): Promise<void> => {
 	try {
-		console.log('Creating Project data...');
+		payload.logger.info('Creating Project data...');
 
-		const processedSections = projectData.sections ? await Promise.all(
-			projectData.sections.map(async (section) => {
-				const processedContent = await Promise.all(
-					section.content.map(async (block: ContentBlock): Promise<ContentBlock> => {
-						const cleanBlock = stripContentBlockIds(block);
-						
-						if (cleanBlock.blockType === 'image') {
-							const imageBlock = cleanBlock as ImageBlock;
-							const imageData = typeof imageBlock.image === 'string' 
-								? { alt: 'Project Image', caption: '', filename: undefined }
-								: imageBlock.image as Image;
+		// CRITICAL: Sections array is NOT localized, but 'title' field within it IS localized
+		// Strategy: Create with Italian values first, then update with English values for localized fields only
 
-							const imageId = await getOrCreateImage(
-								payload, 
-								imageData.alt, 
-								imageData.caption || '',
-								imageData.filename || undefined
-							);
-							return {
-								...imageBlock,
-								image: imageId,
-							};
-						}
+		const sectionsEn = projectDataEn.sections || [];
+		
+		// Ensure both arrays have the same length by extending shorter one with fallback data
+		const maxSectionsLength = Math.max(projectDataIt.sections?.length || 0, sectionsEn.length);
 
-						if (cleanBlock.blockType === 'richText') {
-							const richTextBlock = cleanBlock as RichTextBlock;
-							const processedContent = await processRichTextContent(
-								payload,
-								richTextBlock.content
-							);
-							return {
-								...richTextBlock,
-								content: processedContent,
-							};
-						}
+		// Process sections array - create base structure with Italian localized field values
+		const processedSectionsIt = await Promise.all(
+			Array.from({ length: maxSectionsLength }, async (_, index) => {
+				const itSection = projectDataIt.sections?.[index];
+				const enSection = sectionsEn[index];
+				
+				// Use Italian section as base, fallback to first Italian section if needed
+				const baseSection = itSection || projectDataIt.sections?.[0];
+				if (!baseSection) {
+					throw new Error('No sections found in Italian data');
+				}
 
-						if (cleanBlock.blockType === 'quote') {
-							const quoteBlock = cleanBlock as QuoteBlock;
-							const processedContent = await processRichTextContent(
-								payload,
-								quoteBlock.content
-							);
-							return {
-								...quoteBlock,
-								content: processedContent,
-							};
-						}
-						
-						if (cleanBlock.blockType === 'grid') {
-							const gridBlock = cleanBlock as GridBlock;
-							if (gridBlock.items) {
-								const processedItems = await Promise.all(
-									gridBlock.items.map(async (item: GridItem): Promise<GridItem> => {
-										if (item.blockType === 'image') {
-											const imageItem = item as ImageBlock;
-											const imageData = typeof imageItem.image === 'string' 
-												? { alt: 'Project Grid Image', caption: '', filename: undefined }
-												: imageItem.image as Image;
-
-											const imageId = await getOrCreateImage(
-												payload, 
-												imageData.alt, 
-												imageData.caption || '',
-												imageData.filename || undefined
-											);
-											return {
-												...imageItem,
-												image: imageId,
-											};
-										}
-
-										if (item.blockType === 'richText') {
-											const richTextItem = item as RichTextBlock;
-											const processedContent = await processRichTextContent(
-												payload,
-												richTextItem.content
-											);
-											return {
-												...richTextItem,
-												content: processedContent,
-											};
-										}
-
-										return item;
-									})
-								);
-								return {
-									...gridBlock,
-									items: processedItems,
-								};
-							}
-						}
-						
-						return cleanBlock;
-					})
-				);
+				const processedContent = await processContentBlocks(payload, baseSection.content);
 
 				return {
-					...section,
-					content: processedContent,
+					title: itSection?.title || baseSection.title, // Italian title (localized field)
+					content: processedContent, // Not localized (blocks)
+					url: itSection?.url || baseSection.url, // Not localized
 				};
 			})
-		) : [];
+		);
 
+		// Create/update global with Italian content as default locale
 		await payload.updateGlobal({
 			slug: 'progetto',
 			data: {
-				sections: processedSections,
+				sections: processedSectionsIt, // Sections with Italian localized field content
 			},
+			// Don't specify locale - uses defaultLocale (Italian)
 		});
 
-		console.log('✅ Created Project data');
+		// FIXED APPROACH: Fetch the current global data to get the array structure,
+		// then update only the localized fields within the existing array items
+		const currentGlobal = await payload.findGlobal({
+			slug: 'progetto',
+			locale: 'it', // Get the Italian version to see the current structure
+		});
+
+		// Update sections with SAME structure but English localized field values
+		const sectionsWithEnglishLocalized = await Promise.all(
+			(currentGlobal.sections || []).map(async (section: any, index: number) => {
+				const enSection = sectionsEn[index];
+				const baseSection = projectDataIt.sections?.[index] || projectDataIt.sections?.[0];
+				
+				// Process English content if available, otherwise reuse existing content
+				let processedContent = section.content; // Default to existing content
+				if (enSection?.content && baseSection) {
+					processedContent = await processContentBlocks(payload, enSection.content);
+				}
+
+				return {
+					// Keep ALL existing fields from the current structure
+					...section,
+					// Update ONLY localized fields with English values
+					title: enSection?.title || section.title, // English title or fallback to current
+					// Update content if we have English content
+					content: processedContent,
+				};
+			})
+		);
+
+		// Update with English locale data - include the array with English localized values
+		await payload.updateGlobal({
+			slug: 'progetto',
+			data: {
+				sections: sectionsWithEnglishLocalized, // Sections with SAME structure but English localized field values
+			},
+			locale: 'en', // Specify English locale to update English values
+		});
+
+		payload.logger.info('✅ Created bilingual Project data');
 	} catch (error) {
-		console.error('❌ Error creating Project data:', error);
+		payload.logger.error('❌ Error creating Project data:', error);
 		throw error;
 	}
 };
 
-const createAboutData = async (payload: BasePayload, aboutData: About): Promise<void> => {
+const createAboutData = async (payload: BasePayload, aboutDataIt: About, aboutDataEn: About): Promise<void> => {
 	try {
-		console.log('Creating About data...');
+		payload.logger.info('Creating About data...');
 
-		const processedPartners = aboutData.partners ? await Promise.all(
-			aboutData.partners.map(async (partner) => {
-				const logoData = typeof partner.logo === 'string' 
-					? { alt: `Logo ${partner.name}`, caption: '', filename: undefined }
-					: partner.logo as Image;
+		// CRITICAL: Partners array is NOT localized, but 'name', 'bio', and 'members' fields within it ARE localized
+		// Strategy: Create with Italian values first, then update with English values for localized fields only
 
-				const logoId = await getOrCreateImage(
-					payload,
-					logoData.alt,
-					logoData.caption || '',
-					logoData.filename || undefined
-				);
+		const partnersEn = aboutDataEn.partners || [];
+		
+		// Ensure both arrays have the same length by extending shorter one with fallback data
+		const maxPartnersLength = Math.max(aboutDataIt.partners?.length || 0, partnersEn.length);
+
+		// Process partners array - create base structure with Italian localized field values
+		const processedPartnersIt = await Promise.all(
+			Array.from({ length: maxPartnersLength }, async (_, index) => {
+				const itPartner = aboutDataIt.partners?.[index];
+				const enPartner = partnersEn[index];
+				
+				// Use Italian partner as base, fallback to first Italian partner if needed
+				const basePartner = itPartner || aboutDataIt.partners?.[0];
+				if (!basePartner) {
+					throw new Error('No partners found in Italian data');
+				}
+
+				let logoId: string | undefined;
+				
+				if (basePartner.logo) {
+					const logoData = typeof basePartner.logo === 'string' 
+						? { alt: basePartner.name, caption: '', filename: undefined }
+						: basePartner.logo as Image;
+
+					logoId = await getOrCreateImage(
+						payload, 
+						logoData.alt,
+						logoData.caption || '',
+						logoData.filename || undefined
+					);
+				}
 
 				return {
-					...partner,
-					logo: logoId,
+					name: itPartner?.name || basePartner.name, // Italian name (localized field)
+					bio: itPartner?.bio || basePartner.bio, // Italian bio (localized field)
+					logo: logoId, // Not localized
+					members: itPartner?.members || basePartner.members, // Italian members (localized field)
+					links: itPartner?.links || basePartner.links, // Not localized (group with no localized fields)
 				};
 			})
-		) : [];
+		);
 
+		// Create/update global with Italian content as default locale
 		await payload.updateGlobal({
 			slug: 'about',
 			data: {
-				description: aboutData.description,
-				partners: processedPartners,
+				description: aboutDataIt.description, // Italian description (localized)
+				partners: processedPartnersIt, // Partners with Italian localized field content
 			},
+			// Don't specify locale - uses defaultLocale (Italian)
 		});
 
-		console.log('✅ Created About data');
+		// FIXED APPROACH: Fetch the current global data to get the array structure,
+		// then update only the localized fields within the existing array items
+		const currentGlobal = await payload.findGlobal({
+			slug: 'about',
+			locale: 'it', // Get the Italian version to see the current structure
+		});
+
+		// Update partners with SAME structure but English localized field values
+		const partnersWithEnglishLocalized = (currentGlobal.partners || []).map((partner: any, index: number) => {
+			const enPartner = partnersEn[index];
+			return {
+				// Keep ALL existing fields from the current structure
+				...partner,
+				// Update ONLY localized fields with English values
+				name: enPartner?.name || partner.name, // English name or fallback to current
+				bio: enPartner?.bio || partner.bio, // English bio or fallback to current
+				members: enPartner?.members || partner.members, // English members or fallback to current
+				// Links might contain both localized and non-localized data, so update if provided
+				links: enPartner?.links || partner.links, // Use English links or fallback to current
+			};
+		});
+
+		// Update with English locale data - include the array with English localized values
+		await payload.updateGlobal({
+			slug: 'about',
+			data: {
+				description: aboutDataEn.description, // English description (localized)
+				partners: partnersWithEnglishLocalized, // Partners with SAME structure but English localized field values
+			},
+			locale: 'en', // Specify English locale to update English values
+		});
+
+		payload.logger.info('✅ Created bilingual About data');
 	} catch (error) {
-		console.error('❌ Error creating About data:', error);
+		payload.logger.error('❌ Error creating About data:', error);
 		throw error;
+	}
+};
+
+const createHomeData = async (payload: BasePayload, homeDataIt: Home, homeDataEn: Home): Promise<void> => {
+	try {
+		payload.logger.info('Creating Home data...');
+
+		// Process hero images (shared across all languages)
+		const heroTitleData = typeof homeDataIt.hero_title === 'string' 
+			? { alt: 'GOCCIA Hero Title', caption: '', filename: undefined }
+			: homeDataIt.hero_title as Image;
+
+		const heroTextureData = typeof homeDataIt.hero_texture === 'string' 
+			? { alt: 'GOCCIA Hero Texture', caption: '', filename: undefined }
+			: homeDataIt.hero_texture as Image;
+
+		const heroImageData = typeof homeDataIt.hero_image === 'string' 
+			? { alt: 'GOCCIA Hero Image', caption: '', filename: undefined }
+			: homeDataIt.hero_image as Image;
+
+		const heroTitleId = await getOrCreateImage(
+			payload,
+			heroTitleData.alt,
+			heroTitleData.caption || '',
+			heroTitleData.filename || undefined
+		);
+
+		const heroTextureId = await getOrCreateImage(
+			payload,
+			heroTextureData.alt,
+			heroTextureData.caption || '',
+			heroTextureData.filename || undefined
+		);
+
+		const heroImageId = await getOrCreateImage(
+			payload,
+			heroImageData.alt,
+			heroImageData.caption || '',
+			heroImageData.filename || undefined
+		);
+
+		// Process rich text content for both locales
+		const processedIntroText1It = await processRichTextContent(payload, homeDataIt.intro_text_1);
+		const processedIntroText2It = await processRichTextContent(payload, homeDataIt.intro_text_2);
+		const processedIntroText1En = await processRichTextContent(payload, homeDataEn.intro_text_1);
+		const processedIntroText2En = await processRichTextContent(payload, homeDataEn.intro_text_2);
+
+		// CRITICAL: Arrays are NOT localized, but fields within them ARE localized
+		// Strategy: Create with Italian values first, then fetch and merge English values properly
+
+		const forestEn = homeDataEn.forest || [];
+		const whatEn = homeDataEn.what || [];
+
+		// Ensure both arrays have the same length by extending shorter one with fallback data
+		const maxForestLength = Math.max(homeDataIt.forest?.length || 0, forestEn.length);
+		const maxWhatLength = Math.max(homeDataIt.what?.length || 0, whatEn.length);
+
+		// Process forest array - create base structure with Italian localized field values
+		const processedForest = await Promise.all(
+			Array.from({ length: maxForestLength }, async (_, index) => {
+				const itItem = homeDataIt.forest?.[index];
+				const enItem = forestEn[index];
+				
+				// Use Italian item as base, fallback to first Italian item if needed
+				const baseItem = itItem || homeDataIt.forest?.[0];
+				if (!baseItem) {
+					throw new Error('No forest items found in Italian data');
+				}
+
+				const imageData = typeof baseItem.image === 'string' 
+					? { alt: 'GOCCIA Home Forest', caption: '', filename: undefined }
+					: baseItem.image as Image;
+
+				const imageId = await getOrCreateImage(
+					payload,
+					imageData.alt,
+					imageData.caption || '',
+					imageData.filename || undefined
+				);
+
+				return {
+					data: itItem?.data || baseItem.data, // Italian data (localized field)
+					caption: itItem?.caption || baseItem.caption, // Italian caption (localized field)
+					image: imageId, // Shared image (not localized)
+				};
+			})
+		);
+
+		// Process what array - create base structure with Italian localized field values
+		const processedWhat = await Promise.all(
+			Array.from({ length: maxWhatLength }, async (_, index) => {
+				const itItem = homeDataIt.what?.[index];
+				const enItem = whatEn[index];
+				
+				// Use Italian item as base, fallback to first Italian item if needed
+				const baseItem = itItem || homeDataIt.what?.[0];
+				if (!baseItem) {
+					throw new Error('No what items found in Italian data');
+				}
+
+				const imageData = typeof baseItem.image === 'string' 
+					? { alt: 'GOCCIA Home What', caption: '', filename: undefined }
+					: baseItem.image as Image;
+
+				const imageId = await getOrCreateImage(
+					payload,
+					imageData.alt,
+					imageData.caption || '',
+					imageData.filename || undefined
+				);
+
+				return {
+					data: itItem?.data || baseItem.data, // Italian data (localized field)
+					caption: itItem?.caption || baseItem.caption, // Italian caption (localized field)
+					image: imageId, // Shared image (not localized)
+				};
+			})
+		);
+
+		// Create/update global with Italian content as default locale
+		await payload.updateGlobal({
+			slug: 'home',
+			data: {
+				// Non-localized fields (shared for all languages)
+				hero_title: heroTitleId,
+				hero_texture: heroTextureId,
+				hero_image: heroImageId,
+				// Arrays with Italian localized field content
+				forest: processedForest,
+				what: processedWhat,
+				// Localized rich text fields (Italian)
+				intro_text_1: processedIntroText1It || homeDataIt.intro_text_1,
+				intro_text_2: processedIntroText2It || homeDataIt.intro_text_2,
+			},
+			// Don't specify locale - uses defaultLocale (Italian)
+		});
+
+		// FIXED APPROACH: Fetch the current global data to get the array structure,
+		// then update only the localized fields within the existing array items
+		const currentGlobal = await payload.findGlobal({
+			slug: 'home',
+			locale: 'it', // Get the Italian version to see the current structure
+		});
+
+		// Update arrays with SAME structure but English localized field values
+		const forestWithEnglishLocalized = currentGlobal.forest?.map((item: any, index: number) => {
+			const enItem = forestEn[index];
+			return {
+				// Keep ALL existing fields from the current structure
+				...item,
+				// Update ONLY localized fields with English values
+				data: enItem?.data || item.data, // English data or fallback to current
+				caption: enItem?.caption || item.caption, // English caption or fallback to current
+			};
+		});
+
+		const whatWithEnglishLocalized = currentGlobal.what?.map((item: any, index: number) => {
+			const enItem = whatEn[index];
+			return {
+				// Keep ALL existing fields from the current structure
+				...item,
+				// Update ONLY localized fields with English values
+				data: enItem?.data || item.data, // English data or fallback to current
+				caption: enItem?.caption || item.caption, // English caption or fallback to current
+			};
+		});
+
+		// Update with English locale data - include the arrays with English localized values
+		await payload.updateGlobal({
+			slug: 'home',
+			data: {
+				// Update only localized rich text fields for English
+				intro_text_1: processedIntroText1En || homeDataEn.intro_text_1,
+				intro_text_2: processedIntroText2En || homeDataEn.intro_text_2,
+				// Update arrays with SAME structure but English localized field values
+				forest: forestWithEnglishLocalized,
+				what: whatWithEnglishLocalized,
+			},
+			locale: 'en', // Specify English locale to update English values
+		});
+
+		payload.logger.info('✅ Created bilingual Home data');
+	} catch (error) {
+		payload.logger.error('❌ Error creating Home data:', error);
+		throw error;
+	}
+};
+
+// Memory cleanup function
+const clearMemoryCache = (): void => {
+	imageCache.clear();
+	if (global.gc) {
+		global.gc();
 	}
 };
 
 const cleanupDatabase = async (payload: BasePayload): Promise<void> => {
 	try {
-		console.log('🧹 Cleaning up existing data...');
+		payload.logger.info('🧹 Cleaning up existing data...');
 
 		// Delete posts first
-		console.log('🗑️  Deleting all posts...');
-		
-			await payload.delete({
-				collection: 'posts',
-				where:{
-					exists:{}
-				}
-			});
-		console.log(`✅ Deleted all posts`);
+		payload.logger.info('🗑️  Deleting all posts...');
+		await payload.delete({
+			collection: 'posts',
+			where: {
+				id: { exists: true }
+			}
+		});
+		payload.logger.info(`✅ Deleted all posts`);
 
 		// Delete authors
-		console.log('🗑️  Deleting all authors...');
-		
-		
-			await payload.delete({
-				collection: 'authors',
-				where:{
-					exists:{}
-				}
-			});
-		console.log(`✅ Deleted all authors`);
+		payload.logger.info('🗑️  Deleting all authors...');
+		await payload.delete({
+			collection: 'authors',
+			where: {
+				id: { exists: true }
+			}
+		});
+		payload.logger.info(`✅ Deleted all authors`);
 
 		// Delete images
-		console.log('🗑️  Deleting all images...');
-		
-			await payload.delete({
-				collection: 'images',
-				where:{
-					exists:{}
-				}
-			});
-		console.log(`✅ Deleted all images`);
+		payload.logger.info('🗑️  Deleting all images...');
+		await payload.delete({
+			collection: 'images',
+			where: {
+				id: { exists: true }
+			}
+		});
+		payload.logger.info(`✅ Deleted all images`);
 
-		console.log('🎯 Database cleanup completed!');
+		// Clear memory cache after cleanup
+		clearMemoryCache();
+		payload.logger.info('🎯 Database cleanup completed!');
 	} catch (error) {
-		console.error('❌ Error during cleanup:', error);
+		payload.logger.error('❌ Error during cleanup:', error);
 		throw error;
 	}
 };
@@ -666,33 +1135,59 @@ export const seed = async ({
 	payload: BasePayload;
 	req: PayloadRequest;
 }): Promise<void> => {
+	const startTime = Date.now();
+	
 	try {
-		console.log('🌱 Starting database seeding...');
-
-		const { posts }: { posts: Post[] } = await import('../../../app/(frontend)/[locale]/blog/data');
-		const { goccia }: { goccia: LaGoccia } = await import('../../../app/(frontend)/[locale]/la-goccia/data');
-		const { project }: { project: Progetto } = await import('../../../app/(frontend)/[locale]/progetto/data');
-		const { about }: { about: About } = await import('../../../app/(frontend)/[locale]/about/data');
+		payload.logger.info('🌱 Starting optimized database seeding...');
 
 		// Clean up existing data first
 		await cleanupDatabase(payload);
 
-		console.log('🔄 Preparing to seed fresh data...');
+		payload.logger.info('🔄 Preparing to seed multilingual data...');
 
-		console.log('📝 Creating blog posts...');
-		for (const post of posts) {
-			await createBlogPost(payload, post);
+		// Get data for both locales
+		const dataIt = getDataForLocale('it');
+		const dataEn = getDataForLocale('en');
+
+		payload.logger.info('📝 Creating multilingual blog posts...');
+		// Process posts one by one to avoid memory overload
+		for (let i = 0; i < dataIt.posts.length; i++) {
+			const postStart = Date.now();
+			const postIt = dataIt.posts[i];
+			const postEn = dataEn.posts[i] || postIt;
+			
+			await createBlogPost(payload, postIt, postEn);
+			
+			// Clear memory cache after each post to prevent accumulation
+			if (i % 2 === 0) { // Clear every 2 posts
+				clearMemoryCache();
+			}
+			
+			payload.logger.info(`⏱️  Post ${i + 1}/${dataIt.posts.length} completed in ${Date.now() - postStart}ms`);
 		}
 
-		await createGocciaData(payload, goccia);
+		payload.logger.info('🕐 Creating multilingual Goccia data...');
+		await createGocciaData(payload, dataIt.goccia, dataEn.goccia);
+		clearMemoryCache();
 
-		await createProjectData(payload, project);
+		payload.logger.info('🏗️ Creating multilingual Project data...');
+		await createProjectData(payload, dataIt.project, dataEn.project);
+		clearMemoryCache();
 
-		await createAboutData(payload, about);
+		payload.logger.info('ℹ️ Creating multilingual About data...');
+		await createAboutData(payload, dataIt.about, dataEn.about);
+		clearMemoryCache();
 
-		console.log('🎉 Database seeding completed successfully!');
+		payload.logger.info('🏠 Creating multilingual Home data...');
+		await createHomeData(payload, dataIt.home, dataEn.home);
+		clearMemoryCache();
+
+		const totalTime = Date.now() - startTime;
+		payload.logger.info(`🎉 Database seeding completed successfully in ${totalTime}ms with proper localization!`);
+		payload.logger.info(`💾 Image cache had ${imageCache.size} entries during processing`);
 	} catch (error) {
-		console.error('❌ Error during seeding:', error);
+		payload.logger.error('❌ Error during seeding:', error);
+		clearMemoryCache(); // Clean up on error
 		throw error;
 	}
 };
@@ -706,11 +1201,13 @@ export const seedCleanup = async ({
 	req: PayloadRequest;
 }): Promise<void> => {
 	try {
-		console.log('🧹 Starting database cleanup...');
+		payload.logger.info('🧹 Starting optimized database cleanup...');
 		await cleanupDatabase(payload);
-		console.log('🎉 Database cleanup completed successfully!');
+		clearMemoryCache();
+		payload.logger.info('🎉 Database cleanup completed successfully!');
 	} catch (error) {
-		console.error('❌ Error during cleanup:', error);
+		payload.logger.error('❌ Error during cleanup:', error);
+		clearMemoryCache();
 		throw error;
 	}
 };
@@ -723,16 +1220,27 @@ export const seedPosts = async ({
 	req: PayloadRequest;
 }): Promise<void> => {
 	try {
-		console.log('📝 Starting posts seeding...');
-		const { posts }: { posts: Post[] } = await import('../../../app/(frontend)/[locale]/blog/data');
+		payload.logger.info('📝 Starting optimized multilingual posts seeding...');
 		
-		for (const post of posts) {
-			await createBlogPost(payload, post);
+		const dataIt = getDataForLocale('it');
+		const dataEn = getDataForLocale('en');
+		
+		for (let i = 0; i < dataIt.posts.length; i++) {
+			const postIt = dataIt.posts[i];
+			const postEn = dataEn.posts[i] || postIt;
+			await createBlogPost(payload, postIt, postEn);
+			
+			// Clear memory cache periodically
+			if (i % 2 === 0) {
+				clearMemoryCache();
+			}
 		}
 		
-		console.log('🎉 Posts seeding completed successfully!');
+		clearMemoryCache(); // Final cleanup
+		payload.logger.info('🎉 Posts seeding completed successfully!');
 	} catch (error) {
-		console.error('❌ Error during posts seeding:', error);
+		payload.logger.error('❌ Error during posts seeding:', error);
+		clearMemoryCache();
 		throw error;
 	}
 };
@@ -745,14 +1253,17 @@ export const seedTimeline = async ({
 	req: PayloadRequest;
 }): Promise<void> => {
 	try {
-		console.log('🕐 Starting timeline seeding...');
-		const { goccia }: { goccia: LaGoccia } = await import('../../../app/(frontend)/[locale]/la-goccia/data');
+		payload.logger.info('🕐 Starting optimized multilingual timeline seeding...');
 		
-		await createGocciaData(payload, goccia);
+		const dataIt = getDataForLocale('it');
+		const dataEn = getDataForLocale('en');
+		await createGocciaData(payload, dataIt.goccia, dataEn.goccia);
 		
-		console.log('🎉 Timeline seeding completed successfully!');
+		clearMemoryCache();
+		payload.logger.info('🎉 Timeline seeding completed successfully!');
 	} catch (error) {
-		console.error('❌ Error during timeline seeding:', error);
+		payload.logger.error('❌ Error during timeline seeding:', error);
+		clearMemoryCache();
 		throw error;
 	}
 };
@@ -765,14 +1276,17 @@ export const seedAbout = async ({
 	req: PayloadRequest;
 }): Promise<void> => {
 	try {
-		console.log('ℹ️ Starting about seeding...');
-		const { about }: { about: About } = await import('../../../app/(frontend)/[locale]/about/data');
+		payload.logger.info('ℹ️ Starting optimized multilingual about seeding...');
 		
-		await createAboutData(payload, about);
+		const dataIt = getDataForLocale('it');
+		const dataEn = getDataForLocale('en');
+		await createAboutData(payload, dataIt.about, dataEn.about);
 		
-		console.log('🎉 About seeding completed successfully!');
+		clearMemoryCache();
+		payload.logger.info('🎉 About seeding completed successfully!');
 	} catch (error) {
-		console.error('❌ Error during about seeding:', error);
+		payload.logger.error('❌ Error during about seeding:', error);
+		clearMemoryCache();
 		throw error;
 	}
 };
@@ -785,14 +1299,40 @@ export const seedProgetto = async ({
 	req: PayloadRequest;
 }): Promise<void> => {
 	try {
-		console.log('🏗️ Starting progetto seeding...');
-		const { project }: { project: Progetto } = await import('../../../app/(frontend)/[locale]/progetto/data');
+		payload.logger.info('🏗️ Starting optimized multilingual progetto seeding...');
 		
-		await createProjectData(payload, project);
+		const dataIt = getDataForLocale('it');
+		const dataEn = getDataForLocale('en');
+		await createProjectData(payload, dataIt.project, dataEn.project);
 		
-		console.log('🎉 Progetto seeding completed successfully!');
+		clearMemoryCache();
+		payload.logger.info('🎉 Progetto seeding completed successfully!');
 	} catch (error) {
-		console.error('❌ Error during progetto seeding:', error);
+		payload.logger.error('❌ Error during progetto seeding:', error);
+		clearMemoryCache();
+		throw error;
+	}
+};
+
+export const seedHome = async ({
+	payload,
+	req: _req,
+}: {
+	payload: BasePayload;
+	req: PayloadRequest;
+}): Promise<void> => {
+	try {
+		payload.logger.info('🏠 Starting optimized multilingual home seeding...');
+		
+		const dataIt = getDataForLocale('it');
+		const dataEn = getDataForLocale('en');
+		await createHomeData(payload, dataIt.home, dataEn.home);
+		
+		clearMemoryCache();
+		payload.logger.info('🎉 Home seeding completed successfully!');
+	} catch (error) {
+		payload.logger.error('❌ Error during home seeding:', error);
+		clearMemoryCache();
 		throw error;
 	}
 };

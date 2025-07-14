@@ -3,10 +3,10 @@ import Image from 'next/image';
 import { cn } from '@/modules/utilities/cnUtils';
 
 interface CellDataProps {
-	data?: string;
-	dataClass?: string;
-	caption?: string;
-	captionClass?: string;
+	data?: string | null;
+	dataClass?: string | null;
+	caption?: string | null;
+	captionClass?: string | null;
 }
 
 export default function CellData({

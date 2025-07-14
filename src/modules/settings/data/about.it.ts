@@ -1,6 +1,6 @@
 import type { About } from '@payload-types';
 
-export const about: About = {
+export const about_it: About = {
 	id: '8f8231aa-753a-476f-a2f2-5545cd0ef76d',
 	description:
 		'La Cordata di progetto è guidata dal Comune di Milano e composta da Ambiente Italia Srl, Climateflux GmbH, Eutropian Association, FROM, Open Impact, Osservatorio La Goccia, Politecnico di Milano.',

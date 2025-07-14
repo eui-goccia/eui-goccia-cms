@@ -1,6 +1,6 @@
 import type { LaGoccia } from '@payload-types';
 
-export const goccia: LaGoccia = {
+export const goccia_it: LaGoccia = {
 	id: 'b282bcd8-0fee-44aa-9b44-81ee73928c9f',
 	description:
 		"Nata come area industriale tra fine Ottocento e inizio Novecento, poi dismessa e abbandonata tra gli anni ‘70 e '90, la Goccia è oggi è al centro di progetti di rigenerazione che intrecciano memoria industriale, ambiente e futuro urbano.",

@@ -1,6 +1,7 @@
 'use client';
 import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 import { Fragment, useState } from 'react';
 import { Link } from '@/i18n/routing';
 import LogoGoccia from '@/modules/components/logos/LogoGoccia';
@@ -8,6 +9,8 @@ import LogoGoccia from '@/modules/components/logos/LogoGoccia';
 export default function Header() {
 	const [menuIsOpen, setMenuIsOpen] = useState(false);
 	const pathname = usePathname();
+	const t = useTranslations();
+	const locale = useLocale();
 
 	const toggleMenu = () => {
 		setMenuIsOpen((prev) => !prev);
@@ -55,26 +58,29 @@ export default function Header() {
 					<ul className='flex uppercase justify-between text-xl'>
 						<li className='w-full  flex items-center justify-center'>
 							<Link
+								locale={locale}
 								className={`hover:underline underline-offset-4 decoration-1 ${
 									pathname === '/progetto' ? 'text-rosa-500 underline ' : ''
 								}`}
 								href='/progetto'
 							>
-								Il Progetto
+								{t('project')}
 							</Link>
 						</li>
 						<li className='w-full flex items-center justify-center'>
 							<Link
+								locale={locale}
 								className={`hover:underline underline-offset-4 decoration-1 ${
 									pathname === '/la-goccia' ? 'text-rosso-500 underline' : ''
 								}`}
 								href='/la-goccia'
 							>
-								La Goccia
+								{t('goccia')}
 							</Link>
 						</li>
 						<li className='w-full  flex items-center justify-center'>
 							<Link
+								locale={locale}
 								className='hover:underline underline-offset-4 decoration-1'
 								href='/'
 							>
@@ -83,22 +89,24 @@ export default function Header() {
 						</li>
 						<li className='w-full  flex items-center justify-center'>
 							<Link
+								locale={locale}
 								className={`hover:underline underline-offset-4 decoration-1 ${
 									pathname === '/blog' ? 'text-blue-500 underline' : ''
 								}`}
 								href='/blog'
 							>
-								Blog
+								{t('blog')}
 							</Link>
 						</li>
 						<li className='w-full  flex items-center justify-center'>
 							<Link
+								locale={locale}
 								className={`hover:underline underline-offset-4 decoration-1 ${
 									pathname === '/about' ? 'text-verde-500 underline' : ''
 								}`}
 								href='/about'
 							>
-								Chi Siamo
+								{t('about')}
 							</Link>
 						</li>
 					</ul>
@@ -108,7 +116,7 @@ export default function Header() {
 				<div className='flex md:hidden flex-col'>
 					<ul className='flex uppercase px-10 justify-between text-xl'>
 						<li className='w-fit flex items-center justify-center'>
-							<Link href='/'>
+							<Link locale={locale} href='/'>
 								<LogoGoccia className='h-10' />
 							</Link>
 						</li>
@@ -134,13 +142,14 @@ export default function Header() {
 									}}
 								>
 									<Link
+										locale={locale}
 										className={`hover:underline underline-offset-4 decoration-1 ${
 											pathname === '/progetto' ? 'text-rosa-500 underline' : ''
 										}`}
 										href='/progetto'
 										onClick={closeMenu}
 									>
-										Il Progetto
+										{t('project')}
 									</Link>
 								</motion.li>
 								<motion.li
@@ -153,6 +162,7 @@ export default function Header() {
 									}}
 								>
 									<Link
+										locale={locale}
 										className={`hover:underline underline-offset-4 decoration-1 ${
 											pathname === '/la-goccia'
 												? 'text-rosso-500 underline'
@@ -161,7 +171,7 @@ export default function Header() {
 										href='/la-goccia'
 										onClick={closeMenu}
 									>
-										La Goccia
+										{t('goccia')}
 									</Link>
 								</motion.li>
 								<motion.li
@@ -174,13 +184,14 @@ export default function Header() {
 									}}
 								>
 									<Link
+										locale={locale}
 										className={`hover:underline underline-offset-4 decoration-1 ${
 											pathname === '/blog' ? 'text-blue-500 underline' : ''
 										}`}
 										href='/blog'
 										onClick={closeMenu}
 									>
-										Blog
+										{t('blog')}
 									</Link>
 								</motion.li>
 								<motion.li
@@ -193,13 +204,14 @@ export default function Header() {
 									}}
 								>
 									<Link
+										locale={locale}
 										className={`hover:underline underline-offset-4 decoration-1 ${
 											pathname === '/about' ? 'text-verde-500 underline' : ''
 										}`}
 										href='/about'
 										onClick={closeMenu}
 									>
-										Chi Siamo
+										{t('about')}
 									</Link>
 								</motion.li>
 							</ul>

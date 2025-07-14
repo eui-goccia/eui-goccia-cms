@@ -29,10 +29,10 @@ export function CustomImage({
 	captionClassName,
 }: Props) {
 	const [isLoaded, setIsLoaded] = useState(false);
-	const src = image ? image.sizes?.[size]?.url || image.url : '/og-image.webp';
-	const blurDataURL = image
-		? image.blurHash
-		: 'data:image/png;base64,WERy8KHe?ErexDer%3WVaxoLWBj[}cnlE0S4SdofM{ofogR*t7ay';
+	const src = image?.sizes?.[size]?.url || image?.url || '/og-image.webp';
+	const blurDataURL =
+		image?.blurHash ||
+		'data:image/png;base64,WERy8KHe?ErexDer%3WVaxoLWBj[}cnlE0S4SdofM{ofogR*t7ay';
 
 	const refined_alt = image ? image.alt || image.caption || alt : alt;
 	return (
@@ -58,11 +58,11 @@ export function CustomImage({
 							: image.height || 300
 						: 300
 				}
-				src={src || ''}
+				src={src}
 				alt={refined_alt}
 				quality={quality}
 				placeholder='blur'
-				blurDataURL={blurDataURL || ''}
+				blurDataURL={blurDataURL}
 				loading={loading}
 				onLoad={() => setIsLoaded(true)}
 			/>

@@ -21,6 +21,7 @@ type SeedPhase =
 	| 'timeline'
 	| 'about'
 	| 'progetto'
+	| 'home'
 	| 'all';
 
 interface PhaseState {
@@ -46,11 +47,11 @@ const SEED_PHASES: Array<{
 		variant: 'danger',
 	},
 	{
-		key: 'posts',
-		label: 'Seed Posts',
-		endpoint: '/next/seed-posts',
-		icon: '📝',
-		description: 'Create blog posts and authors',
+		key: 'home',
+		label: 'Seed Home',
+		endpoint: '/next/seed-home',
+		icon: '🏠',
+		description: 'Create home page data',
 		variant: 'secondary',
 	},
 	{
@@ -75,6 +76,14 @@ const SEED_PHASES: Array<{
 		endpoint: '/next/seed-progetto',
 		icon: '🏗️',
 		description: 'Create project data',
+		variant: 'secondary',
+	},
+	{
+		key: 'posts',
+		label: 'Seed Posts',
+		endpoint: '/next/seed-posts',
+		icon: '📝',
+		description: 'Create blog posts and authors',
 		variant: 'secondary',
 	},
 	{

@@ -1,4 +1,5 @@
 import type { Image as ImageType, Post } from '@payload-types';
+import { getLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 import { CustomImage } from './CustomImage';
 
@@ -6,11 +7,13 @@ interface CardArticleProps {
 	post: Post;
 }
 
-export default function CardArticle({ post }: CardArticleProps) {
+export default async function CardArticle({ post }: CardArticleProps) {
+	const locale = await getLocale();
 	const author = post.author;
 	const image = post.coverImage as ImageType;
 	return (
 		<Link
+			locale={locale}
 			href={`/blog/${post.slug}`}
 			className='w-full h-full group items-center flex flex-nowrap flex-col gap-4 break-inside-avoid-column'
 		>

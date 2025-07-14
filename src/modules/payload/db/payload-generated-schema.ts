@@ -1213,6 +1213,156 @@ export const payload_migrations = sqliteTable(
   }),
 );
 
+export const home_forest = sqliteTable(
+  "home_forest",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    id: text("id").primaryKey(),
+    image: text("image_id")
+      .notNull()
+      .references(() => images.id, {
+        onDelete: "set null",
+      }),
+  },
+  (columns) => ({
+    _orderIdx: index("home_forest_order_idx").on(columns._order),
+    _parentIDIdx: index("home_forest_parent_id_idx").on(columns._parentID),
+    home_forest_image_idx: index("home_forest_image_idx").on(columns.image),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [home.id],
+      name: "home_forest_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const home_forest_locales = sqliteTable(
+  "home_forest_locales",
+  {
+    data: text("data"),
+    caption: text("caption"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    _localeParent: uniqueIndex(
+      "home_forest_locales_locale_parent_id_unique",
+    ).on(columns._locale, columns._parentID),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [home_forest.id],
+      name: "home_forest_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const home_what = sqliteTable(
+  "home_what",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    id: text("id").primaryKey(),
+    image: text("image_id")
+      .notNull()
+      .references(() => images.id, {
+        onDelete: "set null",
+      }),
+  },
+  (columns) => ({
+    _orderIdx: index("home_what_order_idx").on(columns._order),
+    _parentIDIdx: index("home_what_parent_id_idx").on(columns._parentID),
+    home_what_image_idx: index("home_what_image_idx").on(columns.image),
+    _parentIDFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [home.id],
+      name: "home_what_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const home_what_locales = sqliteTable(
+  "home_what_locales",
+  {
+    data: text("data"),
+    caption: text("caption"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    _localeParent: uniqueIndex("home_what_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [home_what.id],
+      name: "home_what_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
+export const home = sqliteTable(
+  "home",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    hero_title: text("hero_title_id")
+      .notNull()
+      .references(() => images.id, {
+        onDelete: "set null",
+      }),
+    hero_texture: text("hero_texture_id")
+      .notNull()
+      .references(() => images.id, {
+        onDelete: "set null",
+      }),
+    hero_image: text("hero_image_id")
+      .notNull()
+      .references(() => images.id, {
+        onDelete: "set null",
+      }),
+    updatedAt: text("updated_at").default(
+      sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+    ),
+    createdAt: text("created_at").default(
+      sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+    ),
+  },
+  (columns) => ({
+    home_hero_title_idx: index("home_hero_title_idx").on(columns.hero_title),
+    home_hero_texture_idx: index("home_hero_texture_idx").on(
+      columns.hero_texture,
+    ),
+    home_hero_image_idx: index("home_hero_image_idx").on(columns.hero_image),
+  }),
+);
+
+export const home_locales = sqliteTable(
+  "home_locales",
+  {
+    intro_text_1: text("intro_text_1", { mode: "json" }).notNull(),
+    intro_text_2: text("intro_text_2", { mode: "json" }).notNull(),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => ({
+    _localeParent: uniqueIndex("home_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    _parentIdFk: foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [home.id],
+      name: "home_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  }),
+);
+
 export const progetto_blocks_text = sqliteTable(
   "progetto_blocks_text",
   {
@@ -2102,6 +2252,92 @@ export const relations_payload_migrations = relations(
   payload_migrations,
   () => ({}),
 );
+export const relations_home_forest_locales = relations(
+  home_forest_locales,
+  ({ one }) => ({
+    _parentID: one(home_forest, {
+      fields: [home_forest_locales._parentID],
+      references: [home_forest.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_home_forest = relations(
+  home_forest,
+  ({ one, many }) => ({
+    _parentID: one(home, {
+      fields: [home_forest._parentID],
+      references: [home.id],
+      relationName: "forest",
+    }),
+    _locales: many(home_forest_locales, {
+      relationName: "_locales",
+    }),
+    image: one(images, {
+      fields: [home_forest.image],
+      references: [images.id],
+      relationName: "image",
+    }),
+  }),
+);
+export const relations_home_what_locales = relations(
+  home_what_locales,
+  ({ one }) => ({
+    _parentID: one(home_what, {
+      fields: [home_what_locales._parentID],
+      references: [home_what.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_home_what = relations(home_what, ({ one, many }) => ({
+  _parentID: one(home, {
+    fields: [home_what._parentID],
+    references: [home.id],
+    relationName: "what",
+  }),
+  _locales: many(home_what_locales, {
+    relationName: "_locales",
+  }),
+  image: one(images, {
+    fields: [home_what.image],
+    references: [images.id],
+    relationName: "image",
+  }),
+}));
+export const relations_home_locales = relations(home_locales, ({ one }) => ({
+  _parentID: one(home, {
+    fields: [home_locales._parentID],
+    references: [home.id],
+    relationName: "_locales",
+  }),
+}));
+export const relations_home = relations(home, ({ one, many }) => ({
+  hero_title: one(images, {
+    fields: [home.hero_title],
+    references: [images.id],
+    relationName: "hero_title",
+  }),
+  hero_texture: one(images, {
+    fields: [home.hero_texture],
+    references: [images.id],
+    relationName: "hero_texture",
+  }),
+  hero_image: one(images, {
+    fields: [home.hero_image],
+    references: [images.id],
+    relationName: "hero_image",
+  }),
+  forest: many(home_forest, {
+    relationName: "forest",
+  }),
+  what: many(home_what, {
+    relationName: "what",
+  }),
+  _locales: many(home_locales, {
+    relationName: "_locales",
+  }),
+}));
 export const relations_progetto_blocks_text_locales = relations(
   progetto_blocks_text_locales,
   ({ one }) => ({
@@ -2367,6 +2603,12 @@ type DatabaseSchema = {
   payload_preferences: typeof payload_preferences;
   payload_preferences_rels: typeof payload_preferences_rels;
   payload_migrations: typeof payload_migrations;
+  home_forest: typeof home_forest;
+  home_forest_locales: typeof home_forest_locales;
+  home_what: typeof home_what;
+  home_what_locales: typeof home_what_locales;
+  home: typeof home;
+  home_locales: typeof home_locales;
   progetto_blocks_text: typeof progetto_blocks_text;
   progetto_blocks_text_locales: typeof progetto_blocks_text_locales;
   progetto_blocks_rich_text: typeof progetto_blocks_rich_text;
@@ -2423,6 +2665,12 @@ type DatabaseSchema = {
   relations_payload_preferences_rels: typeof relations_payload_preferences_rels;
   relations_payload_preferences: typeof relations_payload_preferences;
   relations_payload_migrations: typeof relations_payload_migrations;
+  relations_home_forest_locales: typeof relations_home_forest_locales;
+  relations_home_forest: typeof relations_home_forest;
+  relations_home_what_locales: typeof relations_home_what_locales;
+  relations_home_what: typeof relations_home_what;
+  relations_home_locales: typeof relations_home_locales;
+  relations_home: typeof relations_home;
   relations_progetto_blocks_text_locales: typeof relations_progetto_blocks_text_locales;
   relations_progetto_blocks_text: typeof relations_progetto_blocks_text;
   relations_progetto_blocks_rich_text_locales: typeof relations_progetto_blocks_rich_text_locales;

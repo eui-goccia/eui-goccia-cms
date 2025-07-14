@@ -1,3 +1,4 @@
+import type { Config } from '@payload-types';
 import { createNavigation } from 'next-intl/navigation';
 import { defineRouting } from 'next-intl/routing';
 import localization from './localization';
@@ -13,3 +14,4 @@ export const { Link, redirect, usePathname, useRouter } =
 	createNavigation(routing);
 
 export type Locale = (typeof routing.locales)[number];
+export type Locales = Config['locale'] | 'all' | undefined;
