@@ -1,22 +1,22 @@
 import type { Home } from '@payload-types';
 
 export const home_it: Home = {
-	id: '66c36571-b7e3-4d1a-8c07-d12b8f7b4590',
+	id: '63556705-b541-4165-8d03-131ae6ee80c5',
 
 	hero_title: {
-		id: '7cf5de80-6824-42e4-b1d2-299303add620',
+		id: '4bba63b9-7e0d-449c-b23c-658b51b68cef',
 		alt: 'GOCCIA Hero Title',
-		caption: null,
+		caption: '',
 		blurHash:
-			'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAACCAYAAABhYU3QAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAXUlEQVR4nAFSAK3/ANTwtiGMpHQfITEUG7XNlyMDGAAZjaV3Hh4vERgpPxshEh4AGEFSLxoAf5ZoIOX/xSY1RiQbobuGIhQkAhmrwpEdLD0eGJGseCFBUi8dm7KEHj01GjAhAeN4AAAAAElFTkSuQmCC',
+			'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAACCAYAAABhYU3QAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAWElEQVR4nGN4+/+UYu2UVHkZXR7p5Yf7lNkkGSQL2iLkuKQYJKyDNBW90mwkLHw0pRgK2iIUHv4/qKbnKAdSqARSuPXibFl1S3GJ3bfmK1bNSJPtX1UhBwA+5hsvKqO61gAAAABJRU5ErkJggg==',
 		prefix: 'images',
-		updatedAt: '2025-07-09T14:01:10.089Z',
-		createdAt: '2025-07-09T14:01:10.091Z',
+		updatedAt: '2025-07-14T10:07:19.671Z',
+		createdAt: '2025-07-14T10:07:19.709Z',
 		url: '/api/images/file/heroTitle.webp',
 		thumbnailURL: '/api/images/file/heroTitle-300x62.webp',
 		filename: 'heroTitle.webp',
 		mimeType: 'image/webp',
-		filesize: 204720,
+		filesize: 200942,
 		width: 3000,
 		height: 619,
 		focalX: 50,
@@ -28,7 +28,7 @@ export const home_it: Home = {
 				width: 300,
 				height: 62,
 				mimeType: 'image/webp',
-				filesize: 13904,
+				filesize: 11298,
 				filename: 'heroTitle-300x62.webp',
 			},
 
@@ -37,7 +37,7 @@ export const home_it: Home = {
 				width: 900,
 				height: 186,
 				mimeType: 'image/webp',
-				filesize: 59658,
+				filesize: 45102,
 				filename: 'heroTitle-900x186.webp',
 			},
 
@@ -46,7 +46,7 @@ export const home_it: Home = {
 				width: 1400,
 				height: 289,
 				mimeType: 'image/webp',
-				filesize: 102410,
+				filesize: 79912,
 				filename: 'heroTitle-1400x289.webp',
 			},
 
@@ -55,7 +55,7 @@ export const home_it: Home = {
 				width: 1920,
 				height: 396,
 				mimeType: 'image/webp',
-				filesize: 152508,
+				filesize: 121694,
 				filename: 'heroTitle-1920x396.webp',
 			},
 
@@ -64,26 +64,26 @@ export const home_it: Home = {
 				width: 1200,
 				height: 248,
 				mimeType: 'image/webp',
-				filesize: 85432,
+				filesize: 64296,
 				filename: 'heroTitle-1200x248.webp',
 			},
 		},
 	},
 
 	hero_texture: {
-		id: '658e028b-6f2d-4ebc-8034-fdec54db72ce',
+		id: '4afad854-c157-4252-874f-45e1b105843f',
 		alt: 'GOCCIA Hero Texture',
-		caption: null,
+		caption: '',
 		blurHash:
-			'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAYAAAAxrNxjAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAtklEQVR4nGNQVpHn6FlQKyItJ8UamuQrlFQQKbJgS49Iz4JasakrWti751QxrD80S4yhsjNbvGFCkVhaWYywq689P0hxx+wqMUt7Y96KnlzxnJpEkW1nF8gw4AMgWxSU5FgkJMSZ8CokD2jqq3M//XNWNLsiiSssIYBDz0ib0drRnNXYzIBJU1uDwcLahBlEM0xe3iTSM6dWePLiJoHKzmw+/xgvATV1ZU6QWM+CWvHc2mSQJ/kACIU0MkbAjU0AAAAASUVORK5CYII=',
+			'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAYAAAAxrNxjAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAv0lEQVR4nGNQUVPk6JpXJaKkLM8amxUiVNSUIrJk+wSRnvk1YtNXNbN3zati2HRithhDy5RS8YbJxWLpZbHC3uFu/Fn1CUKTVjaLeQS78DZMLhYvbE0T2XRitgwDPiAlI8kqryjDIi4pzoRXIXlAXVeV++X/c6IVPblc6WWxHCaWBowewS6sFrYmTCaWBgyOXjbMBqY6DAw98ytBPhTumV8j0DKjhC8g1ktAx1CDs2telXDXvCrxyo5sYY9gJz4Ahlw2vy2WfYsAAAAASUVORK5CYII=',
 		prefix: 'images',
-		updatedAt: '2025-07-09T14:01:26.943Z',
-		createdAt: '2025-07-09T14:01:26.944Z',
+		updatedAt: '2025-07-14T10:07:44.081Z',
+		createdAt: '2025-07-14T10:07:44.334Z',
 		url: '/api/images/file/heroTexture.webp',
 		thumbnailURL: '/api/images/file/heroTexture-300x197.webp',
 		filename: 'heroTexture.webp',
 		mimeType: 'image/webp',
-		filesize: 297804,
+		filesize: 291018,
 		width: 3000,
 		height: 1970,
 		focalX: 50,
@@ -95,7 +95,7 @@ export const home_it: Home = {
 				width: 300,
 				height: 197,
 				mimeType: 'image/webp',
-				filesize: 19714,
+				filesize: 14390,
 				filename: 'heroTexture-300x197.webp',
 			},
 
@@ -104,7 +104,7 @@ export const home_it: Home = {
 				width: 900,
 				height: 591,
 				mimeType: 'image/webp',
-				filesize: 76214,
+				filesize: 60448,
 				filename: 'heroTexture-900x591.webp',
 			},
 
@@ -113,7 +113,7 @@ export const home_it: Home = {
 				width: 1400,
 				height: 919,
 				mimeType: 'image/webp',
-				filesize: 133784,
+				filesize: 108836,
 				filename: 'heroTexture-1400x919.webp',
 			},
 
@@ -122,7 +122,7 @@ export const home_it: Home = {
 				width: 1920,
 				height: 1261,
 				mimeType: 'image/webp',
-				filesize: 203764,
+				filesize: 169090,
 				filename: 'heroTexture-1920x1261.webp',
 			},
 
@@ -131,21 +131,21 @@ export const home_it: Home = {
 				width: 959,
 				height: 630,
 				mimeType: 'image/webp',
-				filesize: 83034,
+				filesize: 65472,
 				filename: 'heroTexture-959x630.webp',
 			},
 		},
 	},
 
 	hero_image: {
-		id: 'b2669ea2-258e-4eba-bde9-a4a849745ac6',
+		id: '68d9f305-dd9a-47de-8559-f9f287c1b1a9',
 		alt: 'GOCCIA Hero Image',
-		caption: null,
+		caption: '',
 		blurHash:
 			'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAu0lEQVR4nGO49+v/gz9QdO/X/5s//1///v/yx/8X3/8///Y/Q/+UGZNnTJkyf8qEmVMq61s6pk1qmdDTMbGnpa+lc2Ivg7IOg7Qcg74tv5GDoKGjoJGDiIuPpLOnlKYOh4oaA4OGPru0MoOUCoOyMaOmBZOsBoO4AoOkEoOaEQgxKGsyKGuyC0kyyOkz8EgyKBkwaNgwymqATJVVY2BQ1WPQtGBRM+Q08WZUNGOQ0mJg4AXpllZj0DBjAABdsDorgfLg9QAAAABJRU5ErkJggg==',
 		prefix: 'images',
-		updatedAt: '2025-07-09T14:02:02.128Z',
-		createdAt: '2025-07-09T14:02:02.131Z',
+		updatedAt: '2025-07-14T10:07:49.032Z',
+		createdAt: '2025-07-14T10:07:49.071Z',
 		url: '/api/images/file/home_1.webp',
 		thumbnailURL: '/api/images/file/home_1-300x169.webp',
 		filename: 'home_1.webp',
@@ -291,17 +291,17 @@ export const home_it: Home = {
 
 	forest: [
 		{
-			id: '686e786867a9160330674b0f',
+			id: '6874d704dd01b6000486a74c',
 
 			image: {
-				id: '0d62f052-84fb-48d5-af1d-0042ff091770',
+				id: 'e49c9b67-e6f2-4650-9103-6165d8a17d4e',
 				alt: 'GOCCIA Home Forest 1',
-				caption: null,
+				caption: '',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AC5JCxw2BhozAHiQZfb+/+77/9vs7lp+Qi9MEBUqAwAvTwAOIgAUKgBthFvv9vzK19JTczIsSg01UBsPIgEAGzwAHzkCCh4AOlYOSFpBcYdoNVQNNVUKFi4AABIAABEmABw4BQ8hAD5bEFVvL05mOz5jDSpHDQ0eAwAEAAABEwAUIgMWIQZpakOfnZSbm5pgcEIqPhkKFgMAEQcAPTosbmhKgHlQlJB8oZ6hoZ+jkpKNcnFlRUo2KzcZAImGfoB9Y4mGaZ+dnp+foaKho5aWloWGfX5/aX5/aRPxRJiQ0aGfAAAAAElFTkSuQmCC',
 				prefix: 'images',
-				updatedAt: '2025-07-09T14:08:19.608Z',
-				createdAt: '2025-07-09T14:08:19.655Z',
+				updatedAt: '2025-07-14T10:07:56.774Z',
+				createdAt: '2025-07-14T10:07:56.811Z',
 				url: '/api/images/file/home_2.webp',
 				thumbnailURL: '/api/images/file/home_2-300x199.webp',
 				filename: 'home_2.webp',
@@ -364,17 +364,17 @@ export const home_it: Home = {
 		},
 
 		{
-			id: '686e787067a9160330674b11',
+			id: '6874d704dd01b6000486a74d',
 
 			image: {
-				id: 'd8c9d232-bfe0-4409-b938-52023f137172',
+				id: 'ab2ba5a9-90cf-42b3-bb76-018f25dab3cd',
 				alt: 'GOCCIA Home Forest 2',
-				caption: null,
+				caption: '',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAxUlEQVR4nAG6AEX/AMq2p9LAtLurm8/Ar9zQstvLr+PRue7cxP/52v/83QCpkGyFeEmCcUuFd0qeklyhlGG0p2mclFXn0pPfxIoAfXkzZVo8PDsehHVTpJldlodYsqJqhYQ/i4E9yLhnACUjAhgYAGlfN3hqPZGFRJiHVaWOYmlgMn5vRLqnYgAfGglHRRV3dS9BOiNPRypnWze1nWloWDZyYzeAc0QAAwAAVUogOzMYHiALIBsWZE1CoodcbV5CJR4eJiIdcXFQAn5eWdQAAAAASUVORK5CYII=',
 				prefix: 'images',
-				updatedAt: '2025-07-09T14:11:19.697Z',
-				createdAt: '2025-07-09T14:11:19.699Z',
+				updatedAt: '2025-07-14T10:07:55.985Z',
+				createdAt: '2025-07-14T10:07:56.024Z',
 				url: '/api/images/file/home_3.webp',
 				thumbnailURL: '/api/images/file/home_3-300x169.webp',
 				filename: 'home_3.webp',
@@ -437,17 +437,17 @@ export const home_it: Home = {
 		},
 
 		{
-			id: '686e788967a9160330674b13',
+			id: '6874d704dd01b6000486a74e',
 
 			image: {
-				id: 'af39af38-e213-48bf-8cb7-b5e28ee02a44',
+				id: 'dc50a47d-c57c-46b3-86f8-09ca6f3e3ca7',
 				alt: '©Terrapreta',
 				caption: '©Terrapreta',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAu0lEQVR4nB3BsQpGQAAA4Buu7rq/JKUYLMqk7gFuujyA1SirzCZFijew3GLyGMpgsijzPYCF4UaFv3wfgBAihDDGhJDfB2OMPhBCoGmaYRiWZVFKPc9zXde2bdM0dV0nhADf9znnURS1bVtVVV3XaZqGYcgYcxwHxHFcFMUwDNu27ft+Xdc4jmVZJknCGANZlgkh1nV93ue+b6XUNE1d1+V5HgQBaJpmnmcp5XEcSqnzPKWUy7L0fc85/wM2f0rGQC1duQAAAABJRU5ErkJggg==',
 				prefix: 'images',
-				updatedAt: '2025-07-09T14:11:57.856Z',
-				createdAt: '2025-07-09T14:11:57.858Z',
+				updatedAt: '2025-07-14T10:07:54.603Z',
+				createdAt: '2025-07-14T10:07:54.655Z',
 				url: '/api/images/file/home_5.webp',
 				thumbnailURL: '/api/images/file/home_5-300x195.webp',
 				filename: 'home_5.webp',
@@ -512,17 +512,17 @@ export const home_it: Home = {
 
 	what: [
 		{
-			id: '686e78be67a9160330674b15',
+			id: '6874d704dd01b6000486a74f',
 
 			image: {
-				id: 'a5aa6217-f778-4950-97a9-4a75f4dc0c8a',
+				id: '20fb7d1b-575b-4fd2-ab8d-44d4e079b430',
 				alt: 'GOCCIA Home What 1',
-				caption: null,
+				caption: '',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/ABobE52ilNrg3iomISMeHTozL42Tg620pMjRxvv//wAPDAOoqqaorp81LycyKiZBOzWdn5G8wbTX5NeywqoAIiIVnZ2ay83JMyogKCAbMigjgIJooqqP2ufU0dfQADY+IGtyUXd6Wh0RCQ0AABkOBz46KXt9X5qci3Z3aQAzOR5RUzlsbk0YDwITCAAPBQAjIBF1e0xnbkJDRzIAIBwOPD8jZWJCLScZHxgUJyEbPDUkV1E3Uko6LDIcACYkEjYvH1FONjw5KSQeFyMcFkxFNU5IMD41KCslGqT/Rgw+HDDNAAAAAElFTkSuQmCC',
 				prefix: 'images',
-				updatedAt: '2025-07-09T14:13:01.886Z',
-				createdAt: '2025-07-09T14:13:01.888Z',
+				updatedAt: '2025-07-14T10:08:03.309Z',
+				createdAt: '2025-07-14T10:08:03.489Z',
 				url: '/api/images/file/home_6.webp',
 				thumbnailURL: '/api/images/file/home_6-300x200.webp',
 				filename: 'home_6.webp',
@@ -585,17 +585,17 @@ export const home_it: Home = {
 		},
 
 		{
-			id: '686e78f467a9160330674b17',
+			id: '6874d704dd01b6000486a750',
 
 			image: {
-				id: 'd3464c99-84cb-4042-a846-4e5d43eb2294',
+				id: '3151c160-b6fc-47c4-aae6-81cfd336dcad',
 				alt: 'GOCCIA Home What 2',
-				caption: null,
+				caption: '',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/ANjc4OXr6vb4+cDOtOTt3Pn9/Li8tGdrXzIzKxscFQBGRkNfZli7wbmWpH2Wp3H5/fmUmYZARzMqLR8ZGw0AOjszODEoPD0uaGxYcXw/yM+0WmVHMzwkJCkaFxgJACkpGDwxFy8vGScoIzw5K1VdQkxSNy8zICgnGh4gFAAREAAfFgAmIhAnMCA3Qyxme0JVYUFKUDUtKRwZFwkAEBIEAAMBOEguO1UgPVYlYHk1U1s8PkUuMTQhICgXABckBwENAyg9FitBFjdTHkxiLjg8JCksHCkzHx4oGGGfQAAGlLU9AAAAAElFTkSuQmCC',
 				prefix: 'images',
-				updatedAt: '2025-07-09T14:13:54.860Z',
-				createdAt: '2025-07-09T14:13:54.861Z',
+				updatedAt: '2025-07-14T10:08:03.653Z',
+				createdAt: '2025-07-14T10:08:03.691Z',
 				url: '/api/images/file/home_7.webp',
 				thumbnailURL: '/api/images/file/home_7-300x200.webp',
 				filename: 'home_7.webp',
@@ -659,17 +659,17 @@ export const home_it: Home = {
 		},
 
 		{
-			id: '686e792567a9160330674b19',
+			id: '6874d704dd01b6000486a751',
 
 			image: {
-				id: '40fad27a-abad-49e6-9a06-f85eb955d6f6',
+				id: 'd1675ed1-1c38-4927-aaa2-9afc286387a8',
 				alt: '©Terrapreta',
 				caption: '©Terrapreta',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAwUlEQVR4nGMwj1TmUGAQ1GWQthFMqvd0TdJPKHPJqfHTD1DU8VVk0HUXFDdiFDdlkTTi0guQNQtTNQ6Ty24Ii0w3VXGVYGDgZWAVZRA3YjT0E5e24PaO1c+e4GUdpeqboOcUqcbQPMUvtUczpdIms9Ctst0jNFc3qtEuvt7RM9Vo+6FJDFLaDEWTLV3CVSzcJC1CRCXM2OSs+f3SzOxCVSbPK2JwCVepW+uiFskgH8gAIh1Z7EJ1w/JsVmxr+f//AQC/BzENbN/6hQAAAABJRU5ErkJggg==',
 				prefix: 'images',
-				updatedAt: '2025-07-09T14:14:25.499Z',
-				createdAt: '2025-07-09T14:14:25.502Z',
+				updatedAt: '2025-07-14T10:08:03.390Z',
+				createdAt: '2025-07-14T10:08:03.572Z',
 				url: '/api/images/file/home_8.webp',
 				thumbnailURL: '/api/images/file/home_8-300x169.webp',
 				filename: 'home_8.webp',
@@ -732,6 +732,6 @@ export const home_it: Home = {
 				'Percorso etnografico e costruzione di una governance interdisciplinare e partecipata',
 		},
 	],
-	updatedAt: '2025-07-09T14:59:11.951Z',
-	createdAt: '2025-07-09T14:04:51.997Z',
+	updatedAt: '2025-07-14T11:10:03.627Z',
+	createdAt: '2025-07-14T10:08:04.088Z',
 };

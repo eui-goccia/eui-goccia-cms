@@ -1,27 +1,26 @@
 import type { LaGoccia } from '@payload-types';
 
 export const goccia_it: LaGoccia = {
-	id: 'b282bcd8-0fee-44aa-9b44-81ee73928c9f',
+	id: 'bf9b1b01-fccf-48ab-9b4c-3920918496ba',
 	description:
 		"Nata come area industriale tra fine Ottocento e inizio Novecento, poi dismessa e abbandonata tra gli anni ‘70 e '90, la Goccia è oggi è al centro di progetti di rigenerazione che intrecciano memoria industriale, ambiente e futuro urbano.",
 
 	timeline: [
 		{
-			id: '68657166a61e6305f6286399',
-			title: 'Nascono le Officine del Gas',
-			description:
-				'Con la crescente domanda di energia, l’Union des Gaz avvia la costruzione delle Grandi Officine del Gas, in un’area di 30 ettari a nord del nucleo storico di Cascina Bovisa, dedicate alla produzione di energia tramite la gassificazione del carbone.',
+			id: '6874d73fd5e16a0004c01719',
+			start: 1905,
+			end: null,
 
 			cover: {
-				id: '21d7127d-0643-4059-979f-522a319740c4',
+				id: '1c135deb-559b-47ea-83fb-24f4f961ca74',
+				alt: 'Dipinto di Giovanni Segantini – La raccolta dei bozzoli, 1881-1883',
 				caption:
 					'Dipinto di Giovanni Segantini – La raccolta dei bozzoli, 1881-1883',
-				alt: 'Dipinto di Giovanni Segantini – La raccolta dei bozzoli, 1881-1883',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAxUlEQVR4nAG6AEX/AJuNeJWLeJmNeqqdibCnkMC2n9HEqt7Qt+vdwfjqzADCtZzEtp7RxKre0Lfn2MD26Mz+79D77s7+79D//d0A5ta4692/6Nq98+XH693B3M6y//XX//PU+OrMw7ifAF5URlBHOE1GOmFXSVRMPVxVRmFXSVRNQDIsIx8aEwANAwBAOS5fVUdoXk9fVUdLRTlEPDA6MikmIhgIAAAAKSMaJR8XKSMaJyAYHhgQKCMaHBcOFg4DDAEAFxAFtNtX++Be4n0AAAAASUVORK5CYII=',
 				prefix: 'images',
-				updatedAt: '2025-07-02T17:51:30.530Z',
-				createdAt: '2025-07-02T17:51:30.532Z',
+				updatedAt: '2025-07-14T10:08:44.623Z',
+				createdAt: '2025-07-14T10:08:44.664Z',
 				url: '/api/images/file/event_1.webp',
 				thumbnailURL: '/api/images/file/event_1-300x181.webp',
 				filename: 'event_1.webp',
@@ -79,26 +78,26 @@ export const goccia_it: LaGoccia = {
 					},
 				},
 			},
-			start: 1905,
-			end: null,
+			title: 'Nascono le Officine del Gas',
+			description:
+				'Con la crescente domanda di energia, l’Union des Gaz avvia la costruzione delle Grandi Officine del Gas, in un’area di 30 ettari a nord del nucleo storico di Cascina Bovisa, dedicate alla produzione di energia tramite la gassificazione del carbone.',
 		},
 
 		{
-			id: '686571a6a61e6305f628639b',
-			title: 'La dismissione degli impianti storici.',
-			description:
-				'Con l’arrivo progressivo del metano, l’attività delle Officine inizia a diminuire. All’inizio degli anni ’70, sotto la gestione Montedison, vengono demoliti alcuni grandi impianti per la lavorazione del carbone situati nella parte centrale del sito.',
+			id: '6874d73fd5e16a0004c0171a',
+			start: 1960,
+			end: 1970,
 
 			cover: {
-				id: '0083e042-dfb8-4d29-b185-0f96c0d5349c',
+				id: '35a431db-7dd9-4b0b-a494-c2a5ec54fa98',
+				alt: '©Fondo fotografico zona 9, Archivio Regione Lombardia. Officine del Gas e del quartiere Bovisa',
 				caption:
 					'©Fondo fotografico zona 9, Archivio Regione Lombardia. Officine del Gas e del quartiere Bovisa',
-				alt: '©Fondo fotografico zona 9, Archivio Regione Lombardia. Officine del Gas e del quartiere Bovisa',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA0UlEQVR4nB3BIcqFMAAA4AXD/5IgLi9bvIPtPUFtege7LAo2k8EgHsIriFcQlA22oQgGhyjK2gP54X0foJQyxsZx5Jxv2yZ/juNQSl3XBRhjQog8z6uqWpZFSrnvu1LqeZ7v9wsIIfM8J0kSRRHnfF1XKeV5nvd9K6UApVQIQSntui7LMoxxmqZlWXLOp2kCfd8Pw0AIaZrm9feCEJqmiRBq2zbPcxDHcVEUdV1jjA3D0DQNQogQ+rw/uq4Dy7Icxwl+wjD0PC8IAt/3Xde1bfsflNeAGMYmr/kAAAAASUVORK5CYII=',
 				prefix: 'images',
-				updatedAt: '2025-07-02T17:56:41.704Z',
-				createdAt: '2025-07-02T17:56:41.706Z',
+				updatedAt: '2025-07-14T10:08:43.330Z',
+				createdAt: '2025-07-14T10:08:43.607Z',
 				url: '/api/images/file/event_2.webp',
 				thumbnailURL: '/api/images/file/event_2-300x216.webp',
 				filename: 'event_2.webp',
@@ -156,24 +155,25 @@ export const goccia_it: LaGoccia = {
 					},
 				},
 			},
-			start: 1960,
-			end: 1970,
+			title: 'La dismissione degli impianti storici.',
+			description:
+				'Con l’arrivo progressivo del metano, l’attività delle Officine inizia a diminuire. All’inizio degli anni ’70, sotto la gestione Montedison, vengono demoliti alcuni grandi impianti per la lavorazione del carbone situati nella parte centrale del sito.',
 		},
 
 		{
-			id: '68657379a61e6305f628639d',
-			title: 'Le Officine diventano patrimonio pubblico.',
-			description:
-				'Nel 1981 viene municipalizzato il servizio gas e l’Azienda Energetica Municipale (AEM), diviene proprietaria dell’area delle Officine.',
+			id: '6874d73fd5e16a0004c0171b',
+			start: 1981,
+			end: null,
 
 			cover: {
-				id: '7b8c3047-f14f-482f-a15a-dd5520eafa99',
+				id: 'd132c38b-92a2-44f4-902a-90ec9732761a',
 				alt: ' ',
+				caption: '',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAICAIAAABPmPnhAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA4ElEQVR4nCXLoaqGMBiA4SWb9QSxWr0AMQjDJoh3ILuFlQ9WLIMfwTIGggwsgjCWhYHRIHzgTXgDVtvh/OeJL7wkTVPGmBDCGOOcM8YAwOfzGceRc06SJGnbVggxDINzbp5nKSUAcM6NMSQIgrIsKaV93yOilHL5klIqpUhRFFrr/7Su63Ec3vvzPL330zSRpmkopQDQdZ21dt/3+77f90XErutIFEVZlnHOtdbP8wCAtfY4juu6/u6fL0QUQsRxzBjTWk/TtCwLIhJCSBiGSZLkeV5VVV3XALBt2zzPSqlf3h558wlLqIwAAAAASUVORK5CYII=',
 				prefix: 'images',
-				updatedAt: '2025-07-02T18:15:09.537Z',
-				createdAt: '2025-07-02T18:15:09.539Z',
+				updatedAt: '2025-07-14T10:08:44.804Z',
+				createdAt: '2025-07-14T10:08:44.842Z',
 				url: '/api/images/file/event_3.webp',
 				thumbnailURL: '/api/images/file/event_3-300x237.webp',
 				filename: 'event_3.webp',
@@ -231,25 +231,25 @@ export const goccia_it: LaGoccia = {
 					},
 				},
 			},
-			start: 1981,
-			end: null,
+			title: 'Le Officine diventano patrimonio pubblico.',
+			description:
+				'Nel 1981 viene municipalizzato il servizio gas e l’Azienda Energetica Municipale (AEM), diviene proprietaria dell’area delle Officine.',
 		},
 
 		{
-			id: '68657749a61e6305f628639f',
-			title: 'Chiusura degli impianti',
-			description:
-				'L’11 luglio 1994 gli impianti vengono definitivamente chiusi. Il sito viene dichiarato Sito di Interesse Nazionale (SIN) per le elevate concentrazioni di contaminanti nel suolo.',
+			id: '6874d73fd5e16a0004c0171c',
+			start: 1994,
+			end: null,
 
 			cover: {
-				id: '903e1545-7863-4bdf-8976-d1bbd005205a',
-				caption: '©Google Maps, Ortofoto 1998',
+				id: 'c3a944e2-ca21-4823-943a-2f97c8f341e2',
 				alt: '©Google Maps, Ortofoto 1998',
+				caption: '©Google Maps, Ortofoto 1998',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA4UlEQVR4nGOQ0dNglhZkYGNgFxP3C/TLzEopLi60tLGWUJDmEBNiUDPQElaQFJaVEpKWYxYVdfJw+/3/n7GJMa+4iK6xPoO8jqpzoIdvmJ+6qZGMmhoDB9fEiRO9vLx8fLxaWhoZojNiyhrLzOwslQ30/EODrexsBcQklFRVPdycIiLDGAxtzc3sLCOiQxlFxUxtbAQlpBk5+VQ1VLXV1VwdnRicXRwY+Dg9PV2rqksLC3MNDAxys9O8PNy11dVsLSwZvF0cxKSk5ZSVdLV0Q8PCMrMyQgKDfD1ddTW1rE0tARMiMR0TinfTAAAAAElFTkSuQmCC',
 				prefix: 'images',
-				updatedAt: '2025-07-02T18:16:17.958Z',
-				createdAt: '2025-07-02T18:16:17.960Z',
+				updatedAt: '2025-07-14T10:08:44.206Z',
+				createdAt: '2025-07-14T10:08:44.244Z',
 				url: '/api/images/file/event_4.webp',
 				thumbnailURL: '/api/images/file/event_4-300x206.webp',
 				filename: 'event_4.webp',
@@ -307,28 +307,28 @@ export const goccia_it: LaGoccia = {
 					},
 				},
 			},
-			start: 1994,
-			end: null,
+			title: 'Chiusura degli impianti',
+			description:
+				'L’11 luglio 1994 gli impianti vengono definitivamente chiusi. Il sito viene dichiarato Sito di Interesse Nazionale (SIN) per le elevate concentrazioni di contaminanti nel suolo.',
 		},
 
 		{
-			id: '68657776a61e6305f62863a1',
-			title: 'La nascita e la crescita della foresta spontanea',
-			description:
-				'Nel sito inizia a svilupparsi una foresta spontanea che avvia un processo spontaneo di bonifica del suolo. Negli anni l’area viene riconosciuta come bosco della Goccia e nasce un Comitato per la sua preservazione.',
+			id: '6874d73fd5e16a0004c0171d',
+			start: 1994,
+			end: 2012,
 
 			cover: {
-				id: 'a1a0c22d-7b32-4f02-af50-36a014acecff',
-				caption: '©Marco Merati',
+				id: '05d94a59-8b5d-4777-b603-bdc0cde749bf',
 				alt: '©Marco Merati',
+				caption: '©Marco Merati',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAyElEQVR4nB3BMcqGIAAAUK+QS1CCEDUoOAQlbh2rsQs41uwBQoKmlpb/BhFCQ6tQBErU1vLD9x4wxkzTpJRq21ZKqbWWUtZ13TRN13VAa62UGsdx+Pn76ft+GIZ5nsG6rtZa59x93977932tted5Oue2bQPHcXjvv+97nue6rvu+rbXLsuz7bowBhJA4jgEAaZoihCCECKGyLLMsS5IERFFECMEYE0I453meM8aCIAjDkFIKMMYQwqqqhBCcc0opY4xSKoQoiuIfxn1qloRbZHkAAAAASUVORK5CYII=',
 				prefix: 'images',
-				updatedAt: '2025-07-02T18:17:02.632Z',
-				createdAt: '2025-07-02T18:17:02.633Z',
-				url: '/api/images/file/event_5.webp',
-				thumbnailURL: '/api/images/file/event_5-300x200.webp',
-				filename: 'event_5.webp',
+				updatedAt: '2025-07-14T10:09:03.037Z',
+				createdAt: '2025-07-14T10:09:03.220Z',
+				url: '/api/images/file/event_5-1.webp',
+				thumbnailURL: '/api/images/file/event_5-1-300x200.webp',
+				filename: 'event_5-1.webp',
 				mimeType: 'image/webp',
 				filesize: 450384,
 				width: 2500,
@@ -338,71 +338,71 @@ export const goccia_it: LaGoccia = {
 
 				sizes: {
 					thumbnail: {
-						url: '/api/images/file/event_5-300x200.webp',
+						url: '/api/images/file/event_5-1-300x200.webp',
 						width: 300,
 						height: 200,
 						mimeType: 'image/webp',
 						filesize: 14528,
-						filename: 'event_5-300x200.webp',
+						filename: 'event_5-1-300x200.webp',
 					},
 
 					medium: {
-						url: '/api/images/file/event_5-900x600.webp',
+						url: '/api/images/file/event_5-1-900x600.webp',
 						width: 900,
 						height: 600,
 						mimeType: 'image/webp',
 						filesize: 105262,
-						filename: 'event_5-900x600.webp',
+						filename: 'event_5-1-900x600.webp',
 					},
 
 					large: {
-						url: '/api/images/file/event_5-1400x934.webp',
+						url: '/api/images/file/event_5-1-1400x934.webp',
 						width: 1400,
 						height: 934,
 						mimeType: 'image/webp',
 						filesize: 212210,
-						filename: 'event_5-1400x934.webp',
+						filename: 'event_5-1-1400x934.webp',
 					},
 
 					xlarge: {
-						url: '/api/images/file/event_5-1920x1280.webp',
+						url: '/api/images/file/event_5-1-1920x1280.webp',
 						width: 1920,
 						height: 1280,
 						mimeType: 'image/webp',
 						filesize: 317116,
-						filename: 'event_5-1920x1280.webp',
+						filename: 'event_5-1-1920x1280.webp',
 					},
 
 					og: {
-						url: '/api/images/file/event_5-945x630.webp',
+						url: '/api/images/file/event_5-1-945x630.webp',
 						width: 945,
 						height: 630,
 						mimeType: 'image/webp',
 						filesize: 114202,
-						filename: 'event_5-945x630.webp',
+						filename: 'event_5-1-945x630.webp',
 					},
 				},
 			},
-			start: 1994,
-			end: 2012,
+			title: 'La nascita e la crescita della foresta spontanea',
+			description:
+				'Nel sito inizia a svilupparsi una foresta spontanea che avvia un processo spontaneo di bonifica del suolo. Negli anni l’area viene riconosciuta come bosco della Goccia e nasce un Comitato per la sua preservazione.',
 		},
 
 		{
-			id: '686577a4a61e6305f62863a3',
-			title: 'Un patto per il futuro della Goccia',
-			description:
-				"Ad Agosto 2022 viene firmato il patto di collaborazione 'Osservatorio La Goccia', con l’obiettivo di studiare l’ecosistema esistente e valutare possibili modalità di bonifica naturale e forme di fruizione pubblica compatibili e sostenibili. Nello stesso anno viene approvato il masterplan firmato dallo studio 'Renzo Piano Building Worshop' e promosso dal Politecnico di Milano per l'ampliamento del campus universitario nella parte sud dell’area della Goccia e il mantenimento del bosco. Nei due anni seguenti, vengono avviate le analisi integrative per la bonifica e la progettazione dell'intero comparto della Goccia.",
+			id: '6874d73fd5e16a0004c0171e',
+			start: 2022,
+			end: 2024,
 
 			cover: {
-				id: '7339a924-2c18-4679-9e89-8e1633be9de7',
+				id: 'bdf2043f-bbb6-4206-a5a4-eb67e6088b8b',
+				alt: '©Asja Castelli, Scritta lungo via Pacuvio che testimonia la pesenza di un bosco aldilà del muro di recinzione, 2020',
 				caption:
 					'©Asja Castelli, Scritta lungo via Pacuvio che testimonia la pesenza di un bosco aldilà del muro di recinzione, 2020',
-				alt: '©Asja Castelli, Scritta lungo via Pacuvio che testimonia la pesenza di un bosco aldilà del muro di recinzione, 2020',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAuUlEQVR4nAXBsQpAQAAA0PMD/IEMsl7ddpPFxGojo1JK3aJ0pZw7gyt1ZLEqk0yKfJQfMHgPGIah6zqE0DRN27YRQmmaUkq/73vfF2ia5jiO53kYY8uyMMYQQoRQWZa+74MwDAkhXdcxxrIsC4LAdd0kSZqmqesa5HnOORdCSCmLoojjOIoiQkjbtn3fg6qqGGNKqXmep2kahmEcR6WUEIJSCpZl2bbtOI7rup7nue/7PM9939d1lVL+3oJPw11clPkAAAAASUVORK5CYII=',
 				prefix: 'images',
-				updatedAt: '2025-07-02T18:17:41.937Z',
-				createdAt: '2025-07-02T18:17:41.938Z',
+				updatedAt: '2025-07-14T10:08:44.461Z',
+				createdAt: '2025-07-14T10:08:44.499Z',
 				url: '/api/images/file/event_6.webp',
 				thumbnailURL: '/api/images/file/event_6-300x193.webp',
 				filename: 'event_6.webp',
@@ -460,27 +460,28 @@ export const goccia_it: LaGoccia = {
 					},
 				},
 			},
-			start: 2022,
-			end: 2024,
+			title: 'Un patto per il futuro della Goccia',
+			description:
+				"Ad Agosto 2022 viene firmato il patto di collaborazione 'Osservatorio La Goccia', con l’obiettivo di studiare l’ecosistema esistente e valutare possibili modalità di bonifica naturale e forme di fruizione pubblica compatibili e sostenibili. Nello stesso anno viene approvato il masterplan firmato dallo studio 'Renzo Piano Building Worshop' e promosso dal Politecnico di Milano per l'ampliamento del campus universitario nella parte sud dell’area della Goccia e il mantenimento del bosco. Nei due anni seguenti, vengono avviate le analisi integrative per la bonifica e la progettazione dell'intero comparto della Goccia.",
 		},
 
 		{
-			id: '686577cda61e6305f62863a5',
-			title: 'L’inizio del progetto GOCCIA',
-			description:
-				'Prende il via GOCCIA, progetto europeo finanziato dalla European Urban Initiative (EUI), per l’attuazione e il consolidamento di un modello innovativo di biorisanamento e apertura progressiva della foresta spontanea su 18 ettari di proprietà comunale.',
+			id: '6874d73fd5e16a0004c0171f',
+			start: 2024,
+			end: null,
 
 			cover: {
-				id: 'c322b37c-9ece-41e8-a923-1662758fa2b1',
+				id: 'ac2c871d-60fa-4024-83cb-fb0a0b363f02',
 				alt: ' ',
+				caption: '',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AEQ8Mfvmy6ORh15MQWCKsmik3FFIQ//83uXOujk0LwBUS0D45MiGenJZPzhmUE1bUVhtVU3ErZreybRRSUYAXEY2l3ZlVkZEfXNqZWVoPTlAZFFPUkdGjmdQQjInAEk6MVtTXXhfYnBNSmZbYUZAPU9BQT09Sp+CdlVDOwAlIyQmICF/ZltfQkpvaW6CkqZPVVA7Ly5hcW5ra2AAGxodPTo7MzE1KCgqUFRdY2+HKCwrFxgdOz84UVxMAGVgWjs2NzIuMggICgsMFAECBxswRTxLVVRNTDg6On/hSQ0387rfAAAAAElFTkSuQmCC',
 				prefix: 'images',
-				updatedAt: '2025-07-02T18:18:14.172Z',
-				createdAt: '2025-07-02T18:18:14.173Z',
-				url: '/api/images/file/event_7.webp',
-				thumbnailURL: '/api/images/file/event_7-300x211.webp',
-				filename: 'event_7.webp',
+				updatedAt: '2025-07-14T10:08:43.948Z',
+				createdAt: '2025-07-14T10:08:43.987Z',
+				url: '/api/images/file/event_7-1.webp',
+				thumbnailURL: '/api/images/file/event_7-1-300x211.webp',
+				filename: 'event_7-1.webp',
 				mimeType: 'image/webp',
 				filesize: 122368,
 				width: 1067,
@@ -490,21 +491,21 @@ export const goccia_it: LaGoccia = {
 
 				sizes: {
 					thumbnail: {
-						url: '/api/images/file/event_7-300x211.webp',
+						url: '/api/images/file/event_7-1-300x211.webp',
 						width: 300,
 						height: 211,
 						mimeType: 'image/webp',
 						filesize: 16064,
-						filename: 'event_7-300x211.webp',
+						filename: 'event_7-1-300x211.webp',
 					},
 
 					medium: {
-						url: '/api/images/file/event_7-900x634.webp',
+						url: '/api/images/file/event_7-1-900x634.webp',
 						width: 900,
 						height: 634,
 						mimeType: 'image/webp',
 						filesize: 80736,
-						filename: 'event_7-900x634.webp',
+						filename: 'event_7-1-900x634.webp',
 					},
 
 					large: {
@@ -526,19 +527,20 @@ export const goccia_it: LaGoccia = {
 					},
 
 					og: {
-						url: '/api/images/file/event_7-894x630.webp',
+						url: '/api/images/file/event_7-1-894x630.webp',
 						width: 894,
 						height: 630,
 						mimeType: 'image/webp',
 						filesize: 79638,
-						filename: 'event_7-894x630.webp',
+						filename: 'event_7-1-894x630.webp',
 					},
 				},
 			},
-			start: 2024,
-			end: null,
+			title: 'L’inizio del progetto GOCCIA',
+			description:
+				'Prende il via GOCCIA, progetto europeo finanziato dalla European Urban Initiative (EUI), per l’attuazione e il consolidamento di un modello innovativo di biorisanamento e apertura progressiva della foresta spontanea su 18 ettari di proprietà comunale.',
 		},
 	],
-	updatedAt: '2025-07-02T18:18:19.239Z',
-	createdAt: '2025-07-02T17:59:19.477Z',
+	updatedAt: '2025-07-14T11:07:27.145Z',
+	createdAt: '2025-07-07T15:38:46.942Z',
 };

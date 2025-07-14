@@ -1,16 +1,16 @@
 import type { Home } from '@payload-types';
 
 export const home_en: Home = {
-	id: '6521eaf1-c4b4-49c0-b55c-023eafaf3f8d',
+	id: '63556705-b541-4165-8d03-131ae6ee80c5',
 
 	hero_title: {
-		id: '6f0b2895-6903-408a-b3fe-a4d64f03e84f',
+		id: '4bba63b9-7e0d-449c-b23c-658b51b68cef',
 		alt: 'GOCCIA Hero Title',
 		blurHash:
 			'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAACCAYAAABhYU3QAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAWElEQVR4nGN4+/+UYu2UVHkZXR7p5Yf7lNkkGSQL2iLkuKQYJKyDNBW90mwkLHw0pRgK2iIUHv4/qKbnKAdSqARSuPXibFl1S3GJ3bfmK1bNSJPtX1UhBwA+5hsvKqO61gAAAABJRU5ErkJggg==',
 		prefix: 'images',
-		updatedAt: '2025-07-14T09:34:26.404Z',
-		createdAt: '2025-07-14T09:34:26.405Z',
+		updatedAt: '2025-07-14T10:07:19.671Z',
+		createdAt: '2025-07-14T10:07:19.709Z',
 		url: '/api/images/file/heroTitle.webp',
 		thumbnailURL: '/api/images/file/heroTitle-300x62.webp',
 		filename: 'heroTitle.webp',
@@ -70,13 +70,13 @@ export const home_en: Home = {
 	},
 
 	hero_texture: {
-		id: 'b130a4bf-eae3-4cb6-9bfb-fc507209e0ea',
+		id: '4afad854-c157-4252-874f-45e1b105843f',
 		alt: 'GOCCIA Hero Texture',
 		blurHash:
 			'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAYAAAAxrNxjAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAv0lEQVR4nGNQUVPk6JpXJaKkLM8amxUiVNSUIrJk+wSRnvk1YtNXNbN3zati2HRithhDy5RS8YbJxWLpZbHC3uFu/Fn1CUKTVjaLeQS78DZMLhYvbE0T2XRitgwDPiAlI8kqryjDIi4pzoRXIXlAXVeV++X/c6IVPblc6WWxHCaWBowewS6sFrYmTCaWBgyOXjbMBqY6DAw98ytBPhTumV8j0DKjhC8g1ktAx1CDs2telXDXvCrxyo5sYY9gJz4Ahlw2vy2WfYsAAAAASUVORK5CYII=',
 		prefix: 'images',
-		updatedAt: '2025-07-14T09:34:28.748Z',
-		createdAt: '2025-07-14T09:34:28.750Z',
+		updatedAt: '2025-07-14T10:07:44.081Z',
+		createdAt: '2025-07-14T10:07:44.334Z',
 		url: '/api/images/file/heroTexture.webp',
 		thumbnailURL: '/api/images/file/heroTexture-300x197.webp',
 		filename: 'heroTexture.webp',
@@ -136,13 +136,13 @@ export const home_en: Home = {
 	},
 
 	hero_image: {
-		id: 'cf9b973d-2999-4972-a216-391340910aea',
+		id: '68d9f305-dd9a-47de-8559-f9f287c1b1a9',
 		alt: 'GOCCIA Hero Image',
 		blurHash:
 			'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAu0lEQVR4nGO49+v/gz9QdO/X/5s//1///v/yx/8X3/8///Y/Q/+UGZNnTJkyf8qEmVMq61s6pk1qmdDTMbGnpa+lc2Ivg7IOg7Qcg74tv5GDoKGjoJGDiIuPpLOnlKYOh4oaA4OGPru0MoOUCoOyMaOmBZOsBoO4AoOkEoOaEQgxKGsyKGuyC0kyyOkz8EgyKBkwaNgwymqATJVVY2BQ1WPQtGBRM+Q08WZUNGOQ0mJg4AXpllZj0DBjAABdsDorgfLg9QAAAABJRU5ErkJggg==',
 		prefix: 'images',
-		updatedAt: '2025-07-14T09:34:31.191Z',
-		createdAt: '2025-07-14T09:34:31.193Z',
+		updatedAt: '2025-07-14T10:07:49.032Z',
+		createdAt: '2025-07-14T10:07:49.071Z',
 		url: '/api/images/file/home_1.webp',
 		thumbnailURL: '/api/images/file/home_1-300x169.webp',
 		filename: 'home_1.webp',
@@ -211,7 +211,7 @@ export const home_en: Home = {
 							format: 0,
 							mode: 'normal',
 							style: '',
-							text: 'A contaminated urban area, closed for over 30 years, where nature has found its space, giving rise to a spontaneous urban forest. A place that, despite having been abandoned, has found a way to be reborn, transforming into a green lung that is now reopening to the city, regenerating the soil and restoring beauty and life to the community.',
+							text: 'An urban-contaminated area closed off for over 30 years, where nature carved out its space and gave rise to a spontaneous urban forest. A place that, despite its abandonment, found its own way to come back to life by transforming into a green lun. Now, it is reopening to the city, regenerating the soil and restoring the beauty and the vitality to the neighbourhood and its community.',
 							type: 'text',
 							version: 1,
 						},
@@ -243,7 +243,7 @@ export const home_en: Home = {
 							format: 0,
 							mode: 'normal',
 							style: '',
-							text: 'The GOCCIA project, building on the soil remediation process already underway by the natural ecosystem, will activate a system of targeted interventions to complete the land remediation.',
+							text: 'Building on the soil remediation process already initiated by the natural ecosystem, the GOCCIA project will activate a system of targeted interventions to complete the clean-up of the land.',
 							type: 'text',
 							version: 1,
 						},
@@ -264,7 +264,7 @@ export const home_en: Home = {
 							format: 0,
 							mode: 'normal',
 							style: '',
-							text: 'Thanks to the use of Nature-Based Solutions and an innovative governance model, a green space will be returned to the city, creating a living laboratory where nature not only regenerates the soil but also becomes the protagonist of urban regeneration.',
+							text: 'Thanks to the use of Nature-Based Solutions and an innovative governance model, a green space will be returned to the city, creating a living lab where nature not only restores the soil, but also becomes the protagonist in an urban regeneration process.',
 							type: 'text',
 							version: 1,
 						},
@@ -288,16 +288,16 @@ export const home_en: Home = {
 
 	forest: [
 		{
-			id: '6874cf2bd6d00e18f25de93c',
+			id: '6874d704dd01b6000486a74c',
 
 			image: {
-				id: '6d668f73-7eae-438f-9e1f-6ba923516ac6',
+				id: 'e49c9b67-e6f2-4650-9103-6165d8a17d4e',
 				alt: 'GOCCIA Home Forest 1',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AC5JCxw2BhozAHiQZfb+/+77/9vs7lp+Qi9MEBUqAwAvTwAOIgAUKgBthFvv9vzK19JTczIsSg01UBsPIgEAGzwAHzkCCh4AOlYOSFpBcYdoNVQNNVUKFi4AABIAABEmABw4BQ8hAD5bEFVvL05mOz5jDSpHDQ0eAwAEAAABEwAUIgMWIQZpakOfnZSbm5pgcEIqPhkKFgMAEQcAPTosbmhKgHlQlJB8oZ6hoZ+jkpKNcnFlRUo2KzcZAImGfoB9Y4mGaZ+dnp+foaKho5aWloWGfX5/aX5/aRPxRJiQ0aGfAAAAAElFTkSuQmCC',
 				prefix: 'images',
-				updatedAt: '2025-07-14T09:34:33.407Z',
-				createdAt: '2025-07-14T09:34:33.409Z',
+				updatedAt: '2025-07-14T10:07:56.774Z',
+				createdAt: '2025-07-14T10:07:56.811Z',
 				url: '/api/images/file/home_2.webp',
 				thumbnailURL: '/api/images/file/home_2-300x199.webp',
 				filename: 'home_2.webp',
@@ -360,16 +360,16 @@ export const home_en: Home = {
 		},
 
 		{
-			id: '6874cf2bd6d00e18f25de93d',
+			id: '6874d704dd01b6000486a74d',
 
 			image: {
-				id: '2dc1cbdd-adec-41fe-8723-61881649c2a6',
+				id: 'ab2ba5a9-90cf-42b3-bb76-018f25dab3cd',
 				alt: 'GOCCIA Home Forest 2',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAxUlEQVR4nAG6AEX/AMq2p9LAtLurm8/Ar9zQstvLr+PRue7cxP/52v/83QCpkGyFeEmCcUuFd0qeklyhlGG0p2mclFXn0pPfxIoAfXkzZVo8PDsehHVTpJldlodYsqJqhYQ/i4E9yLhnACUjAhgYAGlfN3hqPZGFRJiHVaWOYmlgMn5vRLqnYgAfGglHRRV3dS9BOiNPRypnWze1nWloWDZyYzeAc0QAAwAAVUogOzMYHiALIBsWZE1CoodcbV5CJR4eJiIdcXFQAn5eWdQAAAAASUVORK5CYII=',
 				prefix: 'images',
-				updatedAt: '2025-07-14T09:34:33.243Z',
-				createdAt: '2025-07-14T09:34:33.244Z',
+				updatedAt: '2025-07-14T10:07:55.985Z',
+				createdAt: '2025-07-14T10:07:56.024Z',
 				url: '/api/images/file/home_3.webp',
 				thumbnailURL: '/api/images/file/home_3-300x169.webp',
 				filename: 'home_3.webp',
@@ -432,17 +432,17 @@ export const home_en: Home = {
 		},
 
 		{
-			id: '6874cf2bd6d00e18f25de93e',
+			id: '6874d704dd01b6000486a74e',
 
 			image: {
-				id: '47a84a88-0c95-4788-b758-641a760727a8',
+				id: 'dc50a47d-c57c-46b3-86f8-09ca6f3e3ca7',
 				alt: '©Terrapreta',
 				caption: '©Terrapreta',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAu0lEQVR4nB3BsQpGQAAA4Buu7rq/JKUYLMqk7gFuujyA1SirzCZFijew3GLyGMpgsijzPYCF4UaFv3wfgBAihDDGhJDfB2OMPhBCoGmaYRiWZVFKPc9zXde2bdM0dV0nhADf9znnURS1bVtVVV3XaZqGYcgYcxwHxHFcFMUwDNu27ft+Xdc4jmVZJknCGANZlgkh1nV93ue+b6XUNE1d1+V5HgQBaJpmnmcp5XEcSqnzPKWUy7L0fc85/wM2f0rGQC1duQAAAABJRU5ErkJggg==',
 				prefix: 'images',
-				updatedAt: '2025-07-14T09:34:32.701Z',
-				createdAt: '2025-07-14T09:34:32.703Z',
+				updatedAt: '2025-07-14T10:07:54.603Z',
+				createdAt: '2025-07-14T10:07:54.655Z',
 				url: '/api/images/file/home_5.webp',
 				thumbnailURL: '/api/images/file/home_5-300x195.webp',
 				filename: 'home_5.webp',
@@ -507,16 +507,16 @@ export const home_en: Home = {
 
 	what: [
 		{
-			id: '6874cf2bd6d00e18f25de93f',
+			id: '6874d704dd01b6000486a74f',
 
 			image: {
-				id: 'ec7aa2d3-ea74-4ba1-ac4a-c37f06c28588',
+				id: '20fb7d1b-575b-4fd2-ab8d-44d4e079b430',
 				alt: 'GOCCIA Home What 1',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/ABobE52ilNrg3iomISMeHTozL42Tg620pMjRxvv//wAPDAOoqqaorp81LycyKiZBOzWdn5G8wbTX5NeywqoAIiIVnZ2ay83JMyogKCAbMigjgIJooqqP2ufU0dfQADY+IGtyUXd6Wh0RCQ0AABkOBz46KXt9X5qci3Z3aQAzOR5RUzlsbk0YDwITCAAPBQAjIBF1e0xnbkJDRzIAIBwOPD8jZWJCLScZHxgUJyEbPDUkV1E3Uko6LDIcACYkEjYvH1FONjw5KSQeFyMcFkxFNU5IMD41KCslGqT/Rgw+HDDNAAAAAElFTkSuQmCC',
 				prefix: 'images',
-				updatedAt: '2025-07-14T09:34:35.084Z',
-				createdAt: '2025-07-14T09:34:35.085Z',
+				updatedAt: '2025-07-14T10:08:03.309Z',
+				createdAt: '2025-07-14T10:08:03.489Z',
 				url: '/api/images/file/home_6.webp',
 				thumbnailURL: '/api/images/file/home_6-300x200.webp',
 				filename: 'home_6.webp',
@@ -579,16 +579,16 @@ export const home_en: Home = {
 		},
 
 		{
-			id: '6874cf2bd6d00e18f25de940',
+			id: '6874d704dd01b6000486a750',
 
 			image: {
-				id: '5acc3beb-0d2b-4919-a34c-a327a76ff1ab',
+				id: '3151c160-b6fc-47c4-aae6-81cfd336dcad',
 				alt: 'GOCCIA Home What 2',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/ANjc4OXr6vb4+cDOtOTt3Pn9/Li8tGdrXzIzKxscFQBGRkNfZli7wbmWpH2Wp3H5/fmUmYZARzMqLR8ZGw0AOjszODEoPD0uaGxYcXw/yM+0WmVHMzwkJCkaFxgJACkpGDwxFy8vGScoIzw5K1VdQkxSNy8zICgnGh4gFAAREAAfFgAmIhAnMCA3Qyxme0JVYUFKUDUtKRwZFwkAEBIEAAMBOEguO1UgPVYlYHk1U1s8PkUuMTQhICgXABckBwENAyg9FitBFjdTHkxiLjg8JCksHCkzHx4oGGGfQAAGlLU9AAAAAElFTkSuQmCC',
 				prefix: 'images',
-				updatedAt: '2025-07-14T09:34:35.373Z',
-				createdAt: '2025-07-14T09:34:35.374Z',
+				updatedAt: '2025-07-14T10:08:03.653Z',
+				createdAt: '2025-07-14T10:08:03.691Z',
 				url: '/api/images/file/home_7.webp',
 				thumbnailURL: '/api/images/file/home_7-300x200.webp',
 				filename: 'home_7.webp',
@@ -652,17 +652,17 @@ export const home_en: Home = {
 		},
 
 		{
-			id: '6874cf2bd6d00e18f25de941',
+			id: '6874d704dd01b6000486a751',
 
 			image: {
-				id: '73db03c3-949f-43f5-a800-fec13d22e261',
+				id: 'd1675ed1-1c38-4927-aaa2-9afc286387a8',
 				alt: '©Terrapreta',
 				caption: '©Terrapreta',
 				blurHash:
 					'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAwUlEQVR4nGMwj1TmUGAQ1GWQthFMqvd0TdJPKHPJqfHTD1DU8VVk0HUXFDdiFDdlkTTi0guQNQtTNQ6Ty24Ii0w3VXGVYGDgZWAVZRA3YjT0E5e24PaO1c+e4GUdpeqboOcUqcbQPMUvtUczpdIms9Ctst0jNFc3qtEuvt7RM9Vo+6FJDFLaDEWTLV3CVSzcJC1CRCXM2OSs+f3SzOxCVSbPK2JwCVepW+uiFskgH8gAIh1Z7EJ1w/JsVmxr+f//AQC/BzENbN/6hQAAAABJRU5ErkJggg==',
 				prefix: 'images',
-				updatedAt: '2025-07-14T09:34:35.723Z',
-				createdAt: '2025-07-14T09:34:35.724Z',
+				updatedAt: '2025-07-14T10:08:03.390Z',
+				createdAt: '2025-07-14T10:08:03.572Z',
 				url: '/api/images/file/home_8.webp',
 				thumbnailURL: '/api/images/file/home_8-300x169.webp',
 				filename: 'home_8.webp',
@@ -725,6 +725,6 @@ export const home_en: Home = {
 				'Ethnographic path and construction of an interdisciplinary and participatory governance',
 		},
 	],
-	updatedAt: '2025-07-14T09:38:08.025Z',
-	createdAt: '2025-07-14T09:28:28.526Z',
+	updatedAt: '2025-07-14T11:10:03.627Z',
+	createdAt: '2025-07-14T10:08:04.088Z',
 };

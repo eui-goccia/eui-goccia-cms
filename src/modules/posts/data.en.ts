@@ -2,7 +2,7 @@ import type { Post } from '@payload-types';
 
 export const posts_en: Post[] = [
 	{
-		id: 'cb197417-4dff-4420-ab63-a68691d1a835',
+		id: '2949b323-73f9-4dc2-ab81-ca3bd353043e',
 		title: 'What is La Goccia and why does it deserve our attention?',
 		description: null,
 
@@ -10,7 +10,7 @@ export const posts_en: Post[] = [
 
 		content: [
 			{
-				id: '686e6df1316c5447e3da2686',
+				id: '6874d7bed5e16a0004c01744',
 				vertical: 'bottom',
 				horizontal: 'right',
 				blockName: 'Intro',
@@ -52,7 +52,7 @@ export const posts_en: Post[] = [
 			},
 
 			{
-				id: '686e6df1316c5447e3da2687',
+				id: '6874d7bed5e16a0004c01745',
 				vertical: 'top',
 				horizontal: 'left',
 				blockName: 'Breve Contesto',
@@ -62,7 +62,7 @@ export const posts_en: Post[] = [
 			},
 
 			{
-				id: '686e6df1316c5447e3da2688',
+				id: '6874d7bed5e16a0004c01746',
 				vertical: 'top',
 				horizontal: 'left',
 				blockName: 'La Goccia',
@@ -137,19 +137,18 @@ export const posts_en: Post[] = [
 								type: 'upload',
 								version: 3,
 								format: '',
-								id: '686e8c73b2ba4b1923a10d74',
 								fields: null,
 								relationTo: 'images',
 
 								value: {
-									id: '08519533-335f-45d1-84ba-a2717011f1b2',
+									id: '87e6303a-02f5-4449-bdd0-1be1dbc2b624',
 									alt: '©Terrapreta',
 									caption: '©Terrapreta',
 									blurHash:
 										'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA4ElEQVR4nGPw8nPTtjEqqiwoqyr2jQlqb6tdsHTe8uWL8/IyQxMTGNKSvCJTHc3cFZ0C1JyCVIMTTTs6i7ZtW3375q3fv/4zMIgxCKgwKJszKJszmbjzadqxqFkxKBkxyJswmDkqMXDIMohpgpCMEYO8KYOmA4OZN6OKNQOPPAOvLAODoAyDmAqDkjWDoQ+Dra+AlSePigODpCEDAz8DqxADA7s0g7g2g1sYY3Cs4LQpJZX1vg5+rO6ekjwSDALyDAzqtgwSGgzBYWIpmXqVhZ6xeSxRaRK+vtJi4gwMDAwA/ywxExQ29LEAAAAASUVORK5CYII=',
 									prefix: 'images',
-									updatedAt: '2025-07-09T13:26:09.139Z',
-									createdAt: '2025-07-09T13:26:09.140Z',
+									updatedAt: '2025-07-14T10:11:10.250Z',
+									createdAt: '2025-07-14T10:11:10.288Z',
 									url: '/api/images/file/goccia_terrapreta.webp',
 									thumbnailURL:
 										'/api/images/file/goccia_terrapreta-300x200.webp',
@@ -256,19 +255,18 @@ export const posts_en: Post[] = [
 								type: 'upload',
 								version: 3,
 								format: '',
-								id: '686e8c86b2ba4b1923a10d75',
 								fields: null,
 								relationTo: 'images',
 
 								value: {
-									id: 'ee4034ac-ab72-4da3-8ea9-19b219a32daf',
+									id: 'ff95548c-5444-4934-b26f-329fd1b99e7b',
 									alt: '©Terrapreta',
 									caption: '©Terrapreta',
 									blurHash:
 										'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AEVJXMXb5M3i6tXo7tbq7tHm7MDb5qnN3I60zhQcLgBeZHHf7/Dk8fLs9vbr+Pfh9vbb7u/H4emny90fJTQAZmxy5vbz8Pv38//89f/+8//86/j33fHxzuXoIyYwAF1dXbm+rM7Swubp3/Dy5Onn1sjPusTGuJyiniIlLQBMS0VrczN7gEGFhE+EeFJPVjRHTSpUVjUdJhwXGyIANjgreIEydoE1ipJAj4pJS1MmKjUbNz4gFxgYDhIaACEmH19kKWxzLmpxKHN9LnN9Lis3FxciDiMvEgAED198cWS+5ibRAAAAAElFTkSuQmCC',
 									prefix: 'images',
-									updatedAt: '2025-07-09T13:26:08.686Z',
-									createdAt: '2025-07-09T13:26:08.688Z',
+									updatedAt: '2025-07-14T10:11:09.256Z',
+									createdAt: '2025-07-14T10:11:09.461Z',
 									url: '/api/images/file/torre_terrapreta.webp',
 									thumbnailURL:
 										'/api/images/file/torre_terrapreta-300x200.webp',
@@ -381,7 +379,7 @@ export const posts_en: Post[] = [
 			},
 
 			{
-				id: '686e6df1316c5447e3da2689',
+				id: '6874d7bed5e16a0004c01747',
 				vertical: 'top',
 				horizontal: 'left',
 				blockName: 'Il Comitato',
@@ -456,19 +454,18 @@ export const posts_en: Post[] = [
 								type: 'upload',
 								version: 3,
 								format: '',
-								id: '686e8cbfb2ba4b1923a10d76',
 								fields: null,
 								relationTo: 'images',
 
 								value: {
-									id: 'f34d8b01-12a3-4fa7-9149-b810ccd330e9',
+									id: '7ce99d2a-23ff-4e39-9903-92c058961714',
 									alt: '©Terrapreta',
 									caption: '©Terrapreta',
 									blurHash:
 										'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AN7r7en09O749en29eX08dvr67vN16e+0W2HoxglLADl7+zu+PXy/fry/ffq8+zl7uu+x8eLl5Q/SUYOFgYAo6up3OLb9P319//46O7jrrWmPEs6LzwqISQQAw4AAD1BOEdBNmphVpWajtfNt3VzXB0oFwUUAAcQAAAFAAAoNBQrKBlqYVOhmILEupaWhGddTj1aSzQ8LBsbFgAAgGdajmxcwKqS28Wq0bqewq2UpIh5mXZkd1pSSTgzAJl7cKOCcbGXg76qlLuhi8mqjcKfh6uGcYRjU2FHPKWucL1XVHIgAAAAAElFTkSuQmCC',
 									prefix: 'images',
-									updatedAt: '2025-07-09T13:26:07.915Z',
-									createdAt: '2025-07-09T13:26:07.917Z',
+									updatedAt: '2025-07-14T10:11:09.119Z',
+									createdAt: '2025-07-14T10:11:09.321Z',
 									url: '/api/images/file/gasometro_terrapreta.webp',
 									thumbnailURL:
 										'/api/images/file/gasometro_terrapreta-300x200.webp',
@@ -539,7 +536,7 @@ export const posts_en: Post[] = [
 			},
 
 			{
-				id: '686e6df1316c5447e3da268a',
+				id: '6874d7bed5e16a0004c01748',
 				vertical: 'top',
 				horizontal: 'left',
 				blockName: 'Oggi e Domani',
@@ -614,19 +611,18 @@ export const posts_en: Post[] = [
 								type: 'upload',
 								version: 3,
 								format: '',
-								id: '686e8ceeb2ba4b1923a10d77',
 								fields: null,
 								relationTo: 'images',
 
 								value: {
-									id: '28d58f2c-f90c-429e-a50d-a87fc2477e79',
+									id: 'ef85a76e-1ca8-4595-b67d-4a6fcde8a2dd',
 									alt: '©C. Vincenzi',
 									caption: '©C. Vincenzi',
 									blurHash:
 										'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AL7Y+rvf/7jc/9fu/9nu/+z2//H5//H5//n7//P3/wBMVDGQpqOhury/3v/Q7//X7//c9f/f9P/p+f/i8f0AOD0kUFpDX2hSlKaSqr+ttsq4n6eA3OvyydvVnqhpACAjDRogDzE5HW99PHGBOlxoMXOCPHmGSoOMRVlmKAA3PB0CBQAoLRA1OhpCRyE5QRpYYjBNXCpXYSs+Th4AXmgSZnIWbXgYZnMWgYwhh5QjmKYqlqAopq8vbngZABUdAB8kABsjABsjACQvACg2Aj1HBj1HBkpRCUpQCOSlY/kqKu+XAAAAAElFTkSuQmCC',
 									prefix: 'images',
-									updatedAt: '2025-07-09T13:26:09.265Z',
-									createdAt: '2025-07-09T13:26:09.266Z',
+									updatedAt: '2025-07-14T10:11:10.659Z',
+									createdAt: '2025-07-14T10:11:10.698Z',
 									url: '/api/images/file/vincenzi.webp',
 									thumbnailURL: '/api/images/file/vincenzi-300x200.webp',
 									filename: 'vincenzi.webp',
@@ -780,7 +776,7 @@ export const posts_en: Post[] = [
 			},
 
 			{
-				id: '686e6df1316c5447e3da268b',
+				id: '6874d7bed5e16a0004c01749',
 				vertical: 'top',
 				horizontal: 'left',
 				blockName: 'Sculture e orchidee',
@@ -834,19 +830,18 @@ export const posts_en: Post[] = [
 								type: 'upload',
 								version: 3,
 								format: '',
-								id: '686e8d17b2ba4b1923a10d78',
 								fields: null,
 								relationTo: 'images',
 
 								value: {
-									id: 'b7f0c036-ef68-4637-81d7-f4450ced4c90',
+									id: '81fdda97-4f73-466a-8d9c-52e8d235f70d',
 									alt: '©Comitato La Goccia',
 									caption: '©Comitato La Goccia',
 									blurHash:
 										'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAICAIAAABPmPnhAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABA0lEQVR4nAH4AAf/AHx2ZNPVy+Pg2HxxZUYzHqCHcc3Csv/+9763q4Z6agB2bVuQiHXGv62XkH1uVz+BY0qvn4vp3s+1q56AeWwAbWVTnpR+sqCQfW1WhGNAdlAvrJyFvq+YiHpjd2hVAGhbRpCDbYx6Z39pU1wzEGpAG6aUfKGOeYl5Y3BgTACFfWGypYWfkXKnmXYhAAAjAACzooOlkXaXhWpmVUAAkIdnlI1lnJBnjIBZcFlBdV1FgW5Rm4VtnY11e2lVAIZ6W4+EZpSIarKfh8KvmsCrlralkpuIcZuJbHZiUgB8bVGMemWxoIrNvarSwKnCrJfAq5aumYGHdlV4aFIrKnqYgSGdBQAAAABJRU5ErkJggg==',
 									prefix: 'images',
-									updatedAt: '2025-07-09T13:26:08.498Z',
-									createdAt: '2025-07-09T13:26:08.499Z',
+									updatedAt: '2025-07-14T10:11:09.402Z',
+									createdAt: '2025-07-14T10:11:09.440Z',
 									url: '/api/images/file/goccia-damare.webp',
 									thumbnailURL: '/api/images/file/goccia-damare-300x225.webp',
 									filename: 'goccia-damare.webp',
@@ -979,7 +974,7 @@ export const posts_en: Post[] = [
 			},
 
 			{
-				id: '686e6df1316c5447e3da268c',
+				id: '6874d7bed5e16a0004c0174a',
 				vertical: 'top',
 				horizontal: 'left',
 				blockName: 'Il bosco è un simbolo',
@@ -1046,14 +1041,14 @@ export const posts_en: Post[] = [
 		},
 
 		coverImage: {
-			id: '07060dc1-6ae7-4401-9e78-69977bf63cd1',
+			id: '47c83045-d429-4334-abea-01e1cae1b2f6',
 			alt: '©Marco Merati',
 			caption: '©Marco Merati',
 			blurHash:
 				'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/ABohAFJgI3GDNY2bSnOCOzhBHQsYAFVbOiAmDwALAAAbIgAnNApHVRqfs02mslyOn0pWZydSXycmLw0WHAAACxIALzwQWWolfpA+lqRRm69Uq8BZi59GZngtKzcPACAoBUhUHF5uKYeXRYyQVZqnVcDUXq/EVZinTl5tKAALEgBQXSJdZinHy27//8D2+KCtuVNgcCcfKgEABQAAIygITUwlY2Ivp5di//jG/+7Bs6dxf4M+JywPFhgAADgzE0o+IVhNJnRmOnlsQ2ldOW1dQkE6JRoXAwAAAKS+Rm9/pwXSAAAAAElFTkSuQmCC',
 			prefix: 'images',
-			updatedAt: '2025-07-09T13:26:05.485Z',
-			createdAt: '2025-07-09T13:26:05.487Z',
+			updatedAt: '2025-07-14T10:10:59.339Z',
+			createdAt: '2025-07-14T10:10:59.377Z',
 			url: '/api/images/file/cover_merati.webp',
 			thumbnailURL: '/api/images/file/cover_merati-300x200.webp',
 			filename: 'cover_merati.webp',
@@ -1113,29 +1108,29 @@ export const posts_en: Post[] = [
 		},
 
 		author: {
-			id: '50434fed-efd2-4ece-a052-4acf4a8467b2',
+			id: '365ff691-9df3-4195-ab09-5327ad12ab29',
 			name: 'Ivan Carozzi',
 			bio: 'Scrittore, giornalista culturale, autore di programmi tv e audiodocumentari.',
 			image: null,
 
 			posts: {
-				docs: ['cb197417-4dff-4420-ab63-a68691d1a835'],
+				docs: ['2949b323-73f9-4dc2-ab81-ca3bd353043e'],
 				hasNextPage: false,
 			},
 			slug: 'ivan-carozzi',
 			slugLock: true,
-			updatedAt: '2025-07-09T13:26:03.368Z',
-			createdAt: '2025-07-09T13:26:03.368Z',
+			updatedAt: '2025-07-14T10:10:55.546Z',
+			createdAt: '2025-07-14T10:10:55.584Z',
 		},
 		publishedAt: '2025-06-09T22:00:00.000Z',
 		slug: 'perche-la-goccia-merita-attenzione',
-		slugLock: false,
-		updatedAt: '2025-07-02T23:18:04.560Z',
-		createdAt: '2025-07-02T22:00:01.939Z',
+		slugLock: true,
+		updatedAt: '2025-07-14T10:11:13.629Z',
+		createdAt: '2025-07-14T10:11:10.966Z',
 		_status: 'published',
 	},
 	{
-		id: '698d617f-19a0-4993-a1dc-6ca56bb33653',
+		id: 'a8b99f51-71f0-479b-bd64-b776c0804db1',
 		title: 'The Forest that Come Back: A Life in La Goccia',
 		description: null,
 
@@ -1143,7 +1138,7 @@ export const posts_en: Post[] = [
 
 		content: [
 			{
-				id: '686e6df5316c5447e3da268d',
+				id: '6874d7ccd5e16a0004c0174b',
 				vertical: 'top',
 				horizontal: 'left',
 				blockName: null,
@@ -1694,14 +1689,14 @@ export const posts_en: Post[] = [
 		},
 
 		coverImage: {
-			id: 'fac21c0c-3e2d-4ed3-815f-c0c4920dda03',
+			id: 'd0a72219-1544-4ad7-8830-7a479e37d98c',
 			alt: '©Luisa Facchinetti e Tommaso Tresso',
 			caption: '©Luisa Facchinetti e Tommaso Tresso',
 			blurHash:
 				'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAKCAIAAAD3rtNaAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA50lEQVR4nAHcACP/AMzMYPv8m21yKCUgAAgIAKaqN7a2RQBxeBnU2VTIx2s5OwmAgi358pjp5ZUAfX8gk5Ut0MxZPUILgoM80c5r2NeCAHV9H3R6JL69Tis2AIeNP6+lVfjwfgCFhTvAwlxaXSM3QAOXkkj/94br72oAmaBVoadcYWMfGxsA0Mhr+u6A+fqJAIuWQYGPMJuZTSIkAIeBNc3AYP//mgCCkCqCiipBRQYvOwCzs1vS1W2lqkgAa3UYT1QOJysASFgLpK1fucBru8B3AFleF1RjDU9hC2N0H4OPPXuCPHN+MVjSYLvBr3n/AAAAAElFTkSuQmCC',
 			prefix: 'images',
-			updatedAt: '2025-07-09T13:26:13.764Z',
-			createdAt: '2025-07-09T13:26:13.765Z',
+			updatedAt: '2025-07-14T10:11:24.191Z',
+			createdAt: '2025-07-14T10:11:24.372Z',
 			url: '/api/images/file/cover.webp',
 			thumbnailURL: '/api/images/file/cover-300x450.webp',
 			filename: 'cover.webp',
@@ -1761,28 +1756,28 @@ export const posts_en: Post[] = [
 		},
 
 		author: {
-			id: '67094e36-272a-4e9f-8ec8-9deaa8983204',
+			id: '634ff544-637e-43f2-993e-6cdcc8c2d12c',
 			name: 'José Costero',
 			image: null,
 
 			posts: {
-				docs: ['698d617f-19a0-4993-a1dc-6ca56bb33653'],
+				docs: ['a8b99f51-71f0-479b-bd64-b776c0804db1'],
 				hasNextPage: false,
 			},
 			slug: 'jos-costero',
 			slugLock: true,
-			updatedAt: '2025-07-09T13:26:09.713Z',
-			createdAt: '2025-07-09T13:26:09.714Z',
+			updatedAt: '2025-07-14T10:11:16.534Z',
+			createdAt: '2025-07-14T10:11:16.570Z',
 		},
 		publishedAt: '2025-06-26T22:00:00.000Z',
 		slug: 'the-forest-that-come-back-a-life-in-la-goccia',
-		slugLock: false,
-		updatedAt: '2025-07-03T10:19:48.705Z',
-		createdAt: '2025-07-03T10:15:07.562Z',
+		slugLock: true,
+		updatedAt: '2025-07-14T10:11:26.384Z',
+		createdAt: '2025-07-14T10:11:24.782Z',
 		_status: 'published',
 	},
 	{
-		id: 'eeef1c43-0e6f-43d9-a5a1-c0762daa1301',
+		id: '7be6d241-85c6-4a2f-8292-8a62ad52a382',
 		title: 'A short journey through the flora of Goccia',
 		description: null,
 
@@ -1790,7 +1785,7 @@ export const posts_en: Post[] = [
 
 		content: [
 			{
-				id: '686e6dfa316c5447e3da268e',
+				id: '6874d7dad5e16a0004c0174c',
 				vertical: 'top',
 				horizontal: 'left',
 				blockName: null,
@@ -1866,20 +1861,19 @@ export const posts_en: Post[] = [
 								type: 'upload',
 								version: 3,
 								format: '',
-								id: '686e8a9389fbbbd3a4f96833',
 								fields: null,
 								relationTo: 'images',
 
 								value: {
-									id: '39cc220e-a51e-4025-ba63-7470aeff53a2',
+									id: 'aa512e5d-01ac-4898-b8d8-60a1f8462e8f',
 									alt: 'Gabriele Galasso, Botanico del Museo Civico di Storia Naturale di Miano',
 									caption:
 										'Gabriele Galasso, Botanico del Museo Civico di Storia Naturale di Miano',
 									blurHash:
 										'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAw0lEQVR4nGMQN+XVDVJxybPKnxDy/++tzLYQtzRb82g9s2B9cSNhBmUbef0gTdc8p4VL6p8fXpdTHhTVFGCdaCplJSZtIsYgpC7sW+ybNDlt8drW7VNqqvriAyp9HLNtTaJ0xY1EGcR0xQyCDOxTbZs76ltSfZySrcNbA01CNDXcFXilWRkkDMUNfay9QzOVDMK8HGwllPR13YzFjYQ5pVjYxBgZGDgYOMVkxaSVeaVsWLmkmHhk+cQF2cQY2cWYGQUZAJbYLlK4lGWKAAAAAElFTkSuQmCC',
 									prefix: 'images',
-									updatedAt: '2025-07-09T13:26:17.536Z',
-									createdAt: '2025-07-09T13:26:17.538Z',
+									updatedAt: '2025-07-14T10:11:37.704Z',
+									createdAt: '2025-07-14T10:11:37.884Z',
 									url: '/api/images/file/galasso.webp',
 									thumbnailURL: '/api/images/file/galasso-300x169.webp',
 									filename: 'galasso.webp',
@@ -1960,7 +1954,7 @@ export const posts_en: Post[] = [
 			},
 
 			{
-				id: '686e6dfa316c5447e3da268f',
+				id: '6874d7dad5e16a0004c0174d',
 				vertical: 'top',
 				horizontal: 'left',
 				blockName: null,
@@ -2120,19 +2114,18 @@ export const posts_en: Post[] = [
 								type: 'upload',
 								version: 3,
 								format: '',
-								id: '686e8ae989fbbbd3a4f96834',
 								fields: null,
 								relationTo: 'images',
 
 								value: {
-									id: '42c05a89-2419-4794-ae07-7422cad9de03',
+									id: '0e7ad141-520a-43de-aeb0-c9d74799c83c',
 									alt: 'Sono circa 250 le piante censite alla Goccia',
 									caption: 'Sono circa 250 le piante censite alla Goccia',
 									blurHash:
 										'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAxUlEQVR4nAG6AEX/AA0cFTtWIpCFVaSfYjteJCpMG0pxMERxLipMGx08EwADChNggjt2mERyez65rnExViBNczQ4YycvVSAcOxIACxEdQ1YlapVISm4uemI8TWMxM04gPF4nQW4qLlMcAAAGBmaDRWKMPC1CFxAYA0xvNXWjVUBrLUd4Ly9cIgAAAwFbbj1VbDBDWigmLhFQgTdoqkiBzlpoqkg7ZCUAAgQDP0wlT1YuXnQ7XolEcrNPvf+Cd7hLVo82NWIgQpc1AEO0FQ8AAAAASUVORK5CYII=',
 									prefix: 'images',
-									updatedAt: '2025-07-09T13:26:17.880Z',
-									createdAt: '2025-07-09T13:26:17.881Z',
+									updatedAt: '2025-07-14T10:11:37.949Z',
+									createdAt: '2025-07-14T10:11:37.995Z',
 									url: '/api/images/file/specie.webp',
 									thumbnailURL: '/api/images/file/specie-300x169.webp',
 									filename: 'specie.webp',
@@ -2202,7 +2195,7 @@ export const posts_en: Post[] = [
 			},
 
 			{
-				id: '686e6dfa316c5447e3da2690',
+				id: '6874d7dad5e16a0004c0174e',
 				vertical: 'top',
 				horizontal: 'left',
 				blockName: null,
@@ -2299,19 +2292,18 @@ export const posts_en: Post[] = [
 								type: 'upload',
 								version: 3,
 								format: '',
-								id: '686e8b0c89fbbbd3a4f96835',
 								fields: null,
 								relationTo: 'images',
 
 								value: {
-									id: '69d3bacf-5f57-4a24-bc21-6b276318733d',
+									id: 'ff51391a-f070-4d85-ab1d-d94e6e82403b',
 									alt: 'Le margherite della Goccia',
 									caption: 'Le margherite della Goccia',
 									blurHash:
 										'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAxUlEQVR4nAG6AEX/ACksE1daM3l/SXiUUW6QUsTXolx3PXWEUiExExcjCAAFFwB0cEeBiVLA1JGBnGCQrGhzj013f0g0RyIcKQ4AAAAAPEwrpLB12OWbucuHn65jw9aTjJxeiZpsRlIzAAAMADtKLcTXn/X/vrvBge7yocrRhvH2vG13SEpRLQAeHBVTXECMmGeiq3LKxoDJwn7I1Y96d01jaEIaFwUAaFpVqp+Tr6OIwLWRzcmG3N+ZvsKLiIdiYllHJiAX7zRSx8eBZ58AAAAASUVORK5CYII=',
 									prefix: 'images',
-									updatedAt: '2025-07-09T13:26:17.374Z',
-									createdAt: '2025-07-09T13:26:17.375Z',
+									updatedAt: '2025-07-14T10:11:37.650Z',
+									createdAt: '2025-07-14T10:11:37.687Z',
 									url: '/api/images/file/margherite.webp',
 									thumbnailURL: '/api/images/file/margherite-300x169.webp',
 									filename: 'margherite.webp',
@@ -2430,14 +2422,14 @@ export const posts_en: Post[] = [
 		},
 
 		coverImage: {
-			id: 'e6a09f5b-98ee-46bf-8a55-3ebb60e5d907',
+			id: 'e081f222-ceaa-4ae0-9b25-7768393ba6ef',
 			alt: 'Lara Quaglini, Botanica, nel verde della Goccia',
 			caption: 'Lara Quaglini, Botanica, nel verde della Goccia',
 			blurHash:
 				'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAxUlEQVR4nAG6AEX/ABktCjVRHWSFRk1tOFR2RG6UXWmRVWiQSl2COyxMFwBSbS9zlEmoznaizXi35ZC24JBhcEWo1Hpsk0o8VSMAQ18gYHs4mL1j5f+n0/+aUWFQsrR9dZpKU3M6KkMbACM+CUdjIXWUQpvCZZS9ag0ZCkhNKDBLFzdUHzlSIQAACQADEAAYJABJZCd6nFArPxwYFwIAAAAJFQAjMRIAGSIAAhQAJTsRLUMWRV8pTGMzAA8AFCIFERwAPFMlpFA4M0YIn3IAAAAASUVORK5CYII=',
 			prefix: 'images',
-			updatedAt: '2025-07-09T13:26:15.781Z',
-			createdAt: '2025-07-09T13:26:15.782Z',
+			updatedAt: '2025-07-14T10:11:32.172Z',
+			createdAt: '2025-07-14T10:11:32.211Z',
 			url: '/api/images/file/cover-1.webp',
 			thumbnailURL: '/api/images/file/cover-1-300x169.webp',
 			filename: 'cover-1.webp',
@@ -2497,24 +2489,24 @@ export const posts_en: Post[] = [
 		},
 
 		author: {
-			id: 'aa790c2d-2d8d-42e8-b574-f3bb656d13b1',
+			id: 'e322a074-2cfb-4636-9dbd-0f6d6e149b3c',
 			name: 'Daniele Signorelli',
 			image: null,
 
 			posts: {
-				docs: ['eeef1c43-0e6f-43d9-a5a1-c0762daa1301'],
+				docs: ['7be6d241-85c6-4a2f-8292-8a62ad52a382'],
 				hasNextPage: false,
 			},
 			slug: 'daniele-signorelli',
 			slugLock: true,
-			updatedAt: '2025-07-09T13:26:14.009Z',
-			createdAt: '2025-07-09T13:26:14.009Z',
+			updatedAt: '2025-07-14T10:11:28.606Z',
+			createdAt: '2025-07-14T10:11:28.643Z',
 		},
 		publishedAt: '2025-06-29T22:00:00.000Z',
 		slug: 'breve-viaggio-tra-la-flora-della-goccia',
-		slugLock: false,
-		updatedAt: '2025-07-03T10:27:13.732Z',
-		createdAt: '2025-07-03T10:22:10.564Z',
+		slugLock: true,
+		updatedAt: '2025-07-14T10:11:40.096Z',
+		createdAt: '2025-07-14T10:11:38.256Z',
 		_status: 'published',
 	},
 ];

@@ -1,16 +1,21 @@
 import type { Progetto } from '@payload-types';
 
 export const project_it: Progetto = {
-	id: 'b2879814-6daa-4748-afaf-00ea1443d6a9',
+	id: '47ed3534-dd91-414c-b3ed-0b265aafd86c',
+
 	sections: [
 		{
-			id: '686566c2cd68397b0bca2913',
-			title: "Cos'è il progetto GOCCIA",
+			id: '6874e03d8e832000043d59a6',
 			url: '#cos-il-progetto-goccia',
+			title: "Cos'è il progetto GOCCIA",
 
 			content: [
 				{
-					id: '68656773cd68397b0bca2917',
+					id: '6874e03d8e832000043d59a5',
+					vertical: 'top',
+					horizontal: 'left',
+					blockName: null,
+					blockType: 'richText',
 
 					content: {
 						root: {
@@ -43,22 +48,22 @@ export const project_it: Progetto = {
 							version: 1,
 						},
 					},
-					vertical: 'top',
-					horizontal: 'left',
-					blockName: null,
-					blockType: 'richText',
 				},
 			],
 		},
 
 		{
-			id: '68656781cd68397b0bca2919',
-			title: "L'area di intervento",
+			id: '6874e03d8e832000043d59a9',
 			url: '#larea-di-intervento',
+			title: "L'area di intervento",
 
 			content: [
 				{
-					id: '6865678fcd68397b0bca291b',
+					id: '6874e03d8e832000043d59a7',
+					vertical: 'top',
+					horizontal: 'left',
+					blockName: null,
+					blockType: 'richText',
 
 					content: {
 						root: {
@@ -91,27 +96,23 @@ export const project_it: Progetto = {
 							version: 1,
 						},
 					},
-					vertical: 'top',
-					horizontal: 'left',
-					blockName: null,
-					blockType: 'richText',
 				},
 
 				{
-					id: '6865694ecd68397b0bca2935',
+					id: '6874e03d8e832000043d59a8',
 
 					image: {
-						id: 'c0dd8b8f-b73a-41b6-9f53-92fe2c633181',
-						caption: 'Progetto 1',
+						id: '9898bd55-0832-4aea-8592-a98fcf78ccb0',
 						alt: 'Progetto 1',
+						caption: 'Progetto 1',
 						blurHash:
 							'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAIAAAB1kpiRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAxUlEQVR4nAG6AEX/AP7+/vv//ury8u7//+T4/drt+9Dj98TW7JOmu7bJ3AB3fHF1e3RnaWp5gX12fXFZXlFqbVdydmUqNDpfZVUAMTIQLi8iHhoaKicaMzoJMDUDPT8NT04DMzEFPjwEACUlED05IyQkDxISABodAB0jADo3EDs6ACcnAB8bAgAdGh00NB0iKQAZHQAXGQAkJQVGRwA8PwAjJQAEBAAAAAAHHiIAFhkABw4AKSknVFMALC4AMzMAOjoAJiYAThM1NRgAwBgAAAAASUVORK5CYII=',
 						prefix: 'images',
-						updatedAt: '2025-07-02T17:16:08.482Z',
-						createdAt: '2025-07-02T17:16:08.484Z',
-						url: '/api/images/file/progetto_1.webp',
-						thumbnailURL: '/api/images/file/progetto_1-300x169.webp',
-						filename: 'progetto_1.webp',
+						updatedAt: '2025-07-14T10:47:22.460Z',
+						createdAt: '2025-07-14T10:47:22.691Z',
+						url: '/api/images/file/progetto_1-2.webp',
+						thumbnailURL: '/api/images/file/progetto_1-2-300x169.webp',
+						filename: 'progetto_1-2.webp',
 						mimeType: 'image/webp',
 						filesize: 433054,
 						width: 2000,
@@ -121,48 +122,48 @@ export const project_it: Progetto = {
 
 						sizes: {
 							thumbnail: {
-								url: '/api/images/file/progetto_1-300x169.webp',
+								url: '/api/images/file/progetto_1-2-300x169.webp',
 								width: 300,
 								height: 169,
 								mimeType: 'image/webp',
 								filesize: 11208,
-								filename: 'progetto_1-300x169.webp',
+								filename: 'progetto_1-2-300x169.webp',
 							},
 
 							medium: {
-								url: '/api/images/file/progetto_1-900x506.webp',
+								url: '/api/images/file/progetto_1-2-900x506.webp',
 								width: 900,
 								height: 506,
 								mimeType: 'image/webp',
 								filesize: 89354,
-								filename: 'progetto_1-900x506.webp',
+								filename: 'progetto_1-2-900x506.webp',
 							},
 
 							large: {
-								url: '/api/images/file/progetto_1-1400x788.webp',
+								url: '/api/images/file/progetto_1-2-1400x788.webp',
 								width: 1400,
 								height: 788,
 								mimeType: 'image/webp',
 								filesize: 202690,
-								filename: 'progetto_1-1400x788.webp',
+								filename: 'progetto_1-2-1400x788.webp',
 							},
 
 							xlarge: {
-								url: '/api/images/file/progetto_1-1920x1080.webp',
+								url: '/api/images/file/progetto_1-2-1920x1080.webp',
 								width: 1920,
 								height: 1080,
 								mimeType: 'image/webp',
 								filesize: 346518,
-								filename: 'progetto_1-1920x1080.webp',
+								filename: 'progetto_1-2-1920x1080.webp',
 							},
 
 							og: {
-								url: '/api/images/file/progetto_1-1120x630.webp',
+								url: '/api/images/file/progetto_1-2-1120x630.webp',
 								width: 1120,
 								height: 630,
 								mimeType: 'image/webp',
 								filesize: 134712,
-								filename: 'progetto_1-1120x630.webp',
+								filename: 'progetto_1-2-1120x630.webp',
 							},
 						},
 					},
@@ -176,14 +177,18 @@ export const project_it: Progetto = {
 		},
 
 		{
-			id: '686567becd68397b0bca291d',
+			id: '6874e03d8e832000043d59ae',
+			url: '#il-processo-di-bonifica-del-suolo-attraverso-le-nature-based-solutions',
 			title:
 				'Il processo di bonifica del suolo attraverso le Nature Based Solutions',
-			url: '#il-processo-di-bonifica-del-suolo-attraverso-le-nature-based-solutions',
 
 			content: [
 				{
-					id: '686567c9cd68397b0bca291f',
+					id: '6874e03d8e832000043d59aa',
+					vertical: 'top',
+					horizontal: 'left',
+					blockName: null,
+					blockType: 'richText',
 
 					content: {
 						root: {
@@ -258,33 +263,29 @@ export const project_it: Progetto = {
 							version: 1,
 						},
 					},
-					vertical: 'top',
-					horizontal: 'left',
-					blockName: null,
-					blockType: 'richText',
 				},
 
 				{
-					id: '68656842cd68397b0bca2921',
+					id: '6874e03d8e832000043d59ad',
 					blockName: null,
 					blockType: 'grid',
 
 					items: [
 						{
-							id: '68656846cd68397b0bca2923',
+							id: '6874e03d8e832000043d59ab',
 
 							image: {
-								id: 'c437d9a2-6e2f-4831-b1e6-0af71f450dd5',
-								caption: 'Progetto 2',
+								id: 'cebf34bf-b38f-4837-81cf-7d7ba589aa02',
 								alt: 'Progetto 2',
+								caption: 'Progetto 2',
 								blurHash:
 									'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAHCAIAAAC+zks0AAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA5ElEQVR4nAHZACb/AH+Uq5Wtxrjr/6Ld/4vC7YC/8nGy6oCr2mCUzEaJzQCGkp+bo7Hm+//Q6vu5ytvD3fG42/iwvcuawN6Nzv0Aam9xcnJypKShurq6fXl4sKumlY6IeG1dhomJgYSGAAAAABUAAB8LACUWAyUWAEIvHk89J0EyGjosFishEgAiFAA6KRA7KBNGMBpGMBpcQyVmTCh+ZjhwXy9wXC4AZ1kzfW1CX04sW0spW0smdmk3aVcneWYxe2gsaVsgAEU7GyIaABwWACIaACYjADArACAWADQnAzAmAx8UACuSU2Hf1rP/AAAAAElFTkSuQmCC',
 								prefix: 'images',
-								updatedAt: '2025-07-02T17:12:19.553Z',
-								createdAt: '2025-07-02T17:12:19.554Z',
-								url: '/api/images/file/progetto_2.webp',
-								thumbnailURL: '/api/images/file/progetto_2-300x200.webp',
-								filename: 'progetto_2.webp',
+								updatedAt: '2025-07-14T10:47:23.082Z',
+								createdAt: '2025-07-14T10:47:23.134Z',
+								url: '/api/images/file/progetto_2-2.webp',
+								thumbnailURL: '/api/images/file/progetto_2-2-300x200.webp',
+								filename: 'progetto_2-2.webp',
 								mimeType: 'image/webp',
 								filesize: 1007752,
 								width: 2000,
@@ -294,48 +295,48 @@ export const project_it: Progetto = {
 
 								sizes: {
 									thumbnail: {
-										url: '/api/images/file/progetto_2-300x200.webp',
+										url: '/api/images/file/progetto_2-2-300x200.webp',
 										width: 300,
 										height: 200,
 										mimeType: 'image/webp',
 										filesize: 20014,
-										filename: 'progetto_2-300x200.webp',
+										filename: 'progetto_2-2-300x200.webp',
 									},
 
 									medium: {
-										url: '/api/images/file/progetto_2-900x600.webp',
+										url: '/api/images/file/progetto_2-2-900x600.webp',
 										width: 900,
 										height: 600,
 										mimeType: 'image/webp',
 										filesize: 195804,
-										filename: 'progetto_2-900x600.webp',
+										filename: 'progetto_2-2-900x600.webp',
 									},
 
 									large: {
-										url: '/api/images/file/progetto_2-1400x933.webp',
+										url: '/api/images/file/progetto_2-2-1400x933.webp',
 										width: 1400,
 										height: 933,
 										mimeType: 'image/webp',
 										filesize: 467910,
-										filename: 'progetto_2-1400x933.webp',
+										filename: 'progetto_2-2-1400x933.webp',
 									},
 
 									xlarge: {
-										url: '/api/images/file/progetto_2-1920x1280.webp',
+										url: '/api/images/file/progetto_2-2-1920x1280.webp',
 										width: 1920,
 										height: 1280,
 										mimeType: 'image/webp',
 										filesize: 806892,
-										filename: 'progetto_2-1920x1280.webp',
+										filename: 'progetto_2-2-1920x1280.webp',
 									},
 
 									og: {
-										url: '/api/images/file/progetto_2-945x630.webp',
+										url: '/api/images/file/progetto_2-2-945x630.webp',
 										width: 945,
 										height: 630,
 										mimeType: 'image/webp',
 										filesize: 216638,
-										filename: 'progetto_2-945x630.webp',
+										filename: 'progetto_2-2-945x630.webp',
 									},
 								},
 							},
@@ -347,20 +348,20 @@ export const project_it: Progetto = {
 						},
 
 						{
-							id: '6865687acd68397b0bca2925',
+							id: '6874e03d8e832000043d59ac',
 
 							image: {
-								id: 'e80c8c76-fdf4-463c-8b3f-9f2e5feab869',
-								caption: 'Progetto 3',
+								id: '01b6c456-2c9e-4e7d-a078-be9b18b7037a',
 								alt: 'Progetto 3',
+								caption: 'Progetto 3',
 								blurHash:
 									'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAKCAIAAAD3rtNaAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA50lEQVR4nAHcACP/AHl2dYmEgb+7tqyknuDc1+fk3/P06wCDfnmUioSZkY2IkJZPVl9mZmnQy8AAX1ZRPkNHWWBjX2luYGBgb29vsqWSAIN5ckRLTXN1cjI8QFdbXomEgf/+8ACdnJRaWVEgJCUsLi5BQT+DhYZFRksAaG1vjop6wLCTuaaJlId1AAEIAAARAEpIRT09On93ZU1IQHFrYD1GSwAIFwBVVlRfXVNpaF+MgnWqn4mqmoAjIyEALy8v9ujL1MWnkohy++XExLKUgnllAC4rKZqDbYFzXrmigcW1mr+vmoyGeZeGYm3CMKc2AAAAAElFTkSuQmCC',
 								prefix: 'images',
-								updatedAt: '2025-07-02T17:12:38.927Z',
-								createdAt: '2025-07-02T17:12:38.929Z',
-								url: '/api/images/file/progetto_3.webp',
-								thumbnailURL: '/api/images/file/progetto_3-300x400.webp',
-								filename: 'progetto_3.webp',
+								updatedAt: '2025-07-14T10:47:24.199Z',
+								createdAt: '2025-07-14T10:47:24.237Z',
+								url: '/api/images/file/progetto_3-2.webp',
+								thumbnailURL: '/api/images/file/progetto_3-2-300x400.webp',
+								filename: 'progetto_3-2.webp',
 								mimeType: 'image/webp',
 								filesize: 1102578,
 								width: 2000,
@@ -370,48 +371,48 @@ export const project_it: Progetto = {
 
 								sizes: {
 									thumbnail: {
-										url: '/api/images/file/progetto_3-300x400.webp',
+										url: '/api/images/file/progetto_3-2-300x400.webp',
 										width: 300,
 										height: 400,
 										mimeType: 'image/webp',
 										filesize: 50156,
-										filename: 'progetto_3-300x400.webp',
+										filename: 'progetto_3-2-300x400.webp',
 									},
 
 									medium: {
-										url: '/api/images/file/progetto_3-900x1200.webp',
+										url: '/api/images/file/progetto_3-2-900x1200.webp',
 										width: 900,
 										height: 1200,
 										mimeType: 'image/webp',
 										filesize: 341976,
-										filename: 'progetto_3-900x1200.webp',
+										filename: 'progetto_3-2-900x1200.webp',
 									},
 
 									large: {
-										url: '/api/images/file/progetto_3-1400x1867.webp',
+										url: '/api/images/file/progetto_3-2-1400x1867.webp',
 										width: 1400,
 										height: 1867,
 										mimeType: 'image/webp',
 										filesize: 666592,
-										filename: 'progetto_3-1400x1867.webp',
+										filename: 'progetto_3-2-1400x1867.webp',
 									},
 
 									xlarge: {
-										url: '/api/images/file/progetto_3-1920x2560.webp',
+										url: '/api/images/file/progetto_3-2-1920x2560.webp',
 										width: 1920,
 										height: 2560,
 										mimeType: 'image/webp',
 										filesize: 984054,
-										filename: 'progetto_3-1920x2560.webp',
+										filename: 'progetto_3-2-1920x2560.webp',
 									},
 
 									og: {
-										url: '/api/images/file/progetto_3-472x630.webp',
+										url: '/api/images/file/progetto_3-2-472x630.webp',
 										width: 472,
 										height: 630,
 										mimeType: 'image/webp',
 										filesize: 116180,
-										filename: 'progetto_3-472x630.webp',
+										filename: 'progetto_3-2-472x630.webp',
 									},
 								},
 							},
@@ -427,13 +428,17 @@ export const project_it: Progetto = {
 		},
 
 		{
-			id: '68656895cd68397b0bca2927',
-			title: 'Una Governance innovativa: il modello della quintupla elica',
+			id: '6874e03d8e832000043d59b0',
 			url: '#una-governance-innovativa-il-modello-della-quintupla-elica',
+			title: 'Una Governance innovativa: il modello della quintupla elica',
 
 			content: [
 				{
-					id: '686568a2cd68397b0bca2929',
+					id: '6874e03d8e832000043d59af',
+					vertical: 'top',
+					horizontal: 'left',
+					blockName: null,
+					blockType: 'richText',
 
 					content: {
 						root: {
@@ -466,22 +471,22 @@ export const project_it: Progetto = {
 							version: 1,
 						},
 					},
-					vertical: 'top',
-					horizontal: 'left',
-					blockName: null,
-					blockType: 'richText',
 				},
 			],
 		},
 
 		{
-			id: '686568c4cd68397b0bca292b',
-			title: 'Un progetto che coinvolge la cittadinanza',
+			id: '6874e03d8e832000043d59b2',
 			url: '#un-progetto-che-coinvolge-la-cittadinanza',
+			title: 'Un progetto che coinvolge la cittadinanza',
 
 			content: [
 				{
-					id: '686568cacd68397b0bca292d',
+					id: '6874e03d8e832000043d59b1',
+					vertical: 'top',
+					horizontal: 'left',
+					blockName: null,
+					blockType: 'richText',
 
 					content: {
 						root: {
@@ -514,22 +519,22 @@ export const project_it: Progetto = {
 							version: 1,
 						},
 					},
-					vertical: 'top',
-					horizontal: 'left',
-					blockName: null,
-					blockType: 'richText',
 				},
 			],
 		},
 
 		{
-			id: '686568e3cd68397b0bca292f',
-			title: "Tempi di realizzazione e sviluppo dell'area",
+			id: '6874e03d8e832000043d59b5',
 			url: '#tempi-di-realizzazione-e-sviluppo-dellarea',
+			title: "Tempi di realizzazione e sviluppo dell'area",
 
 			content: [
 				{
-					id: '686568e7cd68397b0bca2931',
+					id: '6874e03d8e832000043d59b3',
+					vertical: 'top',
+					horizontal: 'left',
+					blockName: null,
+					blockType: 'richText',
 
 					content: {
 						root: {
@@ -562,27 +567,23 @@ export const project_it: Progetto = {
 							version: 1,
 						},
 					},
-					vertical: 'top',
-					horizontal: 'left',
-					blockName: null,
-					blockType: 'richText',
 				},
 
 				{
-					id: '68656924cd68397b0bca2933',
+					id: '6874e03d8e832000043d59b4',
 
 					image: {
-						id: '8c32ac24-098a-4a52-9566-ab0b4dfe5d2d',
-						caption: 'Progetto 4',
+						id: '6bcdfaa1-5b14-4c00-bd92-0d4db241d2ff',
 						alt: 'Progetto 4',
+						caption: 'Progetto 4',
 						blurHash:
 							'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAGCAYAAAD68A/GAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA60lEQVR4nDXDrUsDYQDH8a9JxaiCp9wM252cd2zTwXQvTNwYE/GlTAarvgSLYHJhYXbRYDf6j9hMFk0iqPx4FgwiyD2InMkPfBj+Jvb/209i321iX74S+/SRxA+vSXz3+Pl9/2xjri8OhleX++as3zaHJw1z3KuZ0/6uub3pmfNB23SPArPT9Q2lDVTdQlEZRVVU2BxVroFy5RF5q6jeQctriPUOCiooXUCz8yhTQUstlG+iqInmPFTaRjguGh9D0w5yfJRaRF4RuVk0k0bhClrIIzIRSnloYgpNuihsoeIeytZRUEN+hLwQ/QEwEm299bC3/AAAAABJRU5ErkJggg==',
 						prefix: 'images',
-						updatedAt: '2025-07-02T17:15:31.210Z',
-						createdAt: '2025-07-02T17:15:31.212Z',
-						url: '/api/images/file/progetto_4.webp',
-						thumbnailURL: '/api/images/file/progetto_4-300x169.webp',
-						filename: 'progetto_4.webp',
+						updatedAt: '2025-07-14T10:47:24.593Z',
+						createdAt: '2025-07-14T10:47:24.633Z',
+						url: '/api/images/file/progetto_4-2.webp',
+						thumbnailURL: '/api/images/file/progetto_4-2-300x169.webp',
+						filename: 'progetto_4-2.webp',
 						mimeType: 'image/webp',
 						filesize: 786644,
 						width: 2500,
@@ -592,48 +593,48 @@ export const project_it: Progetto = {
 
 						sizes: {
 							thumbnail: {
-								url: '/api/images/file/progetto_4-300x169.webp',
+								url: '/api/images/file/progetto_4-2-300x169.webp',
 								width: 300,
 								height: 169,
 								mimeType: 'image/webp',
 								filesize: 17418,
-								filename: 'progetto_4-300x169.webp',
+								filename: 'progetto_4-2-300x169.webp',
 							},
 
 							medium: {
-								url: '/api/images/file/progetto_4-900x506.webp',
+								url: '/api/images/file/progetto_4-2-900x506.webp',
 								width: 900,
 								height: 506,
 								mimeType: 'image/webp',
 								filesize: 138586,
-								filename: 'progetto_4-900x506.webp',
+								filename: 'progetto_4-2-900x506.webp',
 							},
 
 							large: {
-								url: '/api/images/file/progetto_4-1400x787.webp',
+								url: '/api/images/file/progetto_4-2-1400x787.webp',
 								width: 1400,
 								height: 787,
 								mimeType: 'image/webp',
 								filesize: 313288,
-								filename: 'progetto_4-1400x787.webp',
+								filename: 'progetto_4-2-1400x787.webp',
 							},
 
 							xlarge: {
-								url: '/api/images/file/progetto_4-1920x1080.webp',
+								url: '/api/images/file/progetto_4-2-1920x1080.webp',
 								width: 1920,
 								height: 1080,
 								mimeType: 'image/webp',
 								filesize: 527816,
-								filename: 'progetto_4-1920x1080.webp',
+								filename: 'progetto_4-2-1920x1080.webp',
 							},
 
 							og: {
-								url: '/api/images/file/progetto_4-1120x630.webp',
+								url: '/api/images/file/progetto_4-2-1120x630.webp',
 								width: 1120,
 								height: 630,
 								mimeType: 'image/webp',
 								filesize: 209442,
-								filename: 'progetto_4-1120x630.webp',
+								filename: 'progetto_4-2-1120x630.webp',
 							},
 						},
 					},
@@ -646,6 +647,6 @@ export const project_it: Progetto = {
 			],
 		},
 	],
-	updatedAt: '2025-07-02T17:16:12.613Z',
-	createdAt: '2025-07-02T17:05:45.348Z',
+	updatedAt: '2025-07-14T11:00:51.060Z',
+	createdAt: '2025-07-07T15:54:24.178Z',
 };
