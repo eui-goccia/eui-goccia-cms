@@ -175,9 +175,9 @@ export default function Header() {
 									</Link>
 								</motion.li>
 								<motion.li
-									className='w-full opacity-50 flex items-center justify-center'
+									className='w-full  flex items-center justify-center'
 									initial={{ opacity: 0, y: -20 }}
-									animate={{ opacity: 0.5, y: 0 }}
+									animate={{ opacity: 1, y: 0 }}
 									transition={{
 										delay: 0.45,
 										duration: 0.25,
