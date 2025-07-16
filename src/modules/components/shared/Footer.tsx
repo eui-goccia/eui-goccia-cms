@@ -77,7 +77,7 @@ export default async function Footer() {
 					<li>© 2025</li>
 				</ul>
 			</div>
-			<div className='flex  flex-col justify-between col-start-9 xl:col-start-10 col-span-full xl:col-span-2 gap-5'>
+			<div className='flex flex-col justify-between col-start-9  col-span-full xl:col-span-3 gap-5'>
 				<div className='flex gap-5 md:flex-row flex-col w-full'>
 					<nav className='w-full md:w-1/2 uppercase'>
 						<ul>
