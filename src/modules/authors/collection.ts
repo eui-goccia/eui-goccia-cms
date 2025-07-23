@@ -1,6 +1,6 @@
 import type { CollectionConfig } from 'payload';
 import { anyone } from '../payload/access/anyone';
-import { authenticated } from '../payload/access/authenticated';
+import { editor } from '../payload/access/editor';
 import { slugField } from '../payload/fields/slug';
 import { revalidateDelete, revalidatePost } from '../posts/revalidate';
 
@@ -8,9 +8,9 @@ export const Authors: CollectionConfig = {
 	slug: 'authors',
 	access: {
 		read: anyone,
-		create: authenticated,
-		update: authenticated,
-		delete: authenticated,
+		create: editor,
+		update: editor,
+		delete: editor,
 	},
 	hooks: {
 		afterChange: [revalidatePost],
