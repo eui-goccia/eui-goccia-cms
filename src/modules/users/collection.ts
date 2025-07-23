@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload';
-import { admin } from '../payload/access/admin';
+// import { admin } from '../payload/access/admin';
 
 export const Users: CollectionConfig = {
 	slug: 'users',
@@ -7,12 +7,12 @@ export const Users: CollectionConfig = {
 		singular: 'Utente',
 		plural: 'Utenti',
 	},
-	access: {
-		read: admin,
-		create: admin,
-		update: admin,
-		delete: admin,
-	},
+	// access: {
+	// 	read: admin,
+	// 	create: admin,
+	// 	update: admin,
+	// 	delete: admin,
+	// },
 	admin: {
 		useAsTitle: 'email',
 		group: 'Administration',
