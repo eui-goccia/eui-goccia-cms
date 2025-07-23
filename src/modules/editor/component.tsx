@@ -17,7 +17,7 @@ import {
 	type JSXConverter,
 	type JSXConvertersFunction,
 } from '@payloadcms/richtext-lexical/react';
-import { useLocale } from 'next-intl';
+import { getLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 import { cn } from '@/modules/utilities/cnUtils';
 import { CustomImage } from '../components/CustomImage';
@@ -52,13 +52,13 @@ type LinkField = {
 	};
 };
 
-const CustomLinkConverter: JSXConverter<SerializedLinkNode> = ({
+const CustomLinkConverter: JSXConverter<SerializedLinkNode> = async ({
 	node,
 	converters,
 	parent,
 }) => {
 	const fields = node.fields as LinkField;
-	const locale = useLocale();
+	const locale = await getLocale();
 
 	const renderedChildren = convertLexicalNodesToJSX({
 		nodes: node.children,
