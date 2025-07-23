@@ -441,7 +441,7 @@ const processContentBlocks = async (
 
 					const imageId = await getOrCreateImage(
 						payload, 
-						imageData.alt, 
+						imageData?.alt || '', 
 						imageData.caption || '',
 						imageData.filename || undefined
 					);
@@ -506,7 +506,7 @@ const processContentBlocks = async (
 
 									const imageId = await getOrCreateImage(
 										payload, 
-										imageData.alt, 
+										imageData.alt || '', 
 										imageData.caption || '',
 										imageData.filename || undefined
 									);
@@ -580,7 +580,7 @@ const createBlogPost = async (payload: BasePayload, postDataIt: Post, postDataEn
 
 		const coverImageId = await getOrCreateImage(
 			payload,
-			coverImageData.alt,
+			coverImageData.alt || '',
 			coverImageData.caption || '',
 			coverImageData.filename || undefined
 		);
@@ -674,7 +674,7 @@ const createGocciaData = async (payload: BasePayload, gocciaDataIt: LaGoccia, go
 
 				const coverId = await getOrCreateImage(
 					payload, 
-					coverData.alt,
+					coverData.alt || '',
 					coverData.caption || '',
 					coverData.filename || undefined
 				);
@@ -856,7 +856,7 @@ const createAboutData = async (payload: BasePayload, aboutDataIt: About, aboutDa
 
 					logoId = await getOrCreateImage(
 						payload, 
-						logoData.alt,
+						logoData.alt || '',
 						logoData.caption || '',
 						logoData.filename || undefined
 					);
@@ -940,21 +940,21 @@ const createHomeData = async (payload: BasePayload, homeDataIt: Home, homeDataEn
 
 		const heroTitleId = await getOrCreateImage(
 			payload,
-			heroTitleData.alt,
+			heroTitleData.alt || '',
 			heroTitleData.caption || '',
 			heroTitleData.filename || undefined
 		);
 
 		const heroTextureId = await getOrCreateImage(
 			payload,
-			heroTextureData.alt,
+			heroTextureData.alt || '',
 			heroTextureData.caption || '',
 			heroTextureData.filename || undefined
 		);
 
 		const heroImageId = await getOrCreateImage(
 			payload,
-			heroImageData.alt,
+			heroImageData.alt || '',
 			heroImageData.caption || '',
 			heroImageData.filename || undefined
 		);
@@ -993,7 +993,7 @@ const createHomeData = async (payload: BasePayload, homeDataIt: Home, homeDataEn
 
 				const imageId = await getOrCreateImage(
 					payload,
-					imageData.alt,
+					imageData.alt || '',
 					imageData.caption || '',
 					imageData.filename || undefined
 				);
@@ -1024,7 +1024,7 @@ const createHomeData = async (payload: BasePayload, homeDataIt: Home, homeDataEn
 
 				const imageId = await getOrCreateImage(
 					payload,
-					imageData.alt,
+					imageData.alt || '',
 					imageData.caption || '',
 					imageData.filename || undefined
 				);

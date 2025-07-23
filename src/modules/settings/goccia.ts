@@ -1,4 +1,5 @@
 import type { GlobalConfig } from 'payload';
+import { editor } from '../payload/access/editor';
 import { revalidateGlobal } from '../utilities/revalidateGlobal';
 
 export const Goccia: GlobalConfig = {
@@ -6,6 +7,10 @@ export const Goccia: GlobalConfig = {
 	label: 'La Goccia',
 	admin: {
 		group: 'Pages',
+	},
+	access: {
+		read: editor,
+		update: editor,
 	},
 	hooks: {
 		afterChange: [revalidateGlobal],

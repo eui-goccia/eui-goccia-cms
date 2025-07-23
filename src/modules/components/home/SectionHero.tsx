@@ -16,7 +16,6 @@ export default function SectionHero({ home }: { home: Home }) {
 					priority={true}
 					loading='eager'
 					size='xlarge'
-					alt={hero_title.alt}
 				/>
 
 				<CustomImage
@@ -25,7 +24,6 @@ export default function SectionHero({ home }: { home: Home }) {
 					priority={true}
 					loading='eager'
 					size='xlarge'
-					alt={hero_texture.alt}
 				/>
 
 				<CustomImage
@@ -35,7 +33,6 @@ export default function SectionHero({ home }: { home: Home }) {
 					loading='eager'
 					size='xlarge'
 					quality={75}
-					alt={hero_image.alt}
 				/>
 			</div>
 		</hgroup>

@@ -8,7 +8,7 @@ import { cn } from '@/modules/utilities/cnUtils';
 type Props = {
 	image: ImageType | undefined;
 	size: 'thumbnail' | 'medium' | 'large' | 'og' | 'xlarge';
-	alt: string;
+	alt?: string;
 	className?: string;
 	captionClassName?: string;
 	quality?: number;
@@ -34,7 +34,9 @@ export function CustomImage({
 		image?.blurHash ||
 		'data:image/png;base64,WERy8KHe?ErexDer%3WVaxoLWBj[}cnlE0S4SdofM{ofogR*t7ay';
 
-	const refined_alt = image ? image.alt || image.caption || alt : alt;
+	const refined_alt = image
+		? image.alt || image.caption || alt || ''
+		: alt || '';
 	return (
 		<>
 			<Image

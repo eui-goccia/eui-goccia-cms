@@ -1,9 +1,14 @@
 import type { GlobalConfig } from 'payload';
+import { editor } from '../payload/access/editor';
 import { revalidateGlobal } from '../utilities/revalidateGlobal';
 
 export const About: GlobalConfig = {
 	slug: 'about',
 	label: 'Chi Siamo',
+	access: {
+		read: editor,
+		update: editor,
+	},
 	admin: {
 		group: 'Pages',
 	},

@@ -1,7 +1,7 @@
 import type { CollectionConfig } from 'payload';
 import { defaultBlocks } from '../blocks';
-import { authenticated } from '../payload/access/authenticated';
-import { authenticatedOrPublished } from '../payload/access/authenticatedOrPublished';
+import { editor } from '../payload/access/editor';
+import { editorOrPublished } from '../payload/access/editorOrPublished';
 import { slugFieldFromItalian } from '../payload/fields/slug';
 import { seoTab } from '../seo/fields';
 import { generatePreviewPath } from '../utilities/generatePreviewPath';
@@ -28,10 +28,10 @@ export const Posts: CollectionConfig = {
 		_status: true,
 	},
 	access: {
-		read: authenticatedOrPublished,
-		create: authenticated,
-		update: authenticated,
-		delete: authenticated,
+		read: editorOrPublished,
+		create: editor,
+		update: editor,
+		delete: editor,
 	},
 	hooks: {
 		afterChange: [revalidatePost],

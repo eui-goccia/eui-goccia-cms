@@ -100,7 +100,7 @@ export const images = sqliteTable(
 export const images_locales = sqliteTable(
   "images_locales",
   {
-    alt: text("alt").notNull(),
+    alt: text("alt"),
     caption: text("caption"),
     id: integer("id").primaryKey(),
     _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
@@ -149,6 +149,9 @@ export const users = sqliteTable(
     id: text("id")
       .primaryKey()
       .$defaultFn(() => randomUUID()),
+    role: text("role", { enum: ["admin", "editor", "user"] })
+      .notNull()
+      .default("user"),
     updatedAt: text("updated_at")
       .notNull()
       .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),

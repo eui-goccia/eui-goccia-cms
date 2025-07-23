@@ -5,7 +5,7 @@ import {
 } from 'payload';
 import { getPlaiceholder } from 'plaiceholder';
 import { anyone } from '@/modules/payload/access/anyone';
-import { authenticated } from '@/modules/payload/access/authenticated';
+import { editor } from '@/modules/payload/access/editor';
 
 const generateBlurHash: CollectionBeforeValidateHook = async ({
 	data,
@@ -41,9 +41,9 @@ export const Images: CollectionConfig = {
 	},
 	access: {
 		read: anyone,
-		create: authenticated,
-		delete: authenticated,
-		update: authenticated,
+		create: editor,
+		delete: editor,
+		update: editor,
 	},
 	hooks: {
 		beforeValidate: [generateBlurHash],
@@ -52,7 +52,6 @@ export const Images: CollectionConfig = {
 		{
 			name: 'alt',
 			type: 'text',
-			required: true,
 			admin: {
 				description: 'Alt text of the image',
 			},

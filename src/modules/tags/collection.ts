@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload';
+import { editor } from '../payload/access/editor';
 import { slugField } from '../payload/fields/slug';
 
 export const Tags: CollectionConfig = {
@@ -6,6 +7,12 @@ export const Tags: CollectionConfig = {
 	labels: {
 		singular: 'Tag',
 		plural: 'Tags',
+	},
+	access: {
+		read: editor,
+		create: editor,
+		update: editor,
+		delete: editor,
 	},
 	admin: {
 		useAsTitle: 'name',

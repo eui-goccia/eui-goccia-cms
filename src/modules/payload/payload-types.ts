@@ -153,7 +153,7 @@ export interface Image {
   /**
    * Alt text of the image
    */
-  alt: string;
+  alt?: string | null;
   /**
    * Caption/Copyright of the image
    */
@@ -220,6 +220,7 @@ export interface Image {
  */
 export interface User {
   id: string;
+  role: 'admin' | 'editor' | 'user';
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -639,6 +640,7 @@ export interface ImagesSelect<T extends boolean = true> {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  role?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;

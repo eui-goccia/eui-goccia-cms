@@ -1,4 +1,5 @@
 import type { Field, GlobalConfig } from 'payload';
+import { editor } from '../payload/access/editor';
 import { revalidateGlobal } from '../utilities/revalidateGlobal';
 
 const arrayFields: Field[] = [
@@ -24,6 +25,10 @@ export const Home: GlobalConfig = {
 	slug: 'home',
 	admin: {
 		group: 'Pages',
+	},
+	access: {
+		read: editor,
+		update: editor,
 	},
 	hooks: {
 		afterChange: [revalidateGlobal],

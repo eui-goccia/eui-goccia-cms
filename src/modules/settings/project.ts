@@ -1,5 +1,6 @@
 import type { GlobalConfig } from 'payload';
 import { defaultBlocks } from '../blocks';
+import { editor } from '../payload/access/editor';
 import { formatSlug } from '../payload/fields/slug/formatSlug';
 import { revalidateGlobal } from '../utilities/revalidateGlobal';
 
@@ -8,6 +9,10 @@ export const Project: GlobalConfig = {
 	label: 'Progetto',
 	admin: {
 		group: 'Pages',
+	},
+	access: {
+		read: editor,
+		update: editor,
 	},
 	hooks: {
 		afterChange: [revalidateGlobal],
