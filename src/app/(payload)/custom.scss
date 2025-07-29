@@ -1,0 +1,41 @@
+// ========================================
+// SUBTLE LOCALE-BASED ADMIN CUSTOMIZATION
+// ========================================
+// Uses PayloadCMS's original color palette to create a clear but coherent
+// distinction between locales. English gets slightly cooler/darker tones
+// while Italian stays unchanged (default).
+
+// Uses CSS layers to respect Payload's specificity rules
+@layer payload {
+  
+  // English locale: Blue-tinted backgrounds using PayloadCMS's blue color scale
+  // This creates a clear visual distinction while maintaining design coherence
+  html.admin-locale-en {
+    
+    // Light theme: Use PayloadCMS's blue color scale for backgrounds
+    &:not([data-theme='dark']) {
+      --theme-elevation-0: var(--color-blue-50);   // Main background (very light blue)
+      --theme-elevation-50: var(--color-blue-100); // Card backgrounds (light blue)
+      --theme-elevation-100: var(--color-blue-150); // Panel backgrounds (slightly more blue)
+      --theme-elevation-150: var(--color-blue-200); // Border/separator colors
+      --theme-elevation-200: var(--color-blue-250); // Input backgrounds
+      --theme-elevation-250: var(--color-blue-300); // Additional elements
+    }
+    
+    // Dark theme: Use darker blue tones for dark mode
+    &[data-theme='dark'] {
+      --theme-elevation-0: var(--color-blue-950);   // Main dark background (very dark blue)
+      --theme-elevation-50: var(--color-blue-900);  // Card dark backgrounds (dark blue)
+      --theme-elevation-100: var(--color-blue-850); // Panel dark backgrounds
+      --theme-elevation-150: var(--color-blue-800); // Border/separator dark colors
+      --theme-elevation-200: var(--color-blue-750); // Input dark backgrounds
+      --theme-elevation-250: var(--color-blue-700); // Additional elements
+    }
+    
+    // Smooth transitions for locale switching
+    * {
+      transition: background-color 0.2s ease, border-color 0.2s ease;
+    }
+  }
+
+}

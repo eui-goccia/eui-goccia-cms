@@ -21,6 +21,7 @@ import { MetaDescriptionComponent as MetaDescriptionComponent_a8a977ebc872c5d5ea
 import { PreviewComponent as PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860 } from '@payloadcms/plugin-seo/client'
 import { SlugComponent as SlugComponent_49840322ab4e449786c8c567dc2884ce } from '@/modules/payload/fields/slug/SlugComponent'
 import { default as default_08f9d0fd41ec8d83c5f3f576353a29b0 } from '../../../modules/payload/fields/BeforeDashboard'
+import { default as default_590e6a280e014279a87a4a21123591b9 } from '../../../modules/payload/components/LocaleThemeProvider'
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 
 export const importMap = {
@@ -47,5 +48,6 @@ export const importMap = {
   "@payloadcms/plugin-seo/client#PreviewComponent": PreviewComponent_a8a977ebc872c5d5ea7ee689724c0860,
   "@/modules/payload/fields/slug/SlugComponent#SlugComponent": SlugComponent_49840322ab4e449786c8c567dc2884ce,
   "./fields/BeforeDashboard#default": default_08f9d0fd41ec8d83c5f3f576353a29b0,
+  "./components/LocaleThemeProvider#default": default_590e6a280e014279a87a4a21123591b9,
   "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24
 }

@@ -33,6 +33,7 @@ export default buildConfig({
 		},
 		components: {
 			beforeDashboard: ['./fields/BeforeDashboard'],
+			providers: ['./components/LocaleThemeProvider'],
 		},
 		livePreview: {
 			breakpoints: [
