@@ -1,19 +1,12 @@
 import configPromise from '@payload-config';
 import { draftMode } from 'next/headers';
 import { redirect } from 'next/navigation';
+import type { NextRequest } from 'next/server';
 import type { AuthResult } from 'node_modules/payload/dist/auth/operations/auth';
 import type { CollectionSlug, PayloadRequest } from 'payload';
 import { getPayload } from 'payload';
 
-export async function GET(
-	req: {
-		cookies: {
-			get: (name: string) => {
-				value: string;
-			};
-		};
-	} & Request
-): Promise<Response> {
+export async function GET(req: NextRequest): Promise<Response> {
 	const payload = await getPayload({ config: configPromise });
 
 	const { searchParams } = new URL(req.url);
