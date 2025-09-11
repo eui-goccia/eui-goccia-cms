@@ -1,5 +1,5 @@
 'use client';
-import { useLocale, useTheme } from '@payloadcms/ui';
+import { useLocale } from '@payloadcms/ui';
 import { useEffect } from 'react';
 import './index.scss';
 
@@ -7,7 +7,7 @@ const LocaleThemeProvider: React.FC<{ children?: React.ReactNode }> = ({
 	children,
 }) => {
 	const locale = useLocale();
-	const { theme } = useTheme();
+	// const { theme } = useTheme();
 
 	useEffect(() => {
 		// Remove any existing locale classes

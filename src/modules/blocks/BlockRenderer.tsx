@@ -22,10 +22,10 @@ const blockComponents = {
 	grid: GridBlockComponent,
 };
 
-interface BlockRendererProps {
+type BlockRendererProps = {
 	block: Block;
 	className?: string;
-}
+};
 
 export const BlockRenderer: React.FC<BlockRendererProps> = ({
 	block,
@@ -41,10 +41,9 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({
 			className?: string;
 		}>;
 		return <TypedComponent blockData={block} className={className} />;
-	} else {
-		console.warn(
-			`BlockRenderer: No component found for blockType "${blockType}"`
-		);
-		return null;
 	}
+	console.warn(
+		`BlockRenderer: No component found for blockType "${blockType}"`
+	);
+	return null;
 };

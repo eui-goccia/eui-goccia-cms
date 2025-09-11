@@ -2,13 +2,13 @@ import type { Image } from '@payload-types';
 import { cn } from '@/modules/utilities/cnUtils';
 import { CustomImage } from './CustomImage';
 
-interface PartnerCardProps {
+type PartnerCardProps = {
 	bgColor: string;
 	partnerName: string;
 	partnerBio: string;
 	logo: Image;
 	members?: string | null;
-}
+};
 
 export default function PartnerCard({
 	bgColor,
@@ -49,10 +49,10 @@ export default function PartnerCard({
 				<div className='w-full md:w-1/4 flex justify-start md:justify-end items-start'>
 					{logo && (
 						<CustomImage
-							image={logo}
-							size='medium'
 							alt={logo.alt || logo.caption || ''}
 							className='max-h-20 max-w-60 object-contain'
+							image={logo}
+							size='medium'
 						/>
 					)}
 				</div>

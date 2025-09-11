@@ -1,21 +1,21 @@
 {
-	"$schema": "https://ui.shadcn.com/schema.json",
-	"style": "new-york",
-	"rsc": true,
-	"tsx": true,
-	"tailwind": {
-		"config": "",
-		"css": "src/app/(frontend)/[locale]/global.css",
-		"baseColor": "neutral",
-		"cssVariables": true,
-		"prefix": ""
-	},
-	"aliases": {
-		"components": "@/modules/components",
-		"utils": "@/modules/utilities/cnUtils",
-		"ui": "@/modules/components/ui",
-		"lib": "@/modules/utilities",
-		"hooks": "@/modules/components/ui/hooks"
-	},
-	"iconLibrary": "lucide"
+  "$schema": "https://ui.shadcn.com/schema.json",
+  "style": "new-york",
+  "rsc": true,
+  "tsx": true,
+  "tailwind": {
+    "config": "",
+    "css": "src/app/(frontend)/[locale]/global.css",
+    "baseColor": "neutral",
+    "cssVariables": true,
+    "prefix": ""
+  },
+  "aliases": {
+    "components": "@/modules/components",
+    "utils": "@/modules/utilities/cnUtils",
+    "ui": "@/modules/components/ui",
+    "lib": "@/modules/utilities",
+    "hooks": "@/modules/components/ui/hooks"
+  },
+  "iconLibrary": "lucide"
 }

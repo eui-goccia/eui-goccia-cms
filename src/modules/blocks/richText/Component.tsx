@@ -18,7 +18,7 @@ export const RichTextBlockComponent: React.FC<{
 
 	return (
 		<div className={cn(alignmentClass, 'h-full w-full', className)}>
-			<RichTextEditor data={content} enableProse={true} enableGutter={false} />
+			<RichTextEditor data={content} enableGutter={false} enableProse={true} />
 		</div>
 	);
 };

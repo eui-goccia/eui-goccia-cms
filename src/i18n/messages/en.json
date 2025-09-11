@@ -1,18 +1,18 @@
 {
-	"project": "The Project",
-	"goccia": "La Goccia",
-	"about": "About Us",
-	"blog": "Blog",
-	"contacts": "Contacts",
-	"discover_project": "Discover the Project",
-	"forest": "The Forest",
-	"what_we_do": "What We Do",
-	"transformation_area": "The Transformation Area",
-	"newsletter": {
-		"title": "Join Our Community",
-		"description": "Subscribe to the newsletter and follow how the Goccia grows together with the city"
-	},
-	"404": {
-		"description": "Page not found"
-	}
+  "project": "The Project",
+  "goccia": "La Goccia",
+  "about": "About Us",
+  "blog": "Blog",
+  "contacts": "Contacts",
+  "discover_project": "Discover the Project",
+  "forest": "The Forest",
+  "what_we_do": "What We Do",
+  "transformation_area": "The Transformation Area",
+  "newsletter": {
+    "title": "Join Our Community",
+    "description": "Subscribe to the newsletter and follow how the Goccia grows together with the city"
+  },
+  "404": {
+    "description": "Page not found"
+  }
 }

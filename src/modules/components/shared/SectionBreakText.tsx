@@ -1,9 +1,9 @@
 import mask from '@public/images/meta/BreakText.webp';
 import Image from 'next/image';
 
-interface SectionProps {
+type SectionProps = {
 	text: string;
-}
+};
 
 export default function SectionBreakText({ text }: SectionProps) {
 	return (
@@ -12,12 +12,12 @@ export default function SectionBreakText({ text }: SectionProps) {
 				{text}
 			</h2>
 			<Image
-				className='absolute h-full w-full z-0 inset-0 object-center object-cover'
-				src={mask}
-				sizes='100vw'
-				quality={90}
-				fill={true}
 				alt=''
+				className='absolute h-full w-full z-0 inset-0 object-center object-cover'
+				fill={true}
+				quality={90}
+				sizes='100vw'
+				src={mask}
 			/>
 		</div>
 	);

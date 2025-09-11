@@ -42,9 +42,9 @@ export function LocaleSwitcher() {
 			<SelectContent>
 				{localization.locales
 					.sort((a, b) => a.label.localeCompare(b.label)) // Ordenar por label
-					.map((locale, i) => (
-						<SelectItem value={locale.code} key={`${locale.code}-${i}`}>
-							{locale.label}
+					.map((lang, i) => (
+						<SelectItem key={`${lang.code}-${i}`} value={lang.code}>
+							{lang.label}
 						</SelectItem>
 					))}
 			</SelectContent>

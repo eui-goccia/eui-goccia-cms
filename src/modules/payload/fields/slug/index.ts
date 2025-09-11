@@ -27,7 +27,7 @@ export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
 
 	// Expect ts error here because of typescript mismatching Partial<TextField> with TextField
 	// @ts-expect-error
-	const slugField: TextField = {
+	const slugFieldFromEnglish: TextField = {
 		name: 'slug',
 		type: 'text',
 		index: true,
@@ -52,7 +52,7 @@ export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
 		},
 	};
 
-	return [slugField, checkBoxField];
+	return [slugFieldFromEnglish, checkBoxField];
 };
 
 /**
@@ -76,7 +76,7 @@ export const slugFieldFromItalian: Slug = (
 	};
 
 	// @ts-expect-error
-	const slugField: TextField = {
+	const slugFieldFromIt: TextField = {
 		name: 'slug',
 		type: 'text',
 		index: true,
@@ -101,5 +101,5 @@ export const slugFieldFromItalian: Slug = (
 		},
 	};
 
-	return [slugField, checkBoxField];
+	return [slugFieldFromIt, checkBoxField];
 };

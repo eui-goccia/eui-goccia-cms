@@ -59,10 +59,7 @@ export const getCachedDocument = cache(
 					`${locale}_${collection}_${slug}`, // Specific document
 					`${locale}_${collection}`, // Collection for this locale
 					`${collection}`, // Cross-locale collection
-					'global-content', // Site-wide invalidation
 				],
-				// Longer cache times since content rarely changes
-				revalidate: draft ? false : 3600, // 1 hour for published content
 			}
 		);
 		return cachedFn();
@@ -156,10 +153,7 @@ export const getCachedDocuments = cache(
 				tags: [
 					`${locale}_${collection}`, // Collection for this locale
 					`${collection}`, // Cross-locale collection
-					'global-content', // Site-wide invalidation
 				],
-				// Longer cache times since content rarely changes
-				revalidate: draft ? false : 1800, // 30 minutes for published content lists
 			}
 		);
 		return await cachedFn();

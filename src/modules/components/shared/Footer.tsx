@@ -5,14 +5,14 @@ import LogoEU from '../logos/LogoEU';
 import LogoEUI from '../logos/LogoEUI';
 import LogoGoccia from '../logos/LogoGoccia';
 
-interface PagesProps {
+type PagesProps = {
 	name: string;
 	url: string;
-}
-interface SocialsProp {
+};
+type SocialsProp = {
 	name: string;
 	url: string;
-}
+};
 
 const socials: SocialsProp[] = [
 	{
@@ -84,9 +84,9 @@ export default async function Footer() {
 							{pages.map((page) => (
 								<li key={page.name}>
 									<Link
-										locale={locale}
 										className='hover:underline'
 										href={page.url}
+										locale={locale}
 									>
 										{page.name}
 									</Link>
@@ -100,10 +100,10 @@ export default async function Footer() {
 							{socials.map((social) => (
 								<li key={social.name}>
 									<a
-										target='_blank'
-										rel='noopener noreferrer'
 										className='hover:underline'
 										href={social.url}
+										rel='noopener noreferrer'
+										target='_blank'
 									>
 										{social.name}
 									</a>
@@ -115,9 +115,9 @@ export default async function Footer() {
 				<ul className=' md:flex-row font-greed flex flex-col'>
 					<li className='w-full'>
 						<Link
-							locale={locale}
 							className='hover:underline'
 							href='/privacy-policy'
+							locale={locale}
 						>
 							Privacy Policy
 						</Link>

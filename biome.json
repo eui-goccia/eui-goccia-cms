@@ -1,103 +1,112 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.1.2/schema.json",
-	"files": {
-		"includes": [
-			"**",
-			"!**/importMap.js",
-			"!**/global.css",
-			"!**/.next/**",
-			"!**/.vscode/**",
-			"!**/node_modules/**",
-			"!**/.pnpm-store/**",
-			"!**/.turbo/**",
-			"!**/.vercel/**",
-			"!**/(payload)/**",
-			"!**/db/**"
-		]
-	},
-	"linter": {
-		"enabled": true,
-		"includes": [
-			"**",
-			"!**/global.css",
-			"!**/node_modules/**",
-			"!**/.turbo/**",
-			"!**/payload-types.ts",
-			"!**/seed/**"
-		],
-		"rules": {
-			"nursery": {
-				"useSortedClasses": "off"
-			},
-			"recommended": true,
-			"a11y": {
-				"recommended": true,
-				"useButtonType": "error",
-				"useKeyWithClickEvents": "error",
-				"useValidAnchor": "error"
-			},
-			"security": {
-				"recommended": true,
-				"noDangerouslySetInnerHtml": "error"
-			},
-			"suspicious": {
-				"noArrayIndexKey": "error",
-				"noExplicitAny": "error"
-			},
-			"style": {
-				"noDefaultExport": "off",
-				"useImportType": "error",
-				"noNonNullAssertion": "info"
-			}
-		},
-		"domains": {
-			"next": "recommended",
-			"react": "recommended"
-		}
-	},
-	"formatter": {
-		"enabled": true,
-		"indentStyle": "tab",
-		"indentWidth": 2,
-		"lineWidth": 80,
-		"formatWithErrors": true,
-		"includes": [
-			"**",
-			"!**/global.css",
-			"!**/node_modules/**",
-			"!**/.turbo/**",
-			"!**/payload-types.ts",
-			"!**/seed/**"
-		]
-	},
-	"json": {
-		"formatter": {
-			"enabled": true
-		}
-	},
-	"css": {
-		"formatter": {
-			"enabled": true
-		},
-		"assist": {
-			"enabled": true
-		}
-	},
-	"javascript": {
-		"formatter": {
-			"quoteStyle": "single",
-			"jsxQuoteStyle": "single",
-			"trailingCommas": "es5",
-			"semicolons": "always",
-			"arrowParentheses": "always"
-		}
-	},
-	"html": {
-		"formatter": {
-			"enabled": true
-		}
-	},
-	"assist": {
-		"enabled": true
-	}
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "files": {
+    "includes": [
+      "**",
+      "!**/importMap.js",
+      "!**/global.css",
+      "!**/.next",
+      "!**/.vscode",
+      "!**/node_modules",
+      "!**/.pnpm-store",
+      "!**/.turbo",
+      "!**/.vercel",
+      "!**/(payload)",
+      "!**/db"
+    ]
+  },
+  "linter": {
+    "enabled": true,
+    "includes": [
+      "**",
+      "!**/global.css",
+      "!**/node_modules/**",
+      "!**/.turbo/**",
+      "!**/payload-types.ts",
+      "!**/seed/**"
+    ],
+    "rules": {
+      "nursery": {
+        "useSortedClasses": "off",
+        "useMaxParams": "off"
+      },
+      "recommended": true,
+      "a11y": {
+        "recommended": true,
+        "useButtonType": "error",
+        "useKeyWithClickEvents": "error",
+        "useValidAnchor": "error"
+      },
+      "security": {
+        "recommended": true,
+        "noDangerouslySetInnerHtml": "error"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "error",
+        "noExplicitAny": "error",
+        "useAwait": "off",
+        "noConsole": "off"
+      },
+      "style": {
+        "noDefaultExport": "off",
+        "useImportType": "error",
+        "noNonNullAssertion": "info",
+        "useFilenamingConvention": "off",
+        "noMagicNumbers": "off"
+      },
+      "performance": {
+        "noBarrelFile": "off"
+      }
+    },
+    "domains": {
+      "next": "recommended",
+      "react": "recommended"
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "tab",
+    "indentWidth": 2,
+    "lineWidth": 80,
+    "formatWithErrors": true,
+    "includes": [
+      "**",
+      "!**/global.css",
+      "!**/node_modules/**",
+      "!**/.turbo/**",
+      "!**/payload-types.ts",
+      "!**/seed/**"
+    ]
+  },
+  "json": {
+    "formatter": {
+      "enabled": true
+    }
+  },
+  "css": {
+    "formatter": {
+      "enabled": true
+    },
+    "assist": {
+      "enabled": true
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "jsxQuoteStyle": "single",
+      "trailingCommas": "es5",
+      "semicolons": "always",
+      "arrowParentheses": "always"
+    }
+  },
+  "html": {
+    "formatter": {
+      "enabled": true
+    }
+  },
+  "assist": {
+    "enabled": true
+  },
+  "extends": ["ultracite"]
 }

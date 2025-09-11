@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/style/noNestedTernary: faster to write */
 'use client';
 
 import { Collapsible, toast } from '@payloadcms/ui';
@@ -9,7 +10,7 @@ import './index.scss';
 const SuccessMessage: React.FC<{ action: string }> = ({ action }) => (
 	<div>
 		{action} completed! You can now{' '}
-		<a target='_blank' href='/' rel='noopener'>
+		<a href='/' rel='noopener' target='_blank'>
 			visit your website
 		</a>
 	</div>
@@ -24,11 +25,11 @@ type SeedPhase =
 	| 'home'
 	| 'all';
 
-interface PhaseState {
+type PhaseState = {
 	loading: boolean;
 	completed: boolean;
 	error: string | null;
-}
+};
 
 const SEED_PHASES: Array<{
 	key: SeedPhase;
@@ -132,7 +133,7 @@ export const SeedButton: React.FC = () => {
 				return;
 			}
 			if (currentState.error) {
-				toast.error(`An error occurred, please refresh and try again.`);
+				toast.error('An error occurred, please refresh and try again.');
 				return;
 			}
 
@@ -169,7 +170,7 @@ export const SeedButton: React.FC = () => {
 	);
 
 	return (
-		<Collapsible initCollapsed={true} header='Seed Options'>
+		<Collapsible header='Seed Options' initCollapsed={true}>
 			<div className='seedButtonContainer'>
 				<h3 className='seedTitle'>BE CAREFUL</h3>
 				<p className='seedDescription'>
@@ -189,14 +190,14 @@ export const SeedButton: React.FC = () => {
 									: '';
 
 						return (
-							<div key={phase.key} className={`seedPhase ${statusClass}`}>
+							<div className={`seedPhase ${statusClass}`} key={phase.key}>
 								<button
 									className={`seedButton seedButton--${phase.variant} ${statusClass}`}
+									disabled={state.loading}
 									onClick={() =>
 										handleClick(phase.key, phase.endpoint, phase.label)
 									}
 									type='button'
-									disabled={state.loading}
 								>
 									<span className='seedButton__icon'>{phase.icon}</span>
 									<span className='seedButton__label'>{phase.label}</span>

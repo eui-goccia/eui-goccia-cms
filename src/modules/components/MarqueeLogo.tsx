@@ -1,7 +1,7 @@
-interface WordsProps {
+type WordsProps = {
 	initial?: string;
 	text: string;
-}
+};
 
 export default function MarqueeLogo() {
 	const words: WordsProps[] = [
@@ -29,8 +29,8 @@ export default function MarqueeLogo() {
 				))}
 			</ul>
 			<ul
-				className='flex pt-3 animate-infinite-scroll items-center justify-center md:justify-start [&_img]:max-w-none [&_li]:mx-2 md:[&_li]:mx-4'
 				aria-hidden='true'
+				className='flex pt-3 animate-infinite-scroll items-center justify-center md:justify-start [&_img]:max-w-none [&_li]:mx-2 md:[&_li]:mx-4'
 			>
 				{words.map((word, index) => (
 					<li key={`${word.initial}-${word.text}-${index}`}>

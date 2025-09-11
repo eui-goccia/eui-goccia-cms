@@ -31,10 +31,7 @@ export const getCachedGlobal = cache(
 				tags: [
 					`global_${slug}`, // Specific global
 					`global_${slug}_${locale}`, // Global for specific locale
-					'global-content', // Site-wide invalidation
 				],
-				// Longer cache times since content rarely changes
-				revalidate: 7200, // 2 hours for globals
 			}
 		);
 

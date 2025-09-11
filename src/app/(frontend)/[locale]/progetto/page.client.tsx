@@ -1,7 +1,7 @@
 'use client';
 import type { Progetto } from '@payload-types';
 import { useLocale } from 'next-intl';
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from '@/i18n/routing';
 import { BlockRenderer } from '@/modules/blocks/BlockRenderer';
 import BlockHeading from '@/modules/components/BlockHeading';
@@ -32,7 +32,7 @@ export default function ProgettoClient({ project }: { project: Progetto }) {
 	}, [project.sections]);
 
 	return (
-		<Fragment>
+		<>
 			<div className='px-5 lg:px-10 pb-30 grid grid-cols-12 gap-5 bg-rosa-300'>
 				<aside className='col-start-1 2xl:col-start-2 hidden lg:inline sticky lg:top-34 xl:top-50 h-fit col-span-4 2xl:col-span-3'>
 					<nav>
@@ -65,7 +65,7 @@ export default function ProgettoClient({ project }: { project: Progetto }) {
 				<article className='col-start-1 lg:col-start-5 col-span-full lg:col-span-8 xl:col-span-7 flex flex-col gap-10 md:gap-20 lg:gap-24 pt-28 lg:pt-32 xl:pt-48 items-center text-3xl justify-center'>
 					{project.sections?.map((section) => {
 						return (
-							<div key={section.url} className='flex flex-col gap-5'>
+							<div className='flex flex-col gap-5' key={section.url}>
 								<BlockHeading id={section.url?.substring(1)}>
 									{section.title}
 								</BlockHeading>
@@ -79,14 +79,14 @@ export default function ProgettoClient({ project }: { project: Progetto }) {
 			</div>
 			<div className=' hidden bg-rosa-300 grid-cols-12 gap-5 px-10 py-30'>
 				<Link
-					locale={locale}
 					className='underline hover:no-underline col-start-5 w-fit col-span-full font-greed uppercase text-3xl justify-center'
 					href='https://google.com'
+					locale={locale}
 				>
 					Leggi il comunicato stampa completo →
 				</Link>
 			</div>
 			<SectionBreakFill />
-		</Fragment>
+		</>
 	);
 }

@@ -12,9 +12,9 @@ export const dynamic = 'force-static';
 // Longer revalidation since content rarely changes
 export const revalidate = 3600; // 1 hour
 
-interface HomeProps {
+type HomeProps = {
 	params: Promise<{ locale: string }>;
-}
+};
 
 export default async function Home({ params }: HomeProps) {
 	const { locale } = await params;

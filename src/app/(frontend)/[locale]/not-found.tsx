@@ -18,7 +18,7 @@ export default function NotFound() {
 				<p>{t('description')}</p>
 			</div>
 			<Button asChild variant='default'>
-				<Link locale={locale} href='/'>
+				<Link href='/' locale={locale}>
 					Homepage
 				</Link>
 			</Button>

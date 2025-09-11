@@ -29,7 +29,7 @@ export async function GET(
 		});
 	}
 
-	if (!path || !collection || !slug) {
+	if (!(path && collection && slug)) {
 		return new Response('Insufficient search params', { status: 404 });
 	}
 

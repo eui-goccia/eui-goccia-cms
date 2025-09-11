@@ -2,12 +2,12 @@ import CellPattern1 from '@public/images/meta/CellPattern_1.webp';
 import Image from 'next/image';
 import { cn } from '@/modules/utilities/cnUtils';
 
-interface CellDataProps {
+type CellDataProps = {
 	data?: string | null;
 	dataClass?: string | null;
 	caption?: string | null;
 	captionClass?: string | null;
-}
+};
 
 export default function CellData({
 	data,
@@ -38,11 +38,11 @@ export default function CellData({
 				</p>
 			)}
 			<Image
+				alt={caption || ''}
 				className='w-full h-full rounded-2xl absolute inset-0 object-center z-0 object-cover'
-				src={CellPattern1}
 				fill={true}
 				sizes='(max-width: 1023px) 100vw, 50vw'
-				alt={caption || ''}
+				src={CellPattern1}
 			/>
 		</div>
 	);

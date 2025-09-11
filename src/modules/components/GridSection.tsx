@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react';
 
-interface GridProps {
+type GridProps = {
 	sectionTitle: string;
 	children: ReactNode;
-}
+};
 
 export default function GridSection({ sectionTitle, children }: GridProps) {
 	return (

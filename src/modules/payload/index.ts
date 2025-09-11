@@ -1,10 +1,10 @@
 import config from '@payload-config';
 import { getPayload } from 'payload';
 
-interface GlobalPayload {
+type GlobalPayload = {
 	payloadInstance?: Awaited<ReturnType<typeof getPayload>>;
 	payloadPromise?: Promise<Awaited<ReturnType<typeof getPayload>>>;
-}
+};
 
 const globalPayload = globalThis as GlobalPayload;
 

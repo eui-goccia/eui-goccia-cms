@@ -15,11 +15,11 @@ export default async function SectionWhat({ home }: { home: Home }) {
 		<GridSection sectionTitle={t('what_we_do')}>
 			<GridRow invertOrder={true}>
 				<CellVisual
-					srcImage={what[0].image as Image}
 					altContent={(what[0].image as Image).alt}
 					credits={(what[0].image as Image).caption}
+					srcImage={what[0].image as Image}
 				/>
-				<CellData data={what[0].data} caption={what[0].caption} />
+				<CellData caption={what[0].caption} data={what[0].data} />
 			</GridRow>
 
 			<GridRow>
@@ -28,17 +28,17 @@ export default async function SectionWhat({ home }: { home: Home }) {
 					captionClass='font-tagada normal-case xl:text-6xl md:text-5xl sm:text-4xl text-3xl'
 				/>
 				<CellVisual
-					srcImage={what[1].image as Image}
 					altContent={(what[1].image as Image).alt}
 					credits={(what[1].image as Image).caption}
+					srcImage={what[1].image as Image}
 				/>
 			</GridRow>
 
 			<GridRow invertOrder={true}>
 				<CellVisual
-					srcImage={what[2].image as Image}
 					altContent={(what[2].image as Image).alt}
 					credits={(what[2].image as Image).caption}
+					srcImage={what[2].image as Image}
 				/>
 				<CellData
 					caption={what[2].caption}

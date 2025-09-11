@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/style/noNestedTernary: faster to write */
 'use client';
 
 import type { Image as ImageType } from '@payload-types';
@@ -40,19 +41,13 @@ export function CustomImage({
 	return (
 		<>
 			<Image
+				alt={refined_alt}
+				blurDataURL={blurDataURL}
 				className={cn(
 					className,
 					`duration-500 ease-in-out ${isLoaded ? 'blur-0' : 'blur-sm'}`,
-					`h-full w-full`
+					'h-full w-full'
 				)}
-				priority={priority}
-				width={
-					image
-						? image.sizes?.[size]?.width
-							? image.sizes?.[size]?.width
-							: image.width || 300
-						: 300
-				}
 				height={
 					image
 						? image.sizes?.[size]?.height
@@ -60,13 +55,19 @@ export function CustomImage({
 							: image.height || 300
 						: 300
 				}
-				src={src}
-				alt={refined_alt}
-				quality={quality}
-				placeholder='blur'
-				blurDataURL={blurDataURL}
 				loading={loading}
 				onLoad={() => setIsLoaded(true)}
+				placeholder='blur'
+				priority={priority}
+				quality={quality}
+				src={src}
+				width={
+					image
+						? image.sizes?.[size]?.width
+							? image.sizes?.[size]?.width
+							: image.width || 300
+						: 300
+				}
 			/>
 			{showCaption && image?.caption && (
 				<p

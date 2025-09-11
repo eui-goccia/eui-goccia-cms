@@ -53,9 +53,11 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
 			if (targetFieldValue) {
 				const formattedSlug = formatSlug(targetFieldValue);
 
-				if (value !== formattedSlug) setValue(formattedSlug);
-			} else {
-				if (value !== '') setValue('');
+				if (value !== formattedSlug) {
+					setValue(formattedSlug);
+				}
+			} else if (value !== '') {
+				setValue('');
 			}
 		}
 	}, [targetFieldValue, checkboxValue, setValue, value]);
@@ -80,16 +82,16 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
 			<div className='label-wrapper'>
 				<FieldLabel htmlFor={`field-${path}`} label={label} />
 
-				<Button className='lock-button' buttonStyle='none' onClick={handleLock}>
+				<Button buttonStyle='none' className='lock-button' onClick={handleLock}>
 					{checkboxValue ? 'Unlock' : 'Lock'}
 				</Button>
 			</div>
 
 			<TextInput
-				value={value}
 				onChange={setValue}
 				path={path || field.name}
 				readOnly={Boolean(readOnly)}
+				value={value}
 			/>
 		</div>
 	);

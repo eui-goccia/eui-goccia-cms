@@ -1,12 +1,12 @@
 import type { Author, Image } from '@payload-types';
 import { CustomImage } from './CustomImage';
 
-interface HeaderProps {
+type HeaderProps = {
 	title: string;
 	coverImage: Image;
 	author: string | Author;
 	publishedAt: string;
-}
+};
 
 export default function HeaderArticle({
 	title,
@@ -33,12 +33,12 @@ export default function HeaderArticle({
 			</hgroup>
 
 			<CustomImage
-				image={coverImage}
-				className='w-full aspect-3/2 object-cover object-center rounded-4xl'
 				alt={coverImage.alt || coverImage.caption || ''}
-				size='xlarge'
-				showCaption={true}
 				captionClassName='w-full pt-2.5 px-5 flex items-start'
+				className='w-full aspect-3/2 object-cover object-center rounded-4xl'
+				image={coverImage}
+				showCaption={true}
+				size='xlarge'
 			/>
 		</div>
 	);

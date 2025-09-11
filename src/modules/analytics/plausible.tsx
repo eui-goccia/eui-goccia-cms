@@ -7,20 +7,20 @@ export const Plausible = ({ children }: { children: React.ReactNode }) => {
 	const pathname = usePathname();
 	return (
 		<PlausibleProvider
-			enabled={true}
 			customDomain={`${getClientSideURL()}/plausible`}
 			domain={'eui-goccia.eu'}
-			selfHosted={false}
+			enabled={true}
 			hash={true}
-			revenue={false}
-			taggedEvents={true}
-			trackLocalhost={false}
-			trackFileDownloads={true}
-			trackOutboundLinks={true}
 			pageviewProps={{
 				user: 'unauthenticated',
 				path: pathname,
 			}}
+			revenue={false}
+			selfHosted={false}
+			taggedEvents={true}
+			trackFileDownloads={true}
+			trackLocalhost={false}
+			trackOutboundLinks={true}
 		>
 			{children}
 		</PlausibleProvider>

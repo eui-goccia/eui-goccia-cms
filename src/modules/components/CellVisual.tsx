@@ -1,11 +1,11 @@
 import type { Image as ImageType } from '@payload-types';
 import { CustomImage } from './CustomImage';
 
-interface CellVisualProps {
+type CellVisualProps = {
 	srcImage: ImageType | null;
 	altContent?: string | null;
 	credits?: string | null;
-}
+};
 
 export default function CellVisual({
 	srcImage,
@@ -16,9 +16,9 @@ export default function CellVisual({
 		<div className='aspect-3/2 relative bg-amber-300/30 w-full h-full rounded-2xl'>
 			{srcImage && (
 				<CustomImage
+					alt={altContent || ''}
 					className='w-full h-full rounded-2xl object-cover'
 					image={srcImage}
-					alt={altContent || ''}
 					size='large'
 				/>
 			)}

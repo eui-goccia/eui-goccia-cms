@@ -3,9 +3,9 @@ import { getLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 import { CustomImage } from './CustomImage';
 
-interface CardArticleProps {
+type CardArticleProps = {
 	post: Post;
-}
+};
 
 export default async function CardArticle({ post }: CardArticleProps) {
 	const locale = await getLocale();
@@ -13,15 +13,15 @@ export default async function CardArticle({ post }: CardArticleProps) {
 	const image = post.coverImage as ImageType;
 	return (
 		<Link
-			locale={locale}
-			href={`/blog/${post.slug}`}
 			className='w-full h-full group items-center flex flex-nowrap flex-col gap-4 break-inside-avoid-column'
+			href={`/blog/${post.slug}`}
+			locale={locale}
 		>
 			<CustomImage
-				image={image}
 				alt={image.caption || post.title}
-				size='xlarge'
 				className='w-full border h-full object-contain rounded-4xl border-white transition-all'
+				image={image}
+				size='xlarge'
 			/>
 			<div className='px-2.5 w-full'>
 				<p className='font-ghost uppercase text-white text-sm'>
