@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/complexity/noExcessiveCognitiveComplexity: faster to write */
 import type { FieldHook } from 'payload';
 
 export const formatSlug = (val: string): string =>

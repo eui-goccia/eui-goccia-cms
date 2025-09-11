@@ -16,15 +16,17 @@ export default async function NewsletterSignup() {
 
 				<div className=' p-0 col-span-full'>
 					<iframe
-						src={`https://gocciaeu.substack.com/embed?simple=true&utm_source=navbar&utm_medium=web&utm_campaign=navbar_click&background_color=64b217`}
-						width='100%'
 						height='100%'
+						src={
+							'https://gocciaeu.substack.com/embed?simple=true&utm_source=navbar&utm_medium=web&utm_campaign=navbar_click&background_color=64b217'
+						}
 						style={{
 							mixBlendMode: 'multiply',
 							padding: 0,
 							margin: 0,
 						}}
 						title='Newsletter Signup'
+						width='100%'
 					/>
 				</div>
 			</div>

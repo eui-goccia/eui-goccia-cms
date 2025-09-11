@@ -10,11 +10,13 @@ export default function MapGocciaOverview() {
 	const mapContainerRef = useRef<HTMLDivElement | null>(null);
 
 	useEffect(() => {
-		if (!mapContainerRef.current) return;
+		if (!mapContainerRef.current) {
+			return;
+		}
 		mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || '';
 		mapRef.current = new mapboxgl.Map({
 			container: mapContainerRef.current,
-			center: [9.15216, 45.50638],
+			center: [9.152_16, 45.506_38],
 			zoom: 15.56,
 			style: 'mapbox://styles/mapbox/standard-satellite',
 			config: {
@@ -38,10 +40,6 @@ export default function MapGocciaOverview() {
 	}, []);
 
 	return (
-		<div
-			className='h-full w-full'
-			id='map-container'
-			ref={mapContainerRef}
-		></div>
+		<div className='h-full w-full' id='map-container' ref={mapContainerRef} />
 	);
 }

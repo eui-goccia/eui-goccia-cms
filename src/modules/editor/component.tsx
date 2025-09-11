@@ -73,7 +73,7 @@ const CustomLinkConverter: JSXConverter<SerializedLinkNode> = async ({
 		isSluggableDoc(fields.doc.value)
 	) {
 		return (
-			<Link locale={locale} href={`/${fields.doc.value.slug}`}>
+			<Link href={`/${fields.doc.value.slug}`} locale={locale}>
 				{renderedChildren}
 			</Link>
 		);
@@ -86,7 +86,7 @@ const CustomLinkConverter: JSXConverter<SerializedLinkNode> = async ({
 		: {};
 
 	return (
-		<Link locale={locale} href={href ?? '#'} {...newTabProps}>
+		<Link href={href ?? '#'} locale={locale} {...newTabProps}>
 			{renderedChildren}
 		</Link>
 	);
@@ -107,11 +107,11 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
 			const image = node.value as Image;
 			return (
 				<CustomImage
+					alt={image.alt || image.caption || ''}
 					className='aspect-16/10 rounded-2xl object-cover'
 					image={image}
-					size='xlarge'
-					alt={image.alt || image.caption || ''}
 					showCaption={true}
+					size='xlarge'
 				/>
 			);
 		},
@@ -212,7 +212,6 @@ export default function RichText(props: Props) {
 	} = props;
 	return (
 		<ConvertRichText
-			converters={jsxConverters}
 			className={cn(
 				{
 					container: enableGutter,
@@ -224,6 +223,7 @@ export default function RichText(props: Props) {
 				'flex flex-col gap-2.5 md:gap-5',
 				'font-greed tracking-[0.01em] text-xl md:text-2xl'
 			)}
+			converters={jsxConverters}
 			{...rest}
 		/>
 	);

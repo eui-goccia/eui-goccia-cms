@@ -16,10 +16,10 @@ export const ImageBlockComponent: React.FC<{
 
 	return (
 		<CustomImage
-			image={image}
-			size='xlarge'
 			alt={image.alt || image.caption || ''}
 			className={cn('rounded-2xl aspect-16/9 object-cover', className)}
+			image={image}
+			size='xlarge'
 		/>
 	);
 };

@@ -23,6 +23,7 @@ const nextConfig = {
 		resolveExtensions: ['.ts', '.tsx', '.js', '.jsx', '.cjs', '.mjs'],
 	},
 	images: {
+		qualities: [25, 30, 60, 75, 80, 90, 100],
 		remotePatterns: [
 			{
 				protocol: 'http',
@@ -39,38 +40,6 @@ const nextConfig = {
 					process.env.NEXT_PUBLIC_VERCEL_BRANCH_URL,
 			},
 		],
-	},
-	experimental: {
-		staleTimes: {
-			dynamic: 0,
-			static: 300,
-		},
-	},
-	async headers() {
-		return [
-			{
-				source: '/(.*)',
-				headers: [
-					{
-						key: 'X-Frame-Options',
-						value: 'DENY',
-					},
-					{
-						key: 'X-Content-Type-Options',
-						value: 'nosniff',
-					},
-				],
-			},
-			{
-				source: '/api/:path*',
-				headers: [
-					{
-						key: 'Cache-Control',
-						value: 'public, s-maxage=60, stale-while-revalidate=300',
-					},
-				],
-			},
-		];
 	},
 	rewrites,
 };

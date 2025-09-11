@@ -32,14 +32,14 @@ export default function TimelineEvent({
 				)}
 			</h3>
 			<div className='col-start-1 col-span-2 hidden md:flex justify-center w-full'>
-				<div className='h-full border-l-2 border-white w-fit'></div>
+				<div className='h-full border-l-2 border-white w-fit' />
 			</div>
 			<div className='col-start-1 md:col-start-3 col-span-full flex flex-col lg:grid grid-cols-10 gap-5'>
 				<CustomImage
+					alt={cover.alt || cover.caption || ''}
 					className='col-span-6 object-cover rounded-3xl aspect-16/10 col-start-1 w-full h-full'
 					image={cover}
 					size='xlarge'
-					alt={cover.alt || cover.caption || ''}
 				/>
 				<p className='col-start-7 flex flex-col gap-4 font-greed text-2xl col-span-full'>
 					<span>{event.description}</span>

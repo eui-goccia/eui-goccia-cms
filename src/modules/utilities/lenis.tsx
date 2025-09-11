@@ -4,11 +4,11 @@ import { ReactLenis as OriginalReactLenis } from 'lenis/react';
 import type { ReactNode } from 'react';
 import { useEffect } from 'react';
 
-interface ReactLenisProps {
+type ReactLenisProps = {
 	children: ReactNode;
 	root?: boolean;
 	[key: string]: unknown;
-}
+};
 
 export function ReactLenis({ children, ...props }: ReactLenisProps) {
 	useEffect(() => {

@@ -95,7 +95,7 @@ export default async function RootLayout({ children, params }: Readonly<Args>) {
 	const messages = await getMessages();
 
 	return (
-		<html lang={locale} className='scroll-smooth'>
+		<html className='scroll-smooth' lang={locale}>
 			<SpeedInsights />
 			<Plausible>
 				<NextIntlClientProvider messages={messages}>

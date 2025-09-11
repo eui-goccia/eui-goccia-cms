@@ -14,29 +14,29 @@ export default async function SectionForest({ home }: { home: Home }) {
 	return (
 		<GridSection sectionTitle={t('forest')}>
 			<GridRow>
-				<CellData data={forest[0].data} caption={forest[0].caption} />
+				<CellData caption={forest[0].caption} data={forest[0].data} />
 				<CellVisual
-					srcImage={forest[0].image as Image}
 					altContent={(forest[0].image as Image).alt}
 					credits={(forest[0].image as Image).caption}
+					srcImage={forest[0].image as Image}
 				/>
 			</GridRow>
 
 			<GridRow invertOrder={true}>
 				<CellVisual
-					srcImage={forest[1].image as Image}
 					altContent={(forest[1].image as Image).alt}
 					credits={(forest[1].image as Image).caption}
+					srcImage={forest[1].image as Image}
 				/>
-				<CellData data={forest[1].data} caption={forest[1].caption} />
+				<CellData caption={forest[1].caption} data={forest[1].data} />
 			</GridRow>
 
 			<GridRow>
-				<CellData data={forest[2].data} caption={forest[2].caption} />
+				<CellData caption={forest[2].caption} data={forest[2].data} />
 				<CellVisual
-					srcImage={forest[2].image as Image}
 					altContent={(forest[2].image as Image).alt}
 					credits={(forest[2].image as Image).caption}
+					srcImage={forest[2].image as Image}
 				/>
 			</GridRow>
 		</GridSection>

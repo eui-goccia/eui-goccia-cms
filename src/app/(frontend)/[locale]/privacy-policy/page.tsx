@@ -19,8 +19,8 @@ export default function PrivacyPolicy() {
 						con l'aiuto del{' '}
 						<a
 							href='https://www.freeprivacypolicy.com/free-privacy-policy-generator/'
-							target='_blank'
 							rel='noopener noreferrer'
+							target='_blank'
 						>
 							Generatore di Informative sulla Privacy Gratuito
 						</a>
@@ -247,8 +247,8 @@ export default function PrivacyPolicy() {
 								saperne di più sui cookie, consulti l'articolo sul{' '}
 								<a
 									href='https://www.freeprivacypolicy.com/blog/sample-privacy-policy-template/#Use_Of_Cookies_And_Tracking'
-									target='_blank'
 									rel='noopener noreferrer'
+									target='_blank'
 								>
 									sito web di Free Privacy Policy
 								</a>

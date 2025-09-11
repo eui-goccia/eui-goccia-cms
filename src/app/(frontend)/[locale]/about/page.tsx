@@ -8,9 +8,9 @@ export const dynamic = 'force-static';
 // Longer revalidation since content rarely changes
 export const revalidate = 3600; // 1 hour
 
-interface AboutPageProps {
+type AboutPageProps = {
 	params: Promise<{ locale: string }>;
-}
+};
 
 export default async function ChiSiamo({ params }: AboutPageProps) {
 	const { locale } = await params;
@@ -27,12 +27,12 @@ export default async function ChiSiamo({ params }: AboutPageProps) {
 			<section className='w-full'>
 				{partners?.map((partner) => (
 					<PartnerCard
-						key={partner.name}
-						partnerName={partner.name}
-						partnerBio={partner.bio}
-						logo={partner.logo as Image}
 						bgColor='[&:nth-child(3n)]:bg-rosso-500 [&:nth-child(3n+1)]:bg-verde-500 [&:nth-child(3n+2)]:bg-blu-300'
+						key={partner.name}
+						logo={partner.logo as Image}
 						members={partner.members}
+						partnerBio={partner.bio}
+						partnerName={partner.name}
 					/>
 				))}
 			</section>

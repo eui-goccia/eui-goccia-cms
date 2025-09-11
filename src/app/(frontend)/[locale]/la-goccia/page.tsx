@@ -8,9 +8,9 @@ export const dynamic = 'force-static';
 // Longer revalidation since content rarely changes
 export const revalidate = 3600; // 1 hour
 
-interface GocciaPageProps {
+type GocciaPageProps = {
 	params: Promise<{ locale: string }>;
-}
+};
 
 export default async function GocciaPage({ params }: GocciaPageProps) {
 	const { locale } = await params;
@@ -27,7 +27,7 @@ export default async function GocciaPage({ params }: GocciaPageProps) {
 			</div>
 			<section className='bg-black px-10 py-10 md:py-16 flex flex-col gap-16 md:gap-20'>
 				{goccia.timeline?.map((event) => (
-					<TimelineEvent key={event.title} event={event} />
+					<TimelineEvent event={event} key={event.title} />
 				))}
 			</section>
 		</main>

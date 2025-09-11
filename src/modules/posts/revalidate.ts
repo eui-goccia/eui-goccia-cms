@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/complexity/noForEach: faster to write */
+/** biome-ignore-all lint/complexity/noExcessiveCognitiveComplexity: faster to write */
 import type { Author, Post } from '@payload-types';
 
 import { revalidatePath, revalidateTag } from 'next/cache';
@@ -90,7 +92,7 @@ export const revalidatePost: CollectionAfterChangeHook<Post | Author> = ({
 		}
 
 		if (operation !== 'create') {
-			payload.logger.info(`Revalidating home page and blog listing`);
+			payload.logger.info('Revalidating home page and blog listing');
 			revalidateTag('global-content');
 			revalidateTag('it_posts');
 			revalidateTag('en_posts');

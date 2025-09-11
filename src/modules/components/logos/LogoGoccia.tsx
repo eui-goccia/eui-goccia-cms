@@ -2,10 +2,10 @@ import type * as React from 'react';
 
 const LogoGoccia = (props: React.SVGProps<SVGSVGElement>) => (
 	<svg
-		width={80}
+		fill='none'
 		height={40}
 		viewBox='0 0 80 40'
-		fill='none'
+		width={80}
 		xmlns='http://www.w3.org/2000/svg'
 		{...props}
 	>
