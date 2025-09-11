@@ -41,35 +41,6 @@ const nextConfig = {
 			},
 		],
 	},
-	experimental: {
-		ppr: true,
-	},
-	// async headers() {
-	// 	return [
-	// 		{
-	// 			source: '/(.*)',
-	// 			headers: [
-	// 				{
-	// 					key: 'X-Frame-Options',
-	// 					value: 'DENY',
-	// 				},
-	// 				{
-	// 					key: 'X-Content-Type-Options',
-	// 					value: 'nosniff',
-	// 				},
-	// 			],
-	// 		},
-	// 		{
-	// 			source: '/api/:path*',
-	// 			headers: [
-	// 				{
-	// 					key: 'Cache-Control',
-	// 					value: 'public, s-maxage=60, stale-while-revalidate=300',
-	// 				},
-	// 			],
-	// 		},
-	// 	];
-	// },
 	rewrites,
 };
 
