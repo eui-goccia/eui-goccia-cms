@@ -3,10 +3,6 @@ import type { Locales } from '@/i18n/routing';
 import { getCachedGlobal } from '@/modules/utilities/getGlobals';
 import ProgettoClient from './page.client';
 
-export const dynamic = 'force-static';
-// Longer revalidation since content rarely changes
-export const revalidate = 3600; // 1 hour
-
 type ProgettoPageProps = {
 	params: Promise<{ locale: string }>;
 };

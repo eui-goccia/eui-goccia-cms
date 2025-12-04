@@ -8,10 +8,6 @@ import SectionWhat from '@/modules/components/home/SectionWhat';
 import SectionBreakStroke from '@/modules/components/shared/SectionBreakStroke';
 import { getCachedGlobal } from '@/modules/utilities/getGlobals';
 
-export const dynamic = 'force-static';
-// Longer revalidation since content rarely changes
-export const revalidate = 3600; // 1 hour
-
 type HomeProps = {
 	params: Promise<{ locale: string }>;
 };

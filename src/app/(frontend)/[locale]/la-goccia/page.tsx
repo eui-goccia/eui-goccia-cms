@@ -4,10 +4,6 @@ import SectionBreakText from '@/modules/components/shared/SectionBreakText';
 import TimelineEvent from '@/modules/components/TimelineEvent';
 import { getCachedGlobal } from '@/modules/utilities/getGlobals';
 
-export const dynamic = 'force-static';
-// Longer revalidation since content rarely changes
-export const revalidate = 3600; // 1 hour
-
 type GocciaPageProps = {
 	params: Promise<{ locale: string }>;
 };

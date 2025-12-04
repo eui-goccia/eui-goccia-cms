@@ -7,6 +7,8 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+	reactCompiler: true,
+	typedRoutes: true,
 	cacheComponents: true,
 	images: {
 		qualities: [25, 30, 60, 75, 80, 90, 100],
@@ -28,6 +30,7 @@ const nextConfig = {
 		],
 	},
 	rewrites,
+	serverExternalPackages: ['sharp'],
 };
 
 export default withNextIntl(
