@@ -5,10 +5,6 @@ import CardArticle from '@/modules/components/CardArticle';
 import type { Post } from '@/modules/payload/payload-types';
 import { getCachedDocuments } from '@/modules/utilities/getDocument';
 
-export const dynamic = 'force-static';
-// Longer revalidation since content rarely changes
-export const revalidate = 1800; // 30 minutes
-
 type BlogProps = {
 	params: Promise<{ locale: string }>;
 };

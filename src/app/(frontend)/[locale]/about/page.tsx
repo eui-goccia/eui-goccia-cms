@@ -4,10 +4,6 @@ import PartnerCard from '@/modules/components/PartnerCard';
 import SectionBreakFill from '@/modules/components/shared/SectionBreakFill';
 import { getCachedGlobal } from '@/modules/utilities/getGlobals';
 
-export const dynamic = 'force-static';
-// Longer revalidation since content rarely changes
-export const revalidate = 3600; // 1 hour
-
 type AboutPageProps = {
 	params: Promise<{ locale: string }>;
 };
