@@ -16,20 +16,20 @@ export default function TimelineEvent({
 					<span className=' flex justify-center font-tagada lg:text-7xl md:text-6xl sm:text-5xl text-4xl xl:text-8xl col-start-1'>
 						{event.start}
 					</span>
-					{event.end && (
+					{event.end ? (
 						<>
 							<span className='block md:hidden'>—</span>
 							<span className='w-full text-pretty flex justify-center font-tagada lg:text-7xl md:text-6xl sm:text-5xl text-4xl xl:text-8xl col-start-1'>
 								{event.end}
 							</span>
 						</>
-					)}
+					) : null}
 				</div>
-				{event.title && (
+				{event.title ? (
 					<span className='col-start-1 text-center md:text-left text-balance md:col-start-3 varW600 col-span-full bg-rosso-500 font-ghost lg:text-6xl md:text-5xl text-3xl sm:text-4xl xl:text-7xl px-10 flex items-center py-5 justify-center md:justify-start md:justify-star w-full rounded-full'>
 						{event.title}
 					</span>
-				)}
+				) : null}
 			</h3>
 			<div className='col-start-1 col-span-2 hidden md:flex justify-center w-full'>
 				<div className='h-full border-l-2 border-white w-fit' />

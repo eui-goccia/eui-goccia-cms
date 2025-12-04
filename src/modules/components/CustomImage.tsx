@@ -18,6 +18,7 @@ type Props = {
 	showCaption?: boolean;
 };
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: faster to write
 export function CustomImage({
 	image,
 	alt,
@@ -38,6 +39,8 @@ export function CustomImage({
 	const refined_alt = image
 		? image.alt || image.caption || alt || ''
 		: alt || '';
+
+	const caption = showCaption && image?.caption;
 	return (
 		<>
 			<Image
@@ -69,7 +72,7 @@ export function CustomImage({
 						: 300
 				}
 			/>
-			{showCaption && image?.caption && (
+			{caption ? (
 				<p
 					className={cn(
 						'font-greed varW600 text-lg w-full mb-2 flex items-start',
@@ -78,7 +81,7 @@ export function CustomImage({
 				>
 					{image.caption}
 				</p>
-			)}
+			) : null}
 		</>
 	);
 }

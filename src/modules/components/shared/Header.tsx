@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { Link } from '@/i18n/routing';
 import LogoGoccia from '@/modules/components/logos/LogoGoccia';
 
+// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: faster to write
 export default function Header() {
 	const [menuIsOpen, setMenuIsOpen] = useState(false);
 	const pathname = usePathname();
@@ -23,7 +24,7 @@ export default function Header() {
 	return (
 		<>
 			{/* Backdrop */}
-			{menuIsOpen && (
+			{menuIsOpen ? (
 				<motion.div
 					animate={{ opacity: 1 }}
 					className='fixed inset-0 bg-black/20 backdrop-blur-sm z-40'
@@ -33,7 +34,7 @@ export default function Header() {
 						duration: 0.15,
 					}}
 				/>
-			)}
+			) : null}
 
 			<motion.header
 				animate={{
@@ -131,7 +132,7 @@ export default function Header() {
 						</button>
 					</ul>
 
-					{menuIsOpen && (
+					{menuIsOpen ? (
 						<nav className='pt-10 pb-20 relative z-20'>
 							<ul className='flex flex-col uppercase gap-8 justify-between text-2xl'>
 								<motion.li
@@ -218,7 +219,7 @@ export default function Header() {
 								</motion.li>
 							</ul>
 						</nav>
-					)}
+					) : null}
 				</div>
 			</motion.header>
 		</>

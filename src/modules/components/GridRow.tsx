@@ -16,7 +16,7 @@ export default function GridRow({
 		<div
 			className={cn(
 				'flex flex-col lg:grid grid-cols-2 gap-0',
-				invertOrder && 'flex-col-reverse',
+				invertOrder ? 'flex-col-reverse' : null,
 				customClass
 			)}
 		>
