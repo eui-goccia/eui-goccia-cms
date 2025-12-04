@@ -5,7 +5,8 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
-import type { TypedLocale } from 'payload';
+import { Suspense } from 'react';
+import type { Locale } from '@/i18n/routing';
 import { routing } from '@/i18n/routing';
 import { Plausible } from '@/modules/analytics/plausible';
 import { LivePreviewListener } from '@/modules/components/LivePreviewListener';
@@ -77,7 +78,7 @@ export const metadata: Metadata = {
 type Args = {
 	children: React.ReactNode;
 	params: Promise<{
-		locale: TypedLocale;
+		locale: Locale;
 	}>;
 };
 
@@ -87,7 +88,7 @@ export const generateStaticParams = async () =>
 export default async function RootLayout({ children, params }: Readonly<Args>) {
 	const { locale } = await params;
 
-	if (!routing.locales.includes(locale as TypedLocale)) {
+	if (!routing.locales.includes(locale)) {
 		notFound();
 	}
 	setRequestLocale(locale);
@@ -99,7 +100,9 @@ export default async function RootLayout({ children, params }: Readonly<Args>) {
 			<Plausible>
 				<NextIntlClientProvider messages={messages}>
 					<ReactLenis root>
-						<LivePreviewListener />
+						<Suspense>
+							<LivePreviewListener />
+						</Suspense>
 						<body
 							className={cn(
 								ghost.variable,
@@ -108,10 +111,18 @@ export default async function RootLayout({ children, params }: Readonly<Args>) {
 								'antialiased flex flex-col justify-between h-dvh'
 							)}
 						>
-							<Header />
-							<main className='mb-auto'>{children}</main>
-							<NewsletterSignup />
-							<Footer />
+							<Suspense>
+								<Header />
+							</Suspense>
+							<Suspense>
+								<main className='mb-auto'>{children}</main>
+							</Suspense>
+							<Suspense>
+								<NewsletterSignup />
+							</Suspense>
+							<Suspense>
+								<Footer />
+							</Suspense>
 						</body>
 					</ReactLenis>
 				</NextIntlClientProvider>

@@ -1,15 +1,16 @@
 import configPromise from '@payload-config';
 import { draftMode } from 'next/headers';
-import { redirect } from 'next/navigation';
 import type { NextRequest } from 'next/server';
+import { getLocale } from 'next-intl/server';
 import type { AuthResult } from 'node_modules/payload/dist/auth/operations/auth';
 import type { CollectionSlug, PayloadRequest } from 'payload';
 import { getPayload } from 'payload';
+import { redirect } from '@/i18n/routing';
 
-export async function GET(req: NextRequest): Promise<Response> {
+export async function GET(request: NextRequest) {
 	const payload = await getPayload({ config: configPromise });
 
-	const { searchParams } = new URL(req.url);
+	const { searchParams } = new URL(request.url);
 
 	const path = searchParams.get('path');
 	const collection = searchParams.get('collection') as CollectionSlug;
@@ -33,12 +34,12 @@ export async function GET(req: NextRequest): Promise<Response> {
 		);
 	}
 
-	let user: AuthResult | null = null;
+	let result: AuthResult | null = null;
 
 	try {
-		user = await payload.auth({
-			req: req as unknown as PayloadRequest,
-			headers: req.headers,
+		result = await payload.auth({
+			req: request as unknown as PayloadRequest,
+			headers: request.headers,
 		});
 	} catch (error) {
 		payload.logger.error(
@@ -52,16 +53,15 @@ export async function GET(req: NextRequest): Promise<Response> {
 
 	const draft = await draftMode();
 
-	if (!user) {
+	if (!result.user) {
 		draft.disable();
-		return new Response('You are not allowed to preview this page', {
-			status: 403,
+		return new Response('You must be authenticated to preview', {
+			status: 401,
 		});
 	}
 
-	// You can add additional checks here to see if the user is allowed to preview this page
-
 	draft.enable();
+	const locale = await getLocale();
 
-	redirect(path);
+	redirect({ href: path, locale });
 }

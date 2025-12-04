@@ -11,7 +11,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`_parent_id\`) REFERENCES \`images\`(\`id\`) ON UPDATE no action ON DELETE cascade
   );
   `)
-  await db.run(sql`INSERT INTO \`__new_images_locales\`("alt", "caption", "id", "_locale", "_parent_id") SELECT "alt", "caption", "id", "_locale", "_parent_id" FROM \`images_locales\`;`)
+  await db.run(sql`INSERT INTO \`__new_images_locales\`("alt", "caption", "id", "_locale", "_parent_id") SELECT '', "caption", "id", "_locale", "_parent_id" FROM \`images_locales\`;`)
   await db.run(sql`DROP TABLE \`images_locales\`;`)
   await db.run(sql`ALTER TABLE \`__new_images_locales\` RENAME TO \`images_locales\`;`)
   await db.run(sql`PRAGMA foreign_keys=ON;`)

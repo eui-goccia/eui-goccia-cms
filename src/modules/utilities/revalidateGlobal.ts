@@ -1,4 +1,4 @@
-import { revalidatePath, revalidateTag } from 'next/cache';
+import { revalidatePath, updateTag } from 'next/cache';
 
 import type { GlobalAfterChangeHook } from 'payload';
 
@@ -9,9 +9,9 @@ export const revalidateGlobal: GlobalAfterChangeHook = ({
 	if (!context.disableRevalidate) {
 		payload.logger.info(`Revalidating ${global.slug} global`);
 
-		// Use revalidateTag for more efficient invalidation
-		revalidateTag(`global_${global.slug}`);
-		revalidateTag('global-content');
+		// Use updateTag for more efficient invalidation
+		updateTag(`global_${global.slug}`);
+		updateTag('global-content');
 
 		// Keep revalidatePath for homepage and specific pages that need it
 		revalidatePath('/');

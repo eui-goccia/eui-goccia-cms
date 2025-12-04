@@ -12,28 +12,28 @@ importers:
         specifier: ^0.15.15
         version: 0.15.15
       '@payloadcms/db-sqlite':
-        specifier: latest
+        specifier: ^3.66.0
         version: 3.66.0(payload@3.66.0(graphql@16.12.0)(typescript@5.9.3))
       '@payloadcms/live-preview-react':
-        specifier: latest
+        specifier: ^3.66.0
         version: 3.66.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       '@payloadcms/next':
-        specifier: latest
+        specifier: ^3.66.0
         version: 3.66.0(@types/react@19.2.7)(graphql@16.12.0)(monaco-editor@0.55.1)(next@16.0.7(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.77.4))(payload@3.66.0(graphql@16.12.0)(typescript@5.9.3))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3)
       '@payloadcms/plugin-seo':
-        specifier: latest
+        specifier: ^3.66.0
         version: 3.66.0(@types/react@19.2.7)(monaco-editor@0.55.1)(next@16.0.7(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.77.4))(payload@3.66.0(graphql@16.12.0)(typescript@5.9.3))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3)
       '@payloadcms/richtext-lexical':
-        specifier: latest
+        specifier: ^3.66.0
         version: 3.66.0(@faceless-ui/modal@3.0.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@faceless-ui/scroll-info@2.0.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1))(@payloadcms/next@3.66.0(@types/react@19.2.7)(graphql@16.12.0)(monaco-editor@0.55.1)(next@16.0.7(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.77.4))(payload@3.66.0(graphql@16.12.0)(typescript@5.9.3))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3))(@types/react@19.2.7)(monaco-editor@0.55.1)(next@16.0.7(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.77.4))(payload@3.66.0(graphql@16.12.0)(typescript@5.9.3))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3)(yjs@13.6.27)
       '@payloadcms/storage-s3':
-        specifier: latest
+        specifier: ^3.66.0
         version: 3.66.0(@types/react@19.2.7)(monaco-editor@0.55.1)(next@16.0.7(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.77.4))(payload@3.66.0(graphql@16.12.0)(typescript@5.9.3))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3)
       '@payloadcms/translations':
-        specifier: latest
+        specifier: ^3.66.0
         version: 3.66.0
       '@payloadcms/ui':
-        specifier: latest
+        specifier: ^3.66.0
         version: 3.66.0(@types/react@19.2.7)(monaco-editor@0.55.1)(next@16.0.7(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.77.4))(payload@3.66.0(graphql@16.12.0)(typescript@5.9.3))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(typescript@5.9.3)
       '@radix-ui/react-select':
         specifier: ^2.2.6
@@ -90,7 +90,7 @@ importers:
         specifier: ^3.12.5
         version: 3.12.5(next@16.0.7(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(sass@1.77.4))(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
       payload:
-        specifier: latest
+        specifier: ^3.66.0
         version: 3.66.0(graphql@16.12.0)(typescript@5.9.3)
       plaiceholder:
         specifier: ^3.0.0
@@ -7906,7 +7906,7 @@ snapshots:
   tsx@4.20.3:
     dependencies:
       esbuild: 0.25.12
-      get-tsconfig: 4.8.1
+      get-tsconfig: 4.13.0
     optionalDependencies:
       fsevents: 2.3.3
 

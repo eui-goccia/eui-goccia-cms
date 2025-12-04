@@ -191,7 +191,7 @@ const processRichTextContent = async (
 			},
 		};
 	} catch (error) {
-		payload.logger.error('Error processing rich text content:', error);
+		payload.logger.error(`Error processing rich text content: ${error}`);
 		return content;
 	}
 };
@@ -356,7 +356,7 @@ const getOrCreateImage = async (
 		
 		return result.id;
 	} catch (error) {
-		payload.logger.error(`Error creating image "${alt}":`, error);
+		payload.logger.error(`Error creating image "${alt}": ${error}`);
 		throw error;
 	}
 };
@@ -404,13 +404,13 @@ const getOrCreateAuthor = async (
 					locale: 'en',
 				});
 			} catch (updateError) {
-				payload.logger.warn(`⚠️  Could not add English bio for author "${name}":`, updateError);
+				payload.logger.warn(`⚠️  Could not add English bio for author "${name}": ${updateError}`);
 			}
 		}
 
 		return result.id;
 	} catch (error) {
-		payload.logger.error(`Error creating author "${name}":`, error);
+		payload.logger.error(`Error creating author "${name}": ${error}`);
 		throw error;
 	}
 };
@@ -634,12 +634,12 @@ const createBlogPost = async (payload: BasePayload, postDataIt: Post, postDataEn
 			});
 			payload.logger.info(`✅ Added English locale data for post with proper content structure`);
 		} catch (updateError) {
-			payload.logger.warn(`⚠️  Could not add English locale, but post created successfully:`, updateError);
+			payload.logger.warn(`⚠️  Could not add English locale, but post created successfully: ${updateError}`);
 		}
 
 		payload.logger.info(`✅ Created bilingual blog post: ${postDataIt.title}`);
 	} catch (error) {
-		payload.logger.error(`❌ Error creating blog post "${postDataIt.title}":`, error);
+		payload.logger.error(`❌ Error creating blog post "${postDataIt.title}": ${error}`);
 		throw error;
 	}
 };
@@ -729,7 +729,7 @@ const createGocciaData = async (payload: BasePayload, gocciaDataIt: LaGoccia, go
 
 		payload.logger.info('✅ Created bilingual Goccia data');
 	} catch (error) {
-		payload.logger.error('❌ Error creating Goccia data:', error);
+		payload.logger.error(`❌ Error creating Goccia data: ${error}`);
 		throw error;
 	}
 };
@@ -818,7 +818,7 @@ const createProjectData = async (payload: BasePayload, projectDataIt: Progetto, 
 
 		payload.logger.info('✅ Created bilingual Project data');
 	} catch (error) {
-		payload.logger.error('❌ Error creating Project data:', error);
+		payload.logger.error(`❌ Error creating Project data: ${error}`);
 		throw error;
 	}
 };
@@ -916,7 +916,7 @@ const createAboutData = async (payload: BasePayload, aboutDataIt: About, aboutDa
 
 		payload.logger.info('✅ Created bilingual About data');
 	} catch (error) {
-		payload.logger.error('❌ Error creating About data:', error);
+		payload.logger.error(`❌ Error creating About data: ${error}`);
 		throw error;
 	}
 };
@@ -1101,7 +1101,7 @@ const createHomeData = async (payload: BasePayload, homeDataIt: Home, homeDataEn
 
 		payload.logger.info('✅ Created bilingual Home data');
 	} catch (error) {
-		payload.logger.error('❌ Error creating Home data:', error);
+		payload.logger.error(`❌ Error creating Home data: ${error}`);
 		throw error;
 	}
 };
@@ -1152,7 +1152,7 @@ const cleanupDatabase = async (payload: BasePayload): Promise<void> => {
 		clearMemoryCache();
 		payload.logger.info('🎯 Database cleanup completed!');
 	} catch (error) {
-		payload.logger.error('❌ Error during cleanup:', error);
+		payload.logger.error(`❌ Error during cleanup: ${error}`);
 		throw error;
 	}
 };
@@ -1215,7 +1215,7 @@ export const seed = async ({
 		payload.logger.info(`🎉 Database seeding completed successfully in ${totalTime}ms with proper localization!`);
 		payload.logger.info(`💾 Image cache had ${imageCache.size} entries during processing`);
 	} catch (error) {
-		payload.logger.error('❌ Error during seeding:', error);
+		payload.logger.error(`❌ Error during seeding: ${error}`);
 		clearMemoryCache(); // Clean up on error
 		throw error;
 	}
@@ -1235,7 +1235,7 @@ export const seedCleanup = async ({
 		clearMemoryCache();
 		payload.logger.info('🎉 Database cleanup completed successfully!');
 	} catch (error) {
-		payload.logger.error('❌ Error during cleanup:', error);
+		payload.logger.error(`❌ Error during cleanup: ${error}`);
 		clearMemoryCache();
 		throw error;
 	}
@@ -1268,7 +1268,7 @@ export const seedPosts = async ({
 		clearMemoryCache(); // Final cleanup
 		payload.logger.info('🎉 Posts seeding completed successfully!');
 	} catch (error) {
-		payload.logger.error('❌ Error during posts seeding:', error);
+		payload.logger.error(`❌ Error during posts seeding: ${error}`);
 		clearMemoryCache();
 		throw error;
 	}
@@ -1291,7 +1291,7 @@ export const seedTimeline = async ({
 		clearMemoryCache();
 		payload.logger.info('🎉 Timeline seeding completed successfully!');
 	} catch (error) {
-		payload.logger.error('❌ Error during timeline seeding:', error);
+		payload.logger.error(`❌ Error during timeline seeding: ${error}`);
 		clearMemoryCache();
 		throw error;
 	}
@@ -1314,7 +1314,7 @@ export const seedAbout = async ({
 		clearMemoryCache();
 		payload.logger.info('🎉 About seeding completed successfully!');
 	} catch (error) {
-		payload.logger.error('❌ Error during about seeding:', error);
+		payload.logger.error(`❌ Error during about seeding: ${error}`);
 		clearMemoryCache();
 		throw error;
 	}
@@ -1337,7 +1337,7 @@ export const seedProgetto = async ({
 		clearMemoryCache();
 		payload.logger.info('🎉 Progetto seeding completed successfully!');
 	} catch (error) {
-		payload.logger.error('❌ Error during progetto seeding:', error);
+		payload.logger.error(`❌ Error during progetto seeding: ${error}`);
 		clearMemoryCache();
 		throw error;
 	}
@@ -1360,7 +1360,7 @@ export const seedHome = async ({
 		clearMemoryCache();
 		payload.logger.info('🎉 Home seeding completed successfully!');
 	} catch (error) {
-		payload.logger.error('❌ Error during home seeding:', error);
+		payload.logger.error(`❌ Error during home seeding: ${error}`);
 		clearMemoryCache();
 		throw error;
 	}

@@ -2,7 +2,7 @@
 /** biome-ignore-all lint/complexity/noExcessiveCognitiveComplexity: faster to write */
 import type { Author, Post } from '@payload-types';
 
-import { revalidatePath, revalidateTag } from 'next/cache';
+import { revalidatePath, updateTag } from 'next/cache';
 import type {
 	CollectionAfterChangeHook,
 	CollectionAfterDeleteHook,
@@ -23,11 +23,11 @@ export const revalidatePost: CollectionAfterChangeHook<Post | Author> = ({
 						const path = `/(frontend)/[locale]/blog/${post.slug}`;
 						payload.logger.info(`Revalidating page at path: ${path}`);
 
-						// Use revalidateTag for more efficient invalidation
-						revalidateTag(`it_posts_${post.slug}`, 'tag');
-						revalidateTag(`en_posts_${post.slug}`, 'tag');
-						revalidateTag('posts', 'tag');
-						revalidateTag('blog-sitemap', 'tag');
+						// Use updateTag for more efficient invalidation
+						updateTag(`it_posts_${post.slug}`);
+						updateTag(`en_posts_${post.slug}`);
+						updateTag('posts');
+						updateTag('blog-sitemap');
 
 						// Keep path revalidation for immediate effect
 						revalidatePath(path, 'page');
@@ -42,12 +42,12 @@ export const revalidatePost: CollectionAfterChangeHook<Post | Author> = ({
 			payload.logger.info(`Revalidating page at path: ${path}`);
 
 			// Use both tag and path revalidation for comprehensive cache clearing
-			revalidateTag(`it_posts_${doc.slug}`, 'tag');
-			revalidateTag(`en_posts_${doc.slug}`, 'tag');
-			revalidateTag('it_posts', 'tag');
-			revalidateTag('en_posts', 'tag');
-			revalidateTag('posts', 'tag');
-			revalidateTag('blog-sitemap', 'tag');
+			updateTag(`it_posts_${doc.slug}`);
+			updateTag(`en_posts_${doc.slug}`);
+			updateTag('it_posts');
+			updateTag('en_posts');
+			updateTag('posts');
+			updateTag('blog-sitemap');
 
 			revalidatePath(path, 'page');
 		}
@@ -66,10 +66,10 @@ export const revalidatePost: CollectionAfterChangeHook<Post | Author> = ({
 			payload.logger.info(`Revalidating old page at path: ${oldPath}`);
 
 			// Invalidate cache for unpublished post
-			revalidateTag(`it_posts_${previousDoc.slug}`, 'tag');
-			revalidateTag(`en_posts_${previousDoc.slug}`, 'tag');
-			revalidateTag('posts', 'tag');
-			revalidateTag('blog-sitemap', 'tag');
+			updateTag(`it_posts_${previousDoc.slug}`);
+			updateTag(`en_posts_${previousDoc.slug}`);
+			updateTag('posts');
+			updateTag('blog-sitemap');
 
 			revalidatePath(oldPath, 'page');
 		}
@@ -81,9 +81,9 @@ export const revalidatePost: CollectionAfterChangeHook<Post | Author> = ({
 						const path = `/(frontend)/[locale]/blog/${post.slug}`;
 						payload.logger.info(`Revalidating page at path: ${path}`);
 
-						revalidateTag(`it_posts_${post.slug}`, 'tag');
-						revalidateTag(`en_posts_${post.slug}`, 'tag');
-						revalidateTag('posts', 'tag');
+						updateTag(`it_posts_${post.slug}`);
+						updateTag(`en_posts_${post.slug}`);
+						updateTag('posts');
 
 						revalidatePath(path, 'page');
 					}
@@ -92,10 +92,10 @@ export const revalidatePost: CollectionAfterChangeHook<Post | Author> = ({
 
 			if (operation !== 'create') {
 				payload.logger.info('Revalidating home page and blog listing');
-				revalidateTag('global-content', 'tag');
-				revalidateTag('it_posts', 'tag');
-				revalidateTag('en_posts', 'tag');
-				revalidateTag('blog-sitemap', 'tag');
+				updateTag('global-content');
+				updateTag('it_posts');
+				updateTag('en_posts');
+				updateTag('blog-sitemap');
 
 				revalidatePath('/');
 				revalidatePath('/(frontend)/[locale]/blog', 'page');
@@ -117,9 +117,9 @@ export const revalidateDelete: CollectionAfterDeleteHook<Post | Author> = ({
 					const path = `/(frontend)/[locale]/blog/${post.slug}`;
 					payload.logger.info(`Revalidating page at path: ${path}`);
 
-					revalidateTag(`it_posts_${post.slug}`, 'tag');
-					revalidateTag(`en_posts_${post.slug}`, 'tag');
-					revalidateTag('posts', 'tag');
+					updateTag(`it_posts_${post.slug}`);
+					updateTag(`en_posts_${post.slug}`);
+					updateTag('posts');
 
 					revalidatePath(path, 'page');
 				});
@@ -130,18 +130,18 @@ export const revalidateDelete: CollectionAfterDeleteHook<Post | Author> = ({
 			payload.logger.info(`Revalidating page at path: ${path}`);
 
 			// Clean up cache for deleted post
-			revalidateTag(`it_posts_${doc.slug}`, 'tag');
-			revalidateTag(`en_posts_${doc.slug}`, 'tag');
-			revalidateTag('it_posts', 'tag');
-			revalidateTag('en_posts', 'tag');
-			revalidateTag('posts', 'tag');
-			revalidateTag('blog-sitemap', 'tag');
+			updateTag(`it_posts_${doc.slug}`);
+			updateTag(`en_posts_${doc.slug}`);
+			updateTag('it_posts');
+			updateTag('en_posts');
+			updateTag('posts');
+			updateTag('blog-sitemap');
 
 			revalidatePath(path, 'page');
 		}
 
 		// Update global content cache
-		revalidateTag('global-content', 'tag');
+		updateTag('global-content');
 		revalidatePath('/');
 		revalidatePath('/(frontend)/[locale]/blog', 'page');
 	}
