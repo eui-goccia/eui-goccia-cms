@@ -24,17 +24,13 @@ import { CustomImage } from '../components/CustomImage';
 
 const isPopulatedDoc = (
 	value: unknown
-): value is { id: string; [key: string]: unknown } => {
-	return typeof value === 'object' && value !== null && 'id' in value;
-};
+): value is { id: string; [key: string]: unknown } =>
+	typeof value === 'object' && value !== null && 'id' in value;
 
 const isSluggableDoc = (
 	value: unknown
-): value is { slug: string; [key: string]: unknown } => {
-	return (
-		isPopulatedDoc(value) && 'slug' in value && typeof value.slug === 'string'
-	);
-};
+): value is { slug: string; [key: string]: unknown } =>
+	isPopulatedDoc(value) && 'slug' in value && typeof value.slug === 'string';
 
 type NodeTypes =
 	| DefaultNodeTypes

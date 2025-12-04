@@ -8,9 +8,8 @@ import type {
 import type { Plugin } from 'payload';
 import { getServerSideURL } from '@/modules/utilities/getURL';
 
-const generateTitle: GenerateTitle<Post> = ({ doc }) => {
-	return doc?.title ? `${doc.title} | EUI Goccia` : 'EUI Goccia';
-};
+const generateTitle: GenerateTitle<Post> = ({ doc }) =>
+	doc?.title ? `${doc.title} | EUI Goccia` : 'EUI Goccia';
 
 const generateURL: GenerateURL<Post> = ({ doc }) => {
 	const url = getServerSideURL();
@@ -18,9 +17,8 @@ const generateURL: GenerateURL<Post> = ({ doc }) => {
 	return doc?.slug ? `${url}/${doc.slug}` : url;
 };
 
-const generateDescription: GenerateDescription<Post> = ({ doc }) => {
-	return doc?.description ?? '';
-};
+const generateDescription: GenerateDescription<Post> = ({ doc }) =>
+	doc?.description ?? '';
 
 export const seoPlugin: Plugin = seoPluginImport({
 	generateTitle,
