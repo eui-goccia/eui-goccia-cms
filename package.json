@@ -66,20 +66,6 @@
     "typescript": "^5.9.3",
     "ultracite": "6.3.10"
   },
-  "engines": {
-    "node": ">=22.18.0 || <24.0.0",
-    "pnpm": "^10.25.0"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@swc/core",
-      "@tailwindcss/oxide",
-      "bufferutil",
-      "esbuild",
-      "sharp",
-      "utf-8-validate"
-    ]
-  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,jsonc,css,scss,md,mdx}": [
       "pnpm dlx ultracite fix"
