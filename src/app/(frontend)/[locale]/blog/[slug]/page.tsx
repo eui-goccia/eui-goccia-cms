@@ -1,37 +1,34 @@
 import type { Author, Image, Post } from '@payload-types';
 import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
+import { setRequestLocale } from 'next-intl/server';
 import type { PaginatedDocs } from 'payload';
+import { Suspense } from 'react';
 import localization from '@/i18n/localization';
 import type { Locales } from '@/i18n/routing';
 import { BlockRenderer } from '@/modules/blocks/BlockRenderer';
 import HeaderArticle from '@/modules/components/HeaderArticle';
-import {
-	getCachedDocument,
-	getCachedDocuments,
-} from '@/modules/utilities/getDocument';
+import { getDocument, getDocuments } from '@/modules/utilities/getDocument';
 
 type PageProps = {
 	params: Promise<{ slug: string; locale: string }>;
 };
 
 export async function generateStaticParams() {
-	// Generate static params for all unique slugs across locales
 	const slugSet = new Set<string>();
 
 	for (const localeConfig of localization.locales) {
 		const locale = localeConfig.code as Locales;
 
 		try {
-			const posts = (await getCachedDocuments({
+			const posts = (await getDocuments({
 				collection: 'posts',
-				depth: 0, // We only need the slug, reduce depth for performance
-				limit: 100,
+				depth: 0,
+				limit: 20,
 				draft: false,
 				locale,
 			})) as PaginatedDocs<Post>;
 
-			// Add unique slugs to set
 			for (const { slug } of posts.docs) {
 				if (slug && typeof slug === 'string') {
 					slugSet.add(slug);
@@ -45,16 +42,21 @@ export async function generateStaticParams() {
 	return Array.from(slugSet).map((slug) => ({ slug }));
 }
 
-export default async function BlogPost({ params }: PageProps) {
-	const { slug, locale } = await params;
+async function BlogPostContent({
+	slug,
+	locale,
+}: {
+	slug: string;
+	locale: Locales;
+}) {
 	const { isEnabled: draft } = await draftMode();
 
-	const post = (await getCachedDocument({
+	const post = (await getDocument({
 		collection: 'posts',
 		slug,
 		depth: 2,
 		draft,
-		locale: locale as Locales,
+		locale,
 	})) as Post;
 
 	if (!post) {
@@ -87,5 +89,16 @@ export default async function BlogPost({ params }: PageProps) {
 				</article>
 			</div>
 		</>
+	);
+}
+
+export default async function BlogPost({ params }: PageProps) {
+	const { slug, locale } = await params;
+	setRequestLocale(locale);
+
+	return (
+		<Suspense fallback={null}>
+			<BlogPostContent locale={locale as Locales} slug={slug} />
+		</Suspense>
 	);
 }

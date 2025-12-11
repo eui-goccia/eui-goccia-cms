@@ -39,14 +39,14 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
 
 	// The value of the checkbox
 	// We're using separate useFormFields to minimise re-renders
-	const checkboxValue = useFormFields(([fields]) => {
-		return fields[checkboxFieldPath]?.value as string;
-	});
+	const checkboxValue = useFormFields(
+		([fields]) => fields[checkboxFieldPath]?.value as string
+	);
 
 	// The value of the field we're listening to for the slug
-	const targetFieldValue = useFormFields(([fields]) => {
-		return fields[fieldToUse]?.value as string;
-	});
+	const targetFieldValue = useFormFields(
+		([fields]) => fields[fieldToUse]?.value as string
+	);
 
 	useEffect(() => {
 		if (checkboxValue) {

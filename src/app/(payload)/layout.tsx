@@ -8,6 +8,7 @@ import type React from 'react';
 
 import { importMap } from './admin/importMap.js';
 import './custom.scss';
+import { Suspense } from 'react';
 
 type Args = {
 	children: React.ReactNode;
@@ -23,13 +24,11 @@ const serverFunction: ServerFunctionClient = async (args) => {
 };
 
 const Layout = ({ children }: Args) => (
-	<RootLayout
-		config={config}
-		importMap={importMap}
-		serverFunction={serverFunction}
-	>
-		{children}
-	</RootLayout>
+	<Suspense>
+		<RootLayout config={config} importMap={importMap} serverFunction={serverFunction}>
+			{children}
+		</RootLayout>
+	</Suspense>
 );
 
 export default Layout;

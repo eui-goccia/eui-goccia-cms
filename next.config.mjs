@@ -7,21 +7,9 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-	eslint: {
-		ignoreDuringBuilds: true,
-	},
-	webpack: (webpackConfig) => {
-		webpackConfig.resolve.extensionAlias = {
-			'.cjs': ['.cts', '.cjs'],
-			'.js': ['.ts', '.tsx', '.js', '.jsx'],
-			'.mjs': ['.mts', '.mjs'],
-		};
-
-		return webpackConfig;
-	},
-	turbopack: {
-		resolveExtensions: ['.ts', '.tsx', '.js', '.jsx', '.cjs', '.mjs'],
-	},
+	reactCompiler: true,
+	typedRoutes: true,
+	cacheComponents: true,
 	images: {
 		qualities: [25, 30, 60, 75, 80, 90, 100],
 		remotePatterns: [
@@ -42,6 +30,7 @@ const nextConfig = {
 		],
 	},
 	rewrites,
+	serverExternalPackages: ['sharp'],
 };
 
 export default withNextIntl(

@@ -1,6 +1,5 @@
 {
   "npm.packageManager": "pnpm",
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "biome.enabled": true,
   "eslint.enable": true,
   "editor.formatOnPaste": true,
@@ -35,5 +34,6 @@
     "editor.defaultFormatter": "biomejs.biome"
   },
   "typescript.tsdk": "node_modules/typescript/lib",
-  "emmet.showExpandedAbbreviation": "never"
+  "emmet.showExpandedAbbreviation": "never",
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }

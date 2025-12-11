@@ -179,6 +179,7 @@ export const SeedButton: React.FC = () => {
 				</p>
 
 				<div className='seedPhases'>
+					{/** biome-ignore lint/complexity/noExcessiveCognitiveComplexity: faster to write */}
 					{SEED_PHASES.map((phase) => {
 						const state = phaseStates[phase.key];
 						const statusClass = state.loading
@@ -201,18 +202,20 @@ export const SeedButton: React.FC = () => {
 								>
 									<span className='seedButton__icon'>{phase.icon}</span>
 									<span className='seedButton__label'>{phase.label}</span>
-									{state.loading && (
+									{state.loading ? (
 										<span className='seedButton__spinner'>⏳</span>
-									)}
-									{state.completed && (
+									) : null}
+									{state.completed ? (
 										<span className='seedButton__checkmark'>✅</span>
-									)}
-									{state.error && <span className='seedButton__error'>❌</span>}
+									) : null}
+									{state.error ? (
+										<span className='seedButton__error'>❌</span>
+									) : null}
 								</button>
 								<p className='seedPhaseDescription'>{phase.description}</p>
-								{state.error && (
+								{state.error ? (
 									<p className='seedPhaseError'>Error: {state.error}</p>
-								)}
+								) : null}
 							</div>
 						);
 					})}

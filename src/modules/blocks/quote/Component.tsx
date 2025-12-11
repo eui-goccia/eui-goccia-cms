@@ -20,7 +20,7 @@ export const QuoteBlockComponent: React.FC<{ blockData: QuoteBlock }> = ({
 			className={cn(alignmentClass, 'h-full w-full flex flex-col gap-2')}
 		>
 			<RichTextEditor data={content} enableGutter={false} enableProse={true} />
-			{author && <p className='text-sm'>{author}</p>}
+			{author ? <p className='text-sm'>{author}</p> : null}
 		</blockquote>
 	);
 };

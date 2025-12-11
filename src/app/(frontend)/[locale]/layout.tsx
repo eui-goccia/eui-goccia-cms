@@ -1,13 +1,13 @@
 import type { Metadata } from 'next';
 import { ghost, greed, tagada } from '@/modules/utilities/customFonts';
 import '@/app/(frontend)/[locale]/global.css';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
-import type { TypedLocale } from 'payload';
+import type { ReactNode } from 'react';
+import type { Locale } from '@/i18n/routing';
 import { routing } from '@/i18n/routing';
-import { Plausible } from '@/modules/analytics/plausible';
+import { PlausibleProviderWrapper } from '@/modules/analytics/plausible';
 import { LivePreviewListener } from '@/modules/components/LivePreviewListener';
 import Footer from '@/modules/components/shared/Footer';
 import Header from '@/modules/components/shared/Header';
@@ -75,20 +75,19 @@ export const metadata: Metadata = {
 };
 
 type Args = {
-	children: React.ReactNode;
+	children: ReactNode;
 	params: Promise<{
-		locale: TypedLocale;
+		locale: Locale;
 	}>;
 };
 
-export const generateStaticParams = async () => {
-	return routing.locales.map((locale) => ({ locale }));
-};
+export const generateStaticParams = async () =>
+	routing.locales.map((locale) => ({ locale }));
 
 export default async function RootLayout({ children, params }: Readonly<Args>) {
 	const { locale } = await params;
 
-	if (!routing.locales.includes(locale as TypedLocale)) {
+	if (!routing.locales.includes(locale)) {
 		notFound();
 	}
 	setRequestLocale(locale);
@@ -96,8 +95,7 @@ export default async function RootLayout({ children, params }: Readonly<Args>) {
 
 	return (
 		<html className='scroll-smooth' lang={locale}>
-			<SpeedInsights />
-			<Plausible>
+			<PlausibleProviderWrapper>
 				<NextIntlClientProvider messages={messages}>
 					<ReactLenis root>
 						<LivePreviewListener />
@@ -116,7 +114,7 @@ export default async function RootLayout({ children, params }: Readonly<Args>) {
 						</body>
 					</ReactLenis>
 				</NextIntlClientProvider>
-			</Plausible>
+			</PlausibleProviderWrapper>
 		</html>
 	);
 }

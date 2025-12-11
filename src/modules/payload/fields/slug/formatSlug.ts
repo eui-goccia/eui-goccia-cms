@@ -12,9 +12,8 @@ export const formatSlugNoSpecialChars = (val: string): string =>
 
 export const formatSlugHook =
 	(fallback: string): FieldHook =>
-	({ originalDoc, value }) => {
-		return (value ? formatSlug(value) : originalDoc.slug) || fallback;
-	};
+	({ originalDoc, value }) =>
+		(value ? formatSlug(value) : originalDoc.slug) || fallback;
 
 /**
  * Creates a slug hook that always uses the Italian locale version of the specified field

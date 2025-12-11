@@ -20,17 +20,15 @@ export const QuoteBlock: Block = {
 			type: 'richText',
 			localized: true,
 			editor: lexicalEditor({
-				features: () => {
-					return [
-						InlineToolbarFeature(),
-						BoldFeature(),
-						ItalicFeature(),
-						AlignFeature(),
-						BlockquoteFeature(),
-						LinkFeature(),
-						ParagraphFeature(),
-					];
-				},
+				features: () => [
+					InlineToolbarFeature(),
+					BoldFeature(),
+					ItalicFeature(),
+					AlignFeature(),
+					BlockquoteFeature(),
+					LinkFeature(),
+					ParagraphFeature(),
+				],
 			}),
 		},
 		{

@@ -73,6 +73,7 @@ export default buildConfig({
 		),
 		migrationDir: path.resolve(dirname, './db/migrations'),
 		prodMigrations: migrations,
+		push: false,
 		client: {
 			url: process.env.TURSO_DATABASE_URL || process.env.DATABASE_URL || '',
 			authToken: process.env.TURSO_AUTH_TOKEN,

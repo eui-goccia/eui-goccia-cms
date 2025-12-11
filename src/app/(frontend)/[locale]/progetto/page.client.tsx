@@ -63,18 +63,16 @@ export default function ProgettoClient({ project }: { project: Progetto }) {
 					</nav>
 				</aside>
 				<article className='col-start-1 lg:col-start-5 col-span-full lg:col-span-8 xl:col-span-7 flex flex-col gap-10 md:gap-20 lg:gap-24 pt-28 lg:pt-32 xl:pt-48 items-center text-3xl justify-center'>
-					{project.sections?.map((section) => {
-						return (
-							<div className='flex flex-col gap-5' key={section.url}>
-								<BlockHeading id={section.url?.substring(1)}>
-									{section.title}
-								</BlockHeading>
-								{section.content.map((block) => {
-									return <BlockRenderer block={block} key={block.id} />;
-								})}
-							</div>
-						);
-					})}
+					{project.sections?.map((section) => (
+						<div className='flex flex-col gap-5' key={section.url}>
+							<BlockHeading id={section.url?.substring(1)}>
+								{section.title}
+							</BlockHeading>
+							{section.content.map((block) => (
+								<BlockRenderer block={block} key={block.id} />
+							))}
+						</div>
+					))}
 				</article>
 			</div>
 			<div className=' hidden bg-rosa-300 grid-cols-12 gap-5 px-10 py-30'>
