@@ -11,6 +11,10 @@ export default async function SectionForest({ home }: { home: Home }) {
 	const forest = home.forest as Forest[];
 	const t = await getTranslations();
 
+	if (!forest || forest.length === 0) {
+		return null;
+	}
+
 	return (
 		<GridSection sectionTitle={t('forest')}>
 			<GridRow>

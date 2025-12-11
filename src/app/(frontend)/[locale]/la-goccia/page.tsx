@@ -2,7 +2,7 @@ import type { LaGoccia } from '@payload-types';
 import type { Locales } from '@/i18n/routing';
 import SectionBreakText from '@/modules/components/shared/SectionBreakText';
 import TimelineEvent from '@/modules/components/TimelineEvent';
-import { getCachedGlobal } from '@/modules/utilities/getGlobals';
+import { getGlobal } from '@/modules/utilities/getGlobals';
 
 type GocciaPageProps = {
 	params: Promise<{ locale: string }>;
@@ -10,7 +10,7 @@ type GocciaPageProps = {
 
 export default async function GocciaPage({ params }: GocciaPageProps) {
 	const { locale } = await params;
-	const goccia = (await getCachedGlobal(
+	const goccia = (await getGlobal(
 		'la-goccia',
 		1,
 		locale as Locales

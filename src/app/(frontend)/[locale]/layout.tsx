@@ -1,14 +1,13 @@
 import type { Metadata } from 'next';
 import { ghost, greed, tagada } from '@/modules/utilities/customFonts';
 import '@/app/(frontend)/[locale]/global.css';
-import { SpeedInsights } from '@vercel/speed-insights/next';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
-import { Suspense } from 'react';
+import type { ReactNode } from 'react';
 import type { Locale } from '@/i18n/routing';
 import { routing } from '@/i18n/routing';
-import { Plausible } from '@/modules/analytics/plausible';
+import { PlausibleProviderWrapper } from '@/modules/analytics/plausible';
 import { LivePreviewListener } from '@/modules/components/LivePreviewListener';
 import Footer from '@/modules/components/shared/Footer';
 import Header from '@/modules/components/shared/Header';
@@ -76,7 +75,7 @@ export const metadata: Metadata = {
 };
 
 type Args = {
-	children: React.ReactNode;
+	children: ReactNode;
 	params: Promise<{
 		locale: Locale;
 	}>;
@@ -96,13 +95,10 @@ export default async function RootLayout({ children, params }: Readonly<Args>) {
 
 	return (
 		<html className='scroll-smooth' lang={locale}>
-			<SpeedInsights />
-			<Plausible>
+			<PlausibleProviderWrapper>
 				<NextIntlClientProvider messages={messages}>
 					<ReactLenis root>
-						<Suspense>
-							<LivePreviewListener />
-						</Suspense>
+						<LivePreviewListener />
 						<body
 							className={cn(
 								ghost.variable,
@@ -111,22 +107,14 @@ export default async function RootLayout({ children, params }: Readonly<Args>) {
 								'antialiased flex flex-col justify-between h-dvh'
 							)}
 						>
-							<Suspense>
-								<Header />
-							</Suspense>
-							<Suspense>
-								<main className='mb-auto'>{children}</main>
-							</Suspense>
-							<Suspense>
-								<NewsletterSignup />
-							</Suspense>
-							<Suspense>
-								<Footer />
-							</Suspense>
+							<Header />
+							<main className='mb-auto'>{children}</main>
+							<NewsletterSignup />
+							<Footer />
 						</body>
 					</ReactLenis>
 				</NextIntlClientProvider>
-			</Plausible>
+			</PlausibleProviderWrapper>
 		</html>
 	);
 }

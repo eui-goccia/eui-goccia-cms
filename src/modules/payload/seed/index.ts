@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 import fs from 'node:fs';
 import path from 'node:path';
 
@@ -287,6 +288,14 @@ const getOrCreateImage = async (
 		return imageCache.get(cacheKey)!;
 	}
 
+	// Helper function to generate unique fallback filename
+	const generateUniqueFilename = (): string => {
+		const timestamp = Date.now();
+		const randomBytes = crypto.randomBytes(4).toString('hex');
+		const altHash = Buffer.from(alt).toString('base64').substring(0, 8);
+		return `fallback_${timestamp}_${randomBytes}_${altHash}.webp`;
+	};
+
 	try {
 		let fileData: Buffer;
 		let originalFilename: string;
@@ -297,18 +306,14 @@ const getOrCreateImage = async (
 			originalFilename = filename;
 		} else {
 			// Generate unique fallback filename to prevent collisions
-			const timestamp = Date.now();
-			const altHash = Buffer.from(alt).toString('base64').substring(0, 8);
-			originalFilename = `fallback_${timestamp}_${altHash}.webp`;
+			originalFilename = generateUniqueFilename();
 		}
 
 		if (!assetPath) {
 			assetPath = `images/homepage/home_1.webp`;
 			// Only change filename if we haven't already set a unique fallback
 			if (filename) {
-				const timestamp = Date.now();
-				const altHash = Buffer.from(alt).toString('base64').substring(0, 8);
-				originalFilename = `fallback_${timestamp}_${altHash}.webp`;
+				originalFilename = generateUniqueFilename();
 			}
 		}
 
@@ -323,38 +328,96 @@ const getOrCreateImage = async (
 				fileData = fs.readFileSync(resolvedFallbackPath);
 				// Ensure unique filename even for missing assets
 				if (!filename) {
-					const timestamp = Date.now();
-					const altHash = Buffer.from(alt).toString('base64').substring(0, 8);
-					originalFilename = `fallback_${timestamp}_${altHash}.webp`;
+					originalFilename = generateUniqueFilename();
 				}
 			} else {
 				throw new Error(`No fallback asset available. Tried paths: ${fallbackPath}`);
 			}
 		}
 
-		// Use filePath method for uploading local files as recommended by Payload docs
-		const result = await payload.create({
-			collection: 'images',
-			data: {
-				alt: alt,
-				caption: caption,
-			},
-			file: {
-				data: fileData,
-				mimetype: path.extname(originalFilename).toLowerCase() === '.png' ? 'image/png' : 'image/webp',
-				name: originalFilename,
-				size: fileData.length,
-			},
-		});
+		// Retry logic for handling race conditions
+		let attempts = 0;
+		const maxAttempts = 3;
+		
+		while (attempts < maxAttempts) {
+			// Check if image with this filename already exists in database (after final filename is determined)
+			if (originalFilename) {
+				const existingImages = await payload.find({
+					collection: 'images',
+					where: {
+						filename: {
+							equals: originalFilename,
+						},
+					},
+					limit: 1,
+				});
 
-		// Cache the result
-		imageCache.set(cacheKey, result.id);
-		payload.logger.info(`Created image for "${alt}" with filename "${originalFilename}"`);
-		
-		// Clear the file buffer from memory
-		fileData = Buffer.alloc(0);
-		
-		return result.id;
+				if (existingImages.docs.length > 0) {
+					const existingId = existingImages.docs[0].id as string;
+					// Cache the result
+					imageCache.set(cacheKey, existingId);
+					payload.logger.info(`Found existing image for "${alt}" with filename "${originalFilename}"`);
+					return existingId;
+				}
+			}
+
+			try {
+				// Use filePath method for uploading local files as recommended by Payload docs
+				const result = await payload.create({
+					collection: 'images',
+					data: {
+						alt: alt,
+						caption: caption,
+					},
+					file: {
+						data: fileData,
+						mimetype: path.extname(originalFilename).toLowerCase() === '.png' ? 'image/png' : 'image/webp',
+						name: originalFilename,
+						size: fileData.length,
+					},
+				});
+
+				// Cache the result
+				imageCache.set(cacheKey, result.id);
+				payload.logger.info(`Created image for "${alt}" with filename "${originalFilename}"`);
+				
+				// Clear the file buffer from memory
+				fileData = Buffer.alloc(0);
+				
+				return result.id;
+			} catch (createError: unknown) {
+				// Check if it's a duplicate filename validation error
+				const isDuplicateError = 
+					createError &&
+					typeof createError === 'object' &&
+					'name' in createError &&
+					createError.name === 'ValidationError' &&
+					'data' in createError &&
+					createError.data &&
+					typeof createError.data === 'object' &&
+					'errors' in createError.data &&
+					Array.isArray(createError.data.errors) &&
+					createError.data.errors.some((err: unknown) => 
+						err &&
+						typeof err === 'object' &&
+						'path' in err &&
+						err.path === 'filename'
+					);
+
+				if (isDuplicateError && attempts < maxAttempts - 1) {
+					// Generate a new unique filename and retry
+					originalFilename = generateUniqueFilename();
+					attempts++;
+					payload.logger.warn(`Duplicate filename detected for "${alt}", retrying with new filename: "${originalFilename}"`);
+					continue;
+				}
+				
+				// If it's not a duplicate error or we've exhausted retries, throw
+				throw createError;
+			}
+		}
+
+		throw new Error(`Failed to create image after ${maxAttempts} attempts`);
 	} catch (error) {
 		payload.logger.error(`Error creating image "${alt}": ${error}`);
 		throw error;
