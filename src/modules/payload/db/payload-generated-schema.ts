@@ -830,7 +830,6 @@ export const _posts_v = sqliteTable(
     snapshot: integer("snapshot", { mode: "boolean" }),
     publishedLocale: text("published_locale", { enum: ["en", "it"] }),
     latest: integer("latest", { mode: "boolean" }),
-    autosave: integer("autosave", { mode: "boolean" }),
   },
   (columns) => [
     index("_posts_v_parent_idx").on(columns.parent),
@@ -851,7 +850,6 @@ export const _posts_v = sqliteTable(
     index("_posts_v_snapshot_idx").on(columns.snapshot),
     index("_posts_v_published_locale_idx").on(columns.publishedLocale),
     index("_posts_v_latest_idx").on(columns.latest),
-    index("_posts_v_autosave_idx").on(columns.autosave),
   ],
 );
 
