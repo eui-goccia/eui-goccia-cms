@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { Link } from '@/i18n/routing';
 import LogoGoccia from '@/modules/components/logos/LogoGoccia';
 
-// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: faster to write
 export default function Header() {
 	const [menuIsOpen, setMenuIsOpen] = useState(false);
 	const pathname = usePathname();

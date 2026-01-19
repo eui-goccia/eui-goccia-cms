@@ -1,9 +1,9 @@
 import mask from '@public/images/meta/BreakText.webp';
 import Image from 'next/image';
 
-type SectionProps = {
+interface SectionProps {
 	text: string;
-};
+}
 
 export default function SectionBreakText({ text }: SectionProps) {
 	return (

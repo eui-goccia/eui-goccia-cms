@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { cn } from '@/modules/utilities/cnUtils';
 
-type Props = {
+interface Props {
 	image: ImageType | undefined;
 	size: 'thumbnail' | 'medium' | 'large' | 'og' | 'xlarge';
 	alt?: string;
@@ -16,9 +16,8 @@ type Props = {
 	priority?: boolean;
 	loading?: 'lazy' | 'eager';
 	showCaption?: boolean;
-};
+}
 
-// biome-ignore lint/complexity/noExcessiveCognitiveComplexity: faster to write
 export function CustomImage({
 	image,
 	alt,

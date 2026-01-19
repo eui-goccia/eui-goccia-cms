@@ -8,9 +8,9 @@ import SectionWhat from '@/modules/components/home/SectionWhat';
 import SectionBreakStroke from '@/modules/components/shared/SectionBreakStroke';
 import { getGlobal } from '@/modules/utilities/getGlobals';
 
-type HomeProps = {
+interface HomeProps {
 	params: Promise<{ locale: string }>;
-};
+}
 
 export default async function Home({ params }: HomeProps) {
 	const { locale } = await params;

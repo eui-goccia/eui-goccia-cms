@@ -4,9 +4,9 @@ import SectionBreakText from '@/modules/components/shared/SectionBreakText';
 import TimelineEvent from '@/modules/components/TimelineEvent';
 import { getGlobal } from '@/modules/utilities/getGlobals';
 
-type GocciaPageProps = {
+interface GocciaPageProps {
 	params: Promise<{ locale: string }>;
-};
+}
 
 export default async function GocciaPage({ params }: GocciaPageProps) {
 	const { locale } = await params;

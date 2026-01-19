@@ -10,9 +10,9 @@ import { BlockRenderer } from '@/modules/blocks/BlockRenderer';
 import HeaderArticle from '@/modules/components/HeaderArticle';
 import { getDocument, getDocuments } from '@/modules/utilities/getDocument';
 
-type PageProps = {
+interface PageProps {
 	params: Promise<{ slug: string; locale: string }>;
-};
+}
 
 export async function generateStaticParams() {
 	const slugSet = new Set<string>();

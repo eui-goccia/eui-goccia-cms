@@ -1,11 +1,11 @@
 import type { Image as ImageType } from '@payload-types';
 import { CustomImage } from './CustomImage';
 
-type CellVisualProps = {
+interface CellVisualProps {
 	srcImage: ImageType | null;
 	altContent?: string | null;
 	credits?: string | null;
-};
+}
 
 export default function CellVisual({
 	srcImage,

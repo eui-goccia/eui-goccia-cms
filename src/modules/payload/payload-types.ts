@@ -251,7 +251,7 @@ export interface Post {
   title: string;
   description?: string | null;
   tags?: (string | Tag)[] | null;
-  content: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | GridBlock)[];
+  content: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | VideoBlock | GridBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -364,6 +364,25 @@ export interface ImageBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'image';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoBlock".
+ */
+export interface VideoBlock {
+  /**
+   * Supporta YouTube, Vimeo, Dailymotion, SoundCloud, Twitch, e altri servizi
+   */
+  url: string;
+  title?: string | null;
+  caption?: string | null;
+  light?: boolean | null;
+  aspectRatio?: ('16/9' | '4/3' | '1/1' | '9/16') | null;
+  width?: ('full' | 'half' | 'third') | null;
+  horizontal?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'video';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -689,6 +708,7 @@ export interface PostsSelect<T extends boolean = true> {
         richText?: T | RichTextBlockSelect<T>;
         quote?: T | QuoteBlockSelect<T>;
         image?: T | ImageBlockSelect<T>;
+        video?: T | VideoBlockSelect<T>;
         grid?: T | GridBlockSelect<T>;
       };
   meta?:
@@ -749,6 +769,21 @@ export interface ImageBlockSelect<T extends boolean = true> {
   image?: T;
   width?: T;
   vertical?: T;
+  horizontal?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "VideoBlock_select".
+ */
+export interface VideoBlockSelect<T extends boolean = true> {
+  url?: T;
+  title?: T;
+  caption?: T;
+  light?: T;
+  aspectRatio?: T;
+  width?: T;
   horizontal?: T;
   id?: T;
   blockName?: T;
@@ -940,7 +975,7 @@ export interface Progetto {
   sections?:
     | {
         title: string;
-        content: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | GridBlock)[];
+        content: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | VideoBlock | GridBlock)[];
         url: string;
         id?: string | null;
       }[]
@@ -1045,6 +1080,7 @@ export interface ProgettoSelect<T extends boolean = true> {
               richText?: T | RichTextBlockSelect<T>;
               quote?: T | QuoteBlockSelect<T>;
               image?: T | ImageBlockSelect<T>;
+              video?: T | VideoBlockSelect<T>;
               grid?: T | GridBlockSelect<T>;
             };
         url?: T;

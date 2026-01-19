@@ -2,7 +2,6 @@
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
     "includes": [
-      "**",
       "!**/importMap.js",
       "!**/global.css",
       "!**/.next",

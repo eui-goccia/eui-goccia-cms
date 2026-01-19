@@ -1,7 +1,7 @@
-type WordsProps = {
+interface WordsProps {
 	initial?: string;
 	text: string;
-};
+}
 
 export default function MarqueeLogo() {
 	const words: WordsProps[] = [

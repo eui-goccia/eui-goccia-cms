@@ -5,9 +5,9 @@ import CardArticle from '@/modules/components/CardArticle';
 import type { Post } from '@/modules/payload/payload-types';
 import { getDocuments } from '@/modules/utilities/getDocument';
 
-type BlogProps = {
+interface BlogProps {
 	params: Promise<{ locale: string }>;
-};
+}
 
 import { Suspense } from 'react';
 

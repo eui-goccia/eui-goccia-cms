@@ -3,9 +3,9 @@ import { getLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 import { CustomImage } from './CustomImage';
 
-type CardArticleProps = {
+interface CardArticleProps {
 	post: Post;
-};
+}
 
 export default async function CardArticle({ post }: CardArticleProps) {
 	const locale = await getLocale();

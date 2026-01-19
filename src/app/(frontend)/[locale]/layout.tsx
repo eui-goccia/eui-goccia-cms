@@ -74,12 +74,12 @@ export const metadata: Metadata = {
 	metadataBase: new URL('https://eui-goccia.eu'),
 };
 
-type Args = {
+interface Args {
 	children: ReactNode;
 	params: Promise<{
 		locale: Locale;
 	}>;
-};
+}
 
 export const generateStaticParams = async () =>
 	routing.locales.map((locale) => ({ locale }));

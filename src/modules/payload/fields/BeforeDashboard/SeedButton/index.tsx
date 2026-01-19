@@ -25,11 +25,11 @@ type SeedPhase =
 	| 'home'
 	| 'all';
 
-type PhaseState = {
+interface PhaseState {
 	loading: boolean;
 	completed: boolean;
 	error: string | null;
-};
+}
 
 const SEED_PHASES: Array<{
 	key: SeedPhase;
@@ -179,7 +179,6 @@ export const SeedButton: React.FC = () => {
 				</p>
 
 				<div className='seedPhases'>
-					{/** biome-ignore lint/complexity/noExcessiveCognitiveComplexity: faster to write */}
 					{SEED_PHASES.map((phase) => {
 						const state = phaseStates[phase.key];
 						const statusClass = state.loading

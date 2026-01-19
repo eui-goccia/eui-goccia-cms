@@ -5,14 +5,14 @@ import LogoEU from '../logos/LogoEU';
 import LogoEUI from '../logos/LogoEUI';
 import LogoGoccia from '../logos/LogoGoccia';
 
-type PagesProps = {
+interface PagesProps {
 	name: string;
 	url: string;
-};
-type SocialsProp = {
+}
+interface SocialsProp {
 	name: string;
 	url: string;
-};
+}
 
 const socials: SocialsProp[] = [
 	{

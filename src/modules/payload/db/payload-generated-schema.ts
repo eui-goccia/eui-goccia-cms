@@ -356,6 +356,58 @@ export const posts_blocks_image = sqliteTable(
   ],
 );
 
+export const posts_blocks_video = sqliteTable(
+  "posts_blocks_video",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id").primaryKey(),
+    url: text("url"),
+    light: integer("light", { mode: "boolean" }).default(true),
+    aspectRatio: text("aspect_ratio", {
+      enum: ["16/9", "4/3", "1/1", "9/16"],
+    }).default("16/9"),
+    width: text("width", { enum: ["full", "half", "third"] }).default("full"),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("center"),
+    blockName: text("block_name"),
+  },
+  (columns) => [
+    index("posts_blocks_video_order_idx").on(columns._order),
+    index("posts_blocks_video_parent_id_idx").on(columns._parentID),
+    index("posts_blocks_video_path_idx").on(columns._path),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [posts.id],
+      name: "posts_blocks_video_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const posts_blocks_video_locales = sqliteTable(
+  "posts_blocks_video_locales",
+  {
+    title: text("title"),
+    caption: text("caption"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex("posts_blocks_video_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [posts_blocks_video.id],
+      name: "posts_blocks_video_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
 export const posts_blocks_grid = sqliteTable(
   "posts_blocks_grid",
   {
@@ -652,6 +704,61 @@ export const _posts_v_blocks_image = sqliteTable(
       columns: [columns["_parentID"]],
       foreignColumns: [_posts_v.id],
       name: "_posts_v_blocks_image_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _posts_v_blocks_video = sqliteTable(
+  "_posts_v_blocks_video",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    url: text("url"),
+    light: integer("light", { mode: "boolean" }).default(true),
+    aspectRatio: text("aspect_ratio", {
+      enum: ["16/9", "4/3", "1/1", "9/16"],
+    }).default("16/9"),
+    width: text("width", { enum: ["full", "half", "third"] }).default("full"),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("center"),
+    _uuid: text("_uuid"),
+    blockName: text("block_name"),
+  },
+  (columns) => [
+    index("_posts_v_blocks_video_order_idx").on(columns._order),
+    index("_posts_v_blocks_video_parent_id_idx").on(columns._parentID),
+    index("_posts_v_blocks_video_path_idx").on(columns._path),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_posts_v.id],
+      name: "_posts_v_blocks_video_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _posts_v_blocks_video_locales = sqliteTable(
+  "_posts_v_blocks_video_locales",
+  {
+    title: text("title"),
+    caption: text("caption"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex("_posts_v_blocks_video_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_posts_v_blocks_video.id],
+      name: "_posts_v_blocks_video_locales_parent_id_fk",
     }).onDelete("cascade"),
   ],
 );
@@ -1460,6 +1567,58 @@ export const progetto_blocks_image = sqliteTable(
   ],
 );
 
+export const progetto_blocks_video = sqliteTable(
+  "progetto_blocks_video",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id").primaryKey(),
+    url: text("url").notNull(),
+    light: integer("light", { mode: "boolean" }).default(true),
+    aspectRatio: text("aspect_ratio", {
+      enum: ["16/9", "4/3", "1/1", "9/16"],
+    }).default("16/9"),
+    width: text("width", { enum: ["full", "half", "third"] }).default("full"),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("center"),
+    blockName: text("block_name"),
+  },
+  (columns) => [
+    index("progetto_blocks_video_order_idx").on(columns._order),
+    index("progetto_blocks_video_parent_id_idx").on(columns._parentID),
+    index("progetto_blocks_video_path_idx").on(columns._path),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [progetto.id],
+      name: "progetto_blocks_video_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const progetto_blocks_video_locales = sqliteTable(
+  "progetto_blocks_video_locales",
+  {
+    title: text("title"),
+    caption: text("caption"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex("progetto_blocks_video_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [progetto_blocks_video.id],
+      name: "progetto_blocks_video_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
 export const progetto_blocks_grid = sqliteTable(
   "progetto_blocks_grid",
   {
@@ -1810,6 +1969,29 @@ export const relations_posts_blocks_image = relations(
     }),
   }),
 );
+export const relations_posts_blocks_video_locales = relations(
+  posts_blocks_video_locales,
+  ({ one }) => ({
+    _parentID: one(posts_blocks_video, {
+      fields: [posts_blocks_video_locales._parentID],
+      references: [posts_blocks_video.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_posts_blocks_video = relations(
+  posts_blocks_video,
+  ({ one, many }) => ({
+    _parentID: one(posts, {
+      fields: [posts_blocks_video._parentID],
+      references: [posts.id],
+      relationName: "_blocks_video",
+    }),
+    _locales: many(posts_blocks_video_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
 export const relations_posts_blocks_grid = relations(
   posts_blocks_grid,
   ({ one }) => ({
@@ -1856,6 +2038,9 @@ export const relations_posts = relations(posts, ({ one, many }) => ({
   }),
   _blocks_image: many(posts_blocks_image, {
     relationName: "_blocks_image",
+  }),
+  _blocks_video: many(posts_blocks_video, {
+    relationName: "_blocks_video",
   }),
   _blocks_grid: many(posts_blocks_grid, {
     relationName: "_blocks_grid",
@@ -1961,6 +2146,29 @@ export const relations__posts_v_blocks_image = relations(
     }),
   }),
 );
+export const relations__posts_v_blocks_video_locales = relations(
+  _posts_v_blocks_video_locales,
+  ({ one }) => ({
+    _parentID: one(_posts_v_blocks_video, {
+      fields: [_posts_v_blocks_video_locales._parentID],
+      references: [_posts_v_blocks_video.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations__posts_v_blocks_video = relations(
+  _posts_v_blocks_video,
+  ({ one, many }) => ({
+    _parentID: one(_posts_v, {
+      fields: [_posts_v_blocks_video._parentID],
+      references: [_posts_v.id],
+      relationName: "_blocks_video",
+    }),
+    _locales: many(_posts_v_blocks_video_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
 export const relations__posts_v_blocks_grid = relations(
   _posts_v_blocks_grid,
   ({ one }) => ({
@@ -2015,6 +2223,9 @@ export const relations__posts_v = relations(_posts_v, ({ one, many }) => ({
   }),
   _blocks_image: many(_posts_v_blocks_image, {
     relationName: "_blocks_image",
+  }),
+  _blocks_video: many(_posts_v_blocks_video, {
+    relationName: "_blocks_video",
   }),
   _blocks_grid: many(_posts_v_blocks_grid, {
     relationName: "_blocks_grid",
@@ -2324,6 +2535,29 @@ export const relations_progetto_blocks_image = relations(
     }),
   }),
 );
+export const relations_progetto_blocks_video_locales = relations(
+  progetto_blocks_video_locales,
+  ({ one }) => ({
+    _parentID: one(progetto_blocks_video, {
+      fields: [progetto_blocks_video_locales._parentID],
+      references: [progetto_blocks_video.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_progetto_blocks_video = relations(
+  progetto_blocks_video,
+  ({ one, many }) => ({
+    _parentID: one(progetto, {
+      fields: [progetto_blocks_video._parentID],
+      references: [progetto.id],
+      relationName: "_blocks_video",
+    }),
+    _locales: many(progetto_blocks_video_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
 export const relations_progetto_blocks_grid = relations(
   progetto_blocks_grid,
   ({ one }) => ({
@@ -2369,6 +2603,9 @@ export const relations_progetto = relations(progetto, ({ many }) => ({
   }),
   _blocks_image: many(progetto_blocks_image, {
     relationName: "_blocks_image",
+  }),
+  _blocks_video: many(progetto_blocks_video, {
+    relationName: "_blocks_video",
   }),
   _blocks_grid: many(progetto_blocks_grid, {
     relationName: "_blocks_grid",
@@ -2479,6 +2716,8 @@ type DatabaseSchema = {
   posts_blocks_quote: typeof posts_blocks_quote;
   posts_blocks_quote_locales: typeof posts_blocks_quote_locales;
   posts_blocks_image: typeof posts_blocks_image;
+  posts_blocks_video: typeof posts_blocks_video;
+  posts_blocks_video_locales: typeof posts_blocks_video_locales;
   posts_blocks_grid: typeof posts_blocks_grid;
   posts: typeof posts;
   posts_locales: typeof posts_locales;
@@ -2490,6 +2729,8 @@ type DatabaseSchema = {
   _posts_v_blocks_quote: typeof _posts_v_blocks_quote;
   _posts_v_blocks_quote_locales: typeof _posts_v_blocks_quote_locales;
   _posts_v_blocks_image: typeof _posts_v_blocks_image;
+  _posts_v_blocks_video: typeof _posts_v_blocks_video;
+  _posts_v_blocks_video_locales: typeof _posts_v_blocks_video_locales;
   _posts_v_blocks_grid: typeof _posts_v_blocks_grid;
   _posts_v: typeof _posts_v;
   _posts_v_locales: typeof _posts_v_locales;
@@ -2519,6 +2760,8 @@ type DatabaseSchema = {
   progetto_blocks_quote: typeof progetto_blocks_quote;
   progetto_blocks_quote_locales: typeof progetto_blocks_quote_locales;
   progetto_blocks_image: typeof progetto_blocks_image;
+  progetto_blocks_video: typeof progetto_blocks_video;
+  progetto_blocks_video_locales: typeof progetto_blocks_video_locales;
   progetto_blocks_grid: typeof progetto_blocks_grid;
   progetto_sections: typeof progetto_sections;
   progetto_sections_locales: typeof progetto_sections_locales;
@@ -2542,6 +2785,8 @@ type DatabaseSchema = {
   relations_posts_blocks_quote_locales: typeof relations_posts_blocks_quote_locales;
   relations_posts_blocks_quote: typeof relations_posts_blocks_quote;
   relations_posts_blocks_image: typeof relations_posts_blocks_image;
+  relations_posts_blocks_video_locales: typeof relations_posts_blocks_video_locales;
+  relations_posts_blocks_video: typeof relations_posts_blocks_video;
   relations_posts_blocks_grid: typeof relations_posts_blocks_grid;
   relations_posts_locales: typeof relations_posts_locales;
   relations_posts_rels: typeof relations_posts_rels;
@@ -2553,6 +2798,8 @@ type DatabaseSchema = {
   relations__posts_v_blocks_quote_locales: typeof relations__posts_v_blocks_quote_locales;
   relations__posts_v_blocks_quote: typeof relations__posts_v_blocks_quote;
   relations__posts_v_blocks_image: typeof relations__posts_v_blocks_image;
+  relations__posts_v_blocks_video_locales: typeof relations__posts_v_blocks_video_locales;
+  relations__posts_v_blocks_video: typeof relations__posts_v_blocks_video;
   relations__posts_v_blocks_grid: typeof relations__posts_v_blocks_grid;
   relations__posts_v_locales: typeof relations__posts_v_locales;
   relations__posts_v_rels: typeof relations__posts_v_rels;
@@ -2582,6 +2829,8 @@ type DatabaseSchema = {
   relations_progetto_blocks_quote_locales: typeof relations_progetto_blocks_quote_locales;
   relations_progetto_blocks_quote: typeof relations_progetto_blocks_quote;
   relations_progetto_blocks_image: typeof relations_progetto_blocks_image;
+  relations_progetto_blocks_video_locales: typeof relations_progetto_blocks_video_locales;
+  relations_progetto_blocks_video: typeof relations_progetto_blocks_video;
   relations_progetto_blocks_grid: typeof relations_progetto_blocks_grid;
   relations_progetto_sections_locales: typeof relations_progetto_sections_locales;
   relations_progetto_sections: typeof relations_progetto_sections;
