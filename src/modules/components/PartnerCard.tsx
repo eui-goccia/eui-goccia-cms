@@ -2,13 +2,13 @@ import type { Image } from '@payload-types';
 import { cn } from '@/modules/utilities/cnUtils';
 import { CustomImage } from './CustomImage';
 
-type PartnerCardProps = {
+interface PartnerCardProps {
 	bgColor: string;
 	partnerName: string;
 	partnerBio: string;
 	logo: Image;
 	members?: string | null;
-};
+}
 
 export default function PartnerCard({
 	bgColor,

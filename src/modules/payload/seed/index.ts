@@ -3,25 +3,26 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 import type { BasePayload, PayloadRequest } from 'payload';
-import type { 
+import type {
 	About,
 	Author,
 	GridBlock,
-	Home, 
-	Image, 
-	ImageBlock, 
-	LaGoccia, 
-	Post, 
-	Progetto, 
-	QuoteBlock, 
-	RichTextBlock, 
-	TextBlock
+	Home,
+	Image,
+	ImageBlock,
+	LaGoccia,
+	Post,
+	Progetto,
+	QuoteBlock,
+	RichTextBlock,
+	TextBlock,
+	VideoBlock
 } from '../payload-types';
 
 // Import from our centralized data file
 import { getDataForLocale } from './data';
 
-type ContentBlock = TextBlock | RichTextBlock | QuoteBlock | ImageBlock | GridBlock;
+type ContentBlock = TextBlock | RichTextBlock | QuoteBlock | ImageBlock | GridBlock | VideoBlock;
 type GridItem = ImageBlock | TextBlock | RichTextBlock;
 
 // Cache for created images to avoid duplicates
@@ -563,13 +564,13 @@ const processContentBlocks = async (
 							gridBlock.items.map(async (item: GridItem): Promise<GridItem> => {
 								if (item.blockType === 'image') {
 									const imageItem = item as ImageBlock;
-									const imageData = typeof imageItem.image === 'string' 
+									const imageData = typeof imageItem.image === 'string'
 										? { alt: 'Grid Image', caption: '', filename: undefined }
 										: imageItem.image as Image;
 
 									const imageId = await getOrCreateImage(
-										payload, 
-										imageData.alt || '', 
+										payload,
+										imageData.alt || '',
 										imageData.caption || '',
 										imageData.filename || undefined
 									);
@@ -609,8 +610,13 @@ const processContentBlocks = async (
 					}
 					break;
 				}
+
+				case 'video': {
+					// Video blocks don't need any special processing
+					return cleanBlock;
+				}
 			}
-			
+
 			return cleanBlock;
 		})
 	);

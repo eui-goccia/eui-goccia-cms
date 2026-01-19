@@ -4,11 +4,11 @@ const collectionPrefixMap: Partial<Record<CollectionSlug, string>> = {
 	posts: '/blog',
 };
 
-type Props = {
+interface Props {
 	collection: keyof typeof collectionPrefixMap;
 	slug: string;
 	req: PayloadRequest;
-};
+}
 
 export const generatePreviewPath = ({ collection, slug }: Props) => {
 	const encodedParams = new URLSearchParams({

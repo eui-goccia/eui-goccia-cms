@@ -36,7 +36,7 @@ type NodeTypes =
 	| DefaultNodeTypes
 	| SerializedBlockNode<QuoteBlock | ImageBlock | TextBlock | GridBlock>;
 
-type LinkField = {
+interface LinkField {
 	linkType: 'custom' | 'internal' | string;
 	newTab?: boolean;
 	url?: string;
@@ -46,7 +46,7 @@ type LinkField = {
 			| { slug: string; [key: string]: unknown };
 		relationTo?: string;
 	};
-};
+}
 
 const CustomLinkConverter: JSXConverter<SerializedLinkNode> = async ({
 	node,

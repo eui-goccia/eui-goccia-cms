@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react';
 import { cn } from '@/modules/utilities/cnUtils';
 
-type GridRowProps = {
+interface GridRowProps {
 	children: ReactNode;
 	customClass?: string;
 	invertOrder?: boolean;
-};
+}
 
 export default function GridRow({
 	customClass,

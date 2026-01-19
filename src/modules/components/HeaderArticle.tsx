@@ -1,12 +1,12 @@
 import type { Author, Image } from '@payload-types';
 import { CustomImage } from './CustomImage';
 
-type HeaderProps = {
+interface HeaderProps {
 	title: string;
 	coverImage: Image;
 	author: string | Author;
 	publishedAt: string;
-};
+}
 
 export default function HeaderArticle({
 	title,

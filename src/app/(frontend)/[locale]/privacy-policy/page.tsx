@@ -1,9 +1,9 @@
 import { setRequestLocale } from 'next-intl/server';
 import type { Locale } from '@/i18n/routing';
 
-type PrivacyPolicyProps = {
+interface PrivacyPolicyProps {
 	params: Promise<{ locale: Locale }>;
-};
+}
 
 export default async function PrivacyPolicy({ params }: PrivacyPolicyProps) {
 	const { locale } = await params;

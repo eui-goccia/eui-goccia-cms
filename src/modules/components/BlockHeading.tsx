@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react';
 
-type HeadingProps = {
+interface HeadingProps {
 	children: ReactNode;
 	id?: string;
-};
+}
 
 export default function BlockHeading({ children, id }: HeadingProps) {
 	return (

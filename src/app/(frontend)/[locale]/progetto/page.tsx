@@ -3,9 +3,9 @@ import type { Locales } from '@/i18n/routing';
 import { getGlobal } from '@/modules/utilities/getGlobals';
 import ProgettoClient from './page.client';
 
-type ProgettoPageProps = {
+interface ProgettoPageProps {
 	params: Promise<{ locale: string }>;
-};
+}
 
 export default async function ProgettoPage({ params }: ProgettoPageProps) {
 	const { locale } = await params;

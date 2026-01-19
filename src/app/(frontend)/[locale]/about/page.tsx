@@ -4,9 +4,9 @@ import PartnerCard from '@/modules/components/PartnerCard';
 import SectionBreakFill from '@/modules/components/shared/SectionBreakFill';
 import { getGlobal } from '@/modules/utilities/getGlobals';
 
-type AboutPageProps = {
+interface AboutPageProps {
 	params: Promise<{ locale: string }>;
-};
+}
 
 export default async function ChiSiamo({ params }: AboutPageProps) {
 	const { locale } = await params;

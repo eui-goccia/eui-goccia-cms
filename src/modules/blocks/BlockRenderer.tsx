@@ -4,6 +4,7 @@ import type {
 	QuoteBlock,
 	RichTextBlock,
 	TextBlock,
+	VideoBlock,
 } from '@payload-types';
 import type React from 'react';
 import { GridBlockComponent } from './grid/Component';
@@ -11,21 +12,29 @@ import { ImageBlockComponent } from './image/Component';
 import { QuoteBlockComponent } from './quote/Component';
 import { RichTextBlockComponent } from './richText/Component';
 import { TextBlockComponent } from './text/Component';
+import { VideoBlockComponent } from './video/Component';
 
-type Block = TextBlock | RichTextBlock | QuoteBlock | ImageBlock | GridBlock;
+type Block =
+	| TextBlock
+	| RichTextBlock
+	| QuoteBlock
+	| ImageBlock
+	| VideoBlock
+	| GridBlock;
 
 const blockComponents = {
 	text: TextBlockComponent,
 	richText: RichTextBlockComponent,
 	quote: QuoteBlockComponent,
 	image: ImageBlockComponent,
+	video: VideoBlockComponent,
 	grid: GridBlockComponent,
 };
 
-type BlockRendererProps = {
+interface BlockRendererProps {
 	block: Block;
 	className?: string;
-};
+}
 
 export const BlockRenderer: React.FC<BlockRendererProps> = ({
 	block,

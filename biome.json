@@ -2,7 +2,6 @@
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
     "includes": [
-      "**",
       "!**/importMap.js",
       "!**/global.css",
       "!**/.next",
@@ -108,5 +107,9 @@
   "assist": {
     "enabled": true
   },
-  "extends": ["ultracite/core", "ultracite/react", "ultracite/next"]
+  "extends": [
+    "ultracite/biome/core",
+    "ultracite/biome/react",
+    "ultracite/biome/next"
+  ]
 }
