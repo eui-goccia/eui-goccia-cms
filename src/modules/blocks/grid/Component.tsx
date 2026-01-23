@@ -14,7 +14,15 @@ export const GridBlockComponent: React.FC<{
 		return null;
 	}
 
-	const gridColsClass = `grid-cols-${items.length > 4 ? 4 : items.length}`; // Max 4 columns
+	// Explicit class map for Tailwind JIT compilation
+	const gridColsMap: Record<number, string> = {
+		1: 'grid-cols-1',
+		2: 'grid-cols-2',
+		3: 'grid-cols-3',
+		4: 'grid-cols-4',
+	};
+	const colCount = Math.min(items.length, 4);
+	const gridColsClass = gridColsMap[colCount] || 'grid-cols-4';
 	return (
 		<div
 			className={cn('grid w-full grid-cols-3 gap-4', gridColsClass, className)}

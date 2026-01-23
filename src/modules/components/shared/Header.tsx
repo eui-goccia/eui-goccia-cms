@@ -12,6 +12,7 @@ export default function Header() {
 	const t = useTranslations();
 	const locale = useLocale();
 
+	// Functional setState for correctness (React Compiler handles memoization)
 	const toggleMenu = () => {
 		setMenuIsOpen((prev) => !prev);
 	};

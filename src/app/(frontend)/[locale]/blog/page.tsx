@@ -9,8 +9,6 @@ interface BlogProps {
 	params: Promise<{ locale: string }>;
 }
 
-import { Suspense } from 'react';
-
 export default async function Blog({ params }: BlogProps) {
 	const { locale } = await params;
 	const { isEnabled: draft } = await draftMode();
@@ -24,14 +22,12 @@ export default async function Blog({ params }: BlogProps) {
 	})) as PaginatedDocs<Post>;
 
 	return (
-		<Suspense fallback={null}>
-			<main className='mb-auto px-10 bg-blue-500'>
-				<div className='pb-28 lg:pb-32 pt-24 gap-5 lg:columns-3 md:columns-2 columns-1 space-y-4 break-inside-avoid-column'>
-					{posts.docs.map((post) => (
-						<CardArticle key={post.id} post={post} />
-					))}
-				</div>
-			</main>
-		</Suspense>
+		<main className='mb-auto px-10 bg-blue-500'>
+			<div className='pb-28 lg:pb-32 pt-24 gap-5 lg:columns-3 md:columns-2 columns-1 space-y-4 break-inside-avoid-column'>
+				{posts.docs.map((post) => (
+					<CardArticle key={post.id} post={post} />
+				))}
+			</div>
+		</main>
 	);
 }

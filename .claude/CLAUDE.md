@@ -1,123 +1,102 @@
-# Ultracite Code Standards
+# CLAUDE.md
 
-This project uses **Ultracite**, a zero-config preset that enforces strict code quality standards through automated formatting and linting.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Quick Reference
+## Project Overview
 
-- **Format code**: `pnpm dlx ultracite fix`
-- **Check for issues**: `pnpm dlx ultracite check`
-- **Diagnose setup**: `pnpm dlx ultracite doctor`
+La Goccia is a headless CMS application built with Next.js 16 and Payload CMS 3. It's a multilingual (Italian/English) content management system with a public frontend and admin interface.
 
-Biome (the underlying engine) provides robust linting and formatting. Most issues are automatically fixable.
+**Stack:** Next.js 16 + React 19 + Payload CMS 3 + SQLite/Turso + S3 Storage + Tailwind CSS 4 + shadcn/ui
 
----
+## Commands
 
-## Core Principles
+```bash
+# Development
+pnpm dev              # Start dev server with Turbopack (runs migrations first)
+pnpm devsafe          # Clear .next cache and start dev server
 
-Write code that is **accessible, performant, type-safe, and maintainable**. Focus on clarity and explicit intent over brevity.
+# Build & Production
+pnpm build            # Run migrations and build for production
+pnpm start            # Start production server
 
-### Type Safety & Explicitness
+# Code Quality
+pnpm fix              # Auto-fix linting/formatting with Ultracite/Biome
+pnpm typecheck        # TypeScript type checking
 
-- Use explicit types for function parameters and return values when they enhance clarity
-- Prefer `unknown` over `any` when the type is genuinely unknown
-- Use const assertions (`as const`) for immutable values and literal types
-- Leverage TypeScript's type narrowing instead of type assertions
-- Use meaningful variable names instead of magic numbers - extract constants with descriptive names
+# Payload CMS
+pnpm generate:types   # Regenerate Payload TypeScript types
+pnpm generate:importmap  # Regenerate Payload import map
 
-### Modern JavaScript/TypeScript
+# Database (Docker/MinIO for local dev)
+pnpm db:up            # Start MinIO S3 container
+pnpm db:down          # Stop MinIO container
+pnpm db:purge         # Reset database and S3 storage
+pnpm cleanup          # Full reset (db + .next + node_modules)
+```
 
-- Use arrow functions for callbacks and short functions
-- Prefer `for...of` loops over `.forEach()` and indexed `for` loops
-- Use optional chaining (`?.`) and nullish coalescing (`??`) for safer property access
-- Prefer template literals over string concatenation
-- Use destructuring for object and array assignments
-- Use `const` by default, `let` only when reassignment is needed, never `var`
+## Architecture
 
-### Async & Promises
+### Directory Structure
 
-- Always `await` promises in async functions - don't forget to use the return value
-- Use `async/await` syntax instead of promise chains for better readability
-- Handle errors appropriately in async code with try-catch blocks
-- Don't use async functions as Promise executors
+```
+src/
+├── app/
+│   ├── (frontend)/[locale]/    # Public pages with i18n routing
+│   └── (payload)/admin/        # Payload CMS admin panel
+├── i18n/                       # Internationalization config and messages
+└── modules/                    # Feature modules (domain-organized)
+    ├── blocks/                 # Content block types (text, image, video, quote, grid)
+    ├── components/             # UI components (shadcn/ui in ui/, shared components)
+    ├── payload/                # CMS config, collections, globals, migrations
+    ├── posts/                  # Blog posts collection and revalidation
+    ├── storage/                # S3 storage plugin and image collection
+    ├── settings/               # Global page settings (home, about, project, goccia)
+    └── utilities/              # Helper functions
+```
 
-### React & JSX
+### Path Aliases
 
-- Use function components over class components
-- Call hooks at the top level only, never conditionally
-- Specify all dependencies in hook dependency arrays correctly
-- Use the `key` prop for elements in iterables (prefer unique IDs over array indices)
-- Nest children between opening and closing tags instead of passing as props
-- Don't define components inside other components
-- Use semantic HTML and ARIA attributes for accessibility:
-  - Provide meaningful alt text for images
-  - Use proper heading hierarchy
-  - Add labels for form inputs
-  - Include keyboard event handlers alongside mouse events
-  - Use semantic elements (`<button>`, `<nav>`, etc.) instead of divs with roles
+```
+@/*              → ./src/*
+@public/*        → ./public/*
+@payload-config  → ./src/modules/payload/payload.config.ts
+@payload-types   → ./src/modules/payload/payload-types.ts
+```
 
-### Error Handling & Debugging
+### Key Patterns
 
-- Remove `console.log`, `debugger`, and `alert` statements from production code
-- Throw `Error` objects with descriptive messages, not strings or other values
-- Use `try-catch` blocks meaningfully - don't catch errors just to rethrow them
-- Prefer early returns over nested conditionals for error cases
+- **Payload Collections:** Users, Posts, Authors, Tags, Images (defined in `modules/payload/collections.ts`)
+- **Payload Globals:** Page content settings for home, about, project, goccia pages
+- **Content Blocks:** Composable content system in `modules/blocks/` - each block has config and render component
+- **Access Control:** Role-based in `modules/payload/access/` (admin, editor, authenticated, public)
+- **i18n:** next-intl with locale files in `i18n/messages/` (it.json, en.json)
 
-### Code Organization
+### Data Fetching
 
-- Keep functions focused and under reasonable cognitive complexity limits
-- Extract complex conditions into well-named boolean variables
-- Use early returns to reduce nesting
-- Prefer simple conditionals over nested ternary operators
-- Group related code together and separate concerns
+- Use Server Components for async data fetching
+- `getDocument()` and `getGlobals()` utilities in `modules/utilities/`
+- Live preview supported via Payload's preview system
 
-### Security
+## Environment Setup
 
-- Add `rel="noopener"` when using `target="_blank"` on links
-- Avoid `dangerouslySetInnerHTML` unless absolutely necessary
-- Don't use `eval()` or assign directly to `document.cookie`
-- Validate and sanitize user input
+Copy `.env.example` to `.env`. Required variables:
+- `PAYLOAD_SECRET` - CMS secret key
+- `DATABASE_URL` - SQLite file path (local) or Turso URL (production)
+- `S3_*` - Storage credentials (MinIO locally, R2/S3 in production)
+- `NEXT_PUBLIC_MAPBOX_TOKEN` - For map components
 
-### Performance
+## Code Standards (Ultracite)
 
-- Avoid spread syntax in accumulators within loops
-- Use top-level regex literals instead of creating them in loops
-- Prefer specific imports over namespace imports
+This project uses **Ultracite** with Biome for linting/formatting. Run `pnpm fix` before committing.
+
+### Key Rules
+
+- Use `for...of` over `.forEach()` and indexed loops
+- Use optional chaining (`?.`) and nullish coalescing (`??`)
+- Use `const` by default, `let` only when reassignment is needed
+- Call hooks at top level only, never conditionally
+- Use Next.js `<Image>` component, not `<img>`
+- Use Server Components for async data fetching
+- React 19: Use ref as a prop instead of `React.forwardRef`
+- Remove `console.log`, `debugger` from production code
 - Avoid barrel files (index files that re-export everything)
-- Use proper image components (e.g., Next.js `<Image>`) over `<img>` tags
-
-### Framework-Specific Guidance
-
-**Next.js:**
-- Use Next.js `<Image>` component for images
-- Use `next/head` or App Router metadata API for head elements
-- Use Server Components for async data fetching instead of async Client Components
-
-**React 19+:**
-- Use ref as a prop instead of `React.forwardRef`
-
-**Solid/Svelte/Vue/Qwik:**
-- Use `class` and `for` attributes (not `className` or `htmlFor`)
-
----
-
-## Testing
-
-- Write assertions inside `it()` or `test()` blocks
-- Avoid done callbacks in async tests - use async/await instead
-- Don't use `.only` or `.skip` in committed code
-- Keep test suites reasonably flat - avoid excessive `describe` nesting
-
-## When Biome Can't Help
-
-Biome's linter will catch most issues automatically. Focus your attention on:
-
-1. **Business logic correctness** - Biome can't validate your algorithms
-2. **Meaningful naming** - Use descriptive names for functions, variables, and types
-3. **Architecture decisions** - Component structure, data flow, and API design
-4. **Edge cases** - Handle boundary conditions and error states
-5. **User experience** - Accessibility, performance, and usability considerations
-6. **Documentation** - Add comments for complex logic, but prefer self-documenting code
-
----
-
-Most formatting and common issues are automatically fixed by Biome. Run `pnpm dlx ultracite fix` before committing to ensure compliance.

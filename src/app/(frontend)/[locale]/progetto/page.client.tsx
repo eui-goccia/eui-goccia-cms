@@ -1,7 +1,7 @@
 'use client';
 import type { Progetto } from '@payload-types';
 import { useLocale } from 'next-intl';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from '@/i18n/routing';
 import { BlockRenderer } from '@/modules/blocks/BlockRenderer';
 import BlockHeading from '@/modules/components/BlockHeading';
@@ -10,25 +10,38 @@ import SectionBreakFill from '@/modules/components/shared/SectionBreakFill';
 export default function ProgettoClient({ project }: { project: Progetto }) {
 	const [activeSection, setActiveSection] = useState('');
 	const locale = useLocale();
+	const rafRef = useRef<number | null>(null);
+
 	useEffect(() => {
 		const handleScroll = () => {
-			const sections =
-				project.sections?.map((item) => item.url.substring(1)) || []; // Remove # from URLs
-			const scrollPosition = window.scrollY + 200; // Offset for header
-
-			for (let i = sections.length - 1; i >= 0; i--) {
-				const element = document.getElementById(sections[i]);
-				if (element && element.offsetTop <= scrollPosition) {
-					setActiveSection(sections[i]);
-					break;
-				}
+			if (rafRef.current) {
+				cancelAnimationFrame(rafRef.current);
 			}
+
+			rafRef.current = requestAnimationFrame(() => {
+				const sections =
+					project.sections?.map((item) => item.url.substring(1)) || [];
+				const scrollPosition = window.scrollY + 200;
+
+				for (let i = sections.length - 1; i >= 0; i--) {
+					const element = document.getElementById(sections[i]);
+					if (element && element.offsetTop <= scrollPosition) {
+						setActiveSection(sections[i]);
+						break;
+					}
+				}
+			});
 		};
 
-		window.addEventListener('scroll', handleScroll);
+		window.addEventListener('scroll', handleScroll, { passive: true });
 		handleScroll(); // Check initial position
 
-		return () => window.removeEventListener('scroll', handleScroll);
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+			if (rafRef.current) {
+				cancelAnimationFrame(rafRef.current);
+			}
+		};
 	}, [project.sections]);
 
 	return (
