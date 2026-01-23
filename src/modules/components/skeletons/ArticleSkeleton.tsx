@@ -1,6 +1,6 @@
 export function ArticleSkeleton() {
 	return (
-		<>
+		<output aria-label='Loading article'>
 			{/* Header skeleton */}
 			<div className='h-[60vh] bg-gray-200 animate-pulse' />
 
@@ -23,6 +23,6 @@ export function ArticleSkeleton() {
 					</div>
 				</article>
 			</div>
-		</>
+		</output>
 	);
 }

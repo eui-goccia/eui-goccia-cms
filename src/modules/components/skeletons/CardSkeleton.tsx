@@ -1,6 +1,9 @@
 export function CardSkeleton() {
 	return (
-		<div className='break-inside-avoid-column mb-4'>
+		<output
+			aria-label='Loading card'
+			className='break-inside-avoid-column mb-4 block'
+		>
 			<div className='animate-pulse bg-white rounded-lg overflow-hidden'>
 				<div className='h-48 bg-gray-200' />
 				<div className='p-4 space-y-3'>
@@ -8,7 +11,7 @@ export function CardSkeleton() {
 					<div className='h-3 bg-gray-200 rounded w-1/2' />
 				</div>
 			</div>
-		</div>
+		</output>
 	);
 }
 

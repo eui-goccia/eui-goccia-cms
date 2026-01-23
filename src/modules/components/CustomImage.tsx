@@ -56,6 +56,11 @@ export function CustomImage({
 		imgRef.current?.classList.add('blur-0');
 	};
 
+	const handleError = () => {
+		imgRef.current?.classList.remove('blur-sm');
+		imgRef.current?.classList.add('blur-0');
+	};
+
 	return (
 		<>
 			<Image
@@ -67,6 +72,7 @@ export function CustomImage({
 				)}
 				height={height}
 				loading={loading}
+				onError={handleError}
 				onLoad={handleLoad}
 				placeholder='blur'
 				priority={priority}
