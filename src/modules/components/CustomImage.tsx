@@ -1,9 +1,8 @@
-/** biome-ignore-all lint/style/noNestedTernary: faster to write */
 'use client';
 
 import type { Image as ImageType } from '@payload-types';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useRef } from 'react';
 import { cn } from '@/modules/utilities/cnUtils';
 
 interface Props {
@@ -44,48 +43,40 @@ export function CustomImage({
 	captionClassName,
 	sizes,
 }: Props) {
-	const [isLoaded, setIsLoaded] = useState(false);
-	const src = image?.sizes?.[size]?.url || image?.url || '/og-image.webp';
-	const blurDataURL = image?.blurHash || DEFAULT_BLUR_PLACEHOLDER;
+	const imgRef = useRef<HTMLImageElement>(null);
+	const sizeData = image?.sizes?.[size];
+	const src = sizeData?.url ?? image?.url ?? '/og-image.webp';
+	const blurDataURL = image?.blurHash ?? DEFAULT_BLUR_PLACEHOLDER;
+	const refinedAlt = image?.alt ?? image?.caption ?? alt ?? '';
+	const width = sizeData?.width ?? image?.width ?? 300;
+	const height = sizeData?.height ?? image?.height ?? 300;
 
-	const refined_alt = image
-		? image.alt || image.caption || alt || ''
-		: alt || '';
+	const handleLoad = () => {
+		imgRef.current?.classList.remove('blur-sm');
+		imgRef.current?.classList.add('blur-0');
+	};
 
-	const caption = showCaption && image?.caption;
 	return (
 		<>
 			<Image
-				alt={refined_alt}
+				alt={refinedAlt}
 				blurDataURL={blurDataURL}
 				className={cn(
-					className,
-					`duration-500 ease-in-out ${isLoaded ? 'blur-0' : 'blur-sm'}`,
-					'h-full w-full'
+					'h-full w-full duration-500 ease-in-out blur-sm',
+					className
 				)}
-				height={
-					image
-						? image.sizes?.[size]?.height
-							? image.sizes?.[size]?.height
-							: image.height || 300
-						: 300
-				}
+				height={height}
 				loading={loading}
-				onLoad={() => setIsLoaded(true)}
+				onLoad={handleLoad}
 				placeholder='blur'
 				priority={priority}
 				quality={quality}
-				sizes={sizes || DEFAULT_SIZES[size]}
+				ref={imgRef}
+				sizes={sizes ?? DEFAULT_SIZES[size]}
 				src={src}
-				width={
-					image
-						? image.sizes?.[size]?.width
-							? image.sizes?.[size]?.width
-							: image.width || 300
-						: 300
-				}
+				width={width}
 			/>
-			{caption ? (
+			{showCaption && image?.caption ? (
 				<p
 					className={cn(
 						'font-greed varW600 text-lg w-full mb-2 flex items-start',
