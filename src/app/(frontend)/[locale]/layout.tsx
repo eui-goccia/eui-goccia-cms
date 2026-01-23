@@ -94,7 +94,7 @@ export default async function RootLayout({ children, params }: Readonly<Args>) {
 	const messages = await getMessages();
 
 	return (
-		<html className='scroll-smooth' lang={locale}>
+		<html lang={locale}>
 			<PlausibleProviderWrapper>
 				<NextIntlClientProvider messages={messages}>
 					<ReactLenis root>
