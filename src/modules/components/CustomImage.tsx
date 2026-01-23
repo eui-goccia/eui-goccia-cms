@@ -16,7 +16,21 @@ interface Props {
 	priority?: boolean;
 	loading?: 'lazy' | 'eager';
 	showCaption?: boolean;
+	sizes?: string;
 }
+
+// Valid base64 placeholder - 1x1 transparent PNG
+const DEFAULT_BLUR_PLACEHOLDER =
+	'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
+
+// Default sizes based on image size prop
+const DEFAULT_SIZES: Record<Props['size'], string> = {
+	thumbnail: '(max-width: 640px) 100vw, 256px',
+	medium: '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 640px',
+	large: '(max-width: 768px) 100vw, (max-width: 1200px) 75vw, 1024px',
+	og: '1200px',
+	xlarge: '100vw',
+};
 
 export function CustomImage({
 	image,
@@ -28,12 +42,11 @@ export function CustomImage({
 	loading = 'lazy',
 	showCaption = false,
 	captionClassName,
+	sizes,
 }: Props) {
 	const [isLoaded, setIsLoaded] = useState(false);
 	const src = image?.sizes?.[size]?.url || image?.url || '/og-image.webp';
-	const blurDataURL =
-		image?.blurHash ||
-		'data:image/png;base64,WERy8KHe?ErexDer%3WVaxoLWBj[}cnlE0S4SdofM{ofogR*t7ay';
+	const blurDataURL = image?.blurHash || DEFAULT_BLUR_PLACEHOLDER;
 
 	const refined_alt = image
 		? image.alt || image.caption || alt || ''
@@ -62,6 +75,7 @@ export function CustomImage({
 				placeholder='blur'
 				priority={priority}
 				quality={quality}
+				sizes={sizes || DEFAULT_SIZES[size]}
 				src={src}
 				width={
 					image

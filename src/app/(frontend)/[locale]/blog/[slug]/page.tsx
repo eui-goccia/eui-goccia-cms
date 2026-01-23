@@ -8,6 +8,7 @@ import localization from '@/i18n/localization';
 import type { Locales } from '@/i18n/routing';
 import { BlockRenderer } from '@/modules/blocks/BlockRenderer';
 import HeaderArticle from '@/modules/components/HeaderArticle';
+import { ArticleSkeleton } from '@/modules/components/skeletons/ArticleSkeleton';
 import { getDocument, getDocuments } from '@/modules/utilities/getDocument';
 
 interface PageProps {
@@ -97,7 +98,7 @@ export default async function BlogPost({ params }: PageProps) {
 	setRequestLocale(locale);
 
 	return (
-		<Suspense fallback={null}>
+		<Suspense fallback={<ArticleSkeleton />}>
 			<BlogPostContent locale={locale as Locales} slug={slug} />
 		</Suspense>
 	);
