@@ -69,13 +69,20 @@ src/
 - **Payload Globals:** Page content settings for home, about, project, goccia pages
 - **Content Blocks:** Composable content system in `modules/blocks/` - each block has config and render component
 - **Access Control:** Role-based in `modules/payload/access/` (admin, editor, authenticated, public)
-- **i18n:** next-intl with locale files in `i18n/messages/` (it.json, en.json)
+- **i18n:** next-intl with locale files in `i18n/messages/` (it.json, en.json). Use `Link`, `redirect`, `usePathname`, `useRouter` from `@/i18n/routing` (not from `next/navigation`)
 
 ### Data Fetching
 
 - Use Server Components for async data fetching
-- `getDocument()` and `getGlobals()` utilities in `modules/utilities/`
+- `getDocument()`, `getDocuments()`, `getGlobal()` in `modules/utilities/` - all use React 19's `'use cache'` directive with `cacheLife('max')` and `cacheTag()`
+- Revalidation happens via Payload hooks that call `revalidateTag()` (see `modules/posts/revalidate.ts`)
 - Live preview supported via Payload's preview system
+
+### Block Pattern
+
+Each block in `modules/blocks/` follows a consistent structure:
+- `config.ts` - Payload Block definition (schema, fields, interfaceName)
+- `Component.tsx` - React render component that receives `blockData` typed from `@payload-types`
 
 ## Environment Setup
 
@@ -100,3 +107,4 @@ This project uses **Ultracite** with Biome for linting/formatting. Run `pnpm fix
 - React 19: Use ref as a prop instead of `React.forwardRef`
 - Remove `console.log`, `debugger` from production code
 - Avoid barrel files (index files that re-export everything)
+- Use `cn()` from `@/modules/utilities/cnUtils` for className merging (clsx + tailwind-merge)
