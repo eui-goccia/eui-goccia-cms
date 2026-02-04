@@ -23,7 +23,7 @@ import { SlugComponent as SlugComponent_49840322ab4e449786c8c567dc2884ce } from 
 import { default as default_08f9d0fd41ec8d83c5f3f576353a29b0 } from '../../../modules/payload/fields/BeforeDashboard'
 import { default as default_590e6a280e014279a87a4a21123591b9 } from '../../../modules/payload/components/LocaleThemeProvider'
 import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
-import { CollectionCards as CollectionCards_ab83ff7e88da8d3530831f296ec4756a } from '@payloadcms/ui/rsc'
+import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 export const importMap = {
   "@payloadcms/richtext-lexical/rsc#RscEntryLexicalCell": RscEntryLexicalCell_44fe37237e0ebf4470c9990d8cb7b07e,
@@ -51,5 +51,5 @@ export const importMap = {
   "./fields/BeforeDashboard#default": default_08f9d0fd41ec8d83c5f3f576353a29b0,
   "./components/LocaleThemeProvider#default": default_590e6a280e014279a87a4a21123591b9,
   "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
-  "@payloadcms/ui/rsc#CollectionCards": CollectionCards_ab83ff7e88da8d3530831f296ec4756a
+  "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

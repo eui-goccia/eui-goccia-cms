@@ -67,6 +67,7 @@ export interface Config {
   };
   blocks: {};
   collections: {
+    audio: Audio;
     images: Image;
     users: User;
     posts: Post;
@@ -87,6 +88,7 @@ export interface Config {
     };
   };
   collectionsSelect: {
+    audio: AudioSelect<false> | AudioSelect<true>;
     images: ImagesSelect<false> | ImagesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
@@ -146,6 +148,33 @@ export interface UserAuthOperations {
     email: string;
     password: string;
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "audio".
+ */
+export interface Audio {
+  id: string;
+  /**
+   * Title of the audio file
+   */
+  title?: string | null;
+  /**
+   * Description of the audio file
+   */
+  description?: string | null;
+  prefix?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -251,7 +280,7 @@ export interface Post {
   title: string;
   description?: string | null;
   tags?: (string | Tag)[] | null;
-  content: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | VideoBlock | GridBlock)[];
+  content: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | VideoBlock | AudioBlock | GridBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -383,6 +412,25 @@ export interface VideoBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'video';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AudioBlock".
+ */
+export interface AudioBlock {
+  sourceType?: ('url' | 'upload') | null;
+  /**
+   * Supports SoundCloud, Mixcloud, and other audio services
+   */
+  url?: string | null;
+  audioFile?: (string | null) | Audio;
+  title?: string | null;
+  caption?: string | null;
+  width?: ('full' | 'half' | 'third') | null;
+  horizontal?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'audio';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -534,6 +582,10 @@ export interface PayloadLockedDocument {
   id: string;
   document?:
     | ({
+        relationTo: 'audio';
+        value: string | Audio;
+      } | null)
+    | ({
         relationTo: 'images';
         value: string | Image;
       } | null)
@@ -594,6 +646,26 @@ export interface PayloadMigration {
   batch?: number | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "audio_select".
+ */
+export interface AudioSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  prefix?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -709,6 +781,7 @@ export interface PostsSelect<T extends boolean = true> {
         quote?: T | QuoteBlockSelect<T>;
         image?: T | ImageBlockSelect<T>;
         video?: T | VideoBlockSelect<T>;
+        audio?: T | AudioBlockSelect<T>;
         grid?: T | GridBlockSelect<T>;
       };
   meta?:
@@ -783,6 +856,21 @@ export interface VideoBlockSelect<T extends boolean = true> {
   caption?: T;
   light?: T;
   aspectRatio?: T;
+  width?: T;
+  horizontal?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AudioBlock_select".
+ */
+export interface AudioBlockSelect<T extends boolean = true> {
+  sourceType?: T;
+  url?: T;
+  audioFile?: T;
+  title?: T;
+  caption?: T;
   width?: T;
   horizontal?: T;
   id?: T;
@@ -975,7 +1063,7 @@ export interface Progetto {
   sections?:
     | {
         title: string;
-        content: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | VideoBlock | GridBlock)[];
+        content: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | VideoBlock | AudioBlock | GridBlock)[];
         url: string;
         id?: string | null;
       }[]
@@ -1081,6 +1169,7 @@ export interface ProgettoSelect<T extends boolean = true> {
               quote?: T | QuoteBlockSelect<T>;
               image?: T | ImageBlockSelect<T>;
               video?: T | VideoBlockSelect<T>;
+              audio?: T | AudioBlockSelect<T>;
               grid?: T | GridBlockSelect<T>;
             };
         url?: T;

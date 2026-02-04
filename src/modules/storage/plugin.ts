@@ -1,8 +1,13 @@
 import { s3Storage } from '@payloadcms/storage-s3';
+import { Audio } from '@/modules/storage/collections/Audio';
 import { Images } from '@/modules/storage/collections/Images';
 
 export const storagePlugin = s3Storage({
 	collections: {
+		[Audio.slug]: {
+			disableLocalStorage: true,
+			prefix: 'audio',
+		},
 		[Images.slug]: {
 			disableLocalStorage: true,
 			prefix: 'images',
