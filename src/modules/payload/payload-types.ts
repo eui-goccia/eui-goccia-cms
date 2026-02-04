@@ -420,7 +420,7 @@ export interface VideoBlock {
 export interface AudioBlock {
   sourceType?: ('url' | 'upload') | null;
   /**
-   * Supporta SoundCloud, Mixcloud, e altri servizi audio
+   * Supports SoundCloud, Mixcloud, and other audio services
    */
   url?: string | null;
   audioFile?: (string | null) | Audio;

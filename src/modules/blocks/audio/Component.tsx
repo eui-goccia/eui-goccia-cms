@@ -49,7 +49,13 @@ export const AudioBlockComponent: React.FC<{
 				</div>
 			) : (
 				// biome-ignore lint/a11y/useMediaCaption: User-uploaded audio files may not have caption tracks available
-				<audio className='w-full' controls preload='metadata' src={audioUrl}>
+				<audio
+					aria-label={title ?? 'Audio player'}
+					className='w-full'
+					controls
+					preload='metadata'
+					src={audioUrl}
+				>
 					Your browser does not support the audio element.
 				</audio>
 			)}

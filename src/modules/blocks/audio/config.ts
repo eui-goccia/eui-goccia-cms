@@ -26,7 +26,7 @@ export const AudioBlock: Block = {
 			type: 'text',
 			label: 'Audio URL',
 			admin: {
-				description: 'Supporta SoundCloud, Mixcloud, e altri servizi audio',
+				description: 'Supports SoundCloud, Mixcloud, and other audio services',
 				condition: (_, siblingData) => siblingData?.sourceType === 'url',
 			},
 		},
