@@ -98,6 +98,14 @@ const mergeContentBlocks = (existingBlocks: any[], newBlocks: any[]): any[] => {
 					return mergedItem;
 				});
 			}
+		} else if (existingBlock.blockType === 'video' && newBlock.blockType === 'video') {
+			// For video blocks, merge localized title and caption fields
+			mergedBlock.title = newBlock.title || existingBlock.title;
+			mergedBlock.caption = newBlock.caption || existingBlock.caption;
+		} else if (existingBlock.blockType === 'audio' && newBlock.blockType === 'audio') {
+			// For audio blocks, merge localized title and caption fields
+			mergedBlock.title = newBlock.title || existingBlock.title;
+			mergedBlock.caption = newBlock.caption || existingBlock.caption;
 		}
 
 		return mergedBlock;
