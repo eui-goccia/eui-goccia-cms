@@ -1,4 +1,5 @@
 import type { Block } from 'payload';
+import { AudioBlock } from './audio/config';
 import { GridBlock } from './grid/config';
 import { ImageBlock } from './image/config';
 import { QuoteBlock } from './quote/config';
@@ -12,5 +13,6 @@ export const defaultBlocks: Block[] = [
 	QuoteBlock,
 	ImageBlock,
 	VideoBlock,
+	AudioBlock,
 	GridBlock,
 ];

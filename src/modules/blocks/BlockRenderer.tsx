@@ -1,4 +1,5 @@
 import type {
+	AudioBlock,
 	GridBlock,
 	ImageBlock,
 	QuoteBlock,
@@ -7,6 +8,7 @@ import type {
 	VideoBlock,
 } from '@payload-types';
 import type React from 'react';
+import { AudioBlockComponent } from './audio/Component';
 import { GridBlockComponent } from './grid/Component';
 import { ImageBlockComponent } from './image/Component';
 import { QuoteBlockComponent } from './quote/Component';
@@ -20,6 +22,7 @@ type Block =
 	| QuoteBlock
 	| ImageBlock
 	| VideoBlock
+	| AudioBlock
 	| GridBlock;
 
 const blockComponents = {
@@ -28,6 +31,7 @@ const blockComponents = {
 	quote: QuoteBlockComponent,
 	image: ImageBlockComponent,
 	video: VideoBlockComponent,
+	audio: AudioBlockComponent,
 	grid: GridBlockComponent,
 };
 

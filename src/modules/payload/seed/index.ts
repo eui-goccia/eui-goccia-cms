@@ -5,6 +5,7 @@ import path from 'node:path';
 import type { BasePayload, PayloadRequest } from 'payload';
 import type {
 	About,
+	AudioBlock,
 	Author,
 	GridBlock,
 	Home,
@@ -22,7 +23,7 @@ import type {
 // Import from our centralized data file
 import { getDataForLocale } from './data';
 
-type ContentBlock = TextBlock | RichTextBlock | QuoteBlock | ImageBlock | GridBlock | VideoBlock;
+type ContentBlock = TextBlock | RichTextBlock | QuoteBlock | ImageBlock | GridBlock | VideoBlock | AudioBlock;
 type GridItem = ImageBlock | TextBlock | RichTextBlock;
 
 // Cache for created images to avoid duplicates
