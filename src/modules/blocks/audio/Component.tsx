@@ -1,8 +1,4 @@
-'use client';
-
 import type { Audio, AudioBlock } from '@payload-types';
-import type React from 'react';
-import ReactPlayer from 'react-player';
 import { cn } from '@/modules/utilities/cnUtils';
 
 const widthClasses: Record<string, string> = {
@@ -43,22 +39,16 @@ export const AudioBlockComponent: React.FC<{
 			)}
 		>
 			{title && <h3 className='mb-2 text-lg font-medium'>{title}</h3>}
-			{sourceType === 'url' ? (
-				<div className='rounded-2xl overflow-hidden'>
-					<ReactPlayer controls height='auto' src={audioUrl} width='100%' />
-				</div>
-			) : (
-				// biome-ignore lint/a11y/useMediaCaption: User-uploaded audio files may not have caption tracks available
-				<audio
-					aria-label={title ?? 'Audio player'}
-					className='w-full'
-					controls
-					preload='metadata'
-					src={audioUrl}
-				>
-					Your browser does not support the audio element.
-				</audio>
-			)}
+			{/* biome-ignore lint/a11y/useMediaCaption: Audio files may not have caption tracks available */}
+			<audio
+				aria-label={title ?? 'Audio player'}
+				className='w-full'
+				controls
+				preload='metadata'
+				src={audioUrl}
+			>
+				Your browser does not support the audio element.
+			</audio>
 			{caption && (
 				<figcaption className='mt-2 text-sm text-gray-600'>
 					{caption}
