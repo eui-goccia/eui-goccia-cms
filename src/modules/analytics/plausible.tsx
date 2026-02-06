@@ -18,7 +18,7 @@ export const PlausibleProviderWrapper = ({
 			user: 'unauthenticated',
 		}}
 		revenue={false}
-		selfHosted={false}
+		selfHosted={true}
 		taggedEvents={true}
 		trackFileDownloads={true}
 		trackLocalhost={false}
