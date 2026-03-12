@@ -1,0 +1,27 @@
+src/app/(frontend)/[locale]/layout.tsx
+  ea3d470a0b864cd6 10,21,50,65,106,115
+rewrites.js
+  ea3d470a0b864cd6 3,5,8-9
+src/modules/analytics/plausible.tsx
+  ea3d470a0b864cd6 1,3-4,7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.10",
+  "base_commit_sha": "98776c8f160d1e90f5a02437f124eec9620d144c",
+  "prompts": {
+    "ea3d470a0b864cd6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "94bb3e11-6ba5-46db-8f44-34a28ce25bb3",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 30,
+      "total_deletions": 49,
+      "accepted_lines": 14,
+      "overriden_lines": 4
+    }
+  }
+}
