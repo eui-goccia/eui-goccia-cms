@@ -1,0 +1,23 @@
+rewrites.js
+  4f84e9ad152d6af0 5,9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.10",
+  "base_commit_sha": "04f83eaee8302a505e63f91fa96e2534ea18a366",
+  "prompts": {
+    "4f84e9ad152d6af0": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4d2bd9ba-11d1-4eeb-805e-fc6324a96881",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 2,
+      "total_deletions": 2,
+      "accepted_lines": 2,
+      "overriden_lines": 0
+    }
+  }
+}
