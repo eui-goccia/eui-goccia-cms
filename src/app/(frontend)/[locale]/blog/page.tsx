@@ -10,8 +10,10 @@ interface BlogProps {
 }
 
 export default async function Blog({ params }: BlogProps) {
-	const { locale } = await params;
-	const { isEnabled: draft } = await draftMode();
+	const [{ locale }, { isEnabled: draft }] = await Promise.all([
+		params,
+		draftMode(),
+	]);
 
 	const posts = (await getDocuments({
 		collection: 'posts',
@@ -23,7 +25,7 @@ export default async function Blog({ params }: BlogProps) {
 
 	return (
 		<main className='mb-auto px-10 bg-blue-500'>
-			<div className='pb-28 lg:pb-32 pt-24 gap-5 lg:columns-3 md:columns-2 columns-1 space-y-4 break-inside-avoid-column'>
+			<div className='pb-28 lg:pb-32 pt-24 gap-5 lg:columns-3 md:columns-2 columns-1 space-y-4 break-inside-avoid-column [&>*]:content-visibility-auto [&>*]:contain-intrinsic-size-[auto_400px]'>
 				{posts.docs.map((post) => (
 					<CardArticle key={post.id} post={post} />
 				))}

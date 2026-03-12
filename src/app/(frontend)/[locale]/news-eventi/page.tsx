@@ -1,3 +1,106 @@
-export default function EventiNews() {
-	return <p>eventi news</p>;
+import { draftMode } from 'next/headers';
+import type { PaginatedDocs } from 'payload';
+import type { Locales } from '@/i18n/routing';
+import EventCard from '@/modules/components/EventCard';
+import type { Post } from '@/modules/payload/payload-types';
+import { getDocuments } from '@/modules/utilities/getDocument';
+
+interface EventiNewsProps {
+	params: Promise<{ locale: string }>;
+}
+
+export default async function EventiNews({ params }: EventiNewsProps) {
+	const { locale } = await params;
+	const { isEnabled: draft } = await draftMode();
+
+	const posts = (await getDocuments({
+		collection: 'posts',
+		depth: 2,
+		draft,
+		locale: locale as Locales,
+		sort: '-publishedAt',
+	})) as PaginatedDocs<Post>;
+
+	const now = new Date();
+	const upcomingPosts = posts.docs.filter(
+		(post) => post.publishedAt && new Date(post.publishedAt) >= now
+	);
+	const pastPosts = posts.docs.filter(
+		(post) => !post.publishedAt || new Date(post.publishedAt) < now
+	);
+
+	const marqueeItems = ['a', 'b', 'c', 'd', 'e', 'f'];
+
+	return (
+		<div className='bg-blu-300 min-h-screen'>
+			{/* Marquee: EVENTI IN PROGRAMMA */}
+			<div className='overflow-hidden bg-rosso-500'>
+				<div className='inline-flex w-full flex-nowrap'>
+					<ul className='flex animate-infinite-scroll items-center [&_li]:mx-4'>
+						{marqueeItems.map((key) => (
+							<li key={key}>
+								<p className='whitespace-nowrap py-5 font-tagada text-4xl uppercase tracking-wide text-black md:text-5xl'>
+									EVENTI IN PROGRAMMA
+								</p>
+							</li>
+						))}
+					</ul>
+					<ul
+						aria-hidden='true'
+						className='flex animate-infinite-scroll items-center [&_li]:mx-4'
+					>
+						{marqueeItems.map((key) => (
+							<li key={key}>
+								<p className='whitespace-nowrap py-5 font-tagada text-4xl uppercase tracking-wide text-black md:text-5xl'>
+									EVENTI IN PROGRAMMA
+								</p>
+							</li>
+						))}
+					</ul>
+				</div>
+			</div>
+
+			{/* Upcoming Events Grid */}
+			<section className='px-5 pb-10 pt-10 lg:px-10'>
+				{upcomingPosts.length > 0 ? (
+					<div className='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3'>
+						{upcomingPosts.map((post) => (
+							<EventCard key={post.id} post={post} />
+						))}
+					</div>
+				) : (
+					<p className='py-20 text-center font-greed text-2xl tracking-wide text-black/50'>
+						{locale === 'it'
+							? 'Nessun evento in programma'
+							: 'No upcoming events'}
+					</p>
+				)}
+			</section>
+
+			{/* Divider: EVENTI PASSATI */}
+			<div className='overflow-hidden bg-black'>
+				<p className='px-5 py-6 font-tagada text-4xl uppercase tracking-wider text-rosso-500 md:text-5xl lg:px-10'>
+					EVENTI PASSATI
+				</p>
+			</div>
+
+			{/* Past Events Grid */}
+			<section className='px-5 pb-16 pt-10 lg:px-10'>
+				{pastPosts.length > 0 ? (
+					<div className='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3'>
+						{pastPosts.map((post) => (
+							<EventCard key={post.id} post={post} />
+						))}
+					</div>
+				) : (
+					<p className='py-20 text-center font-greed text-2xl tracking-wide text-black/50'>
+						{locale === 'it' ? 'Nessun evento passato' : 'No past events'}
+					</p>
+				)}
+			</section>
+
+			{/* Orange wave decorative section */}
+			<div className='h-48 bg-rosso-300' />
+		</div>
+	);
 }

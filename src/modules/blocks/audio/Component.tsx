@@ -38,7 +38,7 @@ export const AudioBlockComponent: React.FC<{
 				className
 			)}
 		>
-			{title && <h3 className='mb-2 text-lg font-medium'>{title}</h3>}
+			{title ? <h3 className='mb-2 text-lg font-medium'>{title}</h3> : null}
 			{/* biome-ignore lint/a11y/useMediaCaption: Audio files may not have caption tracks available */}
 			<audio
 				aria-label={title ?? 'Audio player'}
@@ -49,11 +49,11 @@ export const AudioBlockComponent: React.FC<{
 			>
 				Your browser does not support the audio element.
 			</audio>
-			{caption && (
+			{caption ? (
 				<figcaption className='mt-2 text-sm text-gray-600'>
 					{caption}
 				</figcaption>
-			)}
+			) : null}
 		</figure>
 	);
 };

@@ -34,8 +34,7 @@ const socials: SocialsProp[] = [
 ];
 
 export default async function Footer() {
-	const t = await getTranslations();
-	const locale = await getLocale();
+	const [t, locale] = await Promise.all([getTranslations(), getLocale()]);
 	const pages: PagesProps[] = [
 		{
 			name: 'Homepage',

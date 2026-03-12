@@ -10,7 +10,6 @@ export const ImageBlockComponent: React.FC<{
 	const { image, id } = blockData;
 
 	if (!image || typeof image !== 'object') {
-		console.warn(`ImageBlock (${id || 'unknown'}) missing image resource.`);
 		return null;
 	}
 

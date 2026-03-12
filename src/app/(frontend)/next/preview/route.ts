@@ -51,7 +51,7 @@ export async function GET(request: NextRequest) {
 		});
 	}
 
-	const draft = await draftMode();
+	const [draft, locale] = await Promise.all([draftMode(), getLocale()]);
 
 	if (!result.user) {
 		draft.disable();
@@ -61,7 +61,6 @@ export async function GET(request: NextRequest) {
 	}
 
 	draft.enable();
-	const locale = await getLocale();
 
 	redirect({ href: path, locale });
 }

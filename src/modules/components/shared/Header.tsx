@@ -67,12 +67,12 @@ export default function Header() {
 		},
 		{ href: '/blog', label: t('blog'), activeColor: 'text-blue-500 underline' },
 		{
-			href: '/about',
+			href: '/risorse',
 			label: 'Risorse',
 			activeColor: 'text-verde-500 underline',
 		},
 		{
-			href: '/about',
+			href: '/news-eventi',
 			label: t('newsEventi'),
 			activeColor: 'text-verde-500 underline',
 		},

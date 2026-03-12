@@ -1,8 +1,7 @@
 'use client';
 
-import { ReactLenis as OriginalReactLenis } from 'lenis/react';
-import type { ReactNode } from 'react';
-import { useEffect } from 'react';
+import type { ComponentType, ReactNode } from 'react';
+import { useEffect, useState } from 'react';
 
 interface ReactLenisProps {
 	children: ReactNode;
@@ -11,11 +10,21 @@ interface ReactLenisProps {
 }
 
 export function ReactLenis({ children, ...props }: ReactLenisProps) {
+	const [LenisComponent, setLenisComponent] =
+		useState<ComponentType<ReactLenisProps> | null>(null);
+
 	useEffect(() => {
 		window.scrollTo(0, 0);
+		import('lenis/react').then((mod) => {
+			setLenisComponent(
+				() => mod.ReactLenis as ComponentType<ReactLenisProps>
+			);
+		});
 	}, []);
 
-	return <OriginalReactLenis {...props}>{children}</OriginalReactLenis>;
-}
+	if (!LenisComponent) {
+		return <>{children}</>;
+	}
 
-export * from 'lenis/react';
+	return <LenisComponent {...props}>{children}</LenisComponent>;
+}

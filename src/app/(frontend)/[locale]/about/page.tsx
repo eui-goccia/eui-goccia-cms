@@ -14,11 +14,12 @@ export default async function ChiSiamo({ params }: AboutPageProps) {
 	const partners = about.partners;
 	return (
 		<main className='mb-auto bg-black'>
-			<div className='pt-30 md:pt-50 grid grid-cols-12 pb-20 md:pb-40 items-center text-3xl justify-center'>
+			<div className=' flex h-screen items-start text-3xl justify-center'>
 				<h1 className='sr-only'>Chi Siamo</h1>
-				<p className='text-white col-start-2 varW600 col-span-10 font-ghost text-3xl md:text-4xl lg:text-5xl uppercase'>
+				<p className='text-white w-1/2 varW600 pt-24 font-ghost pb-20 text-3xl md:text-4xl px-5 lg:px-10 lg:text-5xl'>
 					{about.description}
 				</p>
+				<div className='w-1/2 bg-amber-200 h-full' />
 			</div>
 			<section className='w-full'>
 				{partners?.map((partner) => (

@@ -2,7 +2,7 @@
 
 import type { Image as ImageType } from '@payload-types';
 import Image from 'next/image';
-import { useRef } from 'react';
+import { useCallback, useState } from 'react';
 import { cn } from '@/modules/utilities/cnUtils';
 
 interface Props {
@@ -43,7 +43,7 @@ export function CustomImage({
 	captionClassName,
 	sizes,
 }: Props) {
-	const imgRef = useRef<HTMLImageElement>(null);
+	const [loaded, setLoaded] = useState(false);
 	const sizeData = image?.sizes?.[size];
 	const src = sizeData?.url ?? image?.url ?? '/og-image.webp';
 	const blurDataURL = image?.blurHash ?? DEFAULT_BLUR_PLACEHOLDER;
@@ -51,15 +51,9 @@ export function CustomImage({
 	const width = sizeData?.width ?? image?.width ?? 300;
 	const height = sizeData?.height ?? image?.height ?? 300;
 
-	const handleLoad = () => {
-		imgRef.current?.classList.remove('blur-sm');
-		imgRef.current?.classList.add('blur-0');
-	};
-
-	const handleError = () => {
-		imgRef.current?.classList.remove('blur-sm');
-		imgRef.current?.classList.add('blur-0');
-	};
+	const handleImageReady = useCallback(() => {
+		setLoaded(true);
+	}, []);
 
 	return (
 		<>
@@ -67,17 +61,17 @@ export function CustomImage({
 				alt={refinedAlt}
 				blurDataURL={blurDataURL}
 				className={cn(
-					'h-full w-full duration-500 ease-in-out blur-sm',
+					'h-full w-full duration-500 ease-in-out',
+					loaded ? 'blur-0' : 'blur-sm',
 					className
 				)}
 				height={height}
 				loading={loading}
-				onError={handleError}
-				onLoad={handleLoad}
+				onError={handleImageReady}
+				onLoad={handleImageReady}
 				placeholder='blur'
 				priority={priority}
 				quality={quality}
-				ref={imgRef}
 				sizes={sizes ?? DEFAULT_SIZES[size]}
 				src={src}
 				width={width}
