@@ -18,6 +18,10 @@ export default async function Home({ params }: HomeProps) {
 	const { locale } = await params;
 	const home = (await getGlobal('home', 2, locale as Locales)) as HomeType;
 
+	if (!home?.hero_title) {
+		return <main className='mb-auto' />;
+	}
+
 	return (
 		<main className='mb-auto'>
 			<SectionHero home={home} />
