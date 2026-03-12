@@ -21,15 +21,13 @@ export default function PartnerCard({
 		<div
 			className={cn(
 				bgColor,
-				'w-full rounded-3xl p-5  md:p-8 lg:p-12 flex flex-col justify-between gap-4 md:gap-8'
+				'w-full rounded-3xl p-5 max-w-7xl flex flex-col justify-between gap-4'
 			)}
 		>
 			{/* Row 1 */}
-			<div>
-				<h2 className='lg:text-7xl md:text-6xl sm:text-5xl text-4xl xl:text-8xl varW600 font-ghost uppercase md:mb-6 text-balance text-black'>
-					{partnerName}
-				</h2>
-			</div>
+			<h2 className=' sm:text-5xl text-4xl font-tagada uppercase  text-balance text-black'>
+				{partnerName}
+			</h2>
 
 			{/* Row 2 */}
 			<div className='flex md:flex-row flex-col gap-5 md:gap-10'>
