@@ -1,0 +1,27 @@
+src/app/(frontend)/[locale]/not-found.tsx
+  7ef5a84bdd43f361 12-15
+src/app/(frontend)/[locale]/blog/[slug]/page.tsx
+  7ef5a84bdd43f361 43,45
+src/app/(frontend)/[locale]/page.tsx
+  7ef5a84bdd43f361 21-24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.10",
+  "base_commit_sha": "11837afe4de4212224b1017f8bd0cb05b044c883",
+  "prompts": {
+    "7ef5a84bdd43f361": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8d9e183e-381a-434d-b278-506e009f4d04",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 20,
+      "total_deletions": 12,
+      "accepted_lines": 11,
+      "overriden_lines": 0
+    }
+  }
+}
