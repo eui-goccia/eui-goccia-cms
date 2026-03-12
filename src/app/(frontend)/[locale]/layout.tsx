@@ -7,7 +7,7 @@ import { getMessages, setRequestLocale } from 'next-intl/server';
 import type { ReactNode } from 'react';
 import type { Locale } from '@/i18n/routing';
 import { routing } from '@/i18n/routing';
-import { PlausibleProviderWrapper } from '@/modules/analytics/plausible';
+import { PlausibleAnalytics } from '@/modules/analytics/plausible';
 import { LivePreviewListener } from '@/modules/components/LivePreviewListener';
 import Footer from '@/modules/components/shared/Footer';
 import Header from '@/modules/components/shared/Header';
@@ -18,7 +18,7 @@ import { ReactLenis } from '@/modules/utilities/lenis';
 export const metadata: Metadata = {
 	title: 'EUI Goccia',
 	description:
-		"Un progetto di rigenerazione urbana per il recupero dell'ex area industriale della Goccia, nell’area Nord Ovest di Milano, attraverso le Nature Based Solutions.",
+		"Un progetto di rigenerazione urbana per il recupero dell'ex area industriale della Goccia, nell'area Nord Ovest di Milano, attraverso le Nature Based Solutions.",
 	keywords: [
 		'EUI',
 		'Goccia',
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
 		url: 'https://eui-goccia.eu',
 		title: 'EUI Goccia',
 		description:
-			"Un progetto di rigenerazione urbana per il recupero dell'ex area industriale della Goccia, nell’area Nord Ovest di Milano, attraverso le Nature Based Solutions.",
+			"Un progetto di rigenerazione urbana per il recupero dell'ex area industriale della Goccia, nell'area Nord Ovest di Milano, attraverso le Nature Based Solutions.",
 		siteName: 'EUI Goccia',
 		images: [
 			{
@@ -62,7 +62,7 @@ export const metadata: Metadata = {
 		card: 'summary_large_image',
 		title: 'EUI Goccia',
 		description:
-			"Un progetto di rigenerazione urbana per il recupero dell'ex area industriale della Goccia, nell’area Nord Ovest di Milano, attraverso le Nature Based Solutions.",
+			"Un progetto di rigenerazione urbana per il recupero dell'ex area industriale della Goccia, nell'area Nord Ovest di Milano, attraverso le Nature Based Solutions.",
 		images: ['/og-image.jpg'],
 	},
 	icons: {
@@ -103,17 +103,16 @@ export default async function RootLayout({ children, params }: Readonly<Args>) {
 					'antialiased flex flex-col justify-between h-dvh'
 				)}
 			>
-				<PlausibleProviderWrapper>
-					<NextIntlClientProvider messages={messages}>
-						<ReactLenis root>
-							<LivePreviewListener />
-							<Header />
-							<main className='mb-auto'>{children}</main>
-							<NewsletterSignup />
-							<Footer />
-						</ReactLenis>
-					</NextIntlClientProvider>
-				</PlausibleProviderWrapper>
+				<PlausibleAnalytics />
+				<NextIntlClientProvider messages={messages}>
+					<ReactLenis root>
+						<LivePreviewListener />
+						<Header />
+						<main className='mb-auto'>{children}</main>
+						<NewsletterSignup />
+						<Footer />
+					</ReactLenis>
+				</NextIntlClientProvider>
 			</body>
 		</html>
 	);
