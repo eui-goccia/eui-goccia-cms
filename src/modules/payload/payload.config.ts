@@ -6,6 +6,7 @@ import { it } from '@payloadcms/translations/languages/it';
 import { buildConfig, type PayloadRequest } from 'payload';
 import sharp from 'sharp';
 import langs from '@/i18n/localization';
+import { backupPlugin } from '../backup/plugin';
 import { defaultLexical } from '../editor/lexical';
 import { seoPlugin } from '../seo/plugin';
 import { storagePlugin } from '../storage/plugin';
@@ -97,5 +98,5 @@ export default buildConfig({
 		tasks: [],
 	},
 	sharp,
-	plugins: [seoPlugin, storagePlugin],
+	plugins: [seoPlugin, storagePlugin, backupPlugin],
 });
