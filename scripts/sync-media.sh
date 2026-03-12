@@ -12,7 +12,7 @@ fi
 # Prerequisites: brew install minio/stable/mc
 # Required env vars: R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET
 
-for var in R2_ACCOUNT_ID R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY R2_BUCKET; do
+for var in R2_ACCOUNT_ID R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY R2_BUCKET S3_ACCESS_KEY_ID S3_SECRET_ACCESS_KEY S3_BUCKET; do
 	if [ -z "${!var:-}" ]; then
 		echo "Error: $var is not set"
 		exit 1
@@ -26,11 +26,11 @@ R2_ALIAS="r2prod"
 # Configure R2 remote
 mc alias set "$R2_ALIAS" "$R2_ENDPOINT" "$R2_ACCESS_KEY_ID" "$R2_SECRET_ACCESS_KEY"
 
-# Configure local MinIO (default docker-compose credentials)
-mc alias set "$LOCAL_ALIAS" "http://localhost:9000" "${MINIO_ROOT_USER:-minio}" "${MINIO_ROOT_PASSWORD:-minio123}"
+# Configure local MinIO (uses same S3_* credentials as docker-compose)
+mc alias set "$LOCAL_ALIAS" "http://localhost:9000" "$S3_ACCESS_KEY_ID" "$S3_SECRET_ACCESS_KEY"
 
 # Ensure local bucket exists
-mc mb --ignore-existing "${LOCAL_ALIAS}/${S3_BUCKET:-payload}"
+mc mb --ignore-existing "${LOCAL_ALIAS}/${S3_BUCKET}"
 
 echo "Syncing images..."
 mc mirror --overwrite "${R2_ALIAS}/${R2_BUCKET}/images/" "${LOCAL_ALIAS}/${S3_BUCKET:-payload}/images/"
