@@ -1,0 +1,23 @@
+src/modules/components/EventCard.tsx
+  7a1ad3f8de112be2 1-72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.10",
+  "base_commit_sha": "fa51a6beb12969805060d8a149802e0a71aed6c3",
+  "prompts": {
+    "7a1ad3f8de112be2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "73d1534d-a14a-496d-bbb1-f13351f2bbe1",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 72,
+      "overriden_lines": 0
+    }
+  }
+}
