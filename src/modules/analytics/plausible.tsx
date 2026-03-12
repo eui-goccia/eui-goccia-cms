@@ -1,29 +1,11 @@
-'use client';
+import Script from 'next/script';
 
-import PlausibleProvider from 'next-plausible';
-import type { ReactNode } from 'react';
-import { getClientSideURL } from '../utilities/getURL';
-
-export const PlausibleProviderWrapper = ({
-	children,
-}: {
-	children: ReactNode;
-}) => (
-	<PlausibleProvider
-		customDomain={`${getClientSideURL()}/plausible`}
-		domain={'eui-goccia.eu'}
-		enabled={true}
-		hash={true}
-		pageviewProps={{
-			user: 'unauthenticated',
-		}}
-		revenue={false}
-		selfHosted={true}
-		taggedEvents={true}
-		trackFileDownloads={true}
-		trackLocalhost={false}
-		trackOutboundLinks={true}
-	>
-		{children}
-	</PlausibleProvider>
+export const PlausibleAnalytics = () => (
+	<Script
+		data-api='/plausible/api/event'
+		data-domain='eui-goccia.eu'
+		defer
+		src='/plausible/js/script.file-downloads.outbound-links.js'
+		strategy='afterInteractive'
+	/>
 );
