@@ -118,7 +118,7 @@ export default function Header() {
 								href='/'
 								locale={locale}
 							>
-								<LogoGoccia className='h-10' />
+								<LogoGoccia className='h-10 fill-black' />
 							</Link>
 						</li>
 						{navItems.map((item) => (
