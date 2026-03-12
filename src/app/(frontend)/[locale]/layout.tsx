@@ -95,26 +95,26 @@ export default async function RootLayout({ children, params }: Readonly<Args>) {
 
 	return (
 		<html lang={locale}>
-			<PlausibleProviderWrapper>
-				<NextIntlClientProvider messages={messages}>
-					<ReactLenis root>
-						<LivePreviewListener />
-						<body
-							className={cn(
-								ghost.variable,
-								tagada.variable,
-								greed.variable,
-								'antialiased flex flex-col justify-between h-dvh'
-							)}
-						>
+			<body
+				className={cn(
+					ghost.variable,
+					tagada.variable,
+					greed.variable,
+					'antialiased flex flex-col justify-between h-dvh'
+				)}
+			>
+				<PlausibleProviderWrapper>
+					<NextIntlClientProvider messages={messages}>
+						<ReactLenis root>
+							<LivePreviewListener />
 							<Header />
 							<main className='mb-auto'>{children}</main>
 							<NewsletterSignup />
 							<Footer />
-						</body>
-					</ReactLenis>
-				</NextIntlClientProvider>
-			</PlausibleProviderWrapper>
+						</ReactLenis>
+					</NextIntlClientProvider>
+				</PlausibleProviderWrapper>
+			</body>
 		</html>
 	);
 }
