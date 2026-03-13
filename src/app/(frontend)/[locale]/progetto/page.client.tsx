@@ -46,7 +46,7 @@ export default function ProgettoClient({ project }: { project: Progetto }) {
 
 	return (
 		<>
-			<div className='px-5 lg:px-10 pb-30 grid grid-cols-12 gap-5 bg-rosa-300'>
+			<div className='px-5 lg:px-10 pb-30 grid grid-cols-12 gap-5 bg-blu-300'>
 				<aside className='col-start-1 2xl:col-start-2 hidden lg:inline sticky lg:top-34 xl:top-50 h-fit col-span-4 2xl:col-span-3'>
 					<nav>
 						<ul className='font-ghost varW600 uppercase text-2xl'>

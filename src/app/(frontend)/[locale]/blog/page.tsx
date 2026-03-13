@@ -24,7 +24,7 @@ export default async function Blog({ params }: BlogProps) {
 	})) as PaginatedDocs<Post>;
 
 	return (
-		<main className='mb-auto px-10 bg-blue-500'>
+		<main className='mb-auto px-10 bg-blu-300'>
 			<div className='pb-28 lg:pb-32 pt-24 gap-5 lg:columns-3 md:columns-2 columns-1 space-y-4 break-inside-avoid-column [&>*]:content-visibility-auto [&>*]:contain-intrinsic-size-[auto_400px]'>
 				{posts.docs.map((post) => (
 					<CardArticle key={post.id} post={post} />
