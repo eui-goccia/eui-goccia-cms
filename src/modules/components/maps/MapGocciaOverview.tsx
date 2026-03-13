@@ -1,12 +1,10 @@
 'use client';
 
-import mapboxgl from 'mapbox-gl';
 import { useEffect, useRef, useState } from 'react';
 
-import 'mapbox-gl/dist/mapbox-gl.css';
-
 export default function MapGocciaOverview() {
-	const mapRef = useRef<mapboxgl.Map | null>(null);
+	// biome-ignore lint/suspicious/noExplicitAny: mapbox-gl types loaded dynamically
+	const mapRef = useRef<any>(null);
 	const mapContainerRef = useRef<HTMLDivElement | null>(null);
 	const [error, setError] = useState<string | null>(null);
 
@@ -21,9 +19,19 @@ export default function MapGocciaOverview() {
 			return;
 		}
 
-		try {
-			mapboxgl.accessToken = token;
-			mapRef.current = new mapboxgl.Map({
+		import('mapbox-gl').then((mapboxgl) => {
+			if (!mapContainerRef.current) return;
+
+			// Load CSS dynamically
+			if (!document.querySelector('link[href*="mapbox-gl"]')) {
+				const link = document.createElement('link');
+				link.rel = 'stylesheet';
+				link.href = 'https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.css';
+				document.head.appendChild(link);
+			}
+
+			mapboxgl.default.accessToken = token;
+			const map = new mapboxgl.default.Map({
 				container: mapContainerRef.current,
 				center: [9.152_16, 45.506_38],
 				zoom: 15.56,
@@ -41,14 +49,15 @@ export default function MapGocciaOverview() {
 					},
 				},
 			});
-			mapRef.current.scrollZoom.disable();
+			map.scrollZoom.disable();
+			mapRef.current = map;
 
-			mapRef.current.on('error', () => {
+			map.on('error', () => {
 				setError('Failed to load map');
 			});
-		} catch {
+		}).catch(() => {
 			setError('Failed to initialize map');
-		}
+		});
 
 		return () => {
 			mapRef.current?.remove();

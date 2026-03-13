@@ -1,9 +1,11 @@
 'use client';
 
 import type { VideoBlock } from '@payload-types';
+import dynamic from 'next/dynamic';
 import type React from 'react';
-import ReactPlayer from 'react-player';
 import { cn } from '@/modules/utilities/cnUtils';
+
+const ReactPlayer = dynamic(() => import('react-player'), { ssr: false });
 
 const aspectRatioClasses: Record<string, string> = {
 	'16/9': 'aspect-video',
@@ -65,11 +67,11 @@ export const VideoBlockComponent: React.FC<{
 					width='100%'
 				/>
 			</div>
-			{caption && (
+			{caption ? (
 				<figcaption className='mt-2 text-sm text-gray-600'>
 					{caption}
 				</figcaption>
-			)}
+			) : null}
 		</figure>
 	);
 };
