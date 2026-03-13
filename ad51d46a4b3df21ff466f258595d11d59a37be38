@@ -1,0 +1,36 @@
+next.config.mjs
+  8747dd51aa834032 14-15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.10",
+  "base_commit_sha": "ad51d46a4b3df21ff466f258595d11d59a37be38",
+  "prompts": {
+    "8747dd51aa834032": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "481e4b54-b890-4cfe-8082-ddd5d5b62dc2",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 2,
+      "total_deletions": 3,
+      "accepted_lines": 2,
+      "overriden_lines": 0
+    },
+    "e2a6b94a4b9fece2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "780b90ef-788b-405a-a355-2f9ef8cfc45f",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 54,
+      "total_deletions": 0,
+      "accepted_lines": 54,
+      "overriden_lines": 0
+    }
+  }
+}
