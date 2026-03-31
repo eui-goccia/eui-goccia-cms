@@ -8,7 +8,7 @@ import { Link } from '@/i18n/routing';
 import LogoGoccia from '@/modules/components/logos/LogoGoccia';
 import { cn } from '@/modules/utilities/cnUtils';
 
-const HEADER_INITIAL = { height: '58px', borderRadius: '29px' };
+const HEADER_INITIAL = { height: '64px', borderRadius: '48px' };
 const BACKDROP_TRANSITION = { duration: 0.15 };
 
 interface NavItem {
@@ -42,9 +42,10 @@ function NavLink({
 
 export default function Header() {
 	const [menuIsOpen, setMenuIsOpen] = useState(false);
-	const pathname = usePathname();
+	const rawPathname = usePathname();
 	const t = useTranslations();
 	const locale = useLocale();
+	const pathname = rawPathname.replace(`/${locale}`, '') || '/';
 
 	const toggleMenu = () => {
 		setMenuIsOpen((prev) => !prev);
@@ -58,28 +59,28 @@ export default function Header() {
 		{
 			href: '/progetto',
 			label: t('project'),
-			activeColor: 'text-rosa-500 underline',
+			activeColor: 'underline',
 		},
 		{
 			href: '/la-goccia',
 			label: t('goccia'),
-			activeColor: 'text-rosso-500 underline',
+			activeColor: 'underline',
 		},
-		{ href: '/blog', label: t('blog'), activeColor: 'text-blue-500 underline' },
+		{ href: '/blog', label: t('blog'), activeColor: 'underline' },
 		{
 			href: '/risorse',
 			label: 'Risorse',
-			activeColor: 'text-verde-500 underline',
+			activeColor: 'underline',
 		},
 		{
 			href: '/news-eventi',
 			label: t('newsEventi'),
-			activeColor: 'text-verde-500 underline',
+			activeColor: 'underline',
 		},
 		{
 			href: '/about',
 			label: t('about'),
-			activeColor: 'text-verde-500 underline',
+			activeColor: 'underline',
 		},
 	];
 
@@ -98,10 +99,10 @@ export default function Header() {
 
 			<motion.header
 				animate={{
-					height: menuIsOpen ? 'auto' : '58px',
-					borderRadius: menuIsOpen ? '32px' : '29px',
+					height: menuIsOpen ? 'auto' : '4rem',
+					borderRadius: menuIsOpen ? '32px' : '48px',
 				}}
-				className='bg-rosa-300 font-greed h-fit py-2 z-50 fixed top-0 left-0 right-0'
+				className='bg-rosa-300 flex items-center justify-center font-greed h-fit py-2 z-50 fixed top-0 left-0 right-0'
 				initial={HEADER_INITIAL}
 				style={{ transformOrigin: 'top' }}
 				transition={{
@@ -109,7 +110,7 @@ export default function Header() {
 					ease: menuIsOpen ? 'easeInOut' : 'easeIn',
 				}}
 			>
-				<nav className='hidden md:inline'>
+				<nav className='hidden md:inline w-full'>
 					{/* Desktop */}
 					<ul className='flex uppercase justify-between text-xl'>
 						<li className='w-full flex items-center justify-center'>

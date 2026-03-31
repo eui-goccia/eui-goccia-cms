@@ -108,7 +108,7 @@ export default async function RootLayout({ children, params }: Readonly<Args>) {
 					<ReactLenis root>
 						<LivePreviewListener />
 						<Header />
-						<main className='mb-auto'>{children}</main>
+						<main className='mb-auto bg-blu-300'>{children}</main>
 						<NewsletterSignup />
 						<Footer />
 					</ReactLenis>

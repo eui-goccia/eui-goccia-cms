@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server';
 export default async function NewsletterSignup() {
 	const t = await getTranslations('newsletter');
 	return (
-		<div className='w-full bg-rosa-300 px-5 lg:px-10 flex flex-row justify-between pb-10 pt-16 gap-y-5 lg:gap-y-10 gap-x-5'>
+		<div className='w-full bg-rosa-300 h-55 px-5 lg:px-10 flex flex-row items-center justify-between pb-10 pt-16 gap-y-5 lg:gap-y-10 gap-x-5'>
 			<div className='flex flex-col text-start col-start-1 xl:col-start-2 col-span-full xl:col-span-10'>
 				<h1 className='font-tagada text-4xl md:text-5xl xl:text-6xl'>
 					{t('title')}

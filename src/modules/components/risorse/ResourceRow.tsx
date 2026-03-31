@@ -24,9 +24,7 @@ export function ResourceRow({
 				<p className='font-greed text-lg leading-[1.1] tracking-wide'>
 					{description}
 				</p>
-				<p className='font-greed text-lg leading-[1.1] tracking-wide'>
-					{date}
-				</p>
+				<p className='font-greed text-lg leading-[1.1] tracking-wide'>{date}</p>
 				<p className='font-greed text-lg leading-[1.1] tracking-wide'>
 					{secondaryDescription}
 				</p>

@@ -1,8 +1,10 @@
 import { getLocale, getTranslations } from 'next-intl/server';
+import { Suspense } from 'react';
 import { Link } from '@/i18n/routing';
 import LogoEU from '../logos/LogoEU';
 import LogoEUI from '../logos/LogoEUI';
 import LogoGoccia from '../logos/LogoGoccia';
+import CurrentYear from './CurrentYear';
 
 interface PagesProps {
 	name: string;
@@ -84,7 +86,12 @@ export default async function Footer() {
 						Green Opportunities to Clean-up Contaminants through an Interspecies
 						Alliance
 					</li>
-					<li>© {new Date().getFullYear()}</li>
+					<li>
+						©{' '}
+						<Suspense>
+							<CurrentYear />
+						</Suspense>
+					</li>
 				</ul>
 			</div>
 			<div className='flex flex-col justify-between col-start-9  col-span-full xl:col-span-3 gap-5'>

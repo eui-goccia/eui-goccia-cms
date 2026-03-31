@@ -16,9 +16,7 @@ export function ReactLenis({ children, ...props }: ReactLenisProps) {
 	useEffect(() => {
 		window.scrollTo(0, 0);
 		import('lenis/react').then((mod) => {
-			setLenisComponent(
-				() => mod.ReactLenis as ComponentType<ReactLenisProps>
-			);
+			setLenisComponent(() => mod.ReactLenis as ComponentType<ReactLenisProps>);
 		});
 	}, []);
 

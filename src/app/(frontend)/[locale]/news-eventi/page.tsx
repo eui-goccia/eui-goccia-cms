@@ -34,7 +34,7 @@ export default async function EventiNews({ params }: EventiNewsProps) {
 	return (
 		<div className='bg-blu-300 min-h-screen'>
 			{/* Marquee: EVENTI IN PROGRAMMA */}
-			<div className='overflow-hidden bg-rosso-500'>
+			<div className='overflow-hidden mt-16  bg-rosso-500'>
 				<div className='inline-flex w-full flex-nowrap'>
 					<ul className='flex animate-infinite-scroll items-center [&_li]:mx-4'>
 						{marqueeItems.map((key) => (

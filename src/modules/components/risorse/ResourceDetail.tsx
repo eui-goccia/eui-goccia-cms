@@ -20,10 +20,7 @@ export function ResourceDetail({ resource }: ResourceDetailProps) {
 					viewBox='0 0 20 20'
 					width='20'
 				>
-					<path
-						d='M10 4L16 12H4L10 4Z'
-						fill='currentColor'
-					/>
+					<path d='M10 4L16 12H4L10 4Z' fill='currentColor' />
 				</svg>
 			</Link>
 

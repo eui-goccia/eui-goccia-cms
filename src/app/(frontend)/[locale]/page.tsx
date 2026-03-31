@@ -40,7 +40,6 @@ export default async function Home({ params }: HomeProps) {
 					<SectionMap />
 				</Suspense>
 			</div>
-
 			<SectionBreakStroke />
 		</main>
 	);

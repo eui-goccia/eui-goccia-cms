@@ -19,45 +19,48 @@ export default function MapGocciaOverview() {
 			return;
 		}
 
-		import('mapbox-gl').then((mapboxgl) => {
-			if (!mapContainerRef.current) return;
+		import('mapbox-gl')
+			.then((mapboxgl) => {
+				if (!mapContainerRef.current) return;
 
-			// Load CSS dynamically
-			if (!document.querySelector('link[href*="mapbox-gl"]')) {
-				const link = document.createElement('link');
-				link.rel = 'stylesheet';
-				link.href = 'https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.css';
-				document.head.appendChild(link);
-			}
+				// Load CSS dynamically
+				if (!document.querySelector('link[href*="mapbox-gl"]')) {
+					const link = document.createElement('link');
+					link.rel = 'stylesheet';
+					link.href =
+						'https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.css';
+					document.head.appendChild(link);
+				}
 
-			mapboxgl.default.accessToken = token;
-			const map = new mapboxgl.default.Map({
-				container: mapContainerRef.current,
-				center: [9.152_16, 45.506_38],
-				zoom: 15.56,
-				style: 'mapbox://styles/mapbox/standard-satellite',
-				config: {
-					basemap: {
-						lightPreset: 'day',
-						showPedestrianRoads: false,
-						showPlaceLabels: false,
-						showPointOfInterestLabels: false,
-						showRoadLabels: false,
-						showTransitLabels: false,
-						showLandmarkIcons: false,
-						showLabels: false,
+				mapboxgl.default.accessToken = token;
+				const map = new mapboxgl.default.Map({
+					container: mapContainerRef.current,
+					center: [9.152_16, 45.506_38],
+					zoom: 15.56,
+					style: 'mapbox://styles/mapbox/standard-satellite',
+					config: {
+						basemap: {
+							lightPreset: 'day',
+							showPedestrianRoads: false,
+							showPlaceLabels: false,
+							showPointOfInterestLabels: false,
+							showRoadLabels: false,
+							showTransitLabels: false,
+							showLandmarkIcons: false,
+							showLabels: false,
+						},
 					},
-				},
-			});
-			map.scrollZoom.disable();
-			mapRef.current = map;
+				});
+				map.scrollZoom.disable();
+				mapRef.current = map;
 
-			map.on('error', () => {
-				setError('Failed to load map');
+				map.on('error', () => {
+					setError('Failed to load map');
+				});
+			})
+			.catch(() => {
+				setError('Failed to initialize map');
 			});
-		}).catch(() => {
-			setError('Failed to initialize map');
-		});
 
 		return () => {
 			mapRef.current?.remove();

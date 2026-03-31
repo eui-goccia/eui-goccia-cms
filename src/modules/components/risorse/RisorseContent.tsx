@@ -6,9 +6,9 @@ import { ResourceRow } from './ResourceRow';
 import { FILTER_GROUPS, MOCK_RESOURCES } from './resourceData';
 
 export function RisorseContent() {
-	const [activeFilters, setActiveFilters] = useState<
-		Record<string, string[]>
-	>({});
+	const [activeFilters, setActiveFilters] = useState<Record<string, string[]>>(
+		{}
+	);
 
 	const handleToggleFilter = (group: string, value: string) => {
 		setActiveFilters((prev) => {
@@ -35,16 +35,10 @@ export function RisorseContent() {
 			) {
 				return false;
 			}
-			if (
-				typeFilters.length > 0 &&
-				!typeFilters.includes(resource.fileType)
-			) {
+			if (typeFilters.length > 0 && !typeFilters.includes(resource.fileType)) {
 				return false;
 			}
-			if (
-				yearFilters.length > 0 &&
-				!yearFilters.includes(resource.year)
-			) {
+			if (yearFilters.length > 0 && !yearFilters.includes(resource.year)) {
 				return false;
 			}
 			return true;

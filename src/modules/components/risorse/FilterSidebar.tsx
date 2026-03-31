@@ -28,8 +28,7 @@ export function FilterSidebar({
 						</p>
 						<div className='flex flex-wrap gap-2.5'>
 							{group.options.map((option) => {
-								const isActive =
-									activeFilters[group.label]?.includes(option);
+								const isActive = activeFilters[group.label]?.includes(option);
 								return (
 									<button
 										className={cn(
