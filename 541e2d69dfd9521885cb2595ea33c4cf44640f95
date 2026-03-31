@@ -1,0 +1,23 @@
+src/app/(frontend)/[locale]/progetto/page.client.tsx
+  381252ff58018862 60
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.22",
+  "base_commit_sha": "541e2d69dfd9521885cb2595ea33c4cf44640f95",
+  "prompts": {
+    "381252ff58018862": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "60069352-d343-4f9d-892f-fade216aab41",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 5,
+      "total_deletions": 5,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}
