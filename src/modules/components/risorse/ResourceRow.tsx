@@ -31,7 +31,9 @@ export function ResourceRow({
 				<p className='font-greed text-lg leading-[1.1] tracking-wide'>
 					{reference}
 				</p>
-				<span className='font-greed text-4xl leading-none'>+</span>
+				<span aria-hidden='true' className='font-greed text-4xl leading-none'>
+					+
+				</span>
 			</div>
 		</Link>
 	);

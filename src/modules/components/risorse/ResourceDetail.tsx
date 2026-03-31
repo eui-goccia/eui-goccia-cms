@@ -10,6 +10,7 @@ export function ResourceDetail({ resource }: ResourceDetailProps) {
 		<div className='px-5 py-10 md:px-10 lg:px-20'>
 			{/* Back Button */}
 			<Link
+				aria-label='Back to resources'
 				className='mb-10 flex size-[45px] items-center justify-center rounded-[14px] border-2 border-black transition-colors hover:bg-black/5'
 				href='/risorse'
 			>

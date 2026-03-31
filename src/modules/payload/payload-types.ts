@@ -288,51 +288,7 @@ export interface Post {
   title: string;
   description?: string | null;
   tags?: (string | Tag)[] | null;
-  content: (
-    | {
-        content: string;
-        vertical?: ('top' | 'center' | 'bottom') | null;
-        horizontal?: ('left' | 'center' | 'right') | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'text';
-      }
-    | {
-        content?: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        vertical?: ('top' | 'center' | 'bottom') | null;
-        horizontal?: ('left' | 'center' | 'right') | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'richText';
-      }
-    | QuoteBlock
-    | {
-        image: string | Image;
-        width?: ('full' | 'half' | 'third') | null;
-        vertical?: ('top' | 'center' | 'bottom') | null;
-        horizontal?: ('left' | 'center' | 'right') | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'image';
-      }
-    | VideoBlock
-    | AudioBlock
-    | GridBlock
-  )[];
+  content: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | VideoBlock | AudioBlock | GridBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -370,6 +326,44 @@ export interface Tag {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBlock".
+ */
+export interface TextBlock {
+  content: string;
+  vertical?: ('top' | 'center' | 'bottom') | null;
+  horizontal?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'text';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RichTextBlock".
+ */
+export interface RichTextBlock {
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  vertical?: ('top' | 'center' | 'bottom') | null;
+  horizontal?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'richText';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "QuoteBlock".
  */
 export interface QuoteBlock {
@@ -394,6 +388,19 @@ export interface QuoteBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'quote';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageBlock".
+ */
+export interface ImageBlock {
+  image: string | Image;
+  width?: ('full' | 'half' | 'third') | null;
+  vertical?: ('top' | 'center' | 'bottom') | null;
+  horizontal?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'image';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -445,57 +452,6 @@ export interface GridBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'grid';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ImageBlock".
- */
-export interface ImageBlock {
-  image: string | Image;
-  width?: ('full' | 'half' | 'third') | null;
-  vertical?: ('top' | 'center' | 'bottom') | null;
-  horizontal?: ('left' | 'center' | 'right') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'image';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TextBlock".
- */
-export interface TextBlock {
-  content: string;
-  vertical?: ('top' | 'center' | 'bottom') | null;
-  horizontal?: ('left' | 'center' | 'right') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'text';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "RichTextBlock".
- */
-export interface RichTextBlock {
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  vertical?: ('top' | 'center' | 'bottom') | null;
-  horizontal?: ('left' | 'center' | 'right') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'richText';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1249,151 +1205,7 @@ export interface Progetto {
   sections?:
     | {
         title: string;
-        content: (
-          | {
-              content: string;
-              vertical?: ('top' | 'center' | 'bottom') | null;
-              horizontal?: ('left' | 'center' | 'right') | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'text';
-            }
-          | {
-              content?: {
-                root: {
-                  type: string;
-                  children: {
-                    type: any;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              } | null;
-              vertical?: ('top' | 'center' | 'bottom') | null;
-              horizontal?: ('left' | 'center' | 'right') | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'richText';
-            }
-          | {
-              content?: {
-                root: {
-                  type: string;
-                  children: {
-                    type: any;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              } | null;
-              author?: string | null;
-              vertical?: ('top' | 'center' | 'bottom') | null;
-              horizontal?: ('left' | 'center' | 'right') | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'quote';
-            }
-          | {
-              image: string | Image;
-              width?: ('full' | 'half' | 'third') | null;
-              vertical?: ('top' | 'center' | 'bottom') | null;
-              horizontal?: ('left' | 'center' | 'right') | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'image';
-            }
-          | {
-              /**
-               * Supporta YouTube, Vimeo, Dailymotion, SoundCloud, Twitch, e altri servizi
-               */
-              url: string;
-              title?: string | null;
-              caption?: string | null;
-              light?: boolean | null;
-              aspectRatio?: ('16/9' | '4/3' | '1/1' | '9/16') | null;
-              width?: ('full' | 'half' | 'third') | null;
-              horizontal?: ('left' | 'center' | 'right') | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'video';
-            }
-          | {
-              sourceType?: ('url' | 'upload') | null;
-              /**
-               * Supports SoundCloud, Mixcloud, and other audio services
-               */
-              url?: string | null;
-              audioFile?: (string | null) | Audio;
-              title?: string | null;
-              caption?: string | null;
-              width?: ('full' | 'half' | 'third') | null;
-              horizontal?: ('left' | 'center' | 'right') | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'audio';
-            }
-          | {
-              /**
-               * Add up to 4 items, they will be displayed in a single row
-               */
-              items?:
-                | (
-                    | {
-                        image: string | Image;
-                        width?: ('full' | 'half' | 'third') | null;
-                        vertical?: ('top' | 'center' | 'bottom') | null;
-                        horizontal?: ('left' | 'center' | 'right') | null;
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'image';
-                      }
-                    | {
-                        content: string;
-                        vertical?: ('top' | 'center' | 'bottom') | null;
-                        horizontal?: ('left' | 'center' | 'right') | null;
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'text';
-                      }
-                    | {
-                        content?: {
-                          root: {
-                            type: string;
-                            children: {
-                              type: any;
-                              version: number;
-                              [k: string]: unknown;
-                            }[];
-                            direction: ('ltr' | 'rtl') | null;
-                            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                            indent: number;
-                            version: number;
-                          };
-                          [k: string]: unknown;
-                        } | null;
-                        vertical?: ('top' | 'center' | 'bottom') | null;
-                        horizontal?: ('left' | 'center' | 'right') | null;
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'richText';
-                      }
-                  )[]
-                | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'grid';
-            }
-        )[];
+        content: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | VideoBlock | AudioBlock | GridBlock)[];
         url: string;
         id?: string | null;
       }[]
