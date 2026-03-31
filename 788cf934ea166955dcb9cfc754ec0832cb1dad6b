@@ -1,0 +1,69 @@
+src/modules/components/maps/MapGocciaOverview.tsx
+  2794e72f632fd861 22-23,57-62,66,70,74
+src/modules/utilities/lenis.tsx
+  3ca08452b9561bc3 17,21,24-32
+src/modules/components/shared/NewsletterSignup.tsx
+  ff3c4aa5a6f956dd 7,16
+  4b76a37a04c030e2 18-19,27
+src/app/(frontend)/[locale]/progetto/page.client.tsx
+  2794e72f632fd861 91
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.22",
+  "base_commit_sha": "788cf934ea166955dcb9cfc754ec0832cb1dad6b",
+  "prompts": {
+    "2794e72f632fd861": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1b759de2-98ab-444f-8a50-2b50391040d1",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 12,
+      "overriden_lines": 0
+    },
+    "3ca08452b9561bc3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "639247d9-3416-4591-806d-8292edbdfb87",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 11,
+      "overriden_lines": 0
+    },
+    "4b76a37a04c030e2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7984b540-e500-483d-9f7d-676af86138ac",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 3,
+      "overriden_lines": 0
+    },
+    "ff3c4aa5a6f956dd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0936e96f-6ab9-4039-82d8-996fd4d520d2",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 2,
+      "overriden_lines": 0
+    }
+  }
+}
