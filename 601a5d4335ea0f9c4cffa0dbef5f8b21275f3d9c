@@ -1,0 +1,139 @@
+src/modules/components/shared/CurrentYear.tsx
+  ee0c29a2e9dff246 1-5
+src/modules/components/shared/Header.tsx
+  58268fedd9f16a7a 45,48
+src/modules/components/shared/Footer.tsx
+  ee0c29a2e9dff246 89
+tsconfig.json
+  a305ef2a5dd8735e 36-38
+src/modules/components/shared/NewsletterSignup.tsx
+  b37b2265f32db6a1 6
+src/modules/components/maps/MapGocciaOverview.tsx
+  2794e72f632fd861 24
+src/modules/components/home/SectionHero.tsx
+  d509dc0663efe27f 9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.22",
+  "base_commit_sha": "601a5d4335ea0f9c4cffa0dbef5f8b21275f3d9c",
+  "prompts": {
+    "2794e72f632fd861": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1b759de2-98ab-444f-8a50-2b50391040d1",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 13,
+      "total_deletions": 4,
+      "accepted_lines": 13,
+      "overriden_lines": 0
+    },
+    "3ca08452b9561bc3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "639247d9-3416-4591-806d-8292edbdfb87",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 15,
+      "total_deletions": 3,
+      "accepted_lines": 11,
+      "overriden_lines": 0
+    },
+    "4b76a37a04c030e2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7984b540-e500-483d-9f7d-676af86138ac",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 3,
+      "total_deletions": 2,
+      "accepted_lines": 3,
+      "overriden_lines": 0
+    },
+    "58268fedd9f16a7a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "077403cc-3d94-4d70-a80b-ca896515b1e1",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 2,
+      "total_deletions": 1,
+      "accepted_lines": 2,
+      "overriden_lines": 0
+    },
+    "a305ef2a5dd8735e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6634a38b-29e0-455d-979f-46256eb972a3",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 3,
+      "total_deletions": 1,
+      "accepted_lines": 3,
+      "overriden_lines": 0
+    },
+    "b37b2265f32db6a1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c8c74824-362f-4477-90d6-cbcba5bc8935",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    },
+    "d509dc0663efe27f": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b0aaff78-0a35-47cd-843c-0673df2eecf0",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    },
+    "ee0c29a2e9dff246": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "48f7777f-82e1-41f0-ae58-c6f2ee55add3",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 11,
+      "total_deletions": 4,
+      "accepted_lines": 8,
+      "overriden_lines": 0
+    },
+    "ff3c4aa5a6f956dd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "0936e96f-6ab9-4039-82d8-996fd4d520d2",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 2,
+      "total_deletions": 2,
+      "accepted_lines": 2,
+      "overriden_lines": 0
+    }
+  }
+}
