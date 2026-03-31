@@ -3,6 +3,10 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+    --radius-4xl: 1.875rem;
+}
+
 @theme inline {
   /* custom fonts */
   --font-tagada: var(--font-tagada);

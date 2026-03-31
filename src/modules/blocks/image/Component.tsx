@@ -16,7 +16,7 @@ export const ImageBlockComponent: React.FC<{
 	return (
 		<CustomImage
 			alt={image.alt || image.caption || ''}
-			className={cn('rounded-2xl aspect-16/9 object-cover', className)}
+			className={cn('rounded-4xl aspect-16/10 object-cover', className)}
 			image={image}
 			size='xlarge'
 		/>

@@ -57,17 +57,10 @@ export default function ProgettoClient({ project }: { project: Progetto }) {
 								return (
 									<li key={chapter.url}>
 										<a
-											className={`flex gap-2 ${
-												isActive
-													? 'text-blu-500 underline underline-offset-4 decoration-1'
-													: ''
-											}`}
+											className={`flex gap-2 ${isActive ? 'bg-rosso-500' : 'hover:bg-rosso-500/20'}`}
 											href={chapter.url}
 										>
-											→
-											<span className='hover:underline decoration-1 underline-offset-4'>
-												{chapter.title}
-											</span>
+											→<span>{chapter.title}</span>
 										</a>
 									</li>
 								);

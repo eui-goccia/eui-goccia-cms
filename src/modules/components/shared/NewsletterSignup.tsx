@@ -15,7 +15,7 @@ export default async function NewsletterSignup() {
 
 			<div className='p-0'>
 				<iframe
-					className='w-full min-h-[360px]'
+					className='w-full min-h-90'
 					height={360}
 					src={
 						'https://gocciaeu.substack.com/embed?simple=true&utm_source=navbar&utm_medium=web&utm_campaign=navbar_click&background_color=64b217'
