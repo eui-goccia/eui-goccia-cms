@@ -1,0 +1,38 @@
+scripts/init-worktree.sh
+  7c703a1240b53a41 1-63
+scripts/setup-worktree.sh
+  28ca27540b43b759 1-53
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.22",
+  "base_commit_sha": "70d1dcec2082f2742b9d64d89f6429a80d2655f8",
+  "prompts": {
+    "28ca27540b43b759": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a9b75f5f-5319-4177-91a3-df673f735997",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 53,
+      "overriden_lines": 0
+    },
+    "7c703a1240b53a41": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3c4d517e-d3a4-4a5c-b31e-b4d6e484ccf7",
+        "model": "claude-haiku-4-5-20251001"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 63,
+      "overriden_lines": 0
+    }
+  }
+}
