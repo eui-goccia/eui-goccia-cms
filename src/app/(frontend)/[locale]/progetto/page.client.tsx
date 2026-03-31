@@ -88,7 +88,7 @@ export default function ProgettoClient({ project }: { project: Progetto }) {
 					))}
 				</article>
 			</div>
-			<div className=' hidden bg-rosa-300 grid-cols-12 gap-5 px-10 py-30'>
+			<div className=' hidden bg-blu-300 grid-cols-12 gap-5 px-10 py-30'>
 				<Link
 					className='underline hover:no-underline col-start-5 w-fit col-span-full font-greed uppercase text-3xl justify-center'
 					href='https://google.com'

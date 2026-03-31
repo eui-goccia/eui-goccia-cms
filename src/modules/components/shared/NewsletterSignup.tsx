@@ -3,8 +3,8 @@ import { getTranslations } from 'next-intl/server';
 export default async function NewsletterSignup() {
 	const t = await getTranslations('newsletter');
 	return (
-		<div className='w-full bg-rosa-300 h-55 px-5 lg:px-10 flex flex-row items-center justify-between pb-10 pt-16 gap-y-5 lg:gap-y-10 gap-x-5'>
-			<div className='flex flex-col text-start col-start-1 xl:col-start-2 col-span-full xl:col-span-10'>
+		<div className='w-full bg-rosa-300 min-h-55 px-5 lg:px-10 flex flex-col lg:flex-row items-center justify-between pb-10 pt-16 gap-y-5 lg:gap-y-10 gap-x-5'>
+			<div className='flex flex-col text-start'>
 				<h1 className='font-tagada text-4xl md:text-5xl xl:text-6xl'>
 					{t('title')}
 				</h1>
@@ -13,9 +13,10 @@ export default async function NewsletterSignup() {
 				</p>
 			</div>
 
-			<div className=' p-0 col-span-full'>
+			<div className='p-0'>
 				<iframe
-					height='100%'
+					className='w-full min-h-[360px]'
+					height={360}
 					src={
 						'https://gocciaeu.substack.com/embed?simple=true&utm_source=navbar&utm_medium=web&utm_campaign=navbar_click&background_color=64b217'
 					}
@@ -23,9 +24,9 @@ export default async function NewsletterSignup() {
 						mixBlendMode: 'multiply',
 						padding: 0,
 						margin: 0,
+						width: '100%',
 					}}
 					title='Newsletter Signup'
-					width='100%'
 				/>
 			</div>
 		</div>

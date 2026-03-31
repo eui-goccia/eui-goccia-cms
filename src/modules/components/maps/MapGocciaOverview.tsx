@@ -19,9 +19,11 @@ export default function MapGocciaOverview() {
 			return;
 		}
 
+		let aborted = false;
+
 		import('mapbox-gl')
 			.then((mapboxgl) => {
-				if (!mapContainerRef.current) return;
+				if (aborted || !mapContainerRef.current) return;
 
 				// Load CSS dynamically
 				if (!document.querySelector('link[href*="mapbox-gl"]')) {
@@ -52,17 +54,24 @@ export default function MapGocciaOverview() {
 					},
 				});
 				map.scrollZoom.disable();
+
+				if (aborted) {
+					map.remove();
+					return;
+				}
+
 				mapRef.current = map;
 
 				map.on('error', () => {
-					setError('Failed to load map');
+					if (!aborted) setError('Failed to load map');
 				});
 			})
 			.catch(() => {
-				setError('Failed to initialize map');
+				if (!aborted) setError('Failed to initialize map');
 			});
 
 		return () => {
+			aborted = true;
 			mapRef.current?.remove();
 		};
 	}, []);

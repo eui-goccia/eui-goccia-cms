@@ -14,10 +14,22 @@ export function ReactLenis({ children, ...props }: ReactLenisProps) {
 		useState<ComponentType<ReactLenisProps> | null>(null);
 
 	useEffect(() => {
+		let isMounted = true;
 		window.scrollTo(0, 0);
-		import('lenis/react').then((mod) => {
-			setLenisComponent(() => mod.ReactLenis as ComponentType<ReactLenisProps>);
-		});
+		import('lenis/react')
+			.then((mod) => {
+				if (isMounted) {
+					setLenisComponent(
+						() => mod.ReactLenis as ComponentType<ReactLenisProps>
+					);
+				}
+			})
+			.catch((error) => {
+				console.error('Failed to load lenis/react:', error);
+			});
+		return () => {
+			isMounted = false;
+		};
 	}, []);
 
 	if (!LenisComponent) {
