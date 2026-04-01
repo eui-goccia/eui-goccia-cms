@@ -1,0 +1,101 @@
+src/modules/payload/db/migrations/20260331_212435_add_events_collection.ts
+  88d1d33db18767b2 164-165,361-362
+src/modules/events/labels.ts
+  b56927b5d6e3a142 1-9
+src/modules/events/revalidate.ts
+  aa973068e6eccadf 1-43
+src/app/(frontend)/[locale]/eventi/page.tsx
+  2c13003d85162d5b 5,8,12,16-17,21-25,28-29,31-32,68,70,83-85,91-95,97-101
+src/modules/payload/db/migrations/20260401_082831_add_events_seo.ts
+  88d1d33db18767b2 4-6
+src/modules/events/collection.ts
+  aa973068e6eccadf 1-5,7-54,56,58-60,68-69,74-80,85-95,97-109,141-153,155-164,166-187,189-190,231-239
+  b56927b5d6e3a142 154,191-230
+  b48ae0da74124627 6,165
+  3335422238f000a6 110-140
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.23",
+  "base_commit_sha": "f049773ce6185006daedaa7b2c80554a0e852791",
+  "prompts": {
+    "2c13003d85162d5b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "14a21bb9-5149-4568-9d31-75744ccbb56c",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 29,
+      "overriden_lines": 0
+    },
+    "3335422238f000a6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "874ad20b-5b10-4e7a-b1cd-ba4175620237",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 31,
+      "overriden_lines": 0
+    },
+    "88d1d33db18767b2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "bb551077-dfc9-4f02-9c03-3ddc308b779a",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 7,
+      "overriden_lines": 0
+    },
+    "aa973068e6eccadf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f5b473f3-950d-4fdf-8b75-d9e834fb5047",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 189,
+      "overriden_lines": 0
+    },
+    "b48ae0da74124627": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "960870ae-79e8-4041-9011-efb9d8e7c772",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 2,
+      "overriden_lines": 0
+    },
+    "b56927b5d6e3a142": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a0b9c738-6e0d-4e3a-9bf5-44cd2f63a2df",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 50,
+      "overriden_lines": 0
+    }
+  }
+}
