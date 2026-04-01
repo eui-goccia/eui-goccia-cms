@@ -20,7 +20,7 @@ export default async function EventiPage({ params }: EventiPageProps) {
 		locale: locale as Locales,
 		sort: '-when_startDate',
 		where: {
-			parentEvent: { exists: false },
+			parent: { exists: false },
 		},
 	})) as PaginatedDocs<Event>;
 

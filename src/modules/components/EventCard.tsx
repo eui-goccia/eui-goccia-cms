@@ -24,10 +24,15 @@ export default async function EventCard({
 	const locale = await getLocale();
 	const image = event.coverImage as ImageType;
 
+	const lastBreadcrumb = event.breadcrumbs?.at(-1);
+	const eventHref = lastBreadcrumb?.url
+		? `/eventi${lastBreadcrumb.url}`
+		: `/eventi/${event.slug}`;
+
 	return (
 		<Link
 			className='group flex flex-col gap-3'
-			href={`/eventi/${event.slug}`}
+			href={eventHref}
 			locale={locale}
 		>
 			{showImage && image ? (

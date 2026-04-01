@@ -6,7 +6,7 @@ import type {
 	CollectionAfterDeleteHook,
 } from 'payload';
 
-export const revalidateEvent: CollectionAfterChangeHook<Event> = ({
+export const revalidateEvent: CollectionAfterChangeHook<Event> = async ({
 	doc,
 	req: { payload, context },
 }) => {
@@ -19,12 +19,26 @@ export const revalidateEvent: CollectionAfterChangeHook<Event> = ({
 
 		revalidateTag(`events_${doc.slug}`, {});
 		revalidateTag('events', {});
+
+		const children = await payload.find({
+			collection: 'events',
+			where: { parent: { equals: doc.id } },
+			depth: 0,
+			limit: 100,
+			context: { disableRevalidate: true },
+		});
+
+		for (const child of children.docs) {
+			if (child.slug) {
+				revalidateTag(`events_${child.slug}`, {});
+			}
+		}
 	}
 
 	return doc;
 };
 
-export const revalidateEventDelete: CollectionAfterDeleteHook<Event> = ({
+export const revalidateEventDelete: CollectionAfterDeleteHook<Event> = async ({
 	doc,
 	req: { context, payload },
 }) => {
@@ -37,6 +51,20 @@ export const revalidateEventDelete: CollectionAfterDeleteHook<Event> = ({
 
 		revalidateTag(`events_${doc.slug}`, {});
 		revalidateTag('events', {});
+
+		const children = await payload.find({
+			collection: 'events',
+			where: { parent: { equals: doc.id } },
+			depth: 0,
+			limit: 100,
+			context: { disableRevalidate: true },
+		});
+
+		for (const child of children.docs) {
+			if (child.slug) {
+				revalidateTag(`events_${child.slug}`, {});
+			}
+		}
 	}
 
 	return doc;

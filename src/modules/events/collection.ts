@@ -1,3 +1,7 @@
+import {
+	createBreadcrumbsField,
+	createParentField,
+} from '@payloadcms/plugin-nested-docs';
 import type { CollectionConfig } from 'payload';
 import { defaultBlocks } from '../blocks';
 import { editor } from '../payload/access/editor';
@@ -19,7 +23,8 @@ export const Events: CollectionConfig = {
 		slug: true,
 		startDate: true,
 		endDate: true,
-		parentEvent: true,
+		parent: true,
+		breadcrumbs: true,
 		_status: true,
 	},
 	access: {
@@ -34,7 +39,7 @@ export const Events: CollectionConfig = {
 	},
 	admin: {
 		useAsTitle: 'title',
-		baseListFilter: () => ({ parentEvent: { exists: false } }),
+		baseListFilter: () => ({ parent: { exists: false } }),
 	},
 	fields: [
 		{
@@ -142,12 +147,15 @@ export const Events: CollectionConfig = {
 				},
 				{
 					label: 'Sotto-eventi',
+					admin: {
+						condition: (data) => !data?.parent,
+					},
 					fields: [
 						{
 							name: 'subEvents',
 							type: 'join',
 							collection: 'events',
-							on: 'parentEvent',
+							on: 'parent',
 							admin: {
 								defaultColumns: [
 									'title',
@@ -157,7 +165,6 @@ export const Events: CollectionConfig = {
 									'address.location',
 								],
 								allowCreate: true,
-								condition: (data) => !data?.parentEvent,
 							},
 						},
 					],
@@ -176,25 +183,25 @@ export const Events: CollectionConfig = {
 				position: 'sidebar',
 			},
 		},
-		{
-			name: 'parentEvent',
-			type: 'relationship',
-			relationTo: 'events',
+		createParentField('events', {
 			label: 'Evento principale',
-			hasMany: false,
 			admin: {
 				position: 'sidebar',
 				readOnly: true,
+			},
+		}),
+		createBreadcrumbsField('events', {
+			admin: {
 				hidden: true,
 			},
-		},
+		}),
 		{
 			name: 'label',
 			type: 'select',
 			label: 'Categoria',
 			admin: {
 				position: 'sidebar',
-				condition: (data) => Boolean(data?.parentEvent),
+				condition: (data) => Boolean(data?.parent),
 			},
 			options: [
 				{

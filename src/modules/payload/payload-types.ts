@@ -578,7 +578,15 @@ export interface Event {
     description?: string | null;
   };
   coverImage: string | Image;
-  parentEvent?: (string | null) | Event;
+  parent?: (string | null) | Event;
+  breadcrumbs?:
+    | {
+        doc?: (string | null) | Event;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   label?: ('esplorazioni' | 'approfondimenti' | 'attivita-piccoli' | 'talk-musica-arte' | 'esposizioni-voci') | null;
   slug?: string | null;
   slugLock?: boolean | null;
@@ -1267,7 +1275,15 @@ export interface EventsSelect<T extends boolean = true> {
         description?: T;
       };
   coverImage?: T;
-  parentEvent?: T;
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
   label?: T;
   slug?: T;
   slugLock?: T;
