@@ -1379,6 +1379,46 @@ export const events_blocks_grid = sqliteTable(
   ],
 );
 
+export const events_links = sqliteTable(
+  "events_links",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    id: text("id").primaryKey(),
+    url: text("url"),
+  },
+  (columns) => [
+    index("events_links_order_idx").on(columns._order),
+    index("events_links_parent_id_idx").on(columns._parentID),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [events.id],
+      name: "events_links_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const events_links_locales = sqliteTable(
+  "events_links_locales",
+  {
+    label: text("label"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex("events_links_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [events_links.id],
+      name: "events_links_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
 export const events = sqliteTable(
   "events",
   {
@@ -1393,6 +1433,8 @@ export const events = sqliteTable(
     ),
     address_location: text("address_location"),
     address_googleMapsUrl: text("address_google_maps_url"),
+    organizer: text("organizer"),
+    bookingUrl: text("booking_url"),
     coverImage: text("cover_image_id").references(() => images.id, {
       onDelete: "set null",
     }),
@@ -1781,6 +1823,49 @@ export const _events_v_blocks_grid = sqliteTable(
   ],
 );
 
+export const _events_v_version_links = sqliteTable(
+  "_events_v_version_links",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    url: text("url"),
+    _uuid: text("_uuid"),
+  },
+  (columns) => [
+    index("_events_v_version_links_order_idx").on(columns._order),
+    index("_events_v_version_links_parent_id_idx").on(columns._parentID),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_events_v.id],
+      name: "_events_v_version_links_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _events_v_version_links_locales = sqliteTable(
+  "_events_v_version_links_locales",
+  {
+    label: text("label"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex("_events_v_version_links_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_events_v_version_links.id],
+      name: "_events_v_version_links_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
 export const _events_v = sqliteTable(
   "_events_v",
   {
@@ -1798,6 +1883,8 @@ export const _events_v = sqliteTable(
     ),
     version_address_location: text("version_address_location"),
     version_address_googleMapsUrl: text("version_address_google_maps_url"),
+    version_organizer: text("version_organizer"),
+    version_bookingUrl: text("version_booking_url"),
     version_coverImage: text("version_cover_image_id").references(
       () => images.id,
       {
@@ -3628,6 +3715,29 @@ export const relations_events_blocks_grid = relations(
     }),
   }),
 );
+export const relations_events_links_locales = relations(
+  events_links_locales,
+  ({ one }) => ({
+    _parentID: one(events_links, {
+      fields: [events_links_locales._parentID],
+      references: [events_links.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_events_links = relations(
+  events_links,
+  ({ one, many }) => ({
+    _parentID: one(events, {
+      fields: [events_links._parentID],
+      references: [events.id],
+      relationName: "links",
+    }),
+    _locales: many(events_links_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
 export const relations_events_locales = relations(
   events_locales,
   ({ one }) => ({
@@ -3664,6 +3774,9 @@ export const relations_events = relations(events, ({ one, many }) => ({
   }),
   _blocks_grid: many(events_blocks_grid, {
     relationName: "_blocks_grid",
+  }),
+  links: many(events_links, {
+    relationName: "links",
   }),
   coverImage: one(images, {
     fields: [events.coverImage],
@@ -3824,6 +3937,29 @@ export const relations__events_v_blocks_grid = relations(
     }),
   }),
 );
+export const relations__events_v_version_links_locales = relations(
+  _events_v_version_links_locales,
+  ({ one }) => ({
+    _parentID: one(_events_v_version_links, {
+      fields: [_events_v_version_links_locales._parentID],
+      references: [_events_v_version_links.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations__events_v_version_links = relations(
+  _events_v_version_links,
+  ({ one, many }) => ({
+    _parentID: one(_events_v, {
+      fields: [_events_v_version_links._parentID],
+      references: [_events_v.id],
+      relationName: "version_links",
+    }),
+    _locales: many(_events_v_version_links_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
 export const relations__events_v_locales = relations(
   _events_v_locales,
   ({ one }) => ({
@@ -3865,6 +4001,9 @@ export const relations__events_v = relations(_events_v, ({ one, many }) => ({
   }),
   _blocks_grid: many(_events_v_blocks_grid, {
     relationName: "_blocks_grid",
+  }),
+  version_links: many(_events_v_version_links, {
+    relationName: "version_links",
   }),
   version_coverImage: one(images, {
     fields: [_events_v.version_coverImage],
@@ -4440,6 +4579,8 @@ type DatabaseSchema = {
   events_blocks_audio: typeof events_blocks_audio;
   events_blocks_audio_locales: typeof events_blocks_audio_locales;
   events_blocks_grid: typeof events_blocks_grid;
+  events_links: typeof events_links;
+  events_links_locales: typeof events_links_locales;
   events: typeof events;
   events_locales: typeof events_locales;
   _events_v_blocks_text: typeof _events_v_blocks_text;
@@ -4454,6 +4595,8 @@ type DatabaseSchema = {
   _events_v_blocks_audio: typeof _events_v_blocks_audio;
   _events_v_blocks_audio_locales: typeof _events_v_blocks_audio_locales;
   _events_v_blocks_grid: typeof _events_v_blocks_grid;
+  _events_v_version_links: typeof _events_v_version_links;
+  _events_v_version_links_locales: typeof _events_v_version_links_locales;
   _events_v: typeof _events_v;
   _events_v_locales: typeof _events_v_locales;
   authors: typeof authors;
@@ -4548,6 +4691,8 @@ type DatabaseSchema = {
   relations_events_blocks_audio_locales: typeof relations_events_blocks_audio_locales;
   relations_events_blocks_audio: typeof relations_events_blocks_audio;
   relations_events_blocks_grid: typeof relations_events_blocks_grid;
+  relations_events_links_locales: typeof relations_events_links_locales;
+  relations_events_links: typeof relations_events_links;
   relations_events_locales: typeof relations_events_locales;
   relations_events: typeof relations_events;
   relations__events_v_blocks_text_locales: typeof relations__events_v_blocks_text_locales;
@@ -4562,6 +4707,8 @@ type DatabaseSchema = {
   relations__events_v_blocks_audio_locales: typeof relations__events_v_blocks_audio_locales;
   relations__events_v_blocks_audio: typeof relations__events_v_blocks_audio;
   relations__events_v_blocks_grid: typeof relations__events_v_blocks_grid;
+  relations__events_v_version_links_locales: typeof relations__events_v_version_links_locales;
+  relations__events_v_version_links: typeof relations__events_v_version_links;
   relations__events_v_locales: typeof relations__events_v_locales;
   relations__events_v: typeof relations__events_v;
   relations_authors_locales: typeof relations_authors_locales;

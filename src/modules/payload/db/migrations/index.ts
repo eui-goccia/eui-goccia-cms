@@ -14,6 +14,7 @@ import * as migration_20260312_215107_add_about_hero_image from './20260312_2151
 import * as migration_20260331_212435_add_events_collection from './20260331_212435_add_events_collection';
 import * as migration_20260401_082831_add_events_seo from './20260401_082831_add_events_seo';
 import * as migration_20260401_091233_add_event_labels from './20260401_091233_add_event_labels';
+import * as migration_20260401_112231_add_event_organizer_links_booking from './20260401_112231_add_event_organizer_links_booking';
 
 export const migrations = [
   {
@@ -94,6 +95,11 @@ export const migrations = [
   {
     up: migration_20260401_091233_add_event_labels.up,
     down: migration_20260401_091233_add_event_labels.down,
-    name: '20260401_091233_add_event_labels'
+    name: '20260401_091233_add_event_labels',
+  },
+  {
+    up: migration_20260401_112231_add_event_organizer_links_booking.up,
+    down: migration_20260401_112231_add_event_organizer_links_booking.down,
+    name: '20260401_112231_add_event_organizer_links_booking'
   },
 ];

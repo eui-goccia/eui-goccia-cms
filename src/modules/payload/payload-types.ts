@@ -555,6 +555,15 @@ export interface Event {
     location?: string | null;
     googleMapsUrl?: string | null;
   };
+  organizer?: string | null;
+  links?:
+    | {
+        label: string;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  bookingUrl?: string | null;
   subEvents?: {
     docs?: (string | Event)[];
     hasNextPage?: boolean;
@@ -1240,6 +1249,15 @@ export interface EventsSelect<T extends boolean = true> {
         location?: T;
         googleMapsUrl?: T;
       };
+  organizer?: T;
+  links?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        id?: T;
+      };
+  bookingUrl?: T;
   subEvents?: T;
   meta?:
     | T
