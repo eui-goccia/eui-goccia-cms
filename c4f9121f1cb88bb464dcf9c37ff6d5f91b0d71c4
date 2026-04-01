@@ -1,0 +1,35 @@
+src/modules/components/EventCard.tsx
+  8f84edddabd06bde 27-31,35
+src/modules/events/collection.ts
+  8f84edddabd06bde 1-4,26-27,42,150-152,158,186,191-194,197,204
+src/app/(frontend)/[locale]/eventi/[...slug]/page.tsx
+  8f84edddabd06bde 1-40
+src/modules/utilities/generatePreviewPath.ts
+  8f84edddabd06bde 5
+src/app/(frontend)/[locale]/eventi/page.tsx
+  8f84edddabd06bde 23
+src/modules/payload/payload.config.ts
+  8f84edddabd06bde 105-111
+src/modules/events/revalidate.ts
+  8f84edddabd06bde 9,22-35,41,54-67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.1.23",
+  "base_commit_sha": "c4f9121f1cb88bb464dcf9c37ff6d5f91b0d71c4",
+  "prompts": {
+    "8f84edddabd06bde": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "42d7a687-dae6-42d6-98cf-ceac7793a21c",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta <24527778+az3ta@users.noreply.github.com>",
+      "messages": [],
+      "total_additions": 122,
+      "total_deletions": 128,
+      "accepted_lines": 105,
+      "overriden_lines": 0
+    }
+  }
+}
