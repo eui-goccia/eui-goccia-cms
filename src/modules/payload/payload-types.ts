@@ -71,6 +71,7 @@ export interface Config {
     images: Image;
     users: User;
     posts: Post;
+    events: Event;
     authors: Author;
     tags: Tag;
     exports: Export;
@@ -82,6 +83,9 @@ export interface Config {
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {
+    events: {
+      subEvents: 'events';
+    };
     authors: {
       posts: 'posts';
     };
@@ -94,6 +98,7 @@ export interface Config {
     images: ImagesSelect<false> | ImagesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    events: EventsSelect<false> | EventsSelect<true>;
     authors: AuthorsSelect<false> | AuthorsSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     exports: ExportsSelect<false> | ExportsSelect<true>;
@@ -319,7 +324,29 @@ export interface Post {
         blockName?: string | null;
         blockType: 'richText';
       }
-    | QuoteBlock
+    | {
+        content?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        author?: string | null;
+        vertical?: ('top' | 'center' | 'bottom') | null;
+        horizontal?: ('left' | 'center' | 'right') | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'quote';
+      }
     | {
         image: string | Image;
         width?: ('full' | 'half' | 'third') | null;
@@ -329,9 +356,87 @@ export interface Post {
         blockName?: string | null;
         blockType: 'image';
       }
-    | VideoBlock
-    | AudioBlock
-    | GridBlock
+    | {
+        /**
+         * Supporta YouTube, Vimeo, Dailymotion, SoundCloud, Twitch, e altri servizi
+         */
+        url: string;
+        title?: string | null;
+        caption?: string | null;
+        light?: boolean | null;
+        aspectRatio?: ('16/9' | '4/3' | '1/1' | '9/16') | null;
+        width?: ('full' | 'half' | 'third') | null;
+        horizontal?: ('left' | 'center' | 'right') | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'video';
+      }
+    | {
+        sourceType?: ('url' | 'upload') | null;
+        /**
+         * Supports SoundCloud, Mixcloud, and other audio services
+         */
+        url?: string | null;
+        audioFile?: (string | null) | Audio;
+        title?: string | null;
+        caption?: string | null;
+        width?: ('full' | 'half' | 'third') | null;
+        horizontal?: ('left' | 'center' | 'right') | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'audio';
+      }
+    | {
+        /**
+         * Add up to 4 items, they will be displayed in a single row
+         */
+        items?:
+          | (
+              | {
+                  image: string | Image;
+                  width?: ('full' | 'half' | 'third') | null;
+                  vertical?: ('top' | 'center' | 'bottom') | null;
+                  horizontal?: ('left' | 'center' | 'right') | null;
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'image';
+                }
+              | {
+                  content: string;
+                  vertical?: ('top' | 'center' | 'bottom') | null;
+                  horizontal?: ('left' | 'center' | 'right') | null;
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'text';
+                }
+              | {
+                  content?: {
+                    root: {
+                      type: string;
+                      children: {
+                        type: any;
+                        version: number;
+                        [k: string]: unknown;
+                      }[];
+                      direction: ('ltr' | 'rtl') | null;
+                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                      indent: number;
+                      version: number;
+                    };
+                    [k: string]: unknown;
+                  } | null;
+                  vertical?: ('top' | 'center' | 'bottom') | null;
+                  horizontal?: ('left' | 'center' | 'right') | null;
+                  id?: string | null;
+                  blockName?: string | null;
+                  blockType: 'richText';
+                }
+            )[]
+          | null;
+        id?: string | null;
+        blockName?: string | null;
+        blockType: 'grid';
+      }
   )[];
   meta?: {
     title?: string | null;
@@ -367,6 +472,110 @@ export interface Tag {
   slugLock?: boolean | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors".
+ */
+export interface Author {
+  id: string;
+  name: string;
+  bio?: string | null;
+  image?: (string | null) | Image;
+  partner?: string | null;
+  posts?: {
+    docs?: (string | Post)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events".
+ */
+export interface Event {
+  id: string;
+  title: string;
+  content?:
+    | (
+        | {
+            content: string;
+            vertical?: ('top' | 'center' | 'bottom') | null;
+            horizontal?: ('left' | 'center' | 'right') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'text';
+          }
+        | {
+            content?: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
+            vertical?: ('top' | 'center' | 'bottom') | null;
+            horizontal?: ('left' | 'center' | 'right') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'richText';
+          }
+        | QuoteBlock
+        | {
+            image: string | Image;
+            width?: ('full' | 'half' | 'third') | null;
+            vertical?: ('top' | 'center' | 'bottom') | null;
+            horizontal?: ('left' | 'center' | 'right') | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'image';
+          }
+        | VideoBlock
+        | AudioBlock
+        | GridBlock
+      )[]
+    | null;
+  when: {
+    startDate: string;
+    endDate: string;
+  };
+  address?: {
+    location?: string | null;
+    googleMapsUrl?: string | null;
+  };
+  subEvents?: {
+    docs?: (string | Event)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Image;
+    description?: string | null;
+  };
+  coverImage: string | Image;
+  parentEvent?: (string | null) | Event;
+  label?: ('esplorazioni' | 'approfondimenti' | 'attivita-piccoli' | 'talk-musica-arte' | 'esposizioni-voci') | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -496,26 +705,6 @@ export interface RichTextBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'richText';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "authors".
- */
-export interface Author {
-  id: string;
-  name: string;
-  bio?: string | null;
-  image?: (string | null) | Image;
-  partner?: string | null;
-  posts?: {
-    docs?: (string | Post)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  slug?: string | null;
-  slugLock?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -723,6 +912,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'posts';
         value: string | Post;
+      } | null)
+    | ({
+        relationTo: 'events';
+        value: string | Event;
       } | null)
     | ({
         relationTo: 'authors';
@@ -1017,6 +1210,52 @@ export interface GridBlockSelect<T extends boolean = true> {
       };
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events_select".
+ */
+export interface EventsSelect<T extends boolean = true> {
+  title?: T;
+  content?:
+    | T
+    | {
+        text?: T | TextBlockSelect<T>;
+        richText?: T | RichTextBlockSelect<T>;
+        quote?: T | QuoteBlockSelect<T>;
+        image?: T | ImageBlockSelect<T>;
+        video?: T | VideoBlockSelect<T>;
+        audio?: T | AudioBlockSelect<T>;
+        grid?: T | GridBlockSelect<T>;
+      };
+  when?:
+    | T
+    | {
+        startDate?: T;
+        endDate?: T;
+      };
+  address?:
+    | T
+    | {
+        location?: T;
+        googleMapsUrl?: T;
+      };
+  subEvents?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  coverImage?: T;
+  parentEvent?: T;
+  label?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1575,7 +1814,7 @@ export interface TaskCreateCollectionExport {
     id: string;
     name: string;
     batchSize?: number | null;
-    collectionSlug: 'audio' | 'images' | 'users' | 'posts' | 'authors' | 'tags' | 'exports' | 'imports';
+    collectionSlug: 'audio' | 'images' | 'users' | 'posts' | 'events' | 'authors' | 'tags' | 'exports' | 'imports';
     drafts?: ('yes' | 'no') | null;
     exportCollection: string;
     fields?: string[] | null;
@@ -1624,10 +1863,15 @@ export interface TaskSchedulePublish {
   input: {
     type?: ('publish' | 'unpublish') | null;
     locale?: string | null;
-    doc?: {
-      relationTo: 'posts';
-      value: string | Post;
-    } | null;
+    doc?:
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'events';
+          value: string | Event;
+        } | null);
     global?: string | null;
     user?: (string | null) | User;
   };

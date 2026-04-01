@@ -15,6 +15,7 @@ import {
   text,
   numeric,
   integer,
+  type AnySQLiteColumn,
 } from "@payloadcms/db-sqlite/drizzle/sqlite-core";
 import { sql, relations } from "@payloadcms/db-sqlite/drizzle";
 import { randomUUID } from "crypto";
@@ -1075,6 +1076,829 @@ export const _posts_v_rels = sqliteTable(
   ],
 );
 
+export const events_blocks_text = sqliteTable(
+  "events_blocks_text",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id").primaryKey(),
+    vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
+      "top",
+    ),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("left"),
+    blockName: text("block_name"),
+  },
+  (columns) => [
+    index("events_blocks_text_order_idx").on(columns._order),
+    index("events_blocks_text_parent_id_idx").on(columns._parentID),
+    index("events_blocks_text_path_idx").on(columns._path),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [events.id],
+      name: "events_blocks_text_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const events_blocks_text_locales = sqliteTable(
+  "events_blocks_text_locales",
+  {
+    content: text("content"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex("events_blocks_text_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [events_blocks_text.id],
+      name: "events_blocks_text_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const events_blocks_rich_text = sqliteTable(
+  "events_blocks_rich_text",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id").primaryKey(),
+    vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
+      "top",
+    ),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("left"),
+    blockName: text("block_name"),
+  },
+  (columns) => [
+    index("events_blocks_rich_text_order_idx").on(columns._order),
+    index("events_blocks_rich_text_parent_id_idx").on(columns._parentID),
+    index("events_blocks_rich_text_path_idx").on(columns._path),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [events.id],
+      name: "events_blocks_rich_text_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const events_blocks_rich_text_locales = sqliteTable(
+  "events_blocks_rich_text_locales",
+  {
+    content: text("content", { mode: "json" }),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex("events_blocks_rich_text_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [events_blocks_rich_text.id],
+      name: "events_blocks_rich_text_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const events_blocks_quote = sqliteTable(
+  "events_blocks_quote",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id").primaryKey(),
+    vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
+      "bottom",
+    ),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("right"),
+    blockName: text("block_name"),
+  },
+  (columns) => [
+    index("events_blocks_quote_order_idx").on(columns._order),
+    index("events_blocks_quote_parent_id_idx").on(columns._parentID),
+    index("events_blocks_quote_path_idx").on(columns._path),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [events.id],
+      name: "events_blocks_quote_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const events_blocks_quote_locales = sqliteTable(
+  "events_blocks_quote_locales",
+  {
+    content: text("content", { mode: "json" }),
+    author: text("author"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex("events_blocks_quote_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [events_blocks_quote.id],
+      name: "events_blocks_quote_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const events_blocks_image = sqliteTable(
+  "events_blocks_image",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id").primaryKey(),
+    image: text("image_id").references(() => images.id, {
+      onDelete: "set null",
+    }),
+    width: text("width", { enum: ["full", "half", "third"] }).default("full"),
+    vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
+      "center",
+    ),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("center"),
+    blockName: text("block_name"),
+  },
+  (columns) => [
+    index("events_blocks_image_order_idx").on(columns._order),
+    index("events_blocks_image_parent_id_idx").on(columns._parentID),
+    index("events_blocks_image_path_idx").on(columns._path),
+    index("events_blocks_image_image_idx").on(columns.image),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [events.id],
+      name: "events_blocks_image_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const events_blocks_video = sqliteTable(
+  "events_blocks_video",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id").primaryKey(),
+    url: text("url"),
+    light: integer("light", { mode: "boolean" }).default(true),
+    aspectRatio: text("aspect_ratio", {
+      enum: ["16/9", "4/3", "1/1", "9/16"],
+    }).default("16/9"),
+    width: text("width", { enum: ["full", "half", "third"] }).default("full"),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("center"),
+    blockName: text("block_name"),
+  },
+  (columns) => [
+    index("events_blocks_video_order_idx").on(columns._order),
+    index("events_blocks_video_parent_id_idx").on(columns._parentID),
+    index("events_blocks_video_path_idx").on(columns._path),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [events.id],
+      name: "events_blocks_video_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const events_blocks_video_locales = sqliteTable(
+  "events_blocks_video_locales",
+  {
+    title: text("title"),
+    caption: text("caption"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex("events_blocks_video_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [events_blocks_video.id],
+      name: "events_blocks_video_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const events_blocks_audio = sqliteTable(
+  "events_blocks_audio",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id").primaryKey(),
+    sourceType: text("source_type", { enum: ["url", "upload"] }).default("url"),
+    url: text("url"),
+    audioFile: text("audio_file_id").references(() => audio.id, {
+      onDelete: "set null",
+    }),
+    width: text("width", { enum: ["full", "half", "third"] }).default("full"),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("center"),
+    blockName: text("block_name"),
+  },
+  (columns) => [
+    index("events_blocks_audio_order_idx").on(columns._order),
+    index("events_blocks_audio_parent_id_idx").on(columns._parentID),
+    index("events_blocks_audio_path_idx").on(columns._path),
+    index("events_blocks_audio_audio_file_idx").on(columns.audioFile),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [events.id],
+      name: "events_blocks_audio_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const events_blocks_audio_locales = sqliteTable(
+  "events_blocks_audio_locales",
+  {
+    title: text("title"),
+    caption: text("caption"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex("events_blocks_audio_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [events_blocks_audio.id],
+      name: "events_blocks_audio_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const events_blocks_grid = sqliteTable(
+  "events_blocks_grid",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id").primaryKey(),
+    blockName: text("block_name"),
+  },
+  (columns) => [
+    index("events_blocks_grid_order_idx").on(columns._order),
+    index("events_blocks_grid_parent_id_idx").on(columns._parentID),
+    index("events_blocks_grid_path_idx").on(columns._path),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [events.id],
+      name: "events_blocks_grid_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const events = sqliteTable(
+  "events",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    when_startDate: text("when_start_date").default(
+      sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+    ),
+    when_endDate: text("when_end_date").default(
+      sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+    ),
+    address_location: text("address_location"),
+    address_googleMapsUrl: text("address_google_maps_url"),
+    coverImage: text("cover_image_id").references(() => images.id, {
+      onDelete: "set null",
+    }),
+    parentEvent: text("parent_event_id").references(
+      (): AnySQLiteColumn => events.id,
+      {
+        onDelete: "set null",
+      },
+    ),
+    label: text("label", {
+      enum: [
+        "esplorazioni",
+        "approfondimenti",
+        "attivita-piccoli",
+        "talk-musica-arte",
+        "esposizioni-voci",
+      ],
+    }),
+    slug: text("slug"),
+    slugLock: integer("slug_lock", { mode: "boolean" }).default(true),
+    updatedAt: text("updated_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    _status: text("_status", { enum: ["draft", "published"] }).default("draft"),
+  },
+  (columns) => [
+    index("events_cover_image_idx").on(columns.coverImage),
+    index("events_parent_event_idx").on(columns.parentEvent),
+    index("events_slug_idx").on(columns.slug),
+    index("events_updated_at_idx").on(columns.updatedAt),
+    index("events_created_at_idx").on(columns.createdAt),
+    index("events__status_idx").on(columns._status),
+  ],
+);
+
+export const events_locales = sqliteTable(
+  "events_locales",
+  {
+    title: text("title"),
+    meta_title: text("meta_title"),
+    meta_image: text("meta_image_id").references(() => images.id, {
+      onDelete: "set null",
+    }),
+    meta_description: text("meta_description"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    index("events_meta_meta_image_idx").on(columns.meta_image, columns._locale),
+    uniqueIndex("events_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [events.id],
+      name: "events_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _events_v_blocks_text = sqliteTable(
+  "_events_v_blocks_text",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
+      "top",
+    ),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("left"),
+    _uuid: text("_uuid"),
+    blockName: text("block_name"),
+  },
+  (columns) => [
+    index("_events_v_blocks_text_order_idx").on(columns._order),
+    index("_events_v_blocks_text_parent_id_idx").on(columns._parentID),
+    index("_events_v_blocks_text_path_idx").on(columns._path),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_events_v.id],
+      name: "_events_v_blocks_text_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _events_v_blocks_text_locales = sqliteTable(
+  "_events_v_blocks_text_locales",
+  {
+    content: text("content"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex("_events_v_blocks_text_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_events_v_blocks_text.id],
+      name: "_events_v_blocks_text_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _events_v_blocks_rich_text = sqliteTable(
+  "_events_v_blocks_rich_text",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
+      "top",
+    ),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("left"),
+    _uuid: text("_uuid"),
+    blockName: text("block_name"),
+  },
+  (columns) => [
+    index("_events_v_blocks_rich_text_order_idx").on(columns._order),
+    index("_events_v_blocks_rich_text_parent_id_idx").on(columns._parentID),
+    index("_events_v_blocks_rich_text_path_idx").on(columns._path),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_events_v.id],
+      name: "_events_v_blocks_rich_text_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _events_v_blocks_rich_text_locales = sqliteTable(
+  "_events_v_blocks_rich_text_locales",
+  {
+    content: text("content", { mode: "json" }),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex(
+      "_events_v_blocks_rich_text_locales_locale_parent_id_unique",
+    ).on(columns._locale, columns._parentID),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_events_v_blocks_rich_text.id],
+      name: "_events_v_blocks_rich_text_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _events_v_blocks_quote = sqliteTable(
+  "_events_v_blocks_quote",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
+      "bottom",
+    ),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("right"),
+    _uuid: text("_uuid"),
+    blockName: text("block_name"),
+  },
+  (columns) => [
+    index("_events_v_blocks_quote_order_idx").on(columns._order),
+    index("_events_v_blocks_quote_parent_id_idx").on(columns._parentID),
+    index("_events_v_blocks_quote_path_idx").on(columns._path),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_events_v.id],
+      name: "_events_v_blocks_quote_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _events_v_blocks_quote_locales = sqliteTable(
+  "_events_v_blocks_quote_locales",
+  {
+    content: text("content", { mode: "json" }),
+    author: text("author"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex("_events_v_blocks_quote_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_events_v_blocks_quote.id],
+      name: "_events_v_blocks_quote_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _events_v_blocks_image = sqliteTable(
+  "_events_v_blocks_image",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    image: text("image_id").references(() => images.id, {
+      onDelete: "set null",
+    }),
+    width: text("width", { enum: ["full", "half", "third"] }).default("full"),
+    vertical: text("vertical", { enum: ["top", "center", "bottom"] }).default(
+      "center",
+    ),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("center"),
+    _uuid: text("_uuid"),
+    blockName: text("block_name"),
+  },
+  (columns) => [
+    index("_events_v_blocks_image_order_idx").on(columns._order),
+    index("_events_v_blocks_image_parent_id_idx").on(columns._parentID),
+    index("_events_v_blocks_image_path_idx").on(columns._path),
+    index("_events_v_blocks_image_image_idx").on(columns.image),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_events_v.id],
+      name: "_events_v_blocks_image_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _events_v_blocks_video = sqliteTable(
+  "_events_v_blocks_video",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    url: text("url"),
+    light: integer("light", { mode: "boolean" }).default(true),
+    aspectRatio: text("aspect_ratio", {
+      enum: ["16/9", "4/3", "1/1", "9/16"],
+    }).default("16/9"),
+    width: text("width", { enum: ["full", "half", "third"] }).default("full"),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("center"),
+    _uuid: text("_uuid"),
+    blockName: text("block_name"),
+  },
+  (columns) => [
+    index("_events_v_blocks_video_order_idx").on(columns._order),
+    index("_events_v_blocks_video_parent_id_idx").on(columns._parentID),
+    index("_events_v_blocks_video_path_idx").on(columns._path),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_events_v.id],
+      name: "_events_v_blocks_video_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _events_v_blocks_video_locales = sqliteTable(
+  "_events_v_blocks_video_locales",
+  {
+    title: text("title"),
+    caption: text("caption"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex("_events_v_blocks_video_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_events_v_blocks_video.id],
+      name: "_events_v_blocks_video_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _events_v_blocks_audio = sqliteTable(
+  "_events_v_blocks_audio",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    sourceType: text("source_type", { enum: ["url", "upload"] }).default("url"),
+    url: text("url"),
+    audioFile: text("audio_file_id").references(() => audio.id, {
+      onDelete: "set null",
+    }),
+    width: text("width", { enum: ["full", "half", "third"] }).default("full"),
+    horizontal: text("horizontal", {
+      enum: ["left", "center", "right"],
+    }).default("center"),
+    _uuid: text("_uuid"),
+    blockName: text("block_name"),
+  },
+  (columns) => [
+    index("_events_v_blocks_audio_order_idx").on(columns._order),
+    index("_events_v_blocks_audio_parent_id_idx").on(columns._parentID),
+    index("_events_v_blocks_audio_path_idx").on(columns._path),
+    index("_events_v_blocks_audio_audio_file_idx").on(columns.audioFile),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_events_v.id],
+      name: "_events_v_blocks_audio_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _events_v_blocks_audio_locales = sqliteTable(
+  "_events_v_blocks_audio_locales",
+  {
+    title: text("title"),
+    caption: text("caption"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex("_events_v_blocks_audio_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_events_v_blocks_audio.id],
+      name: "_events_v_blocks_audio_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _events_v_blocks_grid = sqliteTable(
+  "_events_v_blocks_grid",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _path: text("_path").notNull(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    _uuid: text("_uuid"),
+    blockName: text("block_name"),
+  },
+  (columns) => [
+    index("_events_v_blocks_grid_order_idx").on(columns._order),
+    index("_events_v_blocks_grid_parent_id_idx").on(columns._parentID),
+    index("_events_v_blocks_grid_path_idx").on(columns._path),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_events_v.id],
+      name: "_events_v_blocks_grid_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _events_v = sqliteTable(
+  "_events_v",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    parent: text("parent_id").references(() => events.id, {
+      onDelete: "set null",
+    }),
+    version_when_startDate: text("version_when_start_date").default(
+      sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+    ),
+    version_when_endDate: text("version_when_end_date").default(
+      sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+    ),
+    version_address_location: text("version_address_location"),
+    version_address_googleMapsUrl: text("version_address_google_maps_url"),
+    version_coverImage: text("version_cover_image_id").references(
+      () => images.id,
+      {
+        onDelete: "set null",
+      },
+    ),
+    version_parentEvent: text("version_parent_event_id").references(
+      () => events.id,
+      {
+        onDelete: "set null",
+      },
+    ),
+    version_label: text("version_label", {
+      enum: [
+        "esplorazioni",
+        "approfondimenti",
+        "attivita-piccoli",
+        "talk-musica-arte",
+        "esposizioni-voci",
+      ],
+    }),
+    version_slug: text("version_slug"),
+    version_slugLock: integer("version_slug_lock", { mode: "boolean" }).default(
+      true,
+    ),
+    version_updatedAt: text("version_updated_at").default(
+      sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+    ),
+    version_createdAt: text("version_created_at").default(
+      sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+    ),
+    version__status: text("version__status", {
+      enum: ["draft", "published"],
+    }).default("draft"),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    updatedAt: text("updated_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    snapshot: integer("snapshot", { mode: "boolean" }),
+    publishedLocale: text("published_locale", { enum: ["en", "it"] }),
+    latest: integer("latest", { mode: "boolean" }),
+  },
+  (columns) => [
+    index("_events_v_parent_idx").on(columns.parent),
+    index("_events_v_version_version_cover_image_idx").on(
+      columns.version_coverImage,
+    ),
+    index("_events_v_version_version_parent_event_idx").on(
+      columns.version_parentEvent,
+    ),
+    index("_events_v_version_version_slug_idx").on(columns.version_slug),
+    index("_events_v_version_version_updated_at_idx").on(
+      columns.version_updatedAt,
+    ),
+    index("_events_v_version_version_created_at_idx").on(
+      columns.version_createdAt,
+    ),
+    index("_events_v_version_version__status_idx").on(columns.version__status),
+    index("_events_v_created_at_idx").on(columns.createdAt),
+    index("_events_v_updated_at_idx").on(columns.updatedAt),
+    index("_events_v_snapshot_idx").on(columns.snapshot),
+    index("_events_v_published_locale_idx").on(columns.publishedLocale),
+    index("_events_v_latest_idx").on(columns.latest),
+  ],
+);
+
+export const _events_v_locales = sqliteTable(
+  "_events_v_locales",
+  {
+    version_title: text("version_title"),
+    version_meta_title: text("version_meta_title"),
+    version_meta_image: text("version_meta_image_id").references(
+      () => images.id,
+      {
+        onDelete: "set null",
+      },
+    ),
+    version_meta_description: text("version_meta_description"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    index("_events_v_version_meta_version_meta_image_idx").on(
+      columns.version_meta_image,
+      columns._locale,
+    ),
+    uniqueIndex("_events_v_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_events_v.id],
+      name: "_events_v_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
 export const authors = sqliteTable(
   "authors",
   {
@@ -1396,6 +2220,7 @@ export const payload_locked_documents_rels = sqliteTable(
     imagesID: text("images_id"),
     usersID: text("users_id"),
     postsID: text("posts_id"),
+    eventsID: text("events_id"),
     authorsID: text("authors_id"),
     tagsID: text("tags_id"),
   },
@@ -1407,6 +2232,7 @@ export const payload_locked_documents_rels = sqliteTable(
     index("payload_locked_documents_rels_images_id_idx").on(columns.imagesID),
     index("payload_locked_documents_rels_users_id_idx").on(columns.usersID),
     index("payload_locked_documents_rels_posts_id_idx").on(columns.postsID),
+    index("payload_locked_documents_rels_events_id_idx").on(columns.eventsID),
     index("payload_locked_documents_rels_authors_id_idx").on(columns.authorsID),
     index("payload_locked_documents_rels_tags_id_idx").on(columns.tagsID),
     foreignKey({
@@ -1433,6 +2259,11 @@ export const payload_locked_documents_rels = sqliteTable(
       columns: [columns["postsID"]],
       foreignColumns: [posts.id],
       name: "payload_locked_documents_rels_posts_fk",
+    }).onDelete("cascade"),
+    foreignKey({
+      columns: [columns["eventsID"]],
+      foreignColumns: [events.id],
+      name: "payload_locked_documents_rels_events_fk",
     }).onDelete("cascade"),
     foreignKey({
       columns: [columns["authorsID"]],
@@ -2652,6 +3483,403 @@ export const relations__posts_v = relations(_posts_v, ({ one, many }) => ({
     relationName: "_rels",
   }),
 }));
+export const relations_events_blocks_text_locales = relations(
+  events_blocks_text_locales,
+  ({ one }) => ({
+    _parentID: one(events_blocks_text, {
+      fields: [events_blocks_text_locales._parentID],
+      references: [events_blocks_text.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_events_blocks_text = relations(
+  events_blocks_text,
+  ({ one, many }) => ({
+    _parentID: one(events, {
+      fields: [events_blocks_text._parentID],
+      references: [events.id],
+      relationName: "_blocks_text",
+    }),
+    _locales: many(events_blocks_text_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_events_blocks_rich_text_locales = relations(
+  events_blocks_rich_text_locales,
+  ({ one }) => ({
+    _parentID: one(events_blocks_rich_text, {
+      fields: [events_blocks_rich_text_locales._parentID],
+      references: [events_blocks_rich_text.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_events_blocks_rich_text = relations(
+  events_blocks_rich_text,
+  ({ one, many }) => ({
+    _parentID: one(events, {
+      fields: [events_blocks_rich_text._parentID],
+      references: [events.id],
+      relationName: "_blocks_richText",
+    }),
+    _locales: many(events_blocks_rich_text_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_events_blocks_quote_locales = relations(
+  events_blocks_quote_locales,
+  ({ one }) => ({
+    _parentID: one(events_blocks_quote, {
+      fields: [events_blocks_quote_locales._parentID],
+      references: [events_blocks_quote.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_events_blocks_quote = relations(
+  events_blocks_quote,
+  ({ one, many }) => ({
+    _parentID: one(events, {
+      fields: [events_blocks_quote._parentID],
+      references: [events.id],
+      relationName: "_blocks_quote",
+    }),
+    _locales: many(events_blocks_quote_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_events_blocks_image = relations(
+  events_blocks_image,
+  ({ one }) => ({
+    _parentID: one(events, {
+      fields: [events_blocks_image._parentID],
+      references: [events.id],
+      relationName: "_blocks_image",
+    }),
+    image: one(images, {
+      fields: [events_blocks_image.image],
+      references: [images.id],
+      relationName: "image",
+    }),
+  }),
+);
+export const relations_events_blocks_video_locales = relations(
+  events_blocks_video_locales,
+  ({ one }) => ({
+    _parentID: one(events_blocks_video, {
+      fields: [events_blocks_video_locales._parentID],
+      references: [events_blocks_video.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_events_blocks_video = relations(
+  events_blocks_video,
+  ({ one, many }) => ({
+    _parentID: one(events, {
+      fields: [events_blocks_video._parentID],
+      references: [events.id],
+      relationName: "_blocks_video",
+    }),
+    _locales: many(events_blocks_video_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_events_blocks_audio_locales = relations(
+  events_blocks_audio_locales,
+  ({ one }) => ({
+    _parentID: one(events_blocks_audio, {
+      fields: [events_blocks_audio_locales._parentID],
+      references: [events_blocks_audio.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_events_blocks_audio = relations(
+  events_blocks_audio,
+  ({ one, many }) => ({
+    _parentID: one(events, {
+      fields: [events_blocks_audio._parentID],
+      references: [events.id],
+      relationName: "_blocks_audio",
+    }),
+    _locales: many(events_blocks_audio_locales, {
+      relationName: "_locales",
+    }),
+    audioFile: one(audio, {
+      fields: [events_blocks_audio.audioFile],
+      references: [audio.id],
+      relationName: "audioFile",
+    }),
+  }),
+);
+export const relations_events_blocks_grid = relations(
+  events_blocks_grid,
+  ({ one }) => ({
+    _parentID: one(events, {
+      fields: [events_blocks_grid._parentID],
+      references: [events.id],
+      relationName: "_blocks_grid",
+    }),
+  }),
+);
+export const relations_events_locales = relations(
+  events_locales,
+  ({ one }) => ({
+    _parentID: one(events, {
+      fields: [events_locales._parentID],
+      references: [events.id],
+      relationName: "_locales",
+    }),
+    meta_image: one(images, {
+      fields: [events_locales.meta_image],
+      references: [images.id],
+      relationName: "meta_image",
+    }),
+  }),
+);
+export const relations_events = relations(events, ({ one, many }) => ({
+  _blocks_text: many(events_blocks_text, {
+    relationName: "_blocks_text",
+  }),
+  _blocks_richText: many(events_blocks_rich_text, {
+    relationName: "_blocks_richText",
+  }),
+  _blocks_quote: many(events_blocks_quote, {
+    relationName: "_blocks_quote",
+  }),
+  _blocks_image: many(events_blocks_image, {
+    relationName: "_blocks_image",
+  }),
+  _blocks_video: many(events_blocks_video, {
+    relationName: "_blocks_video",
+  }),
+  _blocks_audio: many(events_blocks_audio, {
+    relationName: "_blocks_audio",
+  }),
+  _blocks_grid: many(events_blocks_grid, {
+    relationName: "_blocks_grid",
+  }),
+  coverImage: one(images, {
+    fields: [events.coverImage],
+    references: [images.id],
+    relationName: "coverImage",
+  }),
+  parentEvent: one(events, {
+    fields: [events.parentEvent],
+    references: [events.id],
+    relationName: "parentEvent",
+  }),
+  _locales: many(events_locales, {
+    relationName: "_locales",
+  }),
+}));
+export const relations__events_v_blocks_text_locales = relations(
+  _events_v_blocks_text_locales,
+  ({ one }) => ({
+    _parentID: one(_events_v_blocks_text, {
+      fields: [_events_v_blocks_text_locales._parentID],
+      references: [_events_v_blocks_text.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations__events_v_blocks_text = relations(
+  _events_v_blocks_text,
+  ({ one, many }) => ({
+    _parentID: one(_events_v, {
+      fields: [_events_v_blocks_text._parentID],
+      references: [_events_v.id],
+      relationName: "_blocks_text",
+    }),
+    _locales: many(_events_v_blocks_text_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations__events_v_blocks_rich_text_locales = relations(
+  _events_v_blocks_rich_text_locales,
+  ({ one }) => ({
+    _parentID: one(_events_v_blocks_rich_text, {
+      fields: [_events_v_blocks_rich_text_locales._parentID],
+      references: [_events_v_blocks_rich_text.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations__events_v_blocks_rich_text = relations(
+  _events_v_blocks_rich_text,
+  ({ one, many }) => ({
+    _parentID: one(_events_v, {
+      fields: [_events_v_blocks_rich_text._parentID],
+      references: [_events_v.id],
+      relationName: "_blocks_richText",
+    }),
+    _locales: many(_events_v_blocks_rich_text_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations__events_v_blocks_quote_locales = relations(
+  _events_v_blocks_quote_locales,
+  ({ one }) => ({
+    _parentID: one(_events_v_blocks_quote, {
+      fields: [_events_v_blocks_quote_locales._parentID],
+      references: [_events_v_blocks_quote.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations__events_v_blocks_quote = relations(
+  _events_v_blocks_quote,
+  ({ one, many }) => ({
+    _parentID: one(_events_v, {
+      fields: [_events_v_blocks_quote._parentID],
+      references: [_events_v.id],
+      relationName: "_blocks_quote",
+    }),
+    _locales: many(_events_v_blocks_quote_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations__events_v_blocks_image = relations(
+  _events_v_blocks_image,
+  ({ one }) => ({
+    _parentID: one(_events_v, {
+      fields: [_events_v_blocks_image._parentID],
+      references: [_events_v.id],
+      relationName: "_blocks_image",
+    }),
+    image: one(images, {
+      fields: [_events_v_blocks_image.image],
+      references: [images.id],
+      relationName: "image",
+    }),
+  }),
+);
+export const relations__events_v_blocks_video_locales = relations(
+  _events_v_blocks_video_locales,
+  ({ one }) => ({
+    _parentID: one(_events_v_blocks_video, {
+      fields: [_events_v_blocks_video_locales._parentID],
+      references: [_events_v_blocks_video.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations__events_v_blocks_video = relations(
+  _events_v_blocks_video,
+  ({ one, many }) => ({
+    _parentID: one(_events_v, {
+      fields: [_events_v_blocks_video._parentID],
+      references: [_events_v.id],
+      relationName: "_blocks_video",
+    }),
+    _locales: many(_events_v_blocks_video_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations__events_v_blocks_audio_locales = relations(
+  _events_v_blocks_audio_locales,
+  ({ one }) => ({
+    _parentID: one(_events_v_blocks_audio, {
+      fields: [_events_v_blocks_audio_locales._parentID],
+      references: [_events_v_blocks_audio.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations__events_v_blocks_audio = relations(
+  _events_v_blocks_audio,
+  ({ one, many }) => ({
+    _parentID: one(_events_v, {
+      fields: [_events_v_blocks_audio._parentID],
+      references: [_events_v.id],
+      relationName: "_blocks_audio",
+    }),
+    _locales: many(_events_v_blocks_audio_locales, {
+      relationName: "_locales",
+    }),
+    audioFile: one(audio, {
+      fields: [_events_v_blocks_audio.audioFile],
+      references: [audio.id],
+      relationName: "audioFile",
+    }),
+  }),
+);
+export const relations__events_v_blocks_grid = relations(
+  _events_v_blocks_grid,
+  ({ one }) => ({
+    _parentID: one(_events_v, {
+      fields: [_events_v_blocks_grid._parentID],
+      references: [_events_v.id],
+      relationName: "_blocks_grid",
+    }),
+  }),
+);
+export const relations__events_v_locales = relations(
+  _events_v_locales,
+  ({ one }) => ({
+    _parentID: one(_events_v, {
+      fields: [_events_v_locales._parentID],
+      references: [_events_v.id],
+      relationName: "_locales",
+    }),
+    version_meta_image: one(images, {
+      fields: [_events_v_locales.version_meta_image],
+      references: [images.id],
+      relationName: "version_meta_image",
+    }),
+  }),
+);
+export const relations__events_v = relations(_events_v, ({ one, many }) => ({
+  parent: one(events, {
+    fields: [_events_v.parent],
+    references: [events.id],
+    relationName: "parent",
+  }),
+  _blocks_text: many(_events_v_blocks_text, {
+    relationName: "_blocks_text",
+  }),
+  _blocks_richText: many(_events_v_blocks_rich_text, {
+    relationName: "_blocks_richText",
+  }),
+  _blocks_quote: many(_events_v_blocks_quote, {
+    relationName: "_blocks_quote",
+  }),
+  _blocks_image: many(_events_v_blocks_image, {
+    relationName: "_blocks_image",
+  }),
+  _blocks_video: many(_events_v_blocks_video, {
+    relationName: "_blocks_video",
+  }),
+  _blocks_audio: many(_events_v_blocks_audio, {
+    relationName: "_blocks_audio",
+  }),
+  _blocks_grid: many(_events_v_blocks_grid, {
+    relationName: "_blocks_grid",
+  }),
+  version_coverImage: one(images, {
+    fields: [_events_v.version_coverImage],
+    references: [images.id],
+    relationName: "version_coverImage",
+  }),
+  version_parentEvent: one(events, {
+    fields: [_events_v.version_parentEvent],
+    references: [events.id],
+    relationName: "version_parentEvent",
+  }),
+  _locales: many(_events_v_locales, {
+    relationName: "_locales",
+  }),
+}));
 export const relations_authors_locales = relations(
   authors_locales,
   ({ one }) => ({
@@ -2740,6 +3968,11 @@ export const relations_payload_locked_documents_rels = relations(
       fields: [payload_locked_documents_rels.postsID],
       references: [posts.id],
       relationName: "posts",
+    }),
+    eventsID: one(events, {
+      fields: [payload_locked_documents_rels.eventsID],
+      references: [events.id],
+      relationName: "events",
     }),
     authorsID: one(authors, {
       fields: [payload_locked_documents_rels.authorsID],
@@ -3195,6 +4428,34 @@ type DatabaseSchema = {
   _posts_v: typeof _posts_v;
   _posts_v_locales: typeof _posts_v_locales;
   _posts_v_rels: typeof _posts_v_rels;
+  events_blocks_text: typeof events_blocks_text;
+  events_blocks_text_locales: typeof events_blocks_text_locales;
+  events_blocks_rich_text: typeof events_blocks_rich_text;
+  events_blocks_rich_text_locales: typeof events_blocks_rich_text_locales;
+  events_blocks_quote: typeof events_blocks_quote;
+  events_blocks_quote_locales: typeof events_blocks_quote_locales;
+  events_blocks_image: typeof events_blocks_image;
+  events_blocks_video: typeof events_blocks_video;
+  events_blocks_video_locales: typeof events_blocks_video_locales;
+  events_blocks_audio: typeof events_blocks_audio;
+  events_blocks_audio_locales: typeof events_blocks_audio_locales;
+  events_blocks_grid: typeof events_blocks_grid;
+  events: typeof events;
+  events_locales: typeof events_locales;
+  _events_v_blocks_text: typeof _events_v_blocks_text;
+  _events_v_blocks_text_locales: typeof _events_v_blocks_text_locales;
+  _events_v_blocks_rich_text: typeof _events_v_blocks_rich_text;
+  _events_v_blocks_rich_text_locales: typeof _events_v_blocks_rich_text_locales;
+  _events_v_blocks_quote: typeof _events_v_blocks_quote;
+  _events_v_blocks_quote_locales: typeof _events_v_blocks_quote_locales;
+  _events_v_blocks_image: typeof _events_v_blocks_image;
+  _events_v_blocks_video: typeof _events_v_blocks_video;
+  _events_v_blocks_video_locales: typeof _events_v_blocks_video_locales;
+  _events_v_blocks_audio: typeof _events_v_blocks_audio;
+  _events_v_blocks_audio_locales: typeof _events_v_blocks_audio_locales;
+  _events_v_blocks_grid: typeof _events_v_blocks_grid;
+  _events_v: typeof _events_v;
+  _events_v_locales: typeof _events_v_locales;
   authors: typeof authors;
   authors_locales: typeof authors_locales;
   tags: typeof tags;
@@ -3275,6 +4536,34 @@ type DatabaseSchema = {
   relations__posts_v_locales: typeof relations__posts_v_locales;
   relations__posts_v_rels: typeof relations__posts_v_rels;
   relations__posts_v: typeof relations__posts_v;
+  relations_events_blocks_text_locales: typeof relations_events_blocks_text_locales;
+  relations_events_blocks_text: typeof relations_events_blocks_text;
+  relations_events_blocks_rich_text_locales: typeof relations_events_blocks_rich_text_locales;
+  relations_events_blocks_rich_text: typeof relations_events_blocks_rich_text;
+  relations_events_blocks_quote_locales: typeof relations_events_blocks_quote_locales;
+  relations_events_blocks_quote: typeof relations_events_blocks_quote;
+  relations_events_blocks_image: typeof relations_events_blocks_image;
+  relations_events_blocks_video_locales: typeof relations_events_blocks_video_locales;
+  relations_events_blocks_video: typeof relations_events_blocks_video;
+  relations_events_blocks_audio_locales: typeof relations_events_blocks_audio_locales;
+  relations_events_blocks_audio: typeof relations_events_blocks_audio;
+  relations_events_blocks_grid: typeof relations_events_blocks_grid;
+  relations_events_locales: typeof relations_events_locales;
+  relations_events: typeof relations_events;
+  relations__events_v_blocks_text_locales: typeof relations__events_v_blocks_text_locales;
+  relations__events_v_blocks_text: typeof relations__events_v_blocks_text;
+  relations__events_v_blocks_rich_text_locales: typeof relations__events_v_blocks_rich_text_locales;
+  relations__events_v_blocks_rich_text: typeof relations__events_v_blocks_rich_text;
+  relations__events_v_blocks_quote_locales: typeof relations__events_v_blocks_quote_locales;
+  relations__events_v_blocks_quote: typeof relations__events_v_blocks_quote;
+  relations__events_v_blocks_image: typeof relations__events_v_blocks_image;
+  relations__events_v_blocks_video_locales: typeof relations__events_v_blocks_video_locales;
+  relations__events_v_blocks_video: typeof relations__events_v_blocks_video;
+  relations__events_v_blocks_audio_locales: typeof relations__events_v_blocks_audio_locales;
+  relations__events_v_blocks_audio: typeof relations__events_v_blocks_audio;
+  relations__events_v_blocks_grid: typeof relations__events_v_blocks_grid;
+  relations__events_v_locales: typeof relations__events_v_locales;
+  relations__events_v: typeof relations__events_v;
   relations_authors_locales: typeof relations_authors_locales;
   relations_authors: typeof relations_authors;
   relations_tags_locales: typeof relations_tags_locales;

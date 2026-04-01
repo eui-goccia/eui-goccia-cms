@@ -73,8 +73,8 @@ export default function Header() {
 			activeColor: 'underline',
 		},
 		{
-			href: '/news-eventi',
-			label: t('newsEventi'),
+			href: '/eventi',
+			label: t('eventi'),
 			activeColor: 'underline',
 		},
 		{
