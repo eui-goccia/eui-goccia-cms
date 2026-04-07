@@ -1,0 +1,47 @@
+src/modules/events/components/EventHero.tsx
+  9a215ca2bf1dedb8 19,43-54
+  d94101684ee3d9f3 10,16,79
+src/app/(frontend)/[locale]/eventi/[slug]/page.tsx
+  d94101684ee3d9f3 109
+src/app/(frontend)/[locale]/eventi/[slug]/[subSlug]/page.tsx
+  d94101684ee3d9f3 94
+src/modules/events/components/EventContentSection.tsx
+  9a215ca2bf1dedb8 16,44-45
+src/modules/events/components/EventLinks.tsx
+  d94101684ee3d9f3 5,8,16
+src/modules/events/components/EventProgramSection.tsx
+  9a215ca2bf1dedb8 50
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "721630efbe048b3e598d0bed1087e7196df74ad0",
+  "prompts": {
+    "9a215ca2bf1dedb8": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "836b27c9-38ec-4e92-88bd-be6be6cae688",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 16,
+      "total_deletions": 13,
+      "accepted_lines": 17,
+      "overriden_lines": 0
+    },
+    "d94101684ee3d9f3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c0b0a010-2046-41bc-bca5-bcf6b1cf5947",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 8,
+      "total_deletions": 4,
+      "accepted_lines": 8,
+      "overriden_lines": 1
+    }
+  }
+}
