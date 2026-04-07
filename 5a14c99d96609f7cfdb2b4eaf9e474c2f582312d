@@ -1,0 +1,98 @@
+src/modules/events/components/EventLinks.tsx
+  a2783b42ff63601d 1-33
+src/app/(frontend)/[locale]/eventi/page.tsx
+  09907146e3b63f0a 2,14-47,49-50,52-53,109-111,113-122
+src/modules/events/labelDisplayNames.ts
+  b552a3f6a23ab3e5 1-21
+src/modules/events/components/EventContentSection.tsx
+  a2783b42ff63601d 1-71
+src/modules/events/components/EventHero.tsx
+  a2783b42ff63601d 1-11,13-76
+src/app/(frontend)/[locale]/eventi/[slug]/[subSlug]/page.tsx
+  a2783b42ff63601d 1-30,35-49
+  b552a3f6a23ab3e5 31-34
+src/modules/events/collection.ts
+  bd604af42d4795e6 22
+  a2783b42ff63601d 147-155
+src/modules/events/utils.ts
+  a2783b42ff63601d 1-65
+src/modules/events/components/EventProgramSection.tsx
+  a2783b42ff63601d 1-31,36-68
+  b552a3f6a23ab3e5 32-35
+src/app/(frontend)/[locale]/eventi/[slug]/page.tsx
+  b552a3f6a23ab3e5 36-39
+  a2783b42ff63601d 1-25,27-32,34-35,40-42,57,59-60,62-71
+  bd604af42d4795e6 26,33,43-56,58
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "5a14c99d96609f7cfdb2b4eaf9e474c2f582312d",
+  "prompts": {
+    "09907146e3b63f0a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "6886b495-43b5-45ae-801b-8e0981c6c84b",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 51,
+      "total_deletions": 36,
+      "accepted_lines": 52,
+      "overriden_lines": 2
+    },
+    "a2783b42ff63601d": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "33296a88-cbdf-4a97-aae1-9cb00ab7f43f",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 440,
+      "total_deletions": 4,
+      "accepted_lines": 411,
+      "overriden_lines": 2
+    },
+    "b552a3f6a23ab3e5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9476944e-7414-4095-907e-6ac9b7c0f766",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 326,
+      "total_deletions": 22,
+      "accepted_lines": 33,
+      "overriden_lines": 0
+    },
+    "b55a5a05ecd61cdc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "20c362c8-7f1e-49c0-8c32-a8287be68a33",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "bd604af42d4795e6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "b0b1e68a-aae3-41b2-815c-d5002b245cf9",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 31,
+      "total_deletions": 26,
+      "accepted_lines": 18,
+      "overriden_lines": 0
+    }
+  }
+}
