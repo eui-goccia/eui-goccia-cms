@@ -500,6 +500,10 @@ export interface Author {
 export interface Event {
   id: string;
   title: string;
+  /**
+   * Used in event cards and SEO. Max 160 characters.
+   */
+  description?: string | null;
   content?:
     | (
         | {
@@ -582,6 +586,10 @@ export interface Event {
     description?: string | null;
   };
   coverImage: string | Image;
+  /**
+   * Show the program section on the public page
+   */
+  showProgram?: boolean | null;
   parent?: (string | null) | Event;
   breadcrumbs?:
     | {
@@ -1238,6 +1246,7 @@ export interface GridBlockSelect<T extends boolean = true> {
  */
 export interface EventsSelect<T extends boolean = true> {
   title?: T;
+  description?: T;
   content?:
     | T
     | {
@@ -1280,6 +1289,7 @@ export interface EventsSelect<T extends boolean = true> {
         description?: T;
       };
   coverImage?: T;
+  showProgram?: T;
   parent?: T;
   breadcrumbs?:
     | T

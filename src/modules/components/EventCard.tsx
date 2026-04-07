@@ -61,9 +61,16 @@ export default async function EventCard({
 				{event.title}
 			</h3>
 
-			<p className='font-greed px-1 text-sm font-bold uppercase tracking-wider underline decoration-1 underline-offset-4 transition-colors group-hover:text-rosso-500'>
-				SCOPRI DI PIÙ
-			</p>
+			{event.description && (
+				<>
+					<p className='line-clamp-3 px-1 font-greed text-sm leading-relaxed'>
+						{event.description}
+					</p>
+					<p className='font-greed px-1 text-sm font-bold uppercase tracking-wider underline decoration-1 underline-offset-4 transition-colors group-hover:text-rosso-500'>
+						SCOPRI DI PIÙ
+					</p>
+				</>
+			)}
 		</Link>
 	);
 }

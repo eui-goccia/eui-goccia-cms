@@ -57,6 +57,16 @@ export const Events: CollectionConfig = {
 							localized: true,
 						},
 						{
+							name: 'description',
+							type: 'textarea',
+							label: 'Descrizione breve',
+							localized: true,
+							maxLength: 160,
+							admin: {
+								description: 'Used in event cards and SEO. Max 160 characters.',
+							},
+						},
+						{
 							name: 'content',
 							type: 'blocks',
 							label: 'Contenuto',
@@ -191,6 +201,17 @@ export const Events: CollectionConfig = {
 			label: 'Immagine di copertina',
 			admin: {
 				position: 'sidebar',
+			},
+		},
+		{
+			name: 'showProgram',
+			type: 'checkbox',
+			label: 'Mostra programma',
+			defaultValue: false,
+			admin: {
+				position: 'sidebar',
+				condition: (data) => !data?.parent,
+				description: 'Show the program section on the public page',
 			},
 		},
 		createParentField('events', {

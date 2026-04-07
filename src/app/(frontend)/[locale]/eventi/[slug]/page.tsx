@@ -109,7 +109,9 @@ async function ParentEventContent({
 				locale={locale}
 			/>
 			<EventContentSection event={event} locale={locale} />
-			<EventProgramSection locale={locale} subEventGroups={subEventGroups} />
+			{event.showProgram && (
+				<EventProgramSection locale={locale} subEventGroups={subEventGroups} />
+			)}
 		</div>
 	);
 }
