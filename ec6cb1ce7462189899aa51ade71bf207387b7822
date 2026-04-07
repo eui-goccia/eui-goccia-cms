@@ -1,0 +1,57 @@
+src/modules/settings/home.ts
+  71a27ee06918214e 28
+src/modules/settings/project.ts
+  71a27ee06918214e 12
+src/modules/events/components/EventProgramSection.tsx
+  f05b8a4926d98a1e 59-60
+src/modules/settings/goccia.ts
+  71a27ee06918214e 10
+src/modules/settings/about.ts
+  71a27ee06918214e 14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "ec6cb1ce7462189899aa51ade71bf207387b7822",
+  "prompts": {
+    "71a27ee06918214e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "9c5643ce-5951-40a3-8526-ff5231740e85",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 4,
+      "total_deletions": 0,
+      "accepted_lines": 4,
+      "overriden_lines": 0
+    },
+    "ca13ec314cf4f475": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "570d7e04-9f86-4434-9516-d2bb4c3cbc41",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 5,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "f05b8a4926d98a1e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "a02e267e-1ce9-4676-b701-7d9604cb4ae0",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 4,
+      "total_deletions": 1,
+      "accepted_lines": 3,
+      "overriden_lines": 0
+    }
+  }
+}
