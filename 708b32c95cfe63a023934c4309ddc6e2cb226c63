@@ -1,0 +1,41 @@
+src/app/(frontend)/[locale]/eventi/[slug]/page.tsx
+  db61d7f8dc2b0bff 112-114
+src/modules/components/EventCard.tsx
+  5122ca1022a3cd23 64-73
+src/modules/events/collection.ts
+  5122ca1022a3cd23 60-68
+  db61d7f8dc2b0bff 206-216
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "708b32c95cfe63a023934c4309ddc6e2cb226c63",
+  "prompts": {
+    "5122ca1022a3cd23": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3d5918b7-d3b5-416f-8b46-e3324d774ca1",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 21,
+      "total_deletions": 3,
+      "accepted_lines": 20,
+      "overriden_lines": 0
+    },
+    "db61d7f8dc2b0bff": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "17101337-b137-4067-9e2e-8f52f6a6a6e7",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 14,
+      "total_deletions": 1,
+      "accepted_lines": 14,
+      "overriden_lines": 0
+    }
+  }
+}
