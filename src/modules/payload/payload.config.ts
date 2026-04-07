@@ -74,6 +74,7 @@ export default buildConfig({
 			'./db/payload-generated-schema.ts'
 		),
 		migrationDir: path.resolve(dirname, './db/migrations'),
+		// @ts-expect-error - known type mismatch between @payloadcms/drizzle and @payloadcms/db-sqlite migration types
 		prodMigrations: migrations,
 		push: false,
 		client: {

@@ -1419,6 +1419,32 @@ export const events_links_locales = sqliteTable(
   ],
 );
 
+export const events_breadcrumbs = sqliteTable(
+  "events_breadcrumbs",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    id: text("id").primaryKey(),
+    doc: text("doc_id").references(() => events.id, {
+      onDelete: "set null",
+    }),
+    url: text("url"),
+    label: text("label"),
+  },
+  (columns) => [
+    index("events_breadcrumbs_order_idx").on(columns._order),
+    index("events_breadcrumbs_parent_id_idx").on(columns._parentID),
+    index("events_breadcrumbs_locale_idx").on(columns._locale),
+    index("events_breadcrumbs_doc_idx").on(columns.doc),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [events.id],
+      name: "events_breadcrumbs_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
 export const events = sqliteTable(
   "events",
   {
@@ -1438,12 +1464,9 @@ export const events = sqliteTable(
     coverImage: text("cover_image_id").references(() => images.id, {
       onDelete: "set null",
     }),
-    parentEvent: text("parent_event_id").references(
-      (): AnySQLiteColumn => events.id,
-      {
-        onDelete: "set null",
-      },
-    ),
+    parent: text("parent_id").references((): AnySQLiteColumn => events.id, {
+      onDelete: "set null",
+    }),
     label: text("label", {
       enum: [
         "esplorazioni",
@@ -1465,7 +1488,7 @@ export const events = sqliteTable(
   },
   (columns) => [
     index("events_cover_image_idx").on(columns.coverImage),
-    index("events_parent_event_idx").on(columns.parentEvent),
+    index("events_parent_idx").on(columns.parent),
     index("events_slug_idx").on(columns.slug),
     index("events_updated_at_idx").on(columns.updatedAt),
     index("events_created_at_idx").on(columns.createdAt),
@@ -1477,6 +1500,7 @@ export const events_locales = sqliteTable(
   "events_locales",
   {
     title: text("title"),
+    bookingLabel: text("booking_label"),
     meta_title: text("meta_title"),
     meta_image: text("meta_image_id").references(() => images.id, {
       onDelete: "set null",
@@ -1866,6 +1890,35 @@ export const _events_v_version_links_locales = sqliteTable(
   ],
 );
 
+export const _events_v_version_breadcrumbs = sqliteTable(
+  "_events_v_version_breadcrumbs",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    doc: text("doc_id").references(() => events.id, {
+      onDelete: "set null",
+    }),
+    url: text("url"),
+    label: text("label"),
+    _uuid: text("_uuid"),
+  },
+  (columns) => [
+    index("_events_v_version_breadcrumbs_order_idx").on(columns._order),
+    index("_events_v_version_breadcrumbs_parent_id_idx").on(columns._parentID),
+    index("_events_v_version_breadcrumbs_locale_idx").on(columns._locale),
+    index("_events_v_version_breadcrumbs_doc_idx").on(columns.doc),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_events_v.id],
+      name: "_events_v_version_breadcrumbs_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
 export const _events_v = sqliteTable(
   "_events_v",
   {
@@ -1891,12 +1944,9 @@ export const _events_v = sqliteTable(
         onDelete: "set null",
       },
     ),
-    version_parentEvent: text("version_parent_event_id").references(
-      () => events.id,
-      {
-        onDelete: "set null",
-      },
-    ),
+    version_parent: text("version_parent_id").references(() => events.id, {
+      onDelete: "set null",
+    }),
     version_label: text("version_label", {
       enum: [
         "esplorazioni",
@@ -1934,9 +1984,7 @@ export const _events_v = sqliteTable(
     index("_events_v_version_version_cover_image_idx").on(
       columns.version_coverImage,
     ),
-    index("_events_v_version_version_parent_event_idx").on(
-      columns.version_parentEvent,
-    ),
+    index("_events_v_version_version_parent_idx").on(columns.version_parent),
     index("_events_v_version_version_slug_idx").on(columns.version_slug),
     index("_events_v_version_version_updated_at_idx").on(
       columns.version_updatedAt,
@@ -1957,6 +2005,7 @@ export const _events_v_locales = sqliteTable(
   "_events_v_locales",
   {
     version_title: text("version_title"),
+    version_bookingLabel: text("version_booking_label"),
     version_meta_title: text("version_meta_title"),
     version_meta_image: text("version_meta_image_id").references(
       () => images.id,
@@ -3738,6 +3787,21 @@ export const relations_events_links = relations(
     }),
   }),
 );
+export const relations_events_breadcrumbs = relations(
+  events_breadcrumbs,
+  ({ one }) => ({
+    _parentID: one(events, {
+      fields: [events_breadcrumbs._parentID],
+      references: [events.id],
+      relationName: "breadcrumbs",
+    }),
+    doc: one(events, {
+      fields: [events_breadcrumbs.doc],
+      references: [events.id],
+      relationName: "doc",
+    }),
+  }),
+);
 export const relations_events_locales = relations(
   events_locales,
   ({ one }) => ({
@@ -3783,10 +3847,13 @@ export const relations_events = relations(events, ({ one, many }) => ({
     references: [images.id],
     relationName: "coverImage",
   }),
-  parentEvent: one(events, {
-    fields: [events.parentEvent],
+  parent: one(events, {
+    fields: [events.parent],
     references: [events.id],
-    relationName: "parentEvent",
+    relationName: "parent",
+  }),
+  breadcrumbs: many(events_breadcrumbs, {
+    relationName: "breadcrumbs",
   }),
   _locales: many(events_locales, {
     relationName: "_locales",
@@ -3960,6 +4027,21 @@ export const relations__events_v_version_links = relations(
     }),
   }),
 );
+export const relations__events_v_version_breadcrumbs = relations(
+  _events_v_version_breadcrumbs,
+  ({ one }) => ({
+    _parentID: one(_events_v, {
+      fields: [_events_v_version_breadcrumbs._parentID],
+      references: [_events_v.id],
+      relationName: "version_breadcrumbs",
+    }),
+    doc: one(events, {
+      fields: [_events_v_version_breadcrumbs.doc],
+      references: [events.id],
+      relationName: "doc",
+    }),
+  }),
+);
 export const relations__events_v_locales = relations(
   _events_v_locales,
   ({ one }) => ({
@@ -4010,10 +4092,13 @@ export const relations__events_v = relations(_events_v, ({ one, many }) => ({
     references: [images.id],
     relationName: "version_coverImage",
   }),
-  version_parentEvent: one(events, {
-    fields: [_events_v.version_parentEvent],
+  version_parent: one(events, {
+    fields: [_events_v.version_parent],
     references: [events.id],
-    relationName: "version_parentEvent",
+    relationName: "version_parent",
+  }),
+  version_breadcrumbs: many(_events_v_version_breadcrumbs, {
+    relationName: "version_breadcrumbs",
   }),
   _locales: many(_events_v_locales, {
     relationName: "_locales",
@@ -4581,6 +4666,7 @@ type DatabaseSchema = {
   events_blocks_grid: typeof events_blocks_grid;
   events_links: typeof events_links;
   events_links_locales: typeof events_links_locales;
+  events_breadcrumbs: typeof events_breadcrumbs;
   events: typeof events;
   events_locales: typeof events_locales;
   _events_v_blocks_text: typeof _events_v_blocks_text;
@@ -4597,6 +4683,7 @@ type DatabaseSchema = {
   _events_v_blocks_grid: typeof _events_v_blocks_grid;
   _events_v_version_links: typeof _events_v_version_links;
   _events_v_version_links_locales: typeof _events_v_version_links_locales;
+  _events_v_version_breadcrumbs: typeof _events_v_version_breadcrumbs;
   _events_v: typeof _events_v;
   _events_v_locales: typeof _events_v_locales;
   authors: typeof authors;
@@ -4693,6 +4780,7 @@ type DatabaseSchema = {
   relations_events_blocks_grid: typeof relations_events_blocks_grid;
   relations_events_links_locales: typeof relations_events_links_locales;
   relations_events_links: typeof relations_events_links;
+  relations_events_breadcrumbs: typeof relations_events_breadcrumbs;
   relations_events_locales: typeof relations_events_locales;
   relations_events: typeof relations_events;
   relations__events_v_blocks_text_locales: typeof relations__events_v_blocks_text_locales;
@@ -4709,6 +4797,7 @@ type DatabaseSchema = {
   relations__events_v_blocks_grid: typeof relations__events_v_blocks_grid;
   relations__events_v_version_links_locales: typeof relations__events_v_version_links_locales;
   relations__events_v_version_links: typeof relations__events_v_version_links;
+  relations__events_v_version_breadcrumbs: typeof relations__events_v_version_breadcrumbs;
   relations__events_v_locales: typeof relations__events_v_locales;
   relations__events_v: typeof relations__events_v;
   relations_authors_locales: typeof relations_authors_locales;
