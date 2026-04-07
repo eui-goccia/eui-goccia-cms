@@ -47,7 +47,7 @@ export function EventProgramSection({
 									<div className='aspect-[4/3] overflow-hidden rounded-[20px] bg-black/5'>
 										{subImage ? (
 											<CustomImage
-												alt={subImage.caption || subEvent.title}
+												alt={subImage.alt || subEvent.title}
 												className='object-cover rounded-[20px] transition-transform duration-500 group-hover:scale-105'
 												image={subImage}
 												size='medium'

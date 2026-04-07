@@ -13,6 +13,7 @@ export function EventContentSection({
 }: EventContentSectionProps) {
 	const startDateTime = formatEventDateTime(event.when.startDate, locale);
 	const endDateTime = formatEventDateTime(event.when.endDate, locale);
+	const isMultiDay = startDateTime.date !== endDateTime.date;
 
 	return (
 		<section className='px-5 pb-16 lg:px-10 xl:px-20'>
@@ -40,7 +41,8 @@ export function EventContentSection({
 							{startDateTime.date}
 						</p>
 						<p className='font-ghost text-2xl uppercase tracking-wide'>
-							{startDateTime.time} — {endDateTime.time}
+							{startDateTime.time} — {isMultiDay && `${endDateTime.date} `}
+							{endDateTime.time}
 						</p>
 					</div>
 

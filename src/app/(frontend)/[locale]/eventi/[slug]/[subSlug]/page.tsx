@@ -91,6 +91,7 @@ async function SubEventContent({
 				backHref={`/eventi/${slug}`}
 				backLabel={locale === 'it' ? "Torna all'evento" : 'Back to event'}
 				event={event}
+				locale={locale}
 			/>
 			<EventContentSection event={event} locale={locale} />
 		</div>

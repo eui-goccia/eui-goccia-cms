@@ -106,6 +106,7 @@ async function ParentEventContent({
 				backHref='/eventi'
 				backLabel={locale === 'it' ? 'Torna agli eventi' : 'Back to events'}
 				event={event}
+				locale={locale}
 			/>
 			<EventContentSection event={event} locale={locale} />
 			<EventProgramSection locale={locale} subEventGroups={subEventGroups} />

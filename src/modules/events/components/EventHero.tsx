@@ -7,10 +7,16 @@ interface EventHeroProps {
 	event: Event;
 	backHref: string;
 	backLabel: string;
+	locale: string;
 }
 
-export function EventHero({ event, backHref, backLabel }: EventHeroProps) {
-	const image = event.coverImage as ImageType;
+export function EventHero({
+	event,
+	backHref,
+	backLabel,
+	locale,
+}: EventHeroProps) {
+	const image = event.coverImage ? (event.coverImage as ImageType) : null;
 	const bookingLabel = event.bookingLabel || 'Eventbrite';
 
 	return (
@@ -34,16 +40,18 @@ export function EventHero({ event, backHref, backLabel }: EventHeroProps) {
 
 			<div className='grid grid-cols-1 gap-8 lg:grid-cols-2'>
 				{/* Cover Image */}
-				<div className='aspect-[4/3] overflow-hidden rounded-[30px]'>
-					<CustomImage
-						alt={image.caption || event.title}
-						className='object-cover rounded-[30px]'
-						image={image}
-						loading='eager'
-						priority
-						size='large'
-					/>
-				</div>
+				{image && (
+					<div className='aspect-[4/3] overflow-hidden rounded-[30px]'>
+						<CustomImage
+							alt={image.alt || event.title}
+							className='object-cover rounded-[30px]'
+							image={image}
+							loading='eager'
+							priority
+							size='large'
+						/>
+					</div>
+				)}
 
 				{/* Title, Organizer, Booking, Links */}
 				<div className='flex flex-col justify-center gap-6'>
@@ -68,7 +76,7 @@ export function EventHero({ event, backHref, backLabel }: EventHeroProps) {
 						</a>
 					)}
 
-					<EventLinks links={event.links} />
+					<EventLinks links={event.links} locale={locale} />
 				</div>
 			</div>
 		</section>
