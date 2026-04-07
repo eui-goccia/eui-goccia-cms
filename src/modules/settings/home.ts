@@ -25,6 +25,7 @@ export const Home: GlobalConfig = {
 	slug: 'home',
 	admin: {
 		group: 'Pages',
+		hidden: true,
 	},
 	access: {
 		read: editor,

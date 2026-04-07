@@ -18,12 +18,12 @@ export function EventProgramSection({
 
 	return (
 		<section className='px-5 pb-16 lg:px-10 xl:px-20'>
-			<h2 className='mb-8 font-greed text-2xl font-bold uppercase tracking-wider'>
-				{locale === 'it' ? 'PROGRAMMA' : 'PROGRAM'}
+			<h2 className='mb-8 md:px-25 font-greed text-4xl font-bold  '>
+				{locale === 'it' ? 'Programma' : 'Program'}
 			</h2>
 			{Array.from(subEventGroups.entries()).map(([label, labelEvents]) => (
-				<div className='mb-12 last:mb-0' key={label}>
-					<h3 className='mb-4 font-greed text-xl font-bold'>
+				<div className='mb-12 last:mb-0 md:px-25' key={label}>
+					<h3 className='mb-6 font-greed text-2xl font-bold'>
 						{getLabelDisplayName(label, locale)}
 					</h3>
 					<div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
@@ -55,6 +55,9 @@ export function EventProgramSection({
 									</div>
 									<p className='font-greed text-lg tracking-wide'>
 										{subEvent.title}
+									</p>
+									<p className='text-sm text-black/60'>
+										{formatEventDateTime(subEvent.when.startDate, locale).date}
 									</p>
 								</Link>
 							);

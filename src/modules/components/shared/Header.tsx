@@ -68,11 +68,6 @@ export default function Header() {
 		},
 		{ href: '/blog', label: t('blog'), activeColor: 'underline' },
 		{
-			href: '/risorse',
-			label: 'Risorse',
-			activeColor: 'underline',
-		},
-		{
 			href: '/eventi',
 			label: t('eventi'),
 			activeColor: 'underline',
