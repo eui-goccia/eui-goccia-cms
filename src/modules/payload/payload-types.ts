@@ -564,6 +564,10 @@ export interface Event {
       }[]
     | null;
   bookingUrl?: string | null;
+  /**
+   * Fallback: "Eventbrite"
+   */
+  bookingLabel?: string | null;
   subEvents?: {
     docs?: (string | Event)[];
     hasNextPage?: boolean;
@@ -1266,6 +1270,7 @@ export interface EventsSelect<T extends boolean = true> {
         id?: T;
       };
   bookingUrl?: T;
+  bookingLabel?: T;
   subEvents?: T;
   meta?:
     | T

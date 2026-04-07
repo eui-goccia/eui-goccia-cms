@@ -19,6 +19,7 @@ export const Events: CollectionConfig = {
 	defaultPopulate: {
 		coverImage: true,
 		description: true,
+		label: true,
 		title: true,
 		slug: true,
 		startDate: true,
@@ -142,6 +143,15 @@ export const Events: CollectionConfig = {
 							name: 'bookingUrl',
 							type: 'text',
 							label: 'Link prenotazione',
+						},
+						{
+							name: 'bookingLabel',
+							type: 'text',
+							label: 'Etichetta prenotazione',
+							localized: true,
+							admin: {
+								description: 'Fallback: "Eventbrite"',
+							},
 						},
 					],
 				},

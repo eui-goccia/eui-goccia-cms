@@ -12,6 +12,7 @@ import { LivePreviewListener } from '@/modules/components/LivePreviewListener';
 import Footer from '@/modules/components/shared/Footer';
 import Header from '@/modules/components/shared/Header';
 import NewsletterSignup from '@/modules/components/shared/NewsletterSignup';
+import SectionBreakFill from '@/modules/components/shared/SectionBreakFill';
 import { cn } from '@/modules/utilities/cnUtils';
 import { ReactLenis } from '@/modules/utilities/lenis';
 
@@ -109,6 +110,7 @@ export default async function RootLayout({ children, params }: Readonly<Args>) {
 						<LivePreviewListener />
 						<Header />
 						<main className='mb-auto bg-blu-300'>{children}</main>
+						<SectionBreakFill />
 						<NewsletterSignup />
 						<Footer />
 					</ReactLenis>

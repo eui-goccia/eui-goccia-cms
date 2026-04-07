@@ -3,9 +3,9 @@ import type { SVGProps } from 'react';
 const SectionBreakFill = (props: SVGProps<SVGSVGElement>) => (
 	<svg
 		fill='none'
-		height={185}
+		preserveAspectRatio='xMidYMid meet'
 		viewBox='0 0 1512 185'
-		width={1512}
+		width='100%'
 		xmlns='http://www.w3.org/2000/svg'
 		{...props}
 		role='presentation'
@@ -18,7 +18,7 @@ const SectionBreakFill = (props: SVGProps<SVGSVGElement>) => (
 			style={{
 				maskType: 'alpha',
 			}}
-			width={1512}
+			width='100%'
 			x={0}
 			y={0}
 		>
