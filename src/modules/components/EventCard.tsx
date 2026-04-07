@@ -31,34 +31,37 @@ export default async function EventCard({
 
 	return (
 		<Link
-			className='group flex flex-col gap-3'
+			className='group flex flex-col gap-2'
 			href={eventHref}
 			locale={locale}
 		>
 			{showImage && image ? (
-				<div className='aspect-[4/3] overflow-hidden rounded-[30px]'>
+				<div className='aspect-video overflow-hidden rounded-4xl'>
 					<CustomImage
 						alt={image.caption || event.title}
-						className='object-cover rounded-[30px] transition-transform duration-500 group-hover:scale-105'
+						className='object-cover rounded-4xl transition-transform duration-500 group-hover:scale-105'
 						image={image}
 						size='large'
 					/>
 				</div>
 			) : null}
 
-			<div className='flex items-center justify-between gap-2'>
-				<p className='font-greed text-lg font-bold uppercase tracking-wider underline decoration-rosso-500 decoration-2 underline-offset-4'>
+			<div className='flex px-1 items-center justify-between gap-0'>
+				<p className='font-greed text-base font-bold uppercase '>
 					{event.when.startDate
 						? formatEventDate(event.when.startDate, locale)
 						: '—'}
 				</p>
+				<p className='font-greed text-base font-bold uppercase '>
+					{event.address?.location ?? ''}
+				</p>
 			</div>
 
-			<h3 className='font-tagada text-3xl leading-tight tracking-wide lg:text-4xl'>
+			<h3 className='font-tagada px-1 text-3xl leading-tight tracking-wide lg:text-4xl'>
 				{event.title}
 			</h3>
 
-			<p className='font-greed text-lg font-bold uppercase tracking-wider underline underline-offset-4 transition-colors group-hover:text-rosso-500'>
+			<p className='font-greed px-1 text-sm font-bold uppercase tracking-wider underline decoration-1 underline-offset-4 transition-colors group-hover:text-rosso-500'>
 				SCOPRI DI PIÙ
 			</p>
 		</Link>

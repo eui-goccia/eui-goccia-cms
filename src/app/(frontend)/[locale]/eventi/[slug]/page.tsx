@@ -101,7 +101,7 @@ async function ParentEventContent({
 	const subEventGroups = groupSubEventsByLabel(subEvents.docs);
 
 	return (
-		<div className='min-h-screen bg-red-300'>
+		<div className='min-h-screen bg-blu-300'>
 			<EventHero
 				backHref='/eventi'
 				backLabel={locale === 'it' ? 'Torna agli eventi' : 'Back to events'}

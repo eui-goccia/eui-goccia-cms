@@ -18,7 +18,6 @@ export function EventProgramSection({
 
 	return (
 		<section className='px-5 pb-16 lg:px-10 xl:px-20'>
-			<div className='mb-10 h-px bg-black/20' />
 			<h2 className='mb-8 font-greed text-2xl font-bold uppercase tracking-wider'>
 				{locale === 'it' ? 'PROGRAMMA' : 'PROGRAM'}
 			</h2>
@@ -44,7 +43,7 @@ export function EventProgramSection({
 									href={subEventHref}
 									key={subEvent.id}
 								>
-									<div className='aspect-[4/3] overflow-hidden rounded-[20px] bg-black/5'>
+									<div className='aspect-4/3 overflow-hidden rounded-[20px] bg-black/5'>
 										{subImage ? (
 											<CustomImage
 												alt={subImage.alt || subEvent.title}

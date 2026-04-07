@@ -1,6 +1,7 @@
 import type { Event, Image as ImageType } from '@payload-types';
 import { Link } from '@/i18n/routing';
 import { CustomImage } from '@/modules/components/CustomImage';
+import ArrowLeft from '@/modules/components/ui/arrow-left';
 import { EventLinks } from './EventLinks';
 
 interface EventHeroProps {
@@ -20,28 +21,21 @@ export function EventHero({
 	const bookingLabel = event.bookingLabel || 'Eventbrite';
 
 	return (
-		<section className='px-5 pt-10 pb-10 lg:px-10 xl:px-20'>
-			<Link
-				aria-label={backLabel}
-				className='mb-8 flex size-[45px] items-center justify-center rounded-[14px] border-2 border-black transition-colors hover:bg-black/5'
-				href={backHref}
-			>
-				<svg
-					aria-hidden='true'
-					className='-rotate-90'
-					fill='none'
-					height='20'
-					viewBox='0 0 20 20'
-					width='20'
+		<section className='px-5 flex  pt-24 pb-10 lg:px-10 xl:px-20'>
+			<div className='w-30'>
+				<Link
+					aria-label={backLabel}
+					className='flex size-12 items-center justify-center rounded-[14px] border-2 border-black transition-colors hover:bg-black/5'
+					href={backHref}
 				>
-					<path d='M10 4L16 12H4L10 4Z' fill='currentColor' />
-				</svg>
-			</Link>
+					<ArrowLeft />
+				</Link>
+			</div>
 
-			<div className='grid grid-cols-1 gap-8 lg:grid-cols-2'>
+			<div className='grid grid-cols-1 items-start gap-8 lg:grid-cols-2'>
 				{/* Cover Image */}
 				{image && (
-					<div className='aspect-[4/3] overflow-hidden rounded-[30px]'>
+					<div className='aspect-4/3 overflow-hidden rounded-[30px]'>
 						<CustomImage
 							alt={image.alt || event.title}
 							className='object-cover rounded-[30px]'
@@ -54,27 +48,29 @@ export function EventHero({
 				)}
 
 				{/* Title, Organizer, Booking, Links */}
-				<div className='flex flex-col justify-center gap-6'>
-					<h1 className='font-tagada text-5xl tracking-wide lg:text-7xl'>
-						{event.title}
-					</h1>
+				<div className='flex flex-col pt-1 justify-between h-full gap-1'>
+					<div className='flex gap-1 flex-col'>
+						<h1 className='font-tagada text-5xl tracking-wide lg:text-7xl'>
+							{event.title}
+						</h1>
 
-					{event.organizer && (
-						<p className='font-greed text-lg font-bold uppercase tracking-wider'>
-							{event.organizer}
-						</p>
-					)}
+						{event.organizer && (
+							<p className='font-greed text-xl font-bold uppercase tracking-wider'>
+								{event.organizer}
+							</p>
+						)}
 
-					{event.bookingUrl && (
-						<a
-							className='inline-flex w-fit items-center justify-center rounded-full bg-rosso-500 px-8 py-4 font-greed text-lg font-bold uppercase tracking-wider text-white transition-colors hover:bg-rosso-500/90'
-							href={event.bookingUrl}
-							rel='noopener noreferrer'
-							target='_blank'
-						>
-							{bookingLabel}
-						</a>
-					)}
+						{event.bookingUrl && (
+							<a
+								className='inline-flex mt-4 w-fit items-center justify-center rounded-full bg-black px-6 py-3 font-greed text-md font-bold uppercase tracking-wider text-white transition-colors hover:bg-black/80'
+								href={event.bookingUrl}
+								rel='noopener noreferrer'
+								target='_blank'
+							>
+								{bookingLabel}
+							</a>
+						)}
+					</div>
 
 					<EventLinks links={event.links} locale={locale} />
 				</div>
