@@ -293,151 +293,7 @@ export interface Post {
   title: string;
   description?: string | null;
   tags?: (string | Tag)[] | null;
-  content: (
-    | {
-        content: string;
-        vertical?: ('top' | 'center' | 'bottom') | null;
-        horizontal?: ('left' | 'center' | 'right') | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'text';
-      }
-    | {
-        content?: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        vertical?: ('top' | 'center' | 'bottom') | null;
-        horizontal?: ('left' | 'center' | 'right') | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'richText';
-      }
-    | {
-        content?: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        author?: string | null;
-        vertical?: ('top' | 'center' | 'bottom') | null;
-        horizontal?: ('left' | 'center' | 'right') | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'quote';
-      }
-    | {
-        image: string | Image;
-        width?: ('full' | 'half' | 'third') | null;
-        vertical?: ('top' | 'center' | 'bottom') | null;
-        horizontal?: ('left' | 'center' | 'right') | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'image';
-      }
-    | {
-        /**
-         * Supporta YouTube, Vimeo, Dailymotion, SoundCloud, Twitch, e altri servizi
-         */
-        url: string;
-        title?: string | null;
-        caption?: string | null;
-        light?: boolean | null;
-        aspectRatio?: ('16/9' | '4/3' | '1/1' | '9/16') | null;
-        width?: ('full' | 'half' | 'third') | null;
-        horizontal?: ('left' | 'center' | 'right') | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'video';
-      }
-    | {
-        sourceType?: ('url' | 'upload') | null;
-        /**
-         * Supports SoundCloud, Mixcloud, and other audio services
-         */
-        url?: string | null;
-        audioFile?: (string | null) | Audio;
-        title?: string | null;
-        caption?: string | null;
-        width?: ('full' | 'half' | 'third') | null;
-        horizontal?: ('left' | 'center' | 'right') | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'audio';
-      }
-    | {
-        /**
-         * Add up to 4 items, they will be displayed in a single row
-         */
-        items?:
-          | (
-              | {
-                  image: string | Image;
-                  width?: ('full' | 'half' | 'third') | null;
-                  vertical?: ('top' | 'center' | 'bottom') | null;
-                  horizontal?: ('left' | 'center' | 'right') | null;
-                  id?: string | null;
-                  blockName?: string | null;
-                  blockType: 'image';
-                }
-              | {
-                  content: string;
-                  vertical?: ('top' | 'center' | 'bottom') | null;
-                  horizontal?: ('left' | 'center' | 'right') | null;
-                  id?: string | null;
-                  blockName?: string | null;
-                  blockType: 'text';
-                }
-              | {
-                  content?: {
-                    root: {
-                      type: string;
-                      children: {
-                        type: any;
-                        version: number;
-                        [k: string]: unknown;
-                      }[];
-                      direction: ('ltr' | 'rtl') | null;
-                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                      indent: number;
-                      version: number;
-                    };
-                    [k: string]: unknown;
-                  } | null;
-                  vertical?: ('top' | 'center' | 'bottom') | null;
-                  horizontal?: ('left' | 'center' | 'right') | null;
-                  id?: string | null;
-                  blockName?: string | null;
-                  blockType: 'richText';
-                }
-            )[]
-          | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'grid';
-      }
-  )[];
+  content: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | VideoBlock | AudioBlock | GridBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -475,136 +331,41 @@ export interface Tag {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "authors".
+ * via the `definition` "TextBlock".
  */
-export interface Author {
-  id: string;
-  name: string;
-  bio?: string | null;
-  image?: (string | null) | Image;
-  partner?: string | null;
-  posts?: {
-    docs?: (string | Post)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  slug?: string | null;
-  slugLock?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
+export interface TextBlock {
+  content: string;
+  vertical?: ('top' | 'center' | 'bottom') | null;
+  horizontal?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'text';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "events".
+ * via the `definition` "RichTextBlock".
  */
-export interface Event {
-  id: string;
-  title: string;
-  /**
-   * Used in event cards and SEO. Max 160 characters.
-   */
-  description?: string | null;
-  content?:
-    | (
-        | {
-            content: string;
-            vertical?: ('top' | 'center' | 'bottom') | null;
-            horizontal?: ('left' | 'center' | 'right') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'text';
-          }
-        | {
-            content?: {
-              root: {
-                type: string;
-                children: {
-                  type: any;
-                  version: number;
-                  [k: string]: unknown;
-                }[];
-                direction: ('ltr' | 'rtl') | null;
-                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                indent: number;
-                version: number;
-              };
-              [k: string]: unknown;
-            } | null;
-            vertical?: ('top' | 'center' | 'bottom') | null;
-            horizontal?: ('left' | 'center' | 'right') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'richText';
-          }
-        | QuoteBlock
-        | {
-            image: string | Image;
-            width?: ('full' | 'half' | 'third') | null;
-            vertical?: ('top' | 'center' | 'bottom') | null;
-            horizontal?: ('left' | 'center' | 'right') | null;
-            id?: string | null;
-            blockName?: string | null;
-            blockType: 'image';
-          }
-        | VideoBlock
-        | AudioBlock
-        | GridBlock
-      )[]
-    | null;
-  when: {
-    startDate: string;
-    endDate: string;
-  };
-  address?: {
-    location?: string | null;
-    googleMapsUrl?: string | null;
-  };
-  organizer?: string | null;
-  links?:
-    | {
-        label: string;
-        url: string;
-        id?: string | null;
-      }[]
-    | null;
-  bookingUrl?: string | null;
-  /**
-   * Fallback: "Eventbrite"
-   */
-  bookingLabel?: string | null;
-  subEvents?: {
-    docs?: (string | Event)[];
-    hasNextPage?: boolean;
-    totalDocs?: number;
-  };
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (string | null) | Image;
-    description?: string | null;
-  };
-  coverImage: string | Image;
-  /**
-   * Show the program section on the public page
-   */
-  showProgram?: boolean | null;
-  parent?: (string | null) | Event;
-  breadcrumbs?:
-    | {
-        doc?: (string | null) | Event;
-        url?: string | null;
-        label?: string | null;
-        id?: string | null;
-      }[]
-    | null;
-  label?: ('esplorazioni' | 'approfondimenti' | 'attivita-piccoli' | 'talk-musica-arte' | 'esposizioni-voci') | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
+export interface RichTextBlock {
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  vertical?: ('top' | 'center' | 'bottom') | null;
+  horizontal?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'richText';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -632,6 +393,19 @@ export interface QuoteBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'quote';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageBlock".
+ */
+export interface ImageBlock {
+  image: string | Image;
+  width?: ('full' | 'half' | 'third') | null;
+  vertical?: ('top' | 'center' | 'bottom') | null;
+  horizontal?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'image';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -686,54 +460,90 @@ export interface GridBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ImageBlock".
+ * via the `definition` "authors".
  */
-export interface ImageBlock {
-  image: string | Image;
-  width?: ('full' | 'half' | 'third') | null;
-  vertical?: ('top' | 'center' | 'bottom') | null;
-  horizontal?: ('left' | 'center' | 'right') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'image';
+export interface Author {
+  id: string;
+  name: string;
+  bio?: string | null;
+  image?: (string | null) | Image;
+  partner?: string | null;
+  posts?: {
+    docs?: (string | Post)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TextBlock".
+ * via the `definition` "events".
  */
-export interface TextBlock {
-  content: string;
-  vertical?: ('top' | 'center' | 'bottom') | null;
-  horizontal?: ('left' | 'center' | 'right') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'text';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "RichTextBlock".
- */
-export interface RichTextBlock {
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  vertical?: ('top' | 'center' | 'bottom') | null;
-  horizontal?: ('left' | 'center' | 'right') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'richText';
+export interface Event {
+  id: string;
+  title: string;
+  /**
+   * Used in event cards and SEO. Max 160 characters.
+   */
+  description?: string | null;
+  content?: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | VideoBlock | AudioBlock | GridBlock)[] | null;
+  when: {
+    startDate: string;
+    endDate: string;
+  };
+  address?: {
+    location?: string | null;
+    googleMapsUrl?: string | null;
+  };
+  organizer?: string | null;
+  links?:
+    | {
+        label: string;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  bookingUrl?: string | null;
+  /**
+   * Fallback: "Eventbrite"
+   */
+  bookingLabel?: string | null;
+  subEvents?: {
+    docs?: (string | Event)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Image;
+    description?: string | null;
+  };
+  coverImage: string | Image;
+  /**
+   * Show the program section on the public page
+   */
+  showProgram?: boolean | null;
+  parent?: (string | null) | Event;
+  breadcrumbs?:
+    | {
+        doc?: (string | null) | Event;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  label?: ('esplorazioni' | 'approfondimenti' | 'attivita-piccoli' | 'talk-musica-arte' | 'esposizioni-voci') | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1537,151 +1347,7 @@ export interface Progetto {
   sections?:
     | {
         title: string;
-        content: (
-          | {
-              content: string;
-              vertical?: ('top' | 'center' | 'bottom') | null;
-              horizontal?: ('left' | 'center' | 'right') | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'text';
-            }
-          | {
-              content?: {
-                root: {
-                  type: string;
-                  children: {
-                    type: any;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              } | null;
-              vertical?: ('top' | 'center' | 'bottom') | null;
-              horizontal?: ('left' | 'center' | 'right') | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'richText';
-            }
-          | {
-              content?: {
-                root: {
-                  type: string;
-                  children: {
-                    type: any;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              } | null;
-              author?: string | null;
-              vertical?: ('top' | 'center' | 'bottom') | null;
-              horizontal?: ('left' | 'center' | 'right') | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'quote';
-            }
-          | {
-              image: string | Image;
-              width?: ('full' | 'half' | 'third') | null;
-              vertical?: ('top' | 'center' | 'bottom') | null;
-              horizontal?: ('left' | 'center' | 'right') | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'image';
-            }
-          | {
-              /**
-               * Supporta YouTube, Vimeo, Dailymotion, SoundCloud, Twitch, e altri servizi
-               */
-              url: string;
-              title?: string | null;
-              caption?: string | null;
-              light?: boolean | null;
-              aspectRatio?: ('16/9' | '4/3' | '1/1' | '9/16') | null;
-              width?: ('full' | 'half' | 'third') | null;
-              horizontal?: ('left' | 'center' | 'right') | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'video';
-            }
-          | {
-              sourceType?: ('url' | 'upload') | null;
-              /**
-               * Supports SoundCloud, Mixcloud, and other audio services
-               */
-              url?: string | null;
-              audioFile?: (string | null) | Audio;
-              title?: string | null;
-              caption?: string | null;
-              width?: ('full' | 'half' | 'third') | null;
-              horizontal?: ('left' | 'center' | 'right') | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'audio';
-            }
-          | {
-              /**
-               * Add up to 4 items, they will be displayed in a single row
-               */
-              items?:
-                | (
-                    | {
-                        image: string | Image;
-                        width?: ('full' | 'half' | 'third') | null;
-                        vertical?: ('top' | 'center' | 'bottom') | null;
-                        horizontal?: ('left' | 'center' | 'right') | null;
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'image';
-                      }
-                    | {
-                        content: string;
-                        vertical?: ('top' | 'center' | 'bottom') | null;
-                        horizontal?: ('left' | 'center' | 'right') | null;
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'text';
-                      }
-                    | {
-                        content?: {
-                          root: {
-                            type: string;
-                            children: {
-                              type: any;
-                              version: number;
-                              [k: string]: unknown;
-                            }[];
-                            direction: ('ltr' | 'rtl') | null;
-                            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                            indent: number;
-                            version: number;
-                          };
-                          [k: string]: unknown;
-                        } | null;
-                        vertical?: ('top' | 'center' | 'bottom') | null;
-                        horizontal?: ('left' | 'center' | 'right') | null;
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'richText';
-                      }
-                  )[]
-                | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'grid';
-            }
-        )[];
+        content: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | VideoBlock | AudioBlock | GridBlock)[];
         url: string;
         id?: string | null;
       }[]

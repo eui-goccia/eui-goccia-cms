@@ -27,15 +27,6 @@ export default function MapGocciaOverview() {
 					return;
 				}
 
-				// Load CSS dynamically
-				if (!document.querySelector('link[href*="mapbox-gl"]')) {
-					const link = document.createElement('link');
-					link.rel = 'stylesheet';
-					link.href =
-						'https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.css';
-					document.head.appendChild(link);
-				}
-
 				mapboxgl.default.accessToken = token;
 				const map = new mapboxgl.default.Map({
 					container: mapContainerRef.current,
