@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { sqliteAdapter } from '@payloadcms/db-sqlite';
+import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs';
 import { en } from '@payloadcms/translations/languages/en';
 import { it } from '@payloadcms/translations/languages/it';
 import { buildConfig, type PayloadRequest } from 'payload';
@@ -73,6 +74,7 @@ export default buildConfig({
 			'./db/payload-generated-schema.ts'
 		),
 		migrationDir: path.resolve(dirname, './db/migrations'),
+		// @ts-expect-error - known type mismatch between @payloadcms/drizzle and @payloadcms/db-sqlite migration types
 		prodMigrations: migrations,
 		push: false,
 		client: {
@@ -98,5 +100,15 @@ export default buildConfig({
 		tasks: [],
 	},
 	sharp,
-	plugins: [seoPlugin, storagePlugin, backupPlugin],
+	plugins: [
+		seoPlugin,
+		storagePlugin,
+		backupPlugin,
+		nestedDocsPlugin({
+			collections: ['events'],
+			generateLabel: (_, doc) => String(doc.title),
+			generateURL: (docs) =>
+				docs.reduce((url, doc) => `${url}/${String(doc.slug)}`, ''),
+		}),
+	],
 });

@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload';
 import { Authors } from '../authors/collection';
+import { Events } from '../events/collection';
 import { Posts } from '../posts/collection';
 import { Audio } from '../storage/collections/Audio';
 import { Images } from '../storage/collections/Images';
@@ -11,6 +12,7 @@ export const collections: CollectionConfig[] = [
 	Images,
 	Users,
 	Posts,
+	Events,
 	Authors,
 	Tags,
 ];

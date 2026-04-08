@@ -1,16 +1,13 @@
 import type { Home, Image } from '@payload-types';
 import { CustomImage } from '../CustomImage';
+import GocciaIntro from '../logos/GocciaIntro';
 
 export default function SectionHero({ home }: { home: Home }) {
 	const hero_image = home.hero_image as Image;
 
 	return (
-		<hgroup>
-			<div className='h-dvh w-full grid place-items-center relative'>
-				<h1 className='font-ghost text-blu-500 text-9xl sticky top-10'>
-					GOCCIA
-				</h1>
-
+		<hgroup className='relative h-dvh overflow-clip'>
+			<div className='absolute inset-0 z-0'>
 				<CustomImage
 					className='object-cover'
 					image={hero_image}
@@ -19,6 +16,10 @@ export default function SectionHero({ home }: { home: Home }) {
 					quality={75}
 					size='xlarge'
 				/>
+			</div>
+
+			<div className='relative z-10 flex h-full items-center justify-center pointer-events-none'>
+				<GocciaIntro className='sticky top-1/2 px-10 -translate-y-1/2' />
 			</div>
 		</hgroup>
 	);

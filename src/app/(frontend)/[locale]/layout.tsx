@@ -4,7 +4,7 @@ import '@/app/(frontend)/[locale]/global.css';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
-import type { ReactNode } from 'react';
+import { type ReactNode, Suspense } from 'react';
 import type { Locale } from '@/i18n/routing';
 import { routing } from '@/i18n/routing';
 import { PlausibleAnalytics } from '@/modules/analytics/plausible';
@@ -109,8 +109,12 @@ export default async function RootLayout({ children, params }: Readonly<Args>) {
 						<LivePreviewListener />
 						<Header />
 						<main className='mb-auto bg-blu-300'>{children}</main>
-						<NewsletterSignup />
-						<Footer />
+						<Suspense>
+							<NewsletterSignup />
+						</Suspense>
+						<Suspense>
+							<Footer />
+						</Suspense>
 					</ReactLenis>
 				</NextIntlClientProvider>
 			</body>

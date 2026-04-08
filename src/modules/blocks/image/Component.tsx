@@ -7,7 +7,7 @@ export const ImageBlockComponent: React.FC<{
 	blockData: ImageBlock;
 	className?: string;
 }> = ({ blockData, className }) => {
-	const { image, id } = blockData;
+	const { image } = blockData;
 
 	if (!image || typeof image !== 'object') {
 		return null;

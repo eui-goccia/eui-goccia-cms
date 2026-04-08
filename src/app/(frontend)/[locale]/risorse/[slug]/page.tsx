@@ -1,6 +1,13 @@
 import { notFound } from 'next/navigation';
 import { ResourceDetail } from '@/modules/components/risorse/ResourceDetail';
-import { getResourceBySlug } from '@/modules/components/risorse/resourceData';
+import {
+	getResourceBySlug,
+	MOCK_RESOURCES,
+} from '@/modules/components/risorse/resourceData';
+
+export function generateStaticParams() {
+	return MOCK_RESOURCES.map((r) => ({ slug: r.slug }));
+}
 
 export default async function ResourcePage({
 	params,

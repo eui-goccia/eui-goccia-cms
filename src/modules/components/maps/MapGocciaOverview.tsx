@@ -23,15 +23,8 @@ export default function MapGocciaOverview() {
 
 		import('mapbox-gl')
 			.then((mapboxgl) => {
-				if (aborted || !mapContainerRef.current) return;
-
-				// Load CSS dynamically
-				if (!document.querySelector('link[href*="mapbox-gl"]')) {
-					const link = document.createElement('link');
-					link.rel = 'stylesheet';
-					link.href =
-						'https://api.mapbox.com/mapbox-gl-js/v3.9.4/mapbox-gl.css';
-					document.head.appendChild(link);
+				if (aborted || !mapContainerRef.current) {
+					return;
 				}
 
 				mapboxgl.default.accessToken = token;
@@ -63,11 +56,15 @@ export default function MapGocciaOverview() {
 				mapRef.current = map;
 
 				map.on('error', () => {
-					if (!aborted) setError('Failed to load map');
+					if (!aborted) {
+						setError('Failed to load map');
+					}
 				});
 			})
 			.catch(() => {
-				if (!aborted) setError('Failed to initialize map');
+				if (!aborted) {
+					setError('Failed to initialize map');
+				}
 			});
 
 		return () => {

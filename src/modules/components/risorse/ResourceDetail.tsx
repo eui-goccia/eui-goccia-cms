@@ -15,8 +15,10 @@ export function ResourceDetail({ resource }: ResourceDetailProps) {
 				href='/risorse'
 			>
 				<svg
+					aria-hidden='true'
 					className='-rotate-90'
 					fill='none'
+					focusable='false'
 					height='20'
 					viewBox='0 0 20 20'
 					width='20'
@@ -72,10 +74,10 @@ export function ResourceDetail({ resource }: ResourceDetailProps) {
 
 			{/* Body Text */}
 			<div className='mb-10 max-w-[838px]'>
-				{resource.body.map((paragraph, index) => (
+				{resource.body.map((paragraph) => (
 					<p
 						className='mb-5 font-greed text-2xl leading-[1.1] tracking-wide last:mb-0'
-						key={index}
+						key={`${resource.reference}-${paragraph}`}
 					>
 						{paragraph}
 					</p>

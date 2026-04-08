@@ -58,8 +58,8 @@ export default async function Footer() {
 			url: '/risorse',
 		},
 		{
-			name: t('newsEventi'),
-			url: '/news-eventi',
+			name: t('eventi'),
+			url: '/eventi',
 		},
 		{
 			name: t('about'),
