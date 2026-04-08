@@ -2,14 +2,17 @@ import type { Event, Image as ImageType } from '@payload-types';
 import { Link } from '@/i18n/routing';
 import { CustomImage } from '@/modules/components/CustomImage';
 import { getLabelDisplayName } from '../labelDisplayNames';
+import { getEventHref } from '../paths';
 import { formatEventDateTime } from '../utils';
 
 interface EventProgramSectionProps {
 	subEventGroups: Map<string, Event[]>;
 	locale: string;
+	eventPath: string;
 }
 
 export function EventProgramSection({
+	eventPath,
 	subEventGroups,
 	locale,
 }: EventProgramSectionProps) {
@@ -33,10 +36,9 @@ export function EventProgramSection({
 								typeof subEvent.coverImage === 'string'
 									? null
 									: (subEvent.coverImage as ImageType);
-							const lastBreadcrumb = subEvent.breadcrumbs?.at(-1);
-							const subEventHref = lastBreadcrumb?.url
-								? `/eventi${lastBreadcrumb.url}`
-								: `/eventi/${subEvent.slug}`;
+							const subEventHref = subEvent.slug
+								? `${eventPath}/${subEvent.slug}`
+								: getEventHref(subEvent);
 
 							return (
 								<Link

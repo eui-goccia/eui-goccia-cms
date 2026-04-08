@@ -23,7 +23,8 @@ export function formatEventDateTime(
 }
 
 export function groupSubEventsByLabel(
-	subEvents: (string | Event)[]
+	subEvents: (string | Event)[],
+	{ includeDrafts = false }: { includeDrafts?: boolean } = {}
 ): Map<string, Event[]> {
 	const groups = new Map<string, Event[]>();
 
@@ -37,7 +38,7 @@ export function groupSubEventsByLabel(
 		if (typeof item === 'string') {
 			continue;
 		}
-		if (item._status === 'draft') {
+		if (!includeDrafts && item._status === 'draft') {
 			continue;
 		}
 

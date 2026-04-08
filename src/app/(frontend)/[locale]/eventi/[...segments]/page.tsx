@@ -9,6 +9,10 @@ import { getDocuments } from '@/modules/utilities/getDocument';
 
 const LEADING_SLASH_PATTERN = /^\//;
 
+interface NestedEventPageProps {
+	params: Promise<{ locale: string; segments: string[] }>;
+}
+
 export async function generateStaticParams() {
 	const paramSet = new Set<string>();
 
@@ -27,13 +31,15 @@ export async function generateStaticParams() {
 
 			for (const event of events.docs) {
 				const lastBreadcrumb = event.breadcrumbs?.at(-1);
-				if (lastBreadcrumb?.url) {
-					const parts = lastBreadcrumb.url
-						.replace(LEADING_SLASH_PATTERN, '')
-						.split('/');
-					if (parts.length === 2) {
-						paramSet.add(JSON.stringify({ slug: parts[0], subSlug: parts[1] }));
-					}
+				if (!lastBreadcrumb?.url) {
+					continue;
+				}
+
+				const segments = lastBreadcrumb.url
+					.replace(LEADING_SLASH_PATTERN, '')
+					.split('/');
+				if (segments.length > 2) {
+					paramSet.add(JSON.stringify({ segments }));
 				}
 			}
 		} catch {
@@ -41,24 +47,20 @@ export async function generateStaticParams() {
 		}
 	}
 
-	const params = Array.from(paramSet).map((p) => JSON.parse(p));
+	const params = Array.from(paramSet).map((param) => JSON.parse(param));
 
-	return params.length > 0
-		? params
-		: [{ slug: '_placeholder', subSlug: '_placeholder' }];
+	return params.length > 0 ? params : [{ segments: ['_placeholder'] }];
 }
 
-interface SubEventPageProps {
-	params: Promise<{ locale: string; slug: string; subSlug: string }>;
-}
-
-export default async function SubEventPage({ params }: SubEventPageProps) {
-	const { locale, slug, subSlug } = await params;
+export default async function NestedEventPage({
+	params,
+}: NestedEventPageProps) {
+	const { locale, segments } = await params;
 	setRequestLocale(locale);
 
 	return (
 		<Suspense>
-			<EventDetailContent locale={locale} segments={[slug, subSlug]} />
+			<EventDetailContent locale={locale} segments={segments} />
 		</Suspense>
 	);
 }
