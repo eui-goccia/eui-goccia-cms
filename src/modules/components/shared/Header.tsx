@@ -132,7 +132,7 @@ export default function Header() {
 				</nav>
 
 				{/* Mobile */}
-				<div className='flex md:hidden flex-col'>
+				<div className='flex md:hidden flex-col w-full'>
 					<ul className='flex uppercase px-10 justify-between text-xl'>
 						<li className='w-fit flex items-center justify-center'>
 							<Link href='/' locale={locale}>

@@ -2,7 +2,7 @@ import type * as React from 'react';
 
 const LogoGoccia = (props: React.SVGProps<SVGSVGElement>) => (
 	<svg
-		fill='none'
+		fill='currentColor'
 		height={40}
 		viewBox='0 0 80 40'
 		width={80}
