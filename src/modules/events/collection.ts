@@ -9,7 +9,37 @@ import { editorOrPublished } from '../payload/access/editorOrPublished';
 import { slugFieldFromItalian } from '../payload/fields/slug';
 import { seoTab } from '../seo/fields';
 import { generatePreviewPath } from '../utilities/generatePreviewPath';
+import { getEventRelativePath } from './paths';
 import { revalidateEvent, revalidateEventDelete } from './revalidate';
+
+function generateEventPreviewPath(
+	data: {
+		breadcrumbs?: { url?: string | null }[] | null;
+		parent?: object | string | null;
+		slug?: string | null;
+	},
+	req: Parameters<typeof generatePreviewPath>[0]['req']
+) {
+	const slug = typeof data?.slug === 'string' ? data.slug : '';
+	let relativePath = '/';
+
+	if (slug && (data?.parent || data?.breadcrumbs?.length)) {
+		relativePath = getEventRelativePath({
+			breadcrumbs: data?.breadcrumbs ?? undefined,
+			parent: data?.parent ?? undefined,
+			slug,
+		});
+	} else if (slug) {
+		relativePath = `/${slug}`;
+	}
+
+	return generatePreviewPath({
+		slug,
+		collection: 'events',
+		path: `/eventi${relativePath}`,
+		req,
+	});
+}
 
 export const Events: CollectionConfig = {
 	slug: 'events',
@@ -45,22 +75,9 @@ export const Events: CollectionConfig = {
 		useAsTitle: 'title',
 		baseListFilter: () => ({ parent: { exists: false } }),
 		livePreview: {
-			url: ({ data, req }) => {
-				const path = generatePreviewPath({
-					slug: typeof data?.slug === 'string' ? data.slug : '',
-					collection: 'events',
-					req,
-				});
-
-				return path;
-			},
+			url: ({ data, req }) => generateEventPreviewPath(data ?? {}, req),
 		},
-		preview: (data, { req }) =>
-			generatePreviewPath({
-				slug: typeof data?.slug === 'string' ? data.slug : '',
-				collection: 'events',
-				req,
-			}),
+		preview: (data, { req }) => generateEventPreviewPath(data ?? {}, req),
 	},
 	fields: [
 		{
