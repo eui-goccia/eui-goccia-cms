@@ -3,16 +3,50 @@ import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { useState } from 'react';
+import { LocaleSwitcher } from '@/i18n/LocaleSwitcher';
 import { Link } from '@/i18n/routing';
 import LogoGoccia from '@/modules/components/logos/LogoGoccia';
+import { cn } from '@/modules/utilities/cnUtils';
+
+const HEADER_INITIAL = { height: '64px', borderRadius: '48px' };
+const BACKDROP_TRANSITION = { duration: 0.15 };
+
+interface NavItem {
+	href: string;
+	label: string;
+	activeColor: string;
+}
+
+function NavLink({
+	href,
+	label,
+	activeColor,
+	pathname,
+	locale,
+	onClick,
+}: NavItem & { pathname: string; locale: string; onClick?: () => void }) {
+	return (
+		<Link
+			className={cn(
+				'hover:underline underline-offset-4 decoration-1',
+				pathname === href && activeColor
+			)}
+			href={href}
+			locale={locale}
+			onClick={onClick}
+		>
+			{label}
+		</Link>
+	);
+}
 
 export default function Header() {
 	const [menuIsOpen, setMenuIsOpen] = useState(false);
-	const pathname = usePathname();
+	const rawPathname = usePathname();
 	const t = useTranslations();
 	const locale = useLocale();
+	const pathname = rawPathname.replace(`/${locale}`, '') || '/';
 
-	// Functional setState for correctness (React Compiler handles memoization)
 	const toggleMenu = () => {
 		setMenuIsOpen((prev) => !prev);
 	};
@@ -20,6 +54,30 @@ export default function Header() {
 	const closeMenu = () => {
 		setMenuIsOpen(false);
 	};
+
+	const navItems: NavItem[] = [
+		{
+			href: '/progetto',
+			label: t('project'),
+			activeColor: 'underline',
+		},
+		{
+			href: '/la-goccia',
+			label: t('goccia'),
+			activeColor: 'underline',
+		},
+		{ href: '/blog', label: t('blog'), activeColor: 'underline' },
+		{
+			href: '/eventi',
+			label: t('eventi'),
+			activeColor: 'underline',
+		},
+		{
+			href: '/about',
+			label: t('about'),
+			activeColor: 'underline',
+		},
+	];
 
 	return (
 		<>
@@ -30,194 +88,94 @@ export default function Header() {
 					className='fixed inset-0 bg-black/20 backdrop-blur-sm z-40'
 					initial={{ opacity: 0 }}
 					onClick={closeMenu}
-					transition={{
-						duration: 0.15,
-					}}
+					transition={BACKDROP_TRANSITION}
 				/>
 			) : null}
 
 			<motion.header
 				animate={{
-					height: menuIsOpen ? '360px' : '58px',
-					borderRadius: menuIsOpen ? '32px' : '29px',
+					height: menuIsOpen ? 'auto' : '4rem',
+					borderRadius: menuIsOpen ? '32px' : '48px',
 				}}
-				className={
-					'bg-white border font-greed border-black h-fit py-2 z-50 fixed top-0 left-0 right-0'
-				}
-				initial={{
-					height: '58px',
-					borderRadius: '29px',
-				}}
-				style={{
-					transformOrigin: 'top',
-				}}
+				className='bg-rosa-300 flex items-center justify-center font-greed h-fit py-2 z-50 fixed top-0 left-0 right-0'
+				initial={HEADER_INITIAL}
+				style={{ transformOrigin: 'top' }}
 				transition={{
 					duration: menuIsOpen ? 0.5 : 0.3,
 					ease: menuIsOpen ? 'easeInOut' : 'easeIn',
 				}}
 			>
-				<nav className='hidden md:inline'>
+				<nav className='hidden md:inline w-full'>
 					{/* Desktop */}
 					<ul className='flex uppercase justify-between text-xl'>
-						<li className='w-full  flex items-center justify-center'>
-							<Link
-								className={`hover:underline underline-offset-4 decoration-1 ${
-									pathname === '/progetto' ? 'text-rosa-500 underline ' : ''
-								}`}
-								href='/progetto'
-								locale={locale}
-							>
-								{t('project')}
-							</Link>
-						</li>
 						<li className='w-full flex items-center justify-center'>
-							<Link
-								className={`hover:underline underline-offset-4 decoration-1 ${
-									pathname === '/la-goccia' ? 'text-rosso-500 underline' : ''
-								}`}
-								href='/la-goccia'
-								locale={locale}
-							>
-								{t('goccia')}
-							</Link>
-						</li>
-						<li className='w-full  flex items-center justify-center'>
 							<Link
 								className='hover:underline underline-offset-4 decoration-1'
 								href='/'
 								locale={locale}
 							>
-								<LogoGoccia className='h-10' />
+								<LogoGoccia className='h-10 fill-black' />
 							</Link>
 						</li>
-						<li className='w-full  flex items-center justify-center'>
-							<Link
-								className={`hover:underline underline-offset-4 decoration-1 ${
-									pathname === '/blog' ? 'text-blue-500 underline' : ''
-								}`}
-								href='/blog'
-								locale={locale}
+						{navItems.map((item) => (
+							<li
+								className='w-full flex items-center justify-center'
+								key={item.label}
 							>
-								{t('blog')}
-							</Link>
-						</li>
-						<li className='w-full  flex items-center justify-center'>
-							<Link
-								className={`hover:underline underline-offset-4 decoration-1 ${
-									pathname === '/about' ? 'text-verde-500 underline' : ''
-								}`}
-								href='/about'
-								locale={locale}
-							>
-								{t('about')}
-							</Link>
+								<NavLink {...item} locale={locale} pathname={pathname} />
+							</li>
+						))}
+						<li className='w-full flex items-center justify-center'>
+							<LocaleSwitcher />
 						</li>
 					</ul>
 				</nav>
 
 				{/* Mobile */}
-				<div className='flex md:hidden flex-col'>
+				<div className='flex md:hidden flex-col w-full'>
 					<ul className='flex uppercase px-10 justify-between text-xl'>
 						<li className='w-fit flex items-center justify-center'>
 							<Link href='/' locale={locale}>
 								<LogoGoccia className='h-10' />
 							</Link>
 						</li>
-						<button
-							className='w-fit flex items-center justify-center'
-							onClick={toggleMenu}
-							type='button'
-						>
-							{menuIsOpen ? 'Close' : 'Menu'}
-						</button>
+						<li className='w-fit flex items-center justify-center'>
+							<button
+								aria-expanded={menuIsOpen}
+								onClick={toggleMenu}
+								type='button'
+							>
+								{menuIsOpen ? 'Close' : 'Menu'}
+							</button>
+						</li>
 					</ul>
 
 					{menuIsOpen ? (
 						<nav className='pt-10 pb-20 relative z-20'>
 							<ul className='flex flex-col uppercase gap-8 justify-between text-2xl'>
-								<motion.li
-									animate={{ opacity: 1, y: 0 }}
-									className='w-full flex items-center justify-center'
-									initial={{ opacity: 0, y: -20 }}
-									transition={{
-										delay: 0.25,
-										duration: 0.25,
-									}}
-								>
-									<Link
-										className={`hover:underline underline-offset-4 decoration-1 ${
-											pathname === '/progetto' ? 'text-rosa-500 underline' : ''
-										}`}
-										href='/progetto'
-										locale={locale}
-										onClick={closeMenu}
+								{navItems.map((item, index) => (
+									<motion.li
+										animate={{ opacity: 1, y: 0 }}
+										className='w-full flex items-center justify-center'
+										initial={{ opacity: 0, y: -20 }}
+										key={item.label}
+										transition={{
+											delay: 0.25 + index * 0.1,
+											duration: 0.25,
+										}}
 									>
-										{t('project')}
-									</Link>
-								</motion.li>
-								<motion.li
-									animate={{ opacity: 1, y: 0 }}
-									className='w-full flex items-center justify-center'
-									initial={{ opacity: 0, y: -20 }}
-									transition={{
-										delay: 0.35,
-										duration: 0.25,
-									}}
-								>
-									<Link
-										className={`hover:underline underline-offset-4 decoration-1 ${
-											pathname === '/la-goccia'
-												? 'text-rosso-500 underline'
-												: ''
-										}`}
-										href='/la-goccia'
-										locale={locale}
-										onClick={closeMenu}
-									>
-										{t('goccia')}
-									</Link>
-								</motion.li>
-								<motion.li
-									animate={{ opacity: 1, y: 0 }}
-									className='w-full  flex items-center justify-center'
-									initial={{ opacity: 0, y: -20 }}
-									transition={{
-										delay: 0.45,
-										duration: 0.25,
-									}}
-								>
-									<Link
-										className={`hover:underline underline-offset-4 decoration-1 ${
-											pathname === '/blog' ? 'text-blue-500 underline' : ''
-										}`}
-										href='/blog'
-										locale={locale}
-										onClick={closeMenu}
-									>
-										{t('blog')}
-									</Link>
-								</motion.li>
-								<motion.li
-									animate={{ opacity: 1, y: 0 }}
-									className='w-full flex items-center justify-center'
-									initial={{ opacity: 0, y: -20 }}
-									transition={{
-										delay: 0.55,
-										duration: 0.25,
-									}}
-								>
-									<Link
-										className={`hover:underline underline-offset-4 decoration-1 ${
-											pathname === '/about' ? 'text-verde-500 underline' : ''
-										}`}
-										href='/about'
-										locale={locale}
-										onClick={closeMenu}
-									>
-										{t('about')}
-									</Link>
-								</motion.li>
+										<NavLink
+											{...item}
+											locale={locale}
+											onClick={closeMenu}
+											pathname={pathname}
+										/>
+									</motion.li>
+								))}
 							</ul>
+							<div className='flex justify-center pt-8 text-2xl'>
+								<LocaleSwitcher />
+							</div>
 						</nav>
 					) : null}
 				</div>

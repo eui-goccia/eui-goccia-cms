@@ -7,6 +7,7 @@ export const Goccia: GlobalConfig = {
 	label: 'La Goccia',
 	admin: {
 		group: 'Pages',
+		hidden: true,
 	},
 	access: {
 		read: editor,

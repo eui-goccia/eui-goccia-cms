@@ -8,7 +8,7 @@ interface HeadingProps {
 export default function BlockHeading({ children, id }: HeadingProps) {
 	return (
 		<h2
-			className='font-ghost varW600 md:text-4xl text-3xl lg:text-5xl uppercase scroll-mt-48'
+			className='font-tagada md:text-5xl text-4xl lg:text-6xl scroll-mt-48'
 			id={id}
 		>
 			{children}

@@ -71,6 +71,7 @@ export interface Config {
     images: Image;
     users: User;
     posts: Post;
+    events: Event;
     authors: Author;
     tags: Tag;
     exports: Export;
@@ -82,6 +83,9 @@ export interface Config {
     'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {
+    events: {
+      subEvents: 'events';
+    };
     authors: {
       posts: 'posts';
     };
@@ -94,6 +98,7 @@ export interface Config {
     images: ImagesSelect<false> | ImagesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    events: EventsSelect<false> | EventsSelect<true>;
     authors: AuthorsSelect<false> | AuthorsSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     exports: ExportsSelect<false> | ExportsSelect<true>;
@@ -288,51 +293,7 @@ export interface Post {
   title: string;
   description?: string | null;
   tags?: (string | Tag)[] | null;
-  content: (
-    | {
-        content: string;
-        vertical?: ('top' | 'center' | 'bottom') | null;
-        horizontal?: ('left' | 'center' | 'right') | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'text';
-      }
-    | {
-        content?: {
-          root: {
-            type: string;
-            children: {
-              type: any;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        vertical?: ('top' | 'center' | 'bottom') | null;
-        horizontal?: ('left' | 'center' | 'right') | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'richText';
-      }
-    | QuoteBlock
-    | {
-        image: string | Image;
-        width?: ('full' | 'half' | 'third') | null;
-        vertical?: ('top' | 'center' | 'bottom') | null;
-        horizontal?: ('left' | 'center' | 'right') | null;
-        id?: string | null;
-        blockName?: string | null;
-        blockType: 'image';
-      }
-    | VideoBlock
-    | AudioBlock
-    | GridBlock
-  )[];
+  content: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | VideoBlock | AudioBlock | GridBlock)[];
   meta?: {
     title?: string | null;
     /**
@@ -370,6 +331,44 @@ export interface Tag {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBlock".
+ */
+export interface TextBlock {
+  content: string;
+  vertical?: ('top' | 'center' | 'bottom') | null;
+  horizontal?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'text';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RichTextBlock".
+ */
+export interface RichTextBlock {
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  vertical?: ('top' | 'center' | 'bottom') | null;
+  horizontal?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'richText';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "QuoteBlock".
  */
 export interface QuoteBlock {
@@ -394,6 +393,19 @@ export interface QuoteBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'quote';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageBlock".
+ */
+export interface ImageBlock {
+  image: string | Image;
+  width?: ('full' | 'half' | 'third') | null;
+  vertical?: ('top' | 'center' | 'bottom') | null;
+  horizontal?: ('left' | 'center' | 'right') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'image';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -448,57 +460,6 @@ export interface GridBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ImageBlock".
- */
-export interface ImageBlock {
-  image: string | Image;
-  width?: ('full' | 'half' | 'third') | null;
-  vertical?: ('top' | 'center' | 'bottom') | null;
-  horizontal?: ('left' | 'center' | 'right') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'image';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "TextBlock".
- */
-export interface TextBlock {
-  content: string;
-  vertical?: ('top' | 'center' | 'bottom') | null;
-  horizontal?: ('left' | 'center' | 'right') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'text';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "RichTextBlock".
- */
-export interface RichTextBlock {
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  vertical?: ('top' | 'center' | 'bottom') | null;
-  horizontal?: ('left' | 'center' | 'right') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'richText';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "authors".
  */
 export interface Author {
@@ -516,6 +477,73 @@ export interface Author {
   slugLock?: boolean | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events".
+ */
+export interface Event {
+  id: string;
+  title: string;
+  /**
+   * Used in event cards and SEO. Max 160 characters.
+   */
+  description?: string | null;
+  content?: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | VideoBlock | AudioBlock | GridBlock)[] | null;
+  when: {
+    startDate: string;
+    endDate: string;
+  };
+  address?: {
+    location?: string | null;
+    googleMapsUrl?: string | null;
+  };
+  organizer?: string | null;
+  links?:
+    | {
+        label: string;
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  bookingUrl?: string | null;
+  /**
+   * Fallback: "Eventbrite"
+   */
+  bookingLabel?: string | null;
+  subEvents?: {
+    docs?: (string | Event)[];
+    hasNextPage?: boolean;
+    totalDocs?: number;
+  };
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Image;
+    description?: string | null;
+  };
+  coverImage: string | Image;
+  /**
+   * Show the program section on the public page
+   */
+  showProgram?: boolean | null;
+  parent?: (string | null) | Event;
+  breadcrumbs?:
+    | {
+        doc?: (string | null) | Event;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  label?: ('esplorazioni' | 'approfondimenti' | 'attivita-piccoli' | 'talk-musica-arte' | 'esposizioni-voci') | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -723,6 +751,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'posts';
         value: string | Post;
+      } | null)
+    | ({
+        relationTo: 'events';
+        value: string | Event;
       } | null)
     | ({
         relationTo: 'authors';
@@ -1020,6 +1052,72 @@ export interface GridBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events_select".
+ */
+export interface EventsSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  content?:
+    | T
+    | {
+        text?: T | TextBlockSelect<T>;
+        richText?: T | RichTextBlockSelect<T>;
+        quote?: T | QuoteBlockSelect<T>;
+        image?: T | ImageBlockSelect<T>;
+        video?: T | VideoBlockSelect<T>;
+        audio?: T | AudioBlockSelect<T>;
+        grid?: T | GridBlockSelect<T>;
+      };
+  when?:
+    | T
+    | {
+        startDate?: T;
+        endDate?: T;
+      };
+  address?:
+    | T
+    | {
+        location?: T;
+        googleMapsUrl?: T;
+      };
+  organizer?: T;
+  links?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        id?: T;
+      };
+  bookingUrl?: T;
+  bookingLabel?: T;
+  subEvents?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  coverImage?: T;
+  showProgram?: T;
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
+      };
+  label?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "authors_select".
  */
 export interface AuthorsSelect<T extends boolean = true> {
@@ -1249,151 +1347,7 @@ export interface Progetto {
   sections?:
     | {
         title: string;
-        content: (
-          | {
-              content: string;
-              vertical?: ('top' | 'center' | 'bottom') | null;
-              horizontal?: ('left' | 'center' | 'right') | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'text';
-            }
-          | {
-              content?: {
-                root: {
-                  type: string;
-                  children: {
-                    type: any;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              } | null;
-              vertical?: ('top' | 'center' | 'bottom') | null;
-              horizontal?: ('left' | 'center' | 'right') | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'richText';
-            }
-          | {
-              content?: {
-                root: {
-                  type: string;
-                  children: {
-                    type: any;
-                    version: number;
-                    [k: string]: unknown;
-                  }[];
-                  direction: ('ltr' | 'rtl') | null;
-                  format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                  indent: number;
-                  version: number;
-                };
-                [k: string]: unknown;
-              } | null;
-              author?: string | null;
-              vertical?: ('top' | 'center' | 'bottom') | null;
-              horizontal?: ('left' | 'center' | 'right') | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'quote';
-            }
-          | {
-              image: string | Image;
-              width?: ('full' | 'half' | 'third') | null;
-              vertical?: ('top' | 'center' | 'bottom') | null;
-              horizontal?: ('left' | 'center' | 'right') | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'image';
-            }
-          | {
-              /**
-               * Supporta YouTube, Vimeo, Dailymotion, SoundCloud, Twitch, e altri servizi
-               */
-              url: string;
-              title?: string | null;
-              caption?: string | null;
-              light?: boolean | null;
-              aspectRatio?: ('16/9' | '4/3' | '1/1' | '9/16') | null;
-              width?: ('full' | 'half' | 'third') | null;
-              horizontal?: ('left' | 'center' | 'right') | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'video';
-            }
-          | {
-              sourceType?: ('url' | 'upload') | null;
-              /**
-               * Supports SoundCloud, Mixcloud, and other audio services
-               */
-              url?: string | null;
-              audioFile?: (string | null) | Audio;
-              title?: string | null;
-              caption?: string | null;
-              width?: ('full' | 'half' | 'third') | null;
-              horizontal?: ('left' | 'center' | 'right') | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'audio';
-            }
-          | {
-              /**
-               * Add up to 4 items, they will be displayed in a single row
-               */
-              items?:
-                | (
-                    | {
-                        image: string | Image;
-                        width?: ('full' | 'half' | 'third') | null;
-                        vertical?: ('top' | 'center' | 'bottom') | null;
-                        horizontal?: ('left' | 'center' | 'right') | null;
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'image';
-                      }
-                    | {
-                        content: string;
-                        vertical?: ('top' | 'center' | 'bottom') | null;
-                        horizontal?: ('left' | 'center' | 'right') | null;
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'text';
-                      }
-                    | {
-                        content?: {
-                          root: {
-                            type: string;
-                            children: {
-                              type: any;
-                              version: number;
-                              [k: string]: unknown;
-                            }[];
-                            direction: ('ltr' | 'rtl') | null;
-                            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                            indent: number;
-                            version: number;
-                          };
-                          [k: string]: unknown;
-                        } | null;
-                        vertical?: ('top' | 'center' | 'bottom') | null;
-                        horizontal?: ('left' | 'center' | 'right') | null;
-                        id?: string | null;
-                        blockName?: string | null;
-                        blockType: 'richText';
-                      }
-                  )[]
-                | null;
-              id?: string | null;
-              blockName?: string | null;
-              blockType: 'grid';
-            }
-        )[];
+        content: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | VideoBlock | AudioBlock | GridBlock)[];
         url: string;
         id?: string | null;
       }[]
@@ -1575,7 +1529,7 @@ export interface TaskCreateCollectionExport {
     id: string;
     name: string;
     batchSize?: number | null;
-    collectionSlug: 'audio' | 'images' | 'users' | 'posts' | 'authors' | 'tags' | 'exports' | 'imports';
+    collectionSlug: 'audio' | 'images' | 'users' | 'posts' | 'events' | 'authors' | 'tags' | 'exports' | 'imports';
     drafts?: ('yes' | 'no') | null;
     exportCollection: string;
     fields?: string[] | null;
@@ -1624,10 +1578,15 @@ export interface TaskSchedulePublish {
   input: {
     type?: ('publish' | 'unpublish') | null;
     locale?: string | null;
-    doc?: {
-      relationTo: 'posts';
-      value: string | Post;
-    } | null;
+    doc?:
+      | ({
+          relationTo: 'posts';
+          value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'events';
+          value: string | Event;
+        } | null);
     global?: string | null;
     user?: (string | null) | User;
   };

@@ -7,17 +7,16 @@ export const ImageBlockComponent: React.FC<{
 	blockData: ImageBlock;
 	className?: string;
 }> = ({ blockData, className }) => {
-	const { image, id } = blockData;
+	const { image } = blockData;
 
 	if (!image || typeof image !== 'object') {
-		console.warn(`ImageBlock (${id || 'unknown'}) missing image resource.`);
 		return null;
 	}
 
 	return (
 		<CustomImage
 			alt={image.alt || image.caption || ''}
-			className={cn('rounded-2xl aspect-16/9 object-cover', className)}
+			className={cn('rounded-4xl aspect-16/10 object-cover', className)}
 			image={image}
 			size='xlarge'
 		/>

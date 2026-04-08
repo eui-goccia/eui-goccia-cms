@@ -46,7 +46,7 @@ export default function ProgettoClient({ project }: { project: Progetto }) {
 
 	return (
 		<>
-			<div className='px-5 lg:px-10 pb-30 grid grid-cols-12 gap-5 bg-rosa-300'>
+			<div className='px-5 lg:px-10 pb-30 grid grid-cols-12 gap-5 bg-blu-300'>
 				<aside className='col-start-1 2xl:col-start-2 hidden lg:inline sticky lg:top-34 xl:top-50 h-fit col-span-4 2xl:col-span-3'>
 					<nav>
 						<ul className='font-ghost varW600 uppercase text-2xl'>
@@ -57,17 +57,10 @@ export default function ProgettoClient({ project }: { project: Progetto }) {
 								return (
 									<li key={chapter.url}>
 										<a
-											className={`flex gap-2 ${
-												isActive
-													? 'text-blu-500 underline underline-offset-4 decoration-1'
-													: ''
-											}`}
+											className={`flex gap-2 ${isActive ? 'bg-rosso-500' : 'hover:bg-rosso-500/20'}`}
 											href={chapter.url}
 										>
-											→
-											<span className='hover:underline decoration-1 underline-offset-4'>
-												{chapter.title}
-											</span>
+											→<span>{chapter.title}</span>
 										</a>
 									</li>
 								);
@@ -88,7 +81,7 @@ export default function ProgettoClient({ project }: { project: Progetto }) {
 					))}
 				</article>
 			</div>
-			<div className=' hidden bg-rosa-300 grid-cols-12 gap-5 px-10 py-30'>
+			<div className=' hidden bg-blu-300 grid-cols-12 gap-5 px-10 py-30'>
 				<Link
 					className='underline hover:no-underline col-start-5 w-fit col-span-full font-greed uppercase text-3xl justify-center'
 					href='https://google.com'

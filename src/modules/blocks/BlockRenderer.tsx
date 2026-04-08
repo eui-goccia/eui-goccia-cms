@@ -55,8 +55,13 @@ export const BlockRenderer: React.FC<BlockRendererProps> = ({
 		}>;
 		return <TypedComponent blockData={block} className={className} />;
 	}
-	console.warn(
-		`BlockRenderer: No component found for blockType "${blockType}"`
-	);
+
+	if (process.env.NODE_ENV !== 'production') {
+		console.warn(
+			`[BlockRenderer] Unsupported block type: "${blockType}"`,
+			block
+		);
+	}
+
 	return null;
 };

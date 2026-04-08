@@ -1,7 +1,12 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "mapbox-gl/dist/mapbox-gl.css";
 
 @custom-variant dark (&:is(.dark *));
+
+@theme {
+    --radius-4xl: 1.875rem;
+}
 
 @theme inline {
   /* custom fonts */
