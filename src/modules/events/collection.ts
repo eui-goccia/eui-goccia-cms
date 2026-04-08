@@ -170,7 +170,7 @@ export const Events: CollectionConfig = {
 				{
 					label: 'Sotto-eventi',
 					admin: {
-						condition: (data) => !data?.parent,
+						condition: (data) => !data?.parent && Boolean(data?.id),
 					},
 					fields: [
 						{
@@ -187,6 +187,7 @@ export const Events: CollectionConfig = {
 									'address.location',
 								],
 								allowCreate: true,
+								condition: (data) => !data?.parent && Boolean(data?.id),
 							},
 						},
 					],
@@ -268,7 +269,7 @@ export const Events: CollectionConfig = {
 				},
 			],
 		},
-		...slugFieldFromItalian('title'),
+		...slugFieldFromItalian('title', {}, 'events'),
 	],
 	versions: {
 		drafts: {

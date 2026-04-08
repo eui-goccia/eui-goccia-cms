@@ -9,7 +9,8 @@ interface Overrides {
 
 type Slug = (
 	fieldToUse?: string,
-	overrides?: Overrides
+	overrides?: Overrides,
+	collectionSlug?: string
 ) => [TextField, CheckboxField];
 
 export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
@@ -61,7 +62,8 @@ export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
  */
 export const slugFieldFromItalian: Slug = (
 	fieldToUse = 'title',
-	overrides = {}
+	overrides = {},
+	collectionSlug = 'posts'
 ) => {
 	const { slugOverrides, checkboxOverrides } = overrides;
 
@@ -84,7 +86,7 @@ export const slugFieldFromItalian: Slug = (
 		...(slugOverrides || {}),
 		hooks: {
 			// Use the Italian-specific hook for consistent slug generation
-			beforeValidate: [formatSlugFromItalianHook(fieldToUse, 'posts')],
+			beforeValidate: [formatSlugFromItalianHook(fieldToUse, collectionSlug)],
 		},
 		admin: {
 			...(slugOverrides?.admin || {}),
