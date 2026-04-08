@@ -14,6 +14,15 @@
     "title": "Unisciti alla nostra Community",
     "description": "Iscriviti alla newsletter per seguire come la Goccia cresce insieme alla città"
   },
+  "events": {
+    "upcomingMarquee": "Eventi in programma",
+    "pastHeading": "Eventi passati",
+    "noUpcomingEvents": "Nessun evento in programma",
+    "overviewHeading": "Panoramica evento",
+    "when": "Quando",
+    "where": "Dove",
+    "discoverMore": "Scopri di più"
+  },
   "404": {
     "description": "Pagina non trovata"
   }

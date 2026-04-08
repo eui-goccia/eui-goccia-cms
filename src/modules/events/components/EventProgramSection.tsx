@@ -2,6 +2,7 @@ import type { Event, Image as ImageType } from '@payload-types';
 import { Link } from '@/i18n/routing';
 import { CustomImage } from '@/modules/components/CustomImage';
 import { getLabelDisplayName } from '../labelDisplayNames';
+import { formatEventDateTime } from '../utils';
 
 interface EventProgramSectionProps {
 	subEventGroups: Map<string, Event[]>;

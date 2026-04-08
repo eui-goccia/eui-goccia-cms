@@ -1,4 +1,5 @@
 import type { Event } from '@payload-types';
+import { getTranslations } from 'next-intl/server';
 import { BlockRenderer } from '@/modules/blocks/BlockRenderer';
 import { formatEventDateTime } from '../utils';
 
@@ -7,10 +8,11 @@ interface EventContentSectionProps {
 	locale: string;
 }
 
-export function EventContentSection({
+export async function EventContentSection({
 	event,
 	locale,
 }: EventContentSectionProps) {
+	const t = await getTranslations('events');
 	const startDateTime = formatEventDateTime(event.when.startDate, locale);
 	const endDateTime = formatEventDateTime(event.when.endDate, locale);
 	const isMultiDay = startDateTime.date !== endDateTime.date;
@@ -21,7 +23,7 @@ export function EventContentSection({
 				{/* Left: Content blocks */}
 				<div>
 					<h2 className='mb-4 font-greed text-4xl font-bold'>
-						{locale === 'it' ? 'Panoramica evento' : 'Event Overview'}
+						{t('overviewHeading')}
 					</h2>
 					{event.content && event.content.length > 0 && (
 						<div className='flex flex-col gap-6'>
@@ -38,7 +40,7 @@ export function EventContentSection({
 						{/* Date/Time */}
 						<div>
 							<div className='mb-2 w-fit px-1 font-bold bg-rosso-500'>
-								QUANDO
+								{t('when')}
 							</div>
 							<p className='font-ghost text-4xl varW600 uppercase tracking-wide'>
 								{startDateTime.date} {startDateTime.time}
@@ -53,7 +55,7 @@ export function EventContentSection({
 						{event.address?.location && (
 							<div>
 								<div className='mb-2 w-fit px-1 font-bold bg-rosso-500'>
-									DOVE
+									{t('where')}
 								</div>
 								{event.address.googleMapsUrl ? (
 									<a

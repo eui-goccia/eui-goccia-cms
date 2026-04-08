@@ -91,7 +91,7 @@ async function ParentEventContent({
 		overrideAccess: draft,
 		locale: locale as Locales,
 		limit: 50,
-		sort: 'when_startDate',
+		sort: 'when.startDate',
 		where: {
 			parent: { equals: event.id },
 			...(draft ? {} : { _status: { equals: 'published' } }),

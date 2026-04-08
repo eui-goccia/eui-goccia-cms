@@ -18,7 +18,7 @@ const SectionBreakFill = (props: SVGProps<SVGSVGElement>) => (
 			style={{
 				maskType: 'alpha',
 			}}
-			width='100%'
+			width={1512}
 			x={0}
 			y={0}
 		>

@@ -5260,6 +5260,14 @@
           "notNull": false,
           "autoincrement": false
         },
+        "show_program": {
+          "name": "show_program",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
+        },
         "parent_id": {
           "name": "parent_id",
           "type": "text(36)",
@@ -5395,6 +5403,13 @@
       "columns": {
         "title": {
           "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "description": {
+          "name": "description",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -6961,6 +6976,14 @@
           "notNull": false,
           "autoincrement": false
         },
+        "version_show_program": {
+          "name": "version_show_program",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": false
+        },
         "version_parent_id": {
           "name": "version_parent_id",
           "type": "text(36)",
@@ -7186,6 +7209,13 @@
       "columns": {
         "version_title": {
           "name": "version_title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "version_description": {
+          "name": "version_description",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
@@ -11225,6 +11255,6 @@
   "internal": {
     "indexes": {}
   },
-  "id": "dbbe0c9b-f9ef-416d-8093-0f33691186f9",
+  "id": "ecb0f029-8778-40eb-986e-06302835814a",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

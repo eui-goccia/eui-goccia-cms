@@ -17,7 +17,10 @@ export function EventHero({
 	backLabel,
 	locale,
 }: EventHeroProps) {
-	const image = event.coverImage ? (event.coverImage as ImageType) : null;
+	const image =
+		event.coverImage && typeof event.coverImage !== 'string'
+			? (event.coverImage as ImageType)
+			: null;
 	const bookingLabel = event.bookingLabel || 'Eventbrite';
 
 	return (

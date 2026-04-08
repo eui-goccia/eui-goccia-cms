@@ -22,8 +22,10 @@ export const Events: CollectionConfig = {
 		label: true,
 		title: true,
 		slug: true,
-		startDate: true,
-		endDate: true,
+		when: {
+			startDate: true,
+			endDate: true,
+		},
 		parent: true,
 		breadcrumbs: true,
 		_status: true,
@@ -180,8 +182,8 @@ export const Events: CollectionConfig = {
 								defaultColumns: [
 									'title',
 									'label',
-									'startDate',
-									'endDate',
+									'when.startDate',
+									'when.endDate',
 									'address.location',
 								],
 								allowCreate: true,

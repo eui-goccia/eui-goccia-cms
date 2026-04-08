@@ -1464,6 +1464,7 @@ export const events = sqliteTable(
     coverImage: text("cover_image_id").references(() => images.id, {
       onDelete: "set null",
     }),
+    showProgram: integer("show_program", { mode: "boolean" }).default(false),
     parent: text("parent_id").references((): AnySQLiteColumn => events.id, {
       onDelete: "set null",
     }),
@@ -1500,6 +1501,7 @@ export const events_locales = sqliteTable(
   "events_locales",
   {
     title: text("title"),
+    description: text("description"),
     bookingLabel: text("booking_label"),
     meta_title: text("meta_title"),
     meta_image: text("meta_image_id").references(() => images.id, {
@@ -1944,6 +1946,9 @@ export const _events_v = sqliteTable(
         onDelete: "set null",
       },
     ),
+    version_showProgram: integer("version_show_program", {
+      mode: "boolean",
+    }).default(false),
     version_parent: text("version_parent_id").references(() => events.id, {
       onDelete: "set null",
     }),
@@ -2005,6 +2010,7 @@ export const _events_v_locales = sqliteTable(
   "_events_v_locales",
   {
     version_title: text("version_title"),
+    version_description: text("version_description"),
     version_bookingLabel: text("version_booking_label"),
     version_meta_title: text("version_meta_title"),
     version_meta_image: text("version_meta_image_id").references(

@@ -1,5 +1,6 @@
 import { draftMode } from 'next/headers';
 import { connection } from 'next/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { PaginatedDocs } from 'payload';
 import { Suspense } from 'react';
 import type { Locales } from '@/i18n/routing';
@@ -13,7 +14,7 @@ interface EventiPageProps {
 
 const marqueeItems = ['a', 'b', 'c', 'd', 'e', 'f'];
 
-function Marquee() {
+function Marquee({ label }: { label: string }) {
 	return (
 		<div className='overflow-hidden mt-16 bg-rosso-500'>
 			<div className='inline-flex w-full flex-nowrap'>
@@ -21,7 +22,7 @@ function Marquee() {
 					{marqueeItems.map((key) => (
 						<li key={key}>
 							<p className='whitespace-nowrap py-5 font-tagada text-4xl uppercase tracking-wide text-black md:text-5xl'>
-								EVENTI IN PROGRAMMA
+								{label}
 							</p>
 						</li>
 					))}
@@ -33,7 +34,7 @@ function Marquee() {
 					{marqueeItems.map((key) => (
 						<li key={key}>
 							<p className='whitespace-nowrap py-5 font-tagada text-4xl uppercase tracking-wide text-black md:text-5xl'>
-								EVENTI IN PROGRAMMA
+								{label}
 							</p>
 						</li>
 					))}
@@ -46,9 +47,13 @@ function Marquee() {
 async function EventList({
 	locale,
 	draft,
+	noUpcomingEventsLabel,
+	pastHeadingLabel,
 }: {
 	locale: string;
 	draft: boolean;
+	noUpcomingEventsLabel: string;
+	pastHeadingLabel: string;
 }) {
 	await connection();
 
@@ -57,7 +62,7 @@ async function EventList({
 		depth: 2,
 		draft,
 		locale: locale as Locales,
-		sort: '-when_startDate',
+		sort: '-when.startDate',
 		where: {
 			parent: { exists: false },
 		},
@@ -82,9 +87,7 @@ async function EventList({
 					</div>
 				) : (
 					<p className='py-20 text-center font-greed text-2xl tracking-wide text-black/50'>
-						{locale === 'it'
-							? 'Nessun evento in programma'
-							: 'No upcoming events'}
+						{noUpcomingEventsLabel}
 					</p>
 				)}
 			</section>
@@ -93,7 +96,7 @@ async function EventList({
 				<>
 					<div className='overflow-hidden bg-black'>
 						<p className='px-5 py-6 font-tagada text-4xl uppercase tracking-wider text-rosso-500 md:text-5xl lg:px-10'>
-							EVENTI PASSATI
+							{pastHeadingLabel}
 						</p>
 					</div>
 
@@ -112,13 +115,20 @@ async function EventList({
 
 export default async function EventiPage({ params }: EventiPageProps) {
 	const { locale } = await params;
+	setRequestLocale(locale);
 	const { isEnabled: draft } = await draftMode();
+	const t = await getTranslations('events');
 
 	return (
 		<div className='bg-blu-300 min-h-screen'>
-			<Marquee />
+			<Marquee label={t('upcomingMarquee')} />
 			<Suspense>
-				<EventList draft={draft} locale={locale} />
+				<EventList
+					draft={draft}
+					locale={locale}
+					noUpcomingEventsLabel={t('noUpcomingEvents')}
+					pastHeadingLabel={t('pastHeading')}
+				/>
 			</Suspense>
 		</div>
 	);

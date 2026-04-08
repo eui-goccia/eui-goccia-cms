@@ -1,5 +1,5 @@
 import type { Event, Image as ImageType } from '@payload-types';
-import { getLocale } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 import { CustomImage } from './CustomImage';
 
@@ -21,8 +21,11 @@ export default async function EventCard({
 	event,
 	showImage = true,
 }: EventCardProps) {
-	const locale = await getLocale();
-	const image = event.coverImage as ImageType;
+	const [locale, t] = await Promise.all([getLocale(), getTranslations('events')]);
+	const image =
+		event.coverImage && typeof event.coverImage !== 'string'
+			? (event.coverImage as ImageType)
+			: null;
 
 	const lastBreadcrumb = event.breadcrumbs?.at(-1);
 	const eventHref = lastBreadcrumb?.url
@@ -38,7 +41,7 @@ export default async function EventCard({
 			{showImage && image ? (
 				<div className='aspect-video overflow-hidden rounded-4xl'>
 					<CustomImage
-						alt={image.caption || event.title}
+						alt={image.alt || event.title}
 						className='object-cover rounded-4xl transition-transform duration-500 group-hover:scale-105'
 						image={image}
 						size='large'
@@ -67,7 +70,7 @@ export default async function EventCard({
 						{event.description}
 					</p>
 					<p className='font-greed px-1 text-sm font-bold uppercase tracking-wider underline decoration-1 underline-offset-4 transition-colors group-hover:text-rosso-500'>
-						SCOPRI DI PIÙ
+						{t('discoverMore')}
 					</p>
 				</>
 			)}
