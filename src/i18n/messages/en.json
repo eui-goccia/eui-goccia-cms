@@ -7,6 +7,10 @@
   "discover_project": "Discover the Project",
   "eventi": "Events",
   "risorse": "Resources",
+  "aboutPage": {
+    "title": "About Us",
+    "partnership": "The Partnership"
+  },
   "forest": "The Forest",
   "what_we_do": "What We Do",
   "transformation_area": "The Transformation Area",

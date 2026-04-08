@@ -11,7 +11,7 @@
     "generate:importmap": "payload generate:importmap",
     "generate:types": "payload generate:types",
     "fix": "pnpm dlx ultracite fix",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "next typegen && tsc --noEmit",
     "payload": "payload",
     "start": "next start",
     "db:up": "docker compose -f docker-compose.db.yml up -d",

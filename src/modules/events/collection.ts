@@ -8,6 +8,7 @@ import { editor } from '../payload/access/editor';
 import { editorOrPublished } from '../payload/access/editorOrPublished';
 import { slugFieldFromItalian } from '../payload/fields/slug';
 import { seoTab } from '../seo/fields';
+import { generatePreviewPath } from '../utilities/generatePreviewPath';
 import { revalidateEvent, revalidateEventDelete } from './revalidate';
 
 export const Events: CollectionConfig = {
@@ -43,6 +44,23 @@ export const Events: CollectionConfig = {
 	admin: {
 		useAsTitle: 'title',
 		baseListFilter: () => ({ parent: { exists: false } }),
+		livePreview: {
+			url: ({ data, req }) => {
+				const path = generatePreviewPath({
+					slug: typeof data?.slug === 'string' ? data.slug : '',
+					collection: 'events',
+					req,
+				});
+
+				return path;
+			},
+		},
+		preview: (data, { req }) =>
+			generatePreviewPath({
+				slug: typeof data?.slug === 'string' ? data.slug : '',
+				collection: 'events',
+				req,
+			}),
 	},
 	fields: [
 		{

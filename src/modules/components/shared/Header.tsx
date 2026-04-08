@@ -173,6 +173,9 @@ export default function Header() {
 									</motion.li>
 								))}
 							</ul>
+							<div className='flex justify-center pt-8 text-2xl'>
+								<LocaleSwitcher />
+							</div>
 						</nav>
 					) : null}
 				</div>

@@ -1,6 +1,12 @@
+import { notFound } from 'next/navigation';
 import { RisorseContent } from '@/modules/components/risorse/RisorseContent';
+import { RISORSE_ENABLED } from '@/modules/features/risorse';
 
 export default function Risorse() {
+	if (!RISORSE_ENABLED) {
+		notFound();
+	}
+
 	return (
 		<div className='bg-blu-300 min-h-screen'>
 			{/* Hero Banner */}

@@ -69,9 +69,13 @@ async function EventList({
 	})) as PaginatedDocs<Event>;
 
 	const now = new Date();
-	const upcomingEvents = events.docs.filter(
-		(event) => new Date(event.when.endDate) >= now
-	);
+	const upcomingEvents = events.docs
+		.filter((event) => new Date(event.when.endDate) >= now)
+		.sort(
+			(a, b) =>
+				new Date(a.when.startDate).getTime() -
+				new Date(b.when.startDate).getTime()
+		);
 	const pastEvents = events.docs.filter(
 		(event) => new Date(event.when.endDate) < now
 	);
