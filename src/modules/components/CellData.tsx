@@ -1,5 +1,4 @@
 import CellPattern1 from '@public/images/meta/CellPattern_1.webp';
-import Image from 'next/image';
 import { cn } from '@/modules/utilities/cnUtils';
 
 interface CellDataProps {
@@ -37,12 +36,16 @@ export default function CellData({
 					{caption}
 				</p>
 			) : null}
-			<Image
-				alt={caption || ''}
+			{/* biome-ignore lint/performance/noImgElement: Decorative static assets should bypass next/image and load from _next/static/media directly. */}
+			<img
+				alt=''
+				aria-hidden='true'
 				className='w-full h-full rounded-2xl absolute inset-0 object-center z-0 object-cover'
-				fill={true}
-				sizes='(max-width: 1023px) 100vw, 50vw'
-				src={CellPattern1}
+				decoding='async'
+				height={CellPattern1.height}
+				loading='lazy'
+				src={CellPattern1.src}
+				width={CellPattern1.width}
 			/>
 		</div>
 	);

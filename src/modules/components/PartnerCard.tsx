@@ -51,6 +51,7 @@ export default function PartnerCard({
 							className='max-h-20 max-w-60 object-contain'
 							image={logo}
 							size='medium'
+							sizes='240px'
 						/>
 					) : null}
 				</div>
