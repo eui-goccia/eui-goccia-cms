@@ -1,12 +1,10 @@
 'use client';
 
-import mapboxgl from 'mapbox-gl';
 import { useEffect, useRef, useState } from 'react';
 
-import 'mapbox-gl/dist/mapbox-gl.css';
-
 export default function MapGocciaOverview() {
-	const mapRef = useRef<mapboxgl.Map | null>(null);
+	// biome-ignore lint/suspicious/noExplicitAny: mapbox-gl types loaded dynamically
+	const mapRef = useRef<any>(null);
 	const mapContainerRef = useRef<HTMLDivElement | null>(null);
 	const [error, setError] = useState<string | null>(null);
 
@@ -21,36 +19,56 @@ export default function MapGocciaOverview() {
 			return;
 		}
 
-		try {
-			mapboxgl.accessToken = token;
-			mapRef.current = new mapboxgl.Map({
-				container: mapContainerRef.current,
-				center: [9.152_16, 45.506_38],
-				zoom: 15.56,
-				style: 'mapbox://styles/mapbox/standard-satellite',
-				config: {
-					basemap: {
-						lightPreset: 'day',
-						showPedestrianRoads: false,
-						showPlaceLabels: false,
-						showPointOfInterestLabels: false,
-						showRoadLabels: false,
-						showTransitLabels: false,
-						showLandmarkIcons: false,
-						showLabels: false,
-					},
-				},
-			});
-			mapRef.current.scrollZoom.disable();
+		let aborted = false;
 
-			mapRef.current.on('error', () => {
-				setError('Failed to load map');
+		import('mapbox-gl')
+			.then((mapboxgl) => {
+				if (aborted || !mapContainerRef.current) {
+					return;
+				}
+
+				mapboxgl.default.accessToken = token;
+				const map = new mapboxgl.default.Map({
+					container: mapContainerRef.current,
+					center: [9.152_16, 45.506_38],
+					zoom: 15.56,
+					style: 'mapbox://styles/mapbox/standard-satellite',
+					config: {
+						basemap: {
+							lightPreset: 'day',
+							showPedestrianRoads: false,
+							showPlaceLabels: false,
+							showPointOfInterestLabels: false,
+							showRoadLabels: false,
+							showTransitLabels: false,
+							showLandmarkIcons: false,
+							showLabels: false,
+						},
+					},
+				});
+				map.scrollZoom.disable();
+
+				if (aborted) {
+					map.remove();
+					return;
+				}
+
+				mapRef.current = map;
+
+				map.on('error', () => {
+					if (!aborted) {
+						setError('Failed to load map');
+					}
+				});
+			})
+			.catch(() => {
+				if (!aborted) {
+					setError('Failed to initialize map');
+				}
 			});
-		} catch {
-			setError('Failed to initialize map');
-		}
 
 		return () => {
+			aborted = true;
 			mapRef.current?.remove();
 		};
 	}, []);

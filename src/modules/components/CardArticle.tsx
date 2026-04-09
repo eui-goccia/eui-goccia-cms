@@ -19,15 +19,15 @@ export default async function CardArticle({ post }: CardArticleProps) {
 		>
 			<CustomImage
 				alt={image.caption || post.title}
-				className='w-full border h-full object-contain rounded-4xl border-white transition-all'
+				className='w-full border h-full object-contain rounded-4xl transition-all'
 				image={image}
 				size='xlarge'
 			/>
 			<div className='px-2.5 w-full'>
-				<p className='font-ghost uppercase text-white text-sm'>
+				<p className='font-ghost uppercase text-black text-sm'>
 					{typeof author === 'string' ? author : author.name}
 				</p>
-				<h2 className='group-hover:underline text-2xl uppercase text-white font-tagada underline-offset-4 decoration-1 transition-all'>
+				<h2 className='group-hover:underline text-2xl uppercase text-black font-tagada underline-offset-4 decoration-1 transition-all'>
 					{post.title}
 				</h2>
 			</div>

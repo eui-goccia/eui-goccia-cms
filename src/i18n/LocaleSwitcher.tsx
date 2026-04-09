@@ -4,25 +4,17 @@ import { useParams } from 'next/navigation';
 import { useLocale } from 'next-intl';
 import type { TypedLocale } from 'payload';
 import { useTransition } from 'react';
-import localization from '@/i18n/localization';
 import { usePathname, useRouter } from '@/i18n/routing';
-import {
-	Select,
-	SelectContent,
-	SelectItem,
-	SelectTrigger,
-	SelectValue,
-} from '@/modules/components/ui/select';
+import { cn } from '@/modules/utilities/cnUtils';
 
 export function LocaleSwitcher() {
-	// inspired by https://github.com/amannn/next-intl/blob/main/examples/example-app-router/src/components/LocaleSwitcherSelect.tsx
 	const locale = useLocale();
 	const router = useRouter();
 	const [, startTransition] = useTransition();
 	const pathname = usePathname();
 	const params = useParams();
 
-	function onSelectChange(value: TypedLocale) {
+	function switchLocale(value: TypedLocale) {
 		startTransition(() => {
 			router.replace(
 				// @ts-expect-error -- TypeScript will validate that only known `params`
@@ -35,19 +27,28 @@ export function LocaleSwitcher() {
 	}
 
 	return (
-		<Select onValueChange={onSelectChange} value={locale}>
-			<SelectTrigger className='w-full max-w-32 text-greed text-base bg-transparent gap-2'>
-				<SelectValue placeholder='Theme' />
-			</SelectTrigger>
-			<SelectContent>
-				{localization.locales
-					.sort((a, b) => a.label.localeCompare(b.label)) // Ordenar por label
-					.map((lang, i) => (
-						<SelectItem key={`${lang.code}-${i}`} value={lang.code}>
-							{lang.label}
-						</SelectItem>
-					))}
-			</SelectContent>
-		</Select>
+		<div className='flex items-center text-xl gap-1 text-base'>
+			<button
+				className={cn(
+					'cursor-pointer',
+					locale === 'it' && 'underline decoration-1 underline-offset-4'
+				)}
+				onClick={() => switchLocale('it')}
+				type='button'
+			>
+				IT
+			</button>
+			<span>/</span>
+			<button
+				className={cn(
+					'cursor-pointer',
+					locale === 'en' && 'underline decoration-1 underline-offset-4'
+				)}
+				onClick={() => switchLocale('en')}
+				type='button'
+			>
+				EN
+			</button>
+		</div>
 	);
 }

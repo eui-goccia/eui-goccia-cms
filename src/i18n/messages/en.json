@@ -5,12 +5,27 @@
   "blog": "Blog",
   "contacts": "Contacts",
   "discover_project": "Discover the Project",
+  "eventi": "Events",
+  "risorse": "Resources",
+  "aboutPage": {
+    "title": "About Us",
+    "partnership": "The Partnership"
+  },
   "forest": "The Forest",
   "what_we_do": "What We Do",
   "transformation_area": "The Transformation Area",
   "newsletter": {
     "title": "Join Our Community",
     "description": "Subscribe to the newsletter and follow how the Goccia grows together with the city"
+  },
+  "events": {
+    "upcomingMarquee": "Upcoming events",
+    "pastHeading": "Past events",
+    "noUpcomingEvents": "No upcoming events",
+    "overviewHeading": "Event overview",
+    "when": "When",
+    "where": "Where",
+    "discoverMore": "Discover more"
   },
   "404": {
     "description": "Page not found"

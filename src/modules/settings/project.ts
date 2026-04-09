@@ -9,6 +9,7 @@ export const Project: GlobalConfig = {
 	label: 'Progetto',
 	admin: {
 		group: 'Pages',
+		hidden: true,
 	},
 	access: {
 		read: editor,

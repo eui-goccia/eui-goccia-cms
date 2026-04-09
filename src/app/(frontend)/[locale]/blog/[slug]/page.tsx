@@ -35,8 +35,8 @@ export async function generateStaticParams() {
 					slugSet.add(slug);
 				}
 			}
-		} catch (error) {
-			console.error(error);
+		} catch {
+			// Build-time static param generation may fail for unpublished posts
 		}
 	}
 

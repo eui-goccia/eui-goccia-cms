@@ -11,6 +11,7 @@ export const About: GlobalConfig = {
 	},
 	admin: {
 		group: 'Pages',
+		hidden: true,
 	},
 	hooks: {
 		afterChange: [revalidateGlobal],

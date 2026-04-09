@@ -6,7 +6,7 @@ import SectionHero from '@/modules/components/home/SectionHero';
 import SectionIntroText from '@/modules/components/home/SectionIntroText';
 import SectionMap from '@/modules/components/home/SectionMap';
 import SectionWhat from '@/modules/components/home/SectionWhat';
-import SectionBreakStroke from '@/modules/components/shared/SectionBreakStroke';
+import SectionBreakFill from '@/modules/components/shared/SectionBreakFill';
 import { SectionSkeleton } from '@/modules/components/skeletons/SectionSkeleton';
 import { getGlobal } from '@/modules/utilities/getGlobals';
 
@@ -40,8 +40,7 @@ export default async function Home({ params }: HomeProps) {
 					<SectionMap />
 				</Suspense>
 			</div>
-
-			<SectionBreakStroke />
+			<SectionBreakFill />
 		</main>
 	);
 }
