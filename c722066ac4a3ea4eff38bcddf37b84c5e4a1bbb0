@@ -1,0 +1,21 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.5",
+  "base_commit_sha": "c722066ac4a3ea4eff38bcddf37b84c5e4a1bbb0",
+  "prompts": {
+    "8b6dd280524c172a": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "725bbbb3-466a-4472-8f03-61a7f0992d15",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 9,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    }
+  }
+}
