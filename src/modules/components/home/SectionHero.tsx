@@ -13,8 +13,8 @@ export default function SectionHero({ home }: { home: Home }) {
 					image={hero_image}
 					loading='eager'
 					priority={true}
-					quality={75}
 					size='xlarge'
+					sizes='100vw'
 				/>
 			</div>
 

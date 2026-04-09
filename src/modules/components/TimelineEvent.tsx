@@ -40,6 +40,7 @@ export default function TimelineEvent({
 					className='col-span-6 object-cover rounded-3xl aspect-16/10 col-start-1 w-full h-full'
 					image={cover}
 					size='xlarge'
+					sizes='(max-width: 1023px) 100vw, 60vw'
 				/>
 				<p className='col-start-7 flex flex-col gap-4 font-greed text-2xl col-span-full'>
 					<span>{event.description}</span>

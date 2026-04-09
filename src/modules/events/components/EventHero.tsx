@@ -46,6 +46,7 @@ export function EventHero({
 							loading='eager'
 							priority
 							size='large'
+							sizes='(max-width: 1023px) 100vw, 50vw'
 						/>
 					</div>
 				)}

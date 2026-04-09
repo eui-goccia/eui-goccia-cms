@@ -22,6 +22,7 @@ export default async function CardArticle({ post }: CardArticleProps) {
 				className='w-full border h-full object-contain rounded-4xl transition-all'
 				image={image}
 				size='xlarge'
+				sizes='(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw'
 			/>
 			<div className='px-2.5 w-full'>
 				<p className='font-ghost uppercase text-black text-sm'>

@@ -19,6 +19,7 @@ export const ImageBlockComponent: React.FC<{
 			className={cn('rounded-4xl aspect-16/10 object-cover', className)}
 			image={image}
 			size='xlarge'
+			sizes='(max-width: 1023px) 100vw, 58vw'
 		/>
 	);
 };

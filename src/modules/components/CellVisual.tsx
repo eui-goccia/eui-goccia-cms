@@ -20,6 +20,7 @@ export default function CellVisual({
 					className='w-full h-full rounded-2xl object-cover'
 					image={srcImage}
 					size='large'
+					sizes='(max-width: 1023px) 100vw, 50vw'
 				/>
 			) : null}
 			{credits ? (
