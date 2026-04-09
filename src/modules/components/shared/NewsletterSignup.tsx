@@ -4,7 +4,7 @@ export default async function NewsletterSignup() {
 	const t = await getTranslations('newsletter');
 	return (
 		<div className='w-full bg-rosa-300 min-h-55 px-5 lg:px-10 flex flex-col lg:flex-row items-center justify-between pb-10 pt-16 gap-y-5 lg:gap-y-10 gap-x-5'>
-			<div className='flex flex-col text-start'>
+			<div className='flex flex-col w-full text-start'>
 				<h1 className='font-tagada text-4xl md:text-5xl xl:text-6xl'>
 					{t('title')}
 				</h1>
@@ -13,13 +13,11 @@ export default async function NewsletterSignup() {
 				</p>
 			</div>
 
-			<div className='p-0'>
+			<div className='max-w-100 w-full'>
 				<iframe
-					className='w-full min-h-90'
-					height={360}
-					src={
-						'https://gocciaeu.substack.com/embed?simple=true&utm_source=navbar&utm_medium=web&utm_campaign=navbar_click&background_color=64b217'
-					}
+					className='w-fit'
+					height={150}
+					src='https://gocciaeu.substack.com/embed'
 					style={{
 						mixBlendMode: 'multiply',
 						padding: 0,

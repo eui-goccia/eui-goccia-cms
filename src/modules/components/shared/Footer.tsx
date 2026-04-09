@@ -55,10 +55,6 @@ export default async function Footer() {
 			url: '/blog',
 		},
 		{
-			name: t('eventi'),
-			url: '/eventi',
-		},
-		{
 			name: t('about'),
 			url: '/about',
 		},
