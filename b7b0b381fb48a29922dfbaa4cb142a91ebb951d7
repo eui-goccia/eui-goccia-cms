@@ -1,0 +1,23 @@
+src/app/(frontend)/[locale]/about/page.tsx
+  d781cd63d6adccb7 41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "b7b0b381fb48a29922dfbaa4cb142a91ebb951d7",
+  "prompts": {
+    "d781cd63d6adccb7": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d479a552-98d0-4b7b-b8d4-cdc2d0974d09",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}
