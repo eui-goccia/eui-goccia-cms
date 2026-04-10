@@ -1,0 +1,29 @@
+src/modules/components/skeletons/EventDetailSkeleton.tsx
+  49577f2913383bf6 1-10
+src/app/(frontend)/[locale]/eventi/[...segments]/page.tsx
+  49577f2913383bf6 6,70
+src/app/(frontend)/[locale]/eventi/[slug]/[subSlug]/page.tsx
+  49577f2913383bf6 6,68
+src/app/(frontend)/[locale]/eventi/[slug]/page.tsx
+  49577f2913383bf6 6,66
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "3321626c28075ceb128d94d2ed884a223d59ea3a",
+  "prompts": {
+    "49577f2913383bf6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "83b8dcb7-5294-4cef-8b2c-b4529c4ebaba",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 19,
+      "total_deletions": 27,
+      "accepted_lines": 16,
+      "overriden_lines": 0
+    }
+  }
+}
