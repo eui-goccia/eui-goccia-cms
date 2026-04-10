@@ -1,0 +1,23 @@
+src/modules/payload/fields/slug/index.ts
+  5a5ed4e87a7080ce 16-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "9fcbcd86db2c7c7dc714a6ef4350c71d7018dba1",
+  "prompts": {
+    "5a5ed4e87a7080ce": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "51b04416-70f5-48f7-815c-31e3d534dda8",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 12,
+      "total_deletions": 0,
+      "accepted_lines": 12,
+      "overriden_lines": 0
+    }
+  }
+}
