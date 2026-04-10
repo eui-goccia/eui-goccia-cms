@@ -39,6 +39,7 @@ export default function HeaderArticle({
 				image={coverImage}
 				showCaption={true}
 				size='xlarge'
+				sizes='100vw'
 			/>
 		</div>
 	);

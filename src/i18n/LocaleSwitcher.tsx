@@ -27,7 +27,7 @@ export function LocaleSwitcher() {
 	}
 
 	return (
-		<div className='flex items-center text-xl gap-1 text-base'>
+		<div className='flex items-center text-xl gap-1'>
 			<button
 				className={cn(
 					'cursor-pointer',

@@ -46,6 +46,7 @@ export default async function EventCard({
 						className='object-cover rounded-4xl transition-transform duration-500 group-hover:scale-105'
 						image={image}
 						size='large'
+						sizes='(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw'
 					/>
 				</div>
 			) : null}

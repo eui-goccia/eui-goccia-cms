@@ -108,6 +108,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
 					image={image}
 					showCaption={true}
 					size='xlarge'
+					sizes='(max-width: 1023px) 100vw, 58vw'
 				/>
 			);
 		},

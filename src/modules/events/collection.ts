@@ -12,14 +12,11 @@ import { generatePreviewPath } from '../utilities/generatePreviewPath';
 import { getEventRelativePath } from './paths';
 import { revalidateEvent, revalidateEventDelete } from './revalidate';
 
-function generateEventPreviewPath(
-	data: {
-		breadcrumbs?: { url?: string | null }[] | null;
-		parent?: object | string | null;
-		slug?: string | null;
-	},
-	req: Parameters<typeof generatePreviewPath>[0]['req']
-) {
+function generateEventPreviewPath(data: {
+	breadcrumbs?: { url?: string | null }[] | null;
+	parent?: object | string | null;
+	slug?: string | null;
+}) {
 	const slug = typeof data?.slug === 'string' ? data.slug : '';
 	let relativePath = '/';
 
@@ -37,7 +34,6 @@ function generateEventPreviewPath(
 		slug,
 		collection: 'events',
 		path: `/eventi${relativePath}`,
-		req,
 	});
 }
 
@@ -75,9 +71,9 @@ export const Events: CollectionConfig = {
 		useAsTitle: 'title',
 		baseListFilter: () => ({ parent: { exists: false } }),
 		livePreview: {
-			url: ({ data, req }) => generateEventPreviewPath(data ?? {}, req),
+			url: ({ data }) => generateEventPreviewPath(data ?? {}),
 		},
-		preview: (data, { req }) => generateEventPreviewPath(data ?? {}, req),
+		preview: (data) => generateEventPreviewPath(data ?? {}),
 	},
 	fields: [
 		{

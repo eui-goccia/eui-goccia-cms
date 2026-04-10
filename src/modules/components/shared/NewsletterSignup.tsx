@@ -15,7 +15,6 @@ export default async function NewsletterSignup() {
 
 			<div className='max-w-100 w-full'>
 				<iframe
-					className='w-fit'
 					height={150}
 					src='https://gocciaeu.substack.com/embed'
 					style={{

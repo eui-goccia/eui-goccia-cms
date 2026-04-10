@@ -13,7 +13,23 @@ type Slug = (
 	collectionSlug?: string
 ) => [TextField, CheckboxField];
 
-export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
+/**
+ * Creates a slug field derived from the current locale version of a source field.
+ *
+ * @param fieldToUse - The source field name to generate the slug from (default: `'title'`).
+ * @param overrides - Optional partial overrides for the slug `TextField` and lock `CheckboxField`.
+ * @param _collectionSlug - Accepted for signature compatibility with {@link slugFieldFromItalian}
+ *   but intentionally unused — `slugField` generates slugs via {@link formatSlugHook}, which
+ *   operates on the current document and does not need the collection slug.
+ *
+ * Use {@link slugFieldFromItalian} instead when slugs must always derive from the Italian locale;
+ * it passes `collectionSlug` to {@link formatSlugFromItalianHook} to fetch the Italian value.
+ */
+export const slugField: Slug = (
+	fieldToUse = 'title',
+	overrides = {},
+	_collectionSlug
+) => {
 	const { slugOverrides, checkboxOverrides } = overrides;
 
 	const checkBoxField: CheckboxField = {

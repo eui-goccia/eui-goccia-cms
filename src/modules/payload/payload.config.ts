@@ -106,7 +106,7 @@ export default buildConfig({
 		backupPlugin,
 		nestedDocsPlugin({
 			collections: ['events'],
-			generateLabel: (_, doc) => String(doc.title),
+			generateLabel: (_, doc) => (doc.title ? String(doc.title) : ''),
 			generateURL: (docs) =>
 				docs.reduce((url, doc) => `${url}/${String(doc.slug)}`, ''),
 		}),
