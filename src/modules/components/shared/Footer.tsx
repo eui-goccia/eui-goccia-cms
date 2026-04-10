@@ -89,7 +89,7 @@ export default async function Footer() {
 					</li>
 					<li>
 						©{' '}
-						<Suspense fallback={<span>{new Date().getFullYear()}</span>}>
+						<Suspense fallback={<span>2026</span>}>
 							<CurrentYear />
 						</Suspense>
 					</li>
