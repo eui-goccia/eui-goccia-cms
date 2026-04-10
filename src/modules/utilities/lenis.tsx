@@ -24,10 +24,23 @@ function ScrollToTop({ useLenis }: { useLenis: UseLenisHook }) {
 	const lenisRef = useRef(lenis);
 	lenisRef.current = lenis;
 	const isFirstRender = useRef(true);
+	const isPopstateNav = useRef(false);
+
+	useEffect(() => {
+		const handlePopstate = () => {
+			isPopstateNav.current = true;
+		};
+		window.addEventListener('popstate', handlePopstate);
+		return () => window.removeEventListener('popstate', handlePopstate);
+	}, []);
 
 	useEffect(() => {
 		if (isFirstRender.current) {
 			isFirstRender.current = false;
+			return;
+		}
+		if (isPopstateNav.current) {
+			isPopstateNav.current = false;
 			return;
 		}
 		lenisRef.current?.scrollTo(0, { immediate: true });
