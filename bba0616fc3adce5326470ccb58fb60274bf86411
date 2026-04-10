@@ -1,0 +1,25 @@
+src/app/(frontend)/[locale]/blog/page.tsx
+  8b8d3117a403021e 22
+src/app/(frontend)/[locale]/eventi/page.tsx
+  8b8d3117a403021e 64
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "bba0616fc3adce5326470ccb58fb60274bf86411",
+  "prompts": {
+    "8b8d3117a403021e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d781cdc1-8331-4f71-b7ca-b9d22a6fd4be",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 2,
+      "total_deletions": 0,
+      "accepted_lines": 2,
+      "overriden_lines": 0
+    }
+  }
+}
