@@ -1,0 +1,23 @@
+src/modules/components/ui/arrow-left.tsx
+  0f40f1723dd206fe 15
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "ba9836fa8af7cbd7107b2ff61128047e041c3745",
+  "prompts": {
+    "0f40f1723dd206fe": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "336e876e-a3c0-44d3-a251-6db6246790fc",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}
