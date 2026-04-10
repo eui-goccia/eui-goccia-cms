@@ -20,6 +20,8 @@ export default function MapGocciaOverview() {
 		}
 
 		let aborted = false;
+		// biome-ignore lint/suspicious/noExplicitAny: mapbox-gl types loaded dynamically
+		let mapInstance: any = null;
 
 		import('mapbox-gl')
 			.then((mapboxgl) => {
@@ -53,6 +55,7 @@ export default function MapGocciaOverview() {
 					return;
 				}
 
+				mapInstance = map;
 				mapRef.current = map;
 
 				map.on('error', () => {
@@ -69,7 +72,8 @@ export default function MapGocciaOverview() {
 
 		return () => {
 			aborted = true;
-			mapRef.current?.remove();
+			mapInstance?.remove();
+			mapRef.current = null;
 		};
 	}, []);
 
