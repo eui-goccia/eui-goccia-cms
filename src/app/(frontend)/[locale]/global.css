@@ -6,6 +6,7 @@
 
 @theme {
     --radius-4xl: 1.875rem;
+    --radius-5xl: 2.5rem;
 }
 
 @theme inline {

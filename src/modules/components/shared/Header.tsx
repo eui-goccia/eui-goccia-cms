@@ -167,10 +167,18 @@ export default function Header() {
 										/>
 									</motion.li>
 								))}
+								<motion.li
+									animate={{ opacity: 1, y: 0 }}
+									className='w-full flex items-center justify-center'
+									initial={{ opacity: 0, y: -20 }}
+									transition={{
+										delay: 0.25 + 4 * 0.1,
+										duration: 0.25,
+									}}
+								>
+									<LocaleSwitcher />
+								</motion.li>
 							</ul>
-							<div className='flex justify-center pt-8 text-2xl'>
-								<LocaleSwitcher />
-							</div>
 						</nav>
 					) : null}
 				</div>
