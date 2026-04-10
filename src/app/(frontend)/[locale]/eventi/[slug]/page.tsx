@@ -3,6 +3,7 @@ import type { PaginatedDocs } from 'payload';
 import { Suspense } from 'react';
 import localization from '@/i18n/localization';
 import type { Locales } from '@/i18n/routing';
+import { EventDetailSkeleton } from '@/modules/components/skeletons/EventDetailSkeleton';
 import { EventDetailContent } from '@/modules/events/detail';
 import type { Event } from '@/modules/payload/payload-types';
 import { getDocuments } from '@/modules/utilities/getDocument';
@@ -62,14 +63,7 @@ export default async function ParentEventPage({
 	setRequestLocale(locale);
 
 	return (
-		<Suspense
-			fallback={
-				<div className='min-h-screen bg-blu-300 animate-pulse px-5 pt-24 lg:px-10'>
-					<div className='h-8 bg-gray-200 rounded w-1/4 mb-8' />
-					<div className='aspect-4/3 max-w-2xl bg-gray-200 rounded-[30px]' />
-				</div>
-			}
-		>
+		<Suspense fallback={<EventDetailSkeleton />}>
 			<EventDetailContent locale={locale} segments={[slug]} />
 		</Suspense>
 	);
