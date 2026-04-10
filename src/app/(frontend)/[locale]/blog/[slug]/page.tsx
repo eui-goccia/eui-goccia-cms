@@ -30,8 +30,13 @@ export async function generateStaticParams() {
 		)
 	);
 
-	for (const result of results) {
-		if (result.status !== 'fulfilled') {
+	for (const [i, result] of results.entries()) {
+		const localeCode = localization.locales[i].code;
+		if (result.status === 'rejected') {
+			console.error(
+				`[generateStaticParams] Failed to fetch posts for locale "${localeCode}":`,
+				result.reason
+			);
 			continue;
 		}
 		const posts = result.value as PaginatedDocs<Post>;

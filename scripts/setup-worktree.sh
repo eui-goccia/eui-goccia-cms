@@ -14,8 +14,8 @@ if [ -L ".env" ]; then
   echo ".env symlink already exists -> $(readlink .env)"
 else
 
-if [ -f ".env" ]; then
-  echo ".env file already exists (not a symlink). Remove it first if you want to link."
+if [ -e ".env" ]; then
+  echo ".env already exists ($(file -b .env)). Remove it first if you want to link."
   exit 1
 fi
 

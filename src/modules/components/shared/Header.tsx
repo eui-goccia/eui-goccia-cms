@@ -79,7 +79,7 @@ export default function Header() {
 			{menuIsOpen ? (
 				<button
 					aria-label='Close menu'
-					className='fixed inset-0 bg-black/20 backdrop-blur-sm z-40 animate-fade-in cursor-default'
+					className='fixed inset-0 bg-black/20 backdrop-blur-sm z-40 animate-fade-in motion-reduce:animate-none cursor-default'
 					onClick={closeMenu}
 					type='button'
 				/>
@@ -87,10 +87,10 @@ export default function Header() {
 
 			<header
 				className={cn(
-					'bg-rosa-300 flex items-center justify-center font-greed h-fit py-2 z-50 fixed top-0 left-0 right-0 transition-all origin-top',
+					'bg-rosa-300 flex items-center justify-center font-greed py-2 z-50 fixed top-0 left-0 right-0 transition-all motion-reduce:transition-none origin-top overflow-hidden',
 					menuIsOpen
-						? 'rounded-[32px] duration-500 ease-in-out'
-						: 'h-16 rounded-[48px] duration-300 ease-in'
+						? 'max-h-[80vh] rounded-[32px] duration-500 ease-in-out'
+						: 'max-h-16 rounded-[48px] duration-300 ease-in'
 				)}
 			>
 				<nav className='hidden md:inline w-full'>
@@ -143,7 +143,7 @@ export default function Header() {
 							<ul className='flex flex-col uppercase gap-8 justify-between text-2xl'>
 								{navItems.map((item, index) => (
 									<li
-										className='w-full flex items-center justify-center animate-fade-slide-in opacity-0'
+										className='w-full flex items-center justify-center animate-fade-slide-in opacity-0 motion-reduce:animate-none motion-reduce:opacity-100'
 										key={item.label}
 										style={{
 											animationDelay: `${250 + index * 100}ms`,
@@ -159,7 +159,7 @@ export default function Header() {
 									</li>
 								))}
 								<li
-									className='w-full flex items-center justify-center animate-fade-slide-in opacity-0'
+									className='w-full flex items-center justify-center animate-fade-slide-in opacity-0 motion-reduce:animate-none motion-reduce:opacity-100'
 									style={{
 										animationDelay: `${250 + 4 * 100}ms`,
 										animationFillMode: 'forwards',

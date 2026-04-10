@@ -25,8 +25,13 @@ export async function generateStaticParams() {
 		)
 	);
 
-	for (const result of results) {
-		if (result.status !== 'fulfilled') {
+	for (const [i, result] of results.entries()) {
+		if (result.status === 'rejected') {
+			const localeCode = localization.locales[i].code;
+			console.error(
+				`[generateStaticParams] Failed to fetch events for locale "${localeCode}":`,
+				result.reason
+			);
 			continue;
 		}
 		const events = result.value as PaginatedDocs<Event>;
