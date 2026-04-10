@@ -1,0 +1,23 @@
+src/modules/components/maps/MapGocciaOverview.tsx
+  08e87a3d22cb4a95 23-24,58,75-76
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "667e16aa677492a0723725d5499255da7834f6cf",
+  "prompts": {
+    "08e87a3d22cb4a95": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "5ad82099-0d56-4dfd-8e0e-c96ede1b58af",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 5,
+      "total_deletions": 1,
+      "accepted_lines": 5,
+      "overriden_lines": 0
+    }
+  }
+}
