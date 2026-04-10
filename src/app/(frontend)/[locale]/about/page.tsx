@@ -38,7 +38,7 @@ export default async function ChiSiamo({ params }: AboutPageProps) {
 					/>
 				</div>
 			</div>
-			<div className='bg-blu-500 flex font-ghost py-2.5 md:py-10  px-5 items-center justify-center rounded-5xl md xl:text-9xl text-blu-300'>
+			<div className='bg-blu-500 flex font-ghost py-2.5 md:py-10  px-5 items-center justify-center rounded-5xl xl:text-9xl text-blu-300'>
 				{locale === 'it' ? <Partenariato /> : <Partnership />}
 			</div>
 
