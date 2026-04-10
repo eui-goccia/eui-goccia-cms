@@ -61,6 +61,7 @@ async function EventList({
 		collection: 'events',
 		depth: 2,
 		draft,
+		limit: 0,
 		locale: locale as Locales,
 		sort: '-when.startDate',
 		where: {

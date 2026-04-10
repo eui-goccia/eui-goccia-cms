@@ -19,6 +19,7 @@ export default async function Blog({ params }: BlogProps) {
 		collection: 'posts',
 		depth: 2,
 		draft,
+		limit: 0,
 		locale: locale as Locales,
 		sort: '-publishedAt',
 	})) as PaginatedDocs<Post>;
