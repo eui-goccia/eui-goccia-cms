@@ -13,7 +13,11 @@ type Slug = (
 	collectionSlug?: string
 ) => [TextField, CheckboxField];
 
-export const slugField: Slug = (fieldToUse = 'title', overrides = {}) => {
+export const slugField: Slug = (
+	fieldToUse = 'title',
+	overrides = {},
+	_collectionSlug
+) => {
 	const { slugOverrides, checkboxOverrides } = overrides;
 
 	const checkBoxField: CheckboxField = {

@@ -21,6 +21,8 @@ type UseLenisHook = (
 function ScrollToTop({ useLenis }: { useLenis: UseLenisHook }) {
 	const pathname = usePathname();
 	const lenis = useLenis();
+	const lenisRef = useRef(lenis);
+	lenisRef.current = lenis;
 	const isFirstRender = useRef(true);
 
 	useEffect(() => {
@@ -28,8 +30,8 @@ function ScrollToTop({ useLenis }: { useLenis: UseLenisHook }) {
 			isFirstRender.current = false;
 			return;
 		}
-		lenis?.scrollTo(0, { immediate: true });
-	}, [pathname, lenis]);
+		lenisRef.current?.scrollTo(0, { immediate: true });
+	}, [pathname]);
 
 	return null;
 }

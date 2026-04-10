@@ -1,4 +1,4 @@
-import type { CollectionSlug, PayloadRequest } from 'payload';
+import type { CollectionSlug } from 'payload';
 
 const collectionPrefixMap: Partial<Record<CollectionSlug, string>> = {
 	posts: '/blog',
@@ -9,7 +9,6 @@ interface Props {
 	collection: keyof typeof collectionPrefixMap;
 	path?: string;
 	slug: string;
-	req: PayloadRequest;
 }
 
 export const generatePreviewPath = ({ collection, path, slug }: Props) => {

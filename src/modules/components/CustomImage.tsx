@@ -247,7 +247,7 @@ export function CustomImage({
 					fetchPriority={fetchPriority}
 					height={defaultCandidate.height}
 					loading={imageLoading}
-					onError={() => {}}
+					onError={() => setLoadedSrc(defaultCandidate.url)}
 					onLoad={() => setLoadedSrc(defaultCandidate.url)}
 					sizes={sizes ?? DEFAULT_SIZES[size]}
 					src={defaultCandidate.url}

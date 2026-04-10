@@ -40,21 +40,19 @@ export const Posts: CollectionConfig = {
 	admin: {
 		useAsTitle: 'title',
 		livePreview: {
-			url: ({ data, req }) => {
+			url: ({ data }) => {
 				const path = generatePreviewPath({
 					slug: typeof data?.slug === 'string' ? data.slug : '',
 					collection: 'posts',
-					req,
 				});
 
 				return path;
 			},
 		},
-		preview: (data, { req }) =>
+		preview: (data) =>
 			generatePreviewPath({
 				slug: typeof data?.slug === 'string' ? data.slug : '',
 				collection: 'posts',
-				req,
 			}),
 	},
 	fields: [
