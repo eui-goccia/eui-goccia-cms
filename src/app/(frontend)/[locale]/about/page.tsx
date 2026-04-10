@@ -46,7 +46,7 @@ export default async function ChiSiamo({ params }: AboutPageProps) {
 					<PartnerCard
 						bgColor='bg-blu-300'
 						key={partner.name}
-						logo={partner.logo as Image}
+						logo={partner.logo as PayloadImage}
 						members={partner.members}
 						partnerBio={partner.bio}
 						partnerName={partner.name}
