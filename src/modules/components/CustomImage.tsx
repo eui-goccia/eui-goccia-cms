@@ -38,7 +38,7 @@ const FILL_SIZING_CLASS_REGEX = /(^|\s)(w-full|h-full|aspect-[^\s]+)/;
 
 // Valid base64 placeholder - 1x1 transparent PNG
 const DEFAULT_BLUR_PLACEHOLDER =
-	'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==';
+	'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAC0lEQVR4nGNgAAIAAAUAAXpeqz8AAAAASUVORK5CYII=';
 
 const SIZE_CANDIDATES: Record<Props['size'], VariantName[]> = {
 	thumbnail: ['thumbnail'],
@@ -204,10 +204,10 @@ export function CustomImage({
 		<>
 			<div
 				className={cn(
-					'relative overflow-hidden',
+					'relative',
 					wrapperUsesIntrinsicSizing
 						? 'inline-block max-w-full'
-						: 'block h-full w-full',
+						: 'block h-full w-full overflow-hidden',
 					className
 				)}
 			>

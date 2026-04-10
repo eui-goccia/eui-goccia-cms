@@ -1,7 +1,7 @@
 import type { About, Image as PayloadImage } from '@payload-types';
-import Image from 'next/image';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Locales } from '@/i18n/routing';
+import { CustomImage } from '@/modules/components/CustomImage';
 import Partenariato from '@/modules/components/logos/Partenariato';
 import Partnership from '@/modules/components/logos/Partnership';
 import PartnerCard from '@/modules/components/PartnerCard';
@@ -28,13 +28,19 @@ export default async function ChiSiamo({ params }: AboutPageProps) {
 					</p>
 				</hgroup>
 				<div className='md:w-1/2 w-full relative h-[75svh] md:h-full'>
-					<Image
-						alt=''
-						className='object-cover absolute'
-						fill
-						quality='75'
+					<CustomImage
+						image={
+							{
+								id: 'about-hero',
+								url: '/images/about/og-team.webp',
+								width: 1920,
+								height: 1280,
+								updatedAt: '',
+								createdAt: '',
+							} as PayloadImage
+						}
+						size='xlarge'
 						sizes='(min-width: 768px) 50vw, 100vw'
-						src='/images/about/og-team.webp'
 					/>
 				</div>
 			</div>
