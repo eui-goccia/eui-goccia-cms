@@ -1,0 +1,35 @@
+src/app/(frontend)/[locale]/eventi/[...segments]/page.tsx
+  b82f236c2caa6806 32-38
+src/app/(frontend)/[locale]/blog/[slug]/page.tsx
+  b82f236c2caa6806 33-39
+src/app/(frontend)/[locale]/eventi/[slug]/[subSlug]/page.tsx
+  b82f236c2caa6806 28-34
+src/modules/components/shared/Footer.tsx
+  b82f236c2caa6806 92
+scripts/setup-worktree.sh
+  b82f236c2caa6806 17-18
+src/app/(frontend)/[locale]/eventi/[slug]/page.tsx
+  b82f236c2caa6806 32-38
+src/modules/components/shared/Header.tsx
+  b82f236c2caa6806 82,90,92-93,146,162
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "accc0d8b605347aa4d86472f08e5e250915fe1fb",
+  "prompts": {
+    "b82f236c2caa6806": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "33bd3937-1caa-44d4-ba82-7762e891e25a",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 38,
+      "total_deletions": 18,
+      "accepted_lines": 37,
+      "overriden_lines": 0
+    }
+  }
+}
