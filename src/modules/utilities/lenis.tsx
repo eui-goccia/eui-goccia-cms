@@ -39,7 +39,7 @@ function ScrollToTop({ useLenis }: { useLenis: UseLenisHook }) {
 export function ReactLenis({ children, ...props }: ReactLenisProps) {
 	const [LenisComponent, setLenisComponent] =
 		useState<ComponentType<ReactLenisProps> | null>(null);
-	const [lenisHook, setLenisHook] = useState<{ fn: UseLenisHook } | null>(null);
+	const [lenisHook, setLenisHook] = useState<UseLenisHook | null>(null);
 
 	useEffect(() => {
 		let isMounted = true;
@@ -49,7 +49,7 @@ export function ReactLenis({ children, ...props }: ReactLenisProps) {
 					setLenisComponent(
 						() => mod.ReactLenis as ComponentType<ReactLenisProps>
 					);
-					setLenisHook({ fn: mod.useLenis as UseLenisHook });
+					setLenisHook(() => mod.useLenis as UseLenisHook);
 				}
 			})
 			.catch((error) => {
@@ -66,7 +66,7 @@ export function ReactLenis({ children, ...props }: ReactLenisProps) {
 
 	return (
 		<LenisComponent {...props}>
-			{lenisHook && <ScrollToTop useLenis={lenisHook.fn} />}
+			{lenisHook && <ScrollToTop useLenis={lenisHook} />}
 			{children}
 		</LenisComponent>
 	);
