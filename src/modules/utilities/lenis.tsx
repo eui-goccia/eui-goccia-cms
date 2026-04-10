@@ -29,6 +29,12 @@ function ScrollToTop({ useLenis }: { useLenis: UseLenisHook }) {
 	useEffect(() => {
 		const handlePopstate = () => {
 			isPopstateNav.current = true;
+			// Reset after the current event loop so the pathname effect can
+			// consume the flag, but it doesn't leak into future navigations
+			// when popstate fires without a pathname change.
+			requestAnimationFrame(() => {
+				isPopstateNav.current = false;
+			});
 		};
 		window.addEventListener('popstate', handlePopstate);
 		return () => window.removeEventListener('popstate', handlePopstate);
