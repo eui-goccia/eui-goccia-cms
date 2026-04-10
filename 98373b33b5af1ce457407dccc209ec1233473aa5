@@ -1,0 +1,25 @@
+src/modules/components/shared/NewsletterSignup.tsx
+  e5270bf210f15eb1 8,10
+src/modules/components/shared/Header.tsx
+  e5270bf210f15eb1 101,127
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "98373b33b5af1ce457407dccc209ec1233473aa5",
+  "prompts": {
+    "e5270bf210f15eb1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d40edf39-b773-42a9-beea-8cca85293aa2",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 4,
+      "total_deletions": 3,
+      "accepted_lines": 4,
+      "overriden_lines": 0
+    }
+  }
+}
