@@ -1,0 +1,23 @@
+src/modules/components/shared/Footer.tsx
+  27f7ab15693bc78e 92
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "5e44a4a1469e730cec7d3b997bcaac1fbdfd3122",
+  "prompts": {
+    "27f7ab15693bc78e": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8a1a473e-0d22-4e9b-b524-8ad316d9e494",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}
