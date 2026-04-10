@@ -126,7 +126,24 @@ export default async function EventiPage({ params }: EventiPageProps) {
 	return (
 		<div className='bg-blu-300 min-h-screen'>
 			<Marquee label={t('upcomingMarquee')} />
-			<Suspense>
+			<Suspense
+				fallback={
+					<section className='px-5 pb-10 pt-10 lg:px-10'>
+						<div className='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 animate-pulse'>
+							{Array.from({ length: 3 }).map((_, i) => (
+								// biome-ignore lint/suspicious/noArrayIndexKey: static skeleton
+								<div className='rounded-lg overflow-hidden' key={i}>
+									<div className='h-48 bg-gray-200' />
+									<div className='p-4 space-y-3'>
+										<div className='h-4 bg-gray-200 rounded w-3/4' />
+										<div className='h-3 bg-gray-200 rounded w-1/2' />
+									</div>
+								</div>
+							))}
+						</div>
+					</section>
+				}
+			>
 				<EventList
 					draft={draft}
 					locale={locale}

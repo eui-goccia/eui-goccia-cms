@@ -18,25 +18,27 @@ interface PageProps {
 export async function generateStaticParams() {
 	const slugSet = new Set<string>();
 
-	for (const localeConfig of localization.locales) {
-		const locale = localeConfig.code as Locales;
-
-		try {
-			const posts = (await getDocuments({
+	const results = await Promise.allSettled(
+		localization.locales.map((localeConfig) =>
+			getDocuments({
 				collection: 'posts',
 				depth: 0,
 				limit: 20,
 				draft: false,
-				locale,
-			})) as PaginatedDocs<Post>;
+				locale: localeConfig.code as Locales,
+			})
+		)
+	);
 
-			for (const { slug } of posts.docs) {
-				if (slug && typeof slug === 'string') {
-					slugSet.add(slug);
-				}
+	for (const result of results) {
+		if (result.status !== 'fulfilled') {
+			continue;
+		}
+		const posts = result.value as PaginatedDocs<Post>;
+		for (const { slug } of posts.docs) {
+			if (slug && typeof slug === 'string') {
+				slugSet.add(slug);
 			}
-		} catch {
-			// Build-time static param generation may fail for unpublished posts
 		}
 	}
 

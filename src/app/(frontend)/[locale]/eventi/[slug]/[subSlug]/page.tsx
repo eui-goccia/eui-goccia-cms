@@ -12,32 +12,34 @@ const LEADING_SLASH_PATTERN = /^\//;
 export async function generateStaticParams() {
 	const paramSet = new Set<string>();
 
-	for (const localeConfig of localization.locales) {
-		const locale = localeConfig.code as Locales;
-
-		try {
-			const events = (await getDocuments({
+	const results = await Promise.allSettled(
+		localization.locales.map((localeConfig) =>
+			getDocuments({
 				collection: 'events',
 				depth: 0,
 				limit: 100,
 				draft: false,
-				locale,
+				locale: localeConfig.code as Locales,
 				sort: 'createdAt',
-			})) as PaginatedDocs<Event>;
+			})
+		)
+	);
 
-			for (const event of events.docs) {
-				const lastBreadcrumb = event.breadcrumbs?.at(-1);
-				if (lastBreadcrumb?.url) {
-					const parts = lastBreadcrumb.url
-						.replace(LEADING_SLASH_PATTERN, '')
-						.split('/');
-					if (parts.length === 2) {
-						paramSet.add(JSON.stringify({ slug: parts[0], subSlug: parts[1] }));
-					}
+	for (const result of results) {
+		if (result.status !== 'fulfilled') {
+			continue;
+		}
+		const events = result.value as PaginatedDocs<Event>;
+		for (const event of events.docs) {
+			const lastBreadcrumb = event.breadcrumbs?.at(-1);
+			if (lastBreadcrumb?.url) {
+				const parts = lastBreadcrumb.url
+					.replace(LEADING_SLASH_PATTERN, '')
+					.split('/');
+				if (parts.length === 2) {
+					paramSet.add(JSON.stringify({ slug: parts[0], subSlug: parts[1] }));
 				}
 			}
-		} catch {
-			// Build-time static param generation may fail
 		}
 	}
 
@@ -57,7 +59,14 @@ export default async function SubEventPage({ params }: SubEventPageProps) {
 	setRequestLocale(locale);
 
 	return (
-		<Suspense>
+		<Suspense
+			fallback={
+				<div className='min-h-screen bg-blu-300 animate-pulse px-5 pt-24 lg:px-10'>
+					<div className='h-8 bg-gray-200 rounded w-1/4 mb-8' />
+					<div className='aspect-4/3 max-w-2xl bg-gray-200 rounded-[30px]' />
+				</div>
+			}
+		>
 			<EventDetailContent locale={locale} segments={[slug, subSlug]} />
 		</Suspense>
 	);
