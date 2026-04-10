@@ -1,0 +1,87 @@
+src/modules/posts/collection.ts
+  8d4c11fa461127f4 43,52
+src/modules/events/collection.ts
+  8d4c11fa461127f4 15-19,74,76
+src/modules/components/CustomImage.tsx
+  5ddd4c70c1960886 250
+src/modules/utilities/lenis.tsx
+  5fa06b4123e1d800 24-25,33-34
+src/modules/payload/fields/slug/index.ts
+  c63e1168c40bee5c 16-20
+src/modules/payload/payload.config.ts
+  40733c95332698d6 109
+src/modules/utilities/generatePreviewPath.ts
+  8d4c11fa461127f4 1
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "a6f7ffa4f073fbe4fa8637d57e5cdec99596449a",
+  "prompts": {
+    "40733c95332698d6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "24daec9d-70bf-4ad9-82aa-61616e82fb7f",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    },
+    "5ddd4c70c1960886": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c57db854-523e-4bd5-882f-d6a4bf47034f",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    },
+    "5fa06b4123e1d800": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "ae792e0f-200c-4374-9167-02a25e724678",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 4,
+      "total_deletions": 2,
+      "accepted_lines": 4,
+      "overriden_lines": 0
+    },
+    "8d4c11fa461127f4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f153bc8b-0e14-4285-8925-e4e640136444",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 10,
+      "total_deletions": 17,
+      "accepted_lines": 10,
+      "overriden_lines": 0
+    },
+    "c63e1168c40bee5c": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f7be1d0e-daff-4570-a49c-52b0d5a9d055",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 5,
+      "overriden_lines": 0
+    }
+  }
+}
