@@ -19,7 +19,8 @@
     "db:purge": "docker compose -f docker-compose.db.yml down -v && rm -rf payload.sqlite",
     "cleanup": "pnpm db:purge && pnpm db:up && rm -rf .next node_modules pnpm-lock.yaml",
     "sync:media": "bash scripts/sync-media.sh",
-    "pull:prod": "bash scripts/pull-prod.sh"
+    "pull:prod": "bash scripts/pull-prod.sh",
+    "setup:worktree": "bash scripts/setup-worktree.sh"
   },
   "dependencies": {
     "@libsql/client": "^0.17.2",
@@ -41,7 +42,6 @@
     "clsx": "^2.1.1",
     "cross-env": "^10.1.0",
     "dotenv": "^17.4.1",
-    "framer-motion": "^12.38.0",
     "graphql": "^16.13.2",
     "lenis": "^1.3.21",
     "libsql": "^0.5.29",

@@ -70,7 +70,7 @@ export default function ProgettoClient({ project }: { project: Progetto }) {
 				</aside>
 				<article className='col-start-1 lg:col-start-5 col-span-full lg:col-span-8 xl:col-span-7 flex flex-col gap-10 md:gap-20 lg:gap-24 pt-28 lg:pt-32 xl:pt-48 items-center text-3xl justify-center'>
 					{project.sections?.map((section) => (
-						<div className='flex flex-col gap-5' key={section.url}>
+						<div className='flex flex-col gap-5 w-full' key={section.url}>
 							<BlockHeading id={section.url?.substring(1)}>
 								{section.title}
 							</BlockHeading>

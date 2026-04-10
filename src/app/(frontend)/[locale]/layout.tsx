@@ -109,10 +109,16 @@ export default async function RootLayout({ children, params }: Readonly<Args>) {
 						<LivePreviewListener />
 						<Header />
 						<main className='mb-auto bg-blu-300'>{children}</main>
-						<Suspense>
+						<Suspense
+							fallback={
+								<div className='w-full bg-rosa-300 min-h-55 px-5 lg:px-10 animate-pulse' />
+							}
+						>
 							<NewsletterSignup />
 						</Suspense>
-						<Suspense>
+						<Suspense
+							fallback={<div className='bg-black min-h-40 animate-pulse' />}
+						>
 							<Footer />
 						</Suspense>
 					</ReactLenis>

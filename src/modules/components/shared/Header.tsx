@@ -1,15 +1,11 @@
 'use client';
-import { motion } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { LocaleSwitcher } from '@/i18n/LocaleSwitcher';
 import { Link } from '@/i18n/routing';
 import LogoGoccia from '@/modules/components/logos/LogoGoccia';
 import { cn } from '@/modules/utilities/cnUtils';
-
-const HEADER_INITIAL = { height: '64px', borderRadius: '48px' };
-const BACKDROP_TRANSITION = { duration: 0.15 };
 
 interface NavItem {
 	href: string;
@@ -55,56 +51,54 @@ export default function Header() {
 		setMenuIsOpen(false);
 	};
 
-	const navItems: NavItem[] = [
-		{
-			href: '/progetto',
-			label: t('project'),
-			activeColor: 'underline',
-		},
-		{
-			href: '/la-goccia',
-			label: t('goccia'),
-			activeColor: 'underline',
-		},
-		{ href: '/blog', label: t('blog'), activeColor: 'underline' },
-		{
-			href: '/about',
-			label: t('about'),
-			activeColor: 'underline',
-		},
-	];
+	const navItems: NavItem[] = useMemo(
+		() => [
+			{
+				href: '/progetto',
+				label: t('project'),
+				activeColor: 'underline',
+			},
+			{
+				href: '/la-goccia',
+				label: t('goccia'),
+				activeColor: 'underline',
+			},
+			{ href: '/blog', label: t('blog'), activeColor: 'underline' },
+			{
+				href: '/about',
+				label: t('about'),
+				activeColor: 'underline',
+			},
+		],
+		[t]
+	);
 
 	return (
 		<>
 			{/* Backdrop */}
 			{menuIsOpen ? (
-				<motion.div
-					animate={{ opacity: 1 }}
-					className='fixed inset-0 bg-black/20 backdrop-blur-sm z-40'
-					initial={{ opacity: 0 }}
+				<button
+					aria-label='Close menu'
+					className='fixed inset-0 bg-black/20 backdrop-blur-sm z-40 animate-fade-in motion-reduce:animate-none cursor-default'
 					onClick={closeMenu}
-					transition={BACKDROP_TRANSITION}
+					type='button'
 				/>
 			) : null}
 
-			<motion.header
-				animate={{
-					height: menuIsOpen ? 'auto' : '4rem',
-					borderRadius: menuIsOpen ? '32px' : '48px',
-				}}
-				className='bg-rosa-300 flex items-center justify-center font-greed h-fit py-2 z-50 fixed top-0 left-0 right-0'
-				initial={HEADER_INITIAL}
-				style={{ transformOrigin: 'top' }}
-				transition={{
-					duration: menuIsOpen ? 0.5 : 0.3,
-					ease: menuIsOpen ? 'easeInOut' : 'easeIn',
-				}}
+			<header
+				className={cn(
+					'bg-rosa-300 flex items-center justify-center font-greed py-2 z-50 fixed top-0 left-0 right-0 transition-all motion-reduce:transition-none origin-top overflow-hidden',
+					menuIsOpen
+						? 'max-h-[80vh] rounded-[32px] duration-500 ease-in-out'
+						: 'max-h-16 rounded-[48px] duration-300 ease-in'
+				)}
 			>
 				<nav className='hidden md:inline w-full'>
 					{/* Desktop */}
 					<ul className='flex uppercase justify-between text-xl'>
 						<li className='w-full flex items-center justify-center'>
 							<Link
+								aria-label='Home'
 								className='hover:underline underline-offset-4 decoration-1'
 								href='/'
 								locale={locale}
@@ -130,7 +124,7 @@ export default function Header() {
 				<div className='flex md:hidden flex-col w-full'>
 					<ul className='flex uppercase px-10 justify-between text-xl'>
 						<li className='w-fit flex items-center justify-center'>
-							<Link href='/' locale={locale}>
+							<Link aria-label='Home' href='/' locale={locale}>
 								<LogoGoccia className='h-10' />
 							</Link>
 						</li>
@@ -149,14 +143,12 @@ export default function Header() {
 						<nav className='pt-10 pb-20 relative z-20'>
 							<ul className='flex flex-col uppercase gap-8 justify-between text-2xl'>
 								{navItems.map((item, index) => (
-									<motion.li
-										animate={{ opacity: 1, y: 0 }}
-										className='w-full flex items-center justify-center'
-										initial={{ opacity: 0, y: -20 }}
+									<li
+										className='w-full flex items-center justify-center animate-fade-slide-in opacity-0 motion-reduce:animate-none motion-reduce:opacity-100'
 										key={item.label}
-										transition={{
-											delay: 0.25 + index * 0.1,
-											duration: 0.25,
+										style={{
+											animationDelay: `${250 + index * 100}ms`,
+											animationFillMode: 'forwards',
 										}}
 									>
 										<NavLink
@@ -165,24 +157,22 @@ export default function Header() {
 											onClick={closeMenu}
 											pathname={pathname}
 										/>
-									</motion.li>
+									</li>
 								))}
-								<motion.li
-									animate={{ opacity: 1, y: 0 }}
-									className='w-full flex items-center justify-center'
-									initial={{ opacity: 0, y: -20 }}
-									transition={{
-										delay: 0.25 + 4 * 0.1,
-										duration: 0.25,
+								<li
+									className='w-full flex items-center justify-center animate-fade-slide-in opacity-0 motion-reduce:animate-none motion-reduce:opacity-100'
+									style={{
+										animationDelay: `${250 + 4 * 100}ms`,
+										animationFillMode: 'forwards',
 									}}
 								>
 									<LocaleSwitcher />
-								</motion.li>
+								</li>
 							</ul>
 						</nav>
 					) : null}
 				</div>
-			</motion.header>
+			</header>
 		</>
 	);
 }

@@ -33,12 +33,36 @@
   --animate-infinite-scroll: infinite-scroll 25s linear
     infinite;
 
+  --animate-fade-slide-in: fade-slide-in 250ms ease-out;
+
+  --animate-fade-in: fade-in 150ms ease-out;
+
   @keyframes infinite-scroll {
     0% {
       transform: translateX(0);
     }
     100% {
       transform: translateX(-100%);
+    }
+  }
+
+  @keyframes fade-slide-in {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
     }
   }
   /* --- */

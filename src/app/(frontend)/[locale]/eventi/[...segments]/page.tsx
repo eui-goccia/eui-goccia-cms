@@ -3,6 +3,7 @@ import type { PaginatedDocs } from 'payload';
 import { Suspense } from 'react';
 import localization from '@/i18n/localization';
 import type { Locales } from '@/i18n/routing';
+import { EventDetailSkeleton } from '@/modules/components/skeletons/EventDetailSkeleton';
 import { EventDetailContent } from '@/modules/events/detail';
 import type { Event } from '@/modules/payload/payload-types';
 import { getDocuments } from '@/modules/utilities/getDocument';
@@ -16,34 +17,41 @@ interface NestedEventPageProps {
 export async function generateStaticParams() {
 	const paramSet = new Set<string>();
 
-	for (const localeConfig of localization.locales) {
-		const locale = localeConfig.code as Locales;
-
-		try {
-			const events = (await getDocuments({
+	const results = await Promise.allSettled(
+		localization.locales.map((localeConfig) =>
+			getDocuments({
 				collection: 'events',
 				depth: 0,
 				limit: 100,
 				draft: false,
-				locale,
+				locale: localeConfig.code as Locales,
 				sort: 'createdAt',
-			})) as PaginatedDocs<Event>;
+			})
+		)
+	);
 
-			for (const event of events.docs) {
-				const lastBreadcrumb = event.breadcrumbs?.at(-1);
-				if (!lastBreadcrumb?.url) {
-					continue;
-				}
-
-				const segments = lastBreadcrumb.url
-					.replace(LEADING_SLASH_PATTERN, '')
-					.split('/');
-				if (segments.length > 2) {
-					paramSet.add(JSON.stringify({ segments }));
-				}
+	for (const [i, result] of results.entries()) {
+		if (result.status === 'rejected') {
+			const localeCode = localization.locales[i].code;
+			console.error(
+				`[generateStaticParams] Failed to fetch events for locale "${localeCode}":`,
+				result.reason
+			);
+			continue;
+		}
+		const events = result.value as PaginatedDocs<Event>;
+		for (const event of events.docs) {
+			const lastBreadcrumb = event.breadcrumbs?.at(-1);
+			if (!lastBreadcrumb?.url) {
+				continue;
 			}
-		} catch {
-			// Build-time static param generation may fail
+
+			const segments = lastBreadcrumb.url
+				.replace(LEADING_SLASH_PATTERN, '')
+				.split('/');
+			if (segments.length > 2) {
+				paramSet.add(JSON.stringify({ segments }));
+			}
 		}
 	}
 
@@ -59,7 +67,7 @@ export default async function NestedEventPage({
 	setRequestLocale(locale);
 
 	return (
-		<Suspense>
+		<Suspense fallback={<EventDetailSkeleton />}>
 			<EventDetailContent locale={locale} segments={segments} />
 		</Suspense>
 	);

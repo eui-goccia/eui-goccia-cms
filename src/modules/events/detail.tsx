@@ -26,7 +26,7 @@ async function findEventBySegments({
 
 	const exactMatches = await payload.find({
 		collection: 'events',
-		depth: 10,
+		depth: 2,
 		draft,
 		overrideAccess: draft,
 		joins: false,
@@ -51,7 +51,7 @@ async function findEventBySegments({
 
 	const fallbackMatches = await payload.find({
 		collection: 'events',
-		depth: 10,
+		depth: 2,
 		draft,
 		overrideAccess: draft,
 		joins: false,

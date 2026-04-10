@@ -5,9 +5,9 @@ export default async function NewsletterSignup() {
 	return (
 		<div className='w-full bg-rosa-300 min-h-55 px-5 lg:px-10 flex flex-col lg:flex-row items-center justify-between pb-10 pt-16 gap-y-5 lg:gap-y-10 gap-x-5'>
 			<div className='flex flex-col w-full text-start'>
-				<h1 className='font-tagada text-4xl md:text-5xl xl:text-6xl'>
+				<h2 className='font-tagada text-4xl md:text-5xl xl:text-6xl'>
 					{t('title')}
-				</h1>
+				</h2>
 				<p className='font-greed md:text-3xl text-2xl xl:text-4xl text-balance'>
 					{t('description')}
 				</p>
