@@ -1,0 +1,25 @@
+src/app/(frontend)/[locale]/about/page.tsx
+  be784543c7846040 31-42
+src/modules/components/CustomImage.tsx
+  be784543c7846040 41,207,210
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "7888ad6f5d5c5e3b7cbbfe8d17830f67d33631b8",
+  "prompts": {
+    "be784543c7846040": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "3963be58-3d54-4e22-bee5-604599247c79",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 18,
+      "total_deletions": 10,
+      "accepted_lines": 15,
+      "overriden_lines": 0
+    }
+  }
+}
