@@ -172,7 +172,7 @@ export default function Header() {
 									className='w-full flex items-center justify-center'
 									initial={{ opacity: 0, y: -20 }}
 									transition={{
-										delay: 0.25 + 5 * 0.1,
+										delay: 0.25 + 4 * 0.1,
 										duration: 0.25,
 									}}
 								>

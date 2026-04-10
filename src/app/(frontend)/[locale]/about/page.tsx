@@ -1,4 +1,4 @@
-import type { About } from '@payload-types';
+import type { About, Image as PayloadImage } from '@payload-types';
 import Image from 'next/image';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Locales } from '@/i18n/routing';
@@ -33,6 +33,7 @@ export default async function ChiSiamo({ params }: AboutPageProps) {
 						className='object-cover absolute'
 						fill
 						quality='75'
+						sizes='(min-width: 768px) 50vw, 100vw'
 						src='/images/about/og-team.webp'
 					/>
 				</div>
