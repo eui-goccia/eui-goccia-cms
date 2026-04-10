@@ -1,0 +1,23 @@
+scripts/setup-worktree.sh
+  49577f2913383bf6 14-21,24
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "eb81543efcede13087d7c3d827da62dd787f858b",
+  "prompts": {
+    "49577f2913383bf6": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "83b8dcb7-5294-4cef-8b2c-b4529c4ebaba",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 9,
+      "total_deletions": 6,
+      "accepted_lines": 9,
+      "overriden_lines": 0
+    }
+  }
+}
