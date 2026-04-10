@@ -20,7 +20,7 @@
     "cleanup": "pnpm db:purge && pnpm db:up && rm -rf .next node_modules pnpm-lock.yaml",
     "sync:media": "bash scripts/sync-media.sh",
     "pull:prod": "bash scripts/pull-prod.sh",
-    "setup:env": "bash scripts/setup-env.sh"
+    "setup:worktree": "bash scripts/setup-worktree.sh"
   },
   "dependencies": {
     "@libsql/client": "^0.17.2",
