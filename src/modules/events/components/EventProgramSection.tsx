@@ -53,7 +53,6 @@ export function EventProgramSection({
 												className='object-cover rounded-[20px] transition-transform duration-500 group-hover:scale-105'
 												image={subImage}
 												size='medium'
-												sizes='(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw'
 											/>
 										) : null}
 									</div>

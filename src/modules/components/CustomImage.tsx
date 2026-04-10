@@ -102,9 +102,9 @@ function getResolvedCandidates(
 				url: chosenVariant.url,
 				width:
 					chosenVariant.width ??
-					(largestExisting
-						? VARIANT_WIDTH_FALLBACKS[largestExisting]
-						: (image?.width ?? 300)),
+					VARIANT_WIDTH_FALLBACKS[candidate] ??
+					image?.width ??
+					300,
 				height: chosenVariant.height ?? image?.height ?? 300,
 			};
 		})
@@ -187,7 +187,8 @@ export function CustomImage({
 			height: image?.height ?? 300,
 		} satisfies ResponsiveCandidate);
 	const blurDataURL = image?.blurHash ?? DEFAULT_BLUR_PLACEHOLDER;
-	const refinedAlt = image?.alt ?? image?.caption ?? alt ?? '';
+	const refinedAlt =
+		(image?.alt?.length ? image.alt : image?.caption) ?? alt ?? '';
 	const srcSet =
 		responsiveCandidates.length > 0
 			? responsiveCandidates
@@ -246,7 +247,7 @@ export function CustomImage({
 					fetchPriority={fetchPriority}
 					height={defaultCandidate.height}
 					loading={imageLoading}
-					onError={() => setLoadedSrc(defaultCandidate.url)}
+					onError={() => {}}
 					onLoad={() => setLoadedSrc(defaultCandidate.url)}
 					sizes={sizes ?? DEFAULT_SIZES[size]}
 					src={defaultCandidate.url}

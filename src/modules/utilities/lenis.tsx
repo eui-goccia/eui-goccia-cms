@@ -1,7 +1,8 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import type { ComponentType, ReactNode } from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface ReactLenisProps {
 	children: ReactNode;
@@ -9,19 +10,44 @@ interface ReactLenisProps {
 	[key: string]: unknown;
 }
 
+type UseLenisHook = (
+	callback?: (lenis: {
+		scrollTo: (target: number, options?: { immediate?: boolean }) => void;
+	}) => void
+) =>
+	| { scrollTo: (target: number, options?: { immediate?: boolean }) => void }
+	| undefined;
+
+function ScrollToTop({ useLenis }: { useLenis: UseLenisHook }) {
+	const pathname = usePathname();
+	const lenis = useLenis();
+	const isFirstRender = useRef(true);
+
+	useEffect(() => {
+		if (isFirstRender.current) {
+			isFirstRender.current = false;
+			return;
+		}
+		lenis?.scrollTo(0, { immediate: true });
+	}, [pathname, lenis]);
+
+	return null;
+}
+
 export function ReactLenis({ children, ...props }: ReactLenisProps) {
 	const [LenisComponent, setLenisComponent] =
 		useState<ComponentType<ReactLenisProps> | null>(null);
+	const [lenisHook, setLenisHook] = useState<{ fn: UseLenisHook } | null>(null);
 
 	useEffect(() => {
 		let isMounted = true;
-		window.scrollTo(0, 0);
 		import('lenis/react')
 			.then((mod) => {
 				if (isMounted) {
 					setLenisComponent(
 						() => mod.ReactLenis as ComponentType<ReactLenisProps>
 					);
+					setLenisHook({ fn: mod.useLenis as UseLenisHook });
 				}
 			})
 			.catch((error) => {
@@ -36,5 +62,10 @@ export function ReactLenis({ children, ...props }: ReactLenisProps) {
 		return <>{children}</>;
 	}
 
-	return <LenisComponent {...props}>{children}</LenisComponent>;
+	return (
+		<LenisComponent {...props}>
+			{lenisHook && <ScrollToTop useLenis={lenisHook.fn} />}
+			{children}
+		</LenisComponent>
+	);
 }

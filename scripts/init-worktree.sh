@@ -23,7 +23,7 @@ echo -e "${YELLOW}Initializing worktree...${NC}"
 echo -e "${YELLOW}Main branch detected: $MAIN_BRANCH${NC}"
 
 # Check if we're in a worktree
-if ! git rev-parse --git-common-dir | grep -q ".git/worktrees/"; then
+if ! git rev-parse --git-dir | grep -q ".git/worktrees/"; then
   echo -e "${RED}Error: Not in a git worktree${NC}"
   exit 1
 fi
