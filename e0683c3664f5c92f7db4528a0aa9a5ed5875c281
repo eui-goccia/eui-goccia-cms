@@ -1,0 +1,23 @@
+src/modules/utilities/lenis.tsx
+  82f737d8f27baeea 42,52,69
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "e0683c3664f5c92f7db4528a0aa9a5ed5875c281",
+  "prompts": {
+    "82f737d8f27baeea": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "4e992bad-7e30-4e6f-97cc-c07a044165e9",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 3,
+      "total_deletions": 3,
+      "accepted_lines": 3,
+      "overriden_lines": 0
+    }
+  }
+}
