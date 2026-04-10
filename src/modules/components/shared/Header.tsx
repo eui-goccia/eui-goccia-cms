@@ -98,6 +98,7 @@ export default function Header() {
 					<ul className='flex uppercase justify-between text-xl'>
 						<li className='w-full flex items-center justify-center'>
 							<Link
+								aria-label='Home'
 								className='hover:underline underline-offset-4 decoration-1'
 								href='/'
 								locale={locale}
@@ -123,7 +124,7 @@ export default function Header() {
 				<div className='flex md:hidden flex-col w-full'>
 					<ul className='flex uppercase px-10 justify-between text-xl'>
 						<li className='w-fit flex items-center justify-center'>
-							<Link href='/' locale={locale}>
+							<Link aria-label='Home' href='/' locale={locale}>
 								<LogoGoccia className='h-10' />
 							</Link>
 						</li>
