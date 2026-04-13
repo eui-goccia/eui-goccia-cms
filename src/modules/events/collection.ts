@@ -94,9 +94,9 @@ export const Events: CollectionConfig = {
 							type: 'textarea',
 							label: 'Descrizione breve',
 							localized: true,
-							maxLength: 160,
+							maxLength: 240,
 							admin: {
-								description: 'Used in event cards and SEO. Max 160 characters.',
+								description: 'Used in event cards and SEO. Max 240 characters.',
 							},
 						},
 						{
