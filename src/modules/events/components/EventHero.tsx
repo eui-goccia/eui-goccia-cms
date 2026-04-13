@@ -38,10 +38,10 @@ export function EventHero({
 			<div className='grid grid-cols-1 items-start gap-8 lg:grid-cols-2'>
 				{/* Cover Image */}
 				{image && (
-					<div className='aspect-4/3 overflow-hidden rounded-[30px]'>
+					<div className='aspect-4/5 overflow-hidden rounded-4xl'>
 						<CustomImage
 							alt={image.alt || event.title}
-							className='object-cover rounded-[30px]'
+							className='object-cover rounded-4xl'
 							image={image}
 							loading='eager'
 							priority

@@ -59,7 +59,7 @@ export async function EventContentSection({
 								</div>
 								{event.address.googleMapsUrl ? (
 									<a
-										className='font-ghost text-4xl varW600 uppercase tracking-wide'
+										className='font-ghost text-4xl varW600 hover:no-underline underline decoration-1 underline-offset-4 uppercase tracking-wide'
 										href={event.address.googleMapsUrl}
 										rel='noopener noreferrer'
 										target='_blank'

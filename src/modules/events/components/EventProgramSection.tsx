@@ -1,18 +1,13 @@
-import type { Event, Image as ImageType } from '@payload-types';
-import { Link } from '@/i18n/routing';
-import { CustomImage } from '@/modules/components/CustomImage';
+import type { Event } from '@payload-types';
+import EventCard from '@/modules/components/EventCard';
 import { getLabelDisplayName } from '../labelDisplayNames';
-import { getEventHref } from '../paths';
-import { formatEventDateTime } from '../utils';
 
 interface EventProgramSectionProps {
 	subEventGroups: Map<string, Event[]>;
 	locale: string;
-	eventPath: string;
 }
 
 export function EventProgramSection({
-	eventPath,
 	subEventGroups,
 	locale,
 }: EventProgramSectionProps) {
@@ -31,40 +26,9 @@ export function EventProgramSection({
 						{getLabelDisplayName(label, locale)}
 					</h3>
 					<div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
-						{labelEvents.map((subEvent) => {
-							const subImage =
-								typeof subEvent.coverImage === 'string'
-									? null
-									: (subEvent.coverImage as ImageType);
-							const subEventHref = subEvent.slug
-								? `${eventPath}/${subEvent.slug}`
-								: getEventHref(subEvent);
-
-							return (
-								<Link
-									className='group flex flex-col gap-2'
-									href={subEventHref}
-									key={subEvent.id}
-								>
-									<div className='aspect-4/3 overflow-hidden rounded-[20px] bg-black/5'>
-										{subImage ? (
-											<CustomImage
-												alt={subImage.alt || subEvent.title}
-												className='object-cover rounded-[20px] transition-transform duration-500 group-hover:scale-105'
-												image={subImage}
-												size='medium'
-											/>
-										) : null}
-									</div>
-									<p className='font-greed text-lg tracking-wide'>
-										{subEvent.title}
-									</p>
-									<p className='text-sm text-black/60'>
-										{formatEventDateTime(subEvent.when.startDate, locale).date}
-									</p>
-								</Link>
-							);
-						})}
+						{labelEvents.map((subEvent) => (
+							<EventCard event={subEvent} key={subEvent.id} variant='compact' />
+						))}
 					</div>
 				</div>
 			))}

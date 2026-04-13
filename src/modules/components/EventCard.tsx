@@ -2,25 +2,37 @@ import type { Event, Image as ImageType } from '@payload-types';
 import { getLocale, getTranslations } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 import { getEventHref } from '@/modules/events/paths';
+import { formatEventDateTime } from '@/modules/events/utils';
 import { CustomImage } from './CustomImage';
+
+type EventCardVariant = 'default' | 'compact';
 
 interface EventCardProps {
 	event: Event;
 	showImage?: boolean;
+	variant?: EventCardVariant;
 }
 
-function formatEventDate(timestamp: string, locale: string): string {
+function formatEventDateLong(timestamp: string, locale: string): string {
 	const date = new Date(timestamp);
-	return date.toLocaleDateString(locale === 'it' ? 'it-IT' : 'en-GB', {
+	const loc = locale === 'it' ? 'it-IT' : 'en-GB';
+	const dateLabel = date.toLocaleDateString(loc, {
 		day: 'numeric',
 		month: 'long',
 		year: 'numeric',
 	});
+	const timeLabel = date.toLocaleTimeString(loc, {
+		hour: '2-digit',
+		minute: '2-digit',
+		hour12: false,
+	});
+	return `${dateLabel} · ${timeLabel}`;
 }
 
 export default async function EventCard({
 	event,
 	showImage = true,
+	variant = 'default',
 }: EventCardProps) {
 	const [locale, t] = await Promise.all([
 		getLocale(),
@@ -32,49 +44,78 @@ export default async function EventCard({
 			: null;
 
 	const eventHref = getEventHref(event);
+	const isCompact = variant === 'compact';
+
+	const wrapperClass = isCompact
+		? 'group flex flex-col gap-2'
+		: 'group flex flex-col group gap-5';
+	const imageWrapperClass = isCompact
+		? 'aspect-4/3 overflow-hidden rounded-[20px] bg-black/5'
+		: 'aspect-video overflow-hidden rounded-4xl';
+	const imageClass = isCompact
+		? 'object-cover rounded-[20px] transition-transform duration-500 group-hover:scale-105'
+		: 'object-cover rounded-4xl transition-transform duration-500 group-hover:scale-105';
+	const imageSize: 'medium' | 'large' = isCompact ? 'medium' : 'large';
+	const imageSizes = isCompact
+		? undefined
+		: '(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw';
+
+	const dateLabel = event.when.startDate
+		? isCompact
+			? (() => {
+					const { date, time } = formatEventDateTime(
+						event.when.startDate,
+						locale
+					);
+					return `${date} · ${time}`;
+				})()
+			: formatEventDateLong(event.when.startDate, locale)
+		: '—';
 
 	return (
-		<Link
-			className='group flex flex-col gap-2'
-			href={eventHref}
-			locale={locale}
-		>
+		<Link className={wrapperClass} href={eventHref} locale={locale}>
 			{showImage && image ? (
-				<div className='aspect-video overflow-hidden rounded-4xl'>
+				<div className={imageWrapperClass}>
 					<CustomImage
 						alt={image.alt || event.title}
-						className='object-cover rounded-4xl transition-transform duration-500 group-hover:scale-105'
+						className={imageClass}
 						image={image}
-						size='large'
-						sizes='(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw'
+						size={imageSize}
+						sizes={imageSizes}
 					/>
 				</div>
 			) : null}
 
-			<div className='flex px-1 items-center justify-between gap-0'>
-				<p className='font-greed text-base font-bold uppercase '>
-					{event.when.startDate
-						? formatEventDate(event.when.startDate, locale)
-						: '—'}
-				</p>
-				<p className='font-greed text-base font-bold uppercase '>
-					{event.address?.location ?? ''}
-				</p>
-			</div>
-
-			<h3 className='font-tagada px-1 text-3xl leading-tight tracking-wide lg:text-4xl'>
-				{event.title}
-			</h3>
-
-			{event.description && (
-				<>
-					<p className='line-clamp-3 px-1 font-greed text-sm leading-relaxed'>
-						{event.description}
+			{isCompact ? (
+				<div className='flex justify-between px-1'>
+					<p className='font-greed text-lg tracking-wide'>{event.title}</p>
+					<p className='font-greed transition-colors duration-500 group-hover:bg-rosso-500 text-base font-bold uppercase '>
+						{dateLabel}
 					</p>
-					<p className='font-greed px-1 text-sm font-bold uppercase tracking-wider underline decoration-1 underline-offset-4 transition-colors group-hover:text-rosso-500'>
-						{t('discoverMore')}
-					</p>
-				</>
+				</div>
+			) : (
+				<div className='flex flex-col gap-2'>
+					<div className='flex px-1 items-center justify-between gap-0'>
+						<p className='font-greed transition-colors duration-500 group-hover:bg-rosso-500 text-base font-bold uppercase '>
+							{dateLabel}
+						</p>
+						<p className='font-greed transition-colors duration-500 group-hover:bg-rosso-500 text-base font-bold uppercase '>
+							{event.address?.location ?? ''}
+						</p>
+					</div>
+
+					<hgroup className='flex flex-col gap-1'>
+						<h3 className='font-tagada px-1 text-3xl leading-tight tracking-wide lg:text-4xl'>
+							{event.title}
+						</h3>
+
+						{event.description && (
+							<p className='px-1 text-balance font-greed text-xl '>
+								{event.description}
+							</p>
+						)}
+					</hgroup>
+				</div>
 			)}
 		</Link>
 	);
