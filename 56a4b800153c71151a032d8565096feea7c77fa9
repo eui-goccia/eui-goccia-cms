@@ -1,0 +1,34 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "56a4b800153c71151a032d8565096feea7c77fa9",
+  "prompts": {
+    "3baba996beffc4b2": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "566ccfd1-51c2-4232-9c61-6b0ba74de0f0",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 36,
+      "total_deletions": 0,
+      "accepted_lines": 0,
+      "overriden_lines": 0
+    },
+    "9067371a1645fc35": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "811efb5f-264d-42e2-b4b1-d034e86a65b4",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 69,
+      "total_deletions": 76,
+      "accepted_lines": 65,
+      "overriden_lines": 0
+    }
+  }
+}
