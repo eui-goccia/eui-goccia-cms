@@ -1,0 +1,39 @@
+src/modules/events/components/EventProgramSection.tsx
+  9067371a1645fc35 1-2,29-31
+src/modules/components/EventCard.tsx
+  088930a6902820c1 18-19,24-29,65-71
+  9067371a1645fc35 5,8-9,13,16,35,47-64,72-73,76,78,81,83-84,89,91,93-94,96-100,102-105,107-110,112-118
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "4bd442e7b15592d6547b5188e8a3c9d283b522fe",
+  "prompts": {
+    "088930a6902820c1": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "be96201e-74a4-406c-b947-08a5ca756744",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 15,
+      "total_deletions": 2,
+      "accepted_lines": 15,
+      "overriden_lines": 0
+    },
+    "9067371a1645fc35": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "811efb5f-264d-42e2-b4b1-d034e86a65b4",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 0,
+      "total_deletions": 0,
+      "accepted_lines": 63,
+      "overriden_lines": 3
+    }
+  }
+}
