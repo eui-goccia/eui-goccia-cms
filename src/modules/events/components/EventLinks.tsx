@@ -11,7 +11,7 @@ export function EventLinks({ links, locale }: EventLinksProps) {
 	}
 
 	return (
-		<div className='text-lg font-bold'>
+		<div className='text-lg font-bold pt-8 md:pt-0'>
 			<p className='font-greed   uppercase '>
 				{locale === 'it' ? 'LINK UTILI' : 'USEFUL LINKS'}
 			</p>

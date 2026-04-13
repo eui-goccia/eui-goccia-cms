@@ -24,8 +24,8 @@ export function EventHero({
 	const bookingLabel = event.bookingLabel || 'Eventbrite';
 
 	return (
-		<section className='px-5 flex  pt-24 pb-10 lg:px-10 xl:px-20'>
-			<div className='w-30'>
+		<section className='px-5 flex flex-col md:flex-row pt-20 md:pt-24 pb-10 lg:px-10 xl:px-20'>
+			<div className='w-30 pb-4 md:pb-0'>
 				<Link
 					aria-label={backLabel}
 					className='flex size-12 items-center justify-center rounded-[14px] border-2 border-black transition-colors hover:bg-black/5'
