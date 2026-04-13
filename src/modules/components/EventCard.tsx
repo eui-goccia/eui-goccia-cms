@@ -29,6 +29,21 @@ function formatEventDateLong(timestamp: string, locale: string): string {
 	return `${dateLabel} · ${timeLabel}`;
 }
 
+function getDateLabel(
+	startDate: string | null | undefined,
+	locale: string,
+	isCompact: boolean
+): string {
+	if (!startDate) {
+		return '—';
+	}
+	if (!isCompact) {
+		return formatEventDateLong(startDate, locale);
+	}
+	const { date, time } = formatEventDateTime(startDate, locale);
+	return `${date} · ${time}`;
+}
+
 export default async function EventCard({
 	event,
 	showImage = true,
@@ -60,17 +75,7 @@ export default async function EventCard({
 		? undefined
 		: '(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw';
 
-	const dateLabel = event.when.startDate
-		? isCompact
-			? (() => {
-					const { date, time } = formatEventDateTime(
-						event.when.startDate,
-						locale
-					);
-					return `${date} · ${time}`;
-				})()
-			: formatEventDateLong(event.when.startDate, locale)
-		: '—';
+	const dateLabel = getDateLabel(event.when.startDate, locale, isCompact);
 
 	return (
 		<Link className={wrapperClass} href={eventHref} locale={locale}>
@@ -89,17 +94,17 @@ export default async function EventCard({
 			{isCompact ? (
 				<div className='flex justify-between px-1'>
 					<p className='font-greed text-lg tracking-wide'>{event.title}</p>
-					<p className='font-greed transition-colors duration-500 group-hover:bg-rosso-500 text-base font-bold uppercase '>
+					<p className='font-greed h-fit uppercase transition-colors duration-500 group-hover:bg-rosso-500 text-base font-bold '>
 						{dateLabel}
 					</p>
 				</div>
 			) : (
 				<div className='flex flex-col gap-2'>
 					<div className='flex px-1 items-center justify-between gap-0'>
-						<p className='font-greed transition-colors duration-500 group-hover:bg-rosso-500 text-base font-bold uppercase '>
+						<p className='font-greed h-fit transition-colors duration-500 group-hover:bg-rosso-500 text-base font-bold uppercase '>
 							{dateLabel}
 						</p>
-						<p className='font-greed transition-colors duration-500 group-hover:bg-rosso-500 text-base font-bold uppercase '>
+						<p className='font-greed h-fit transition-colors duration-500 group-hover:bg-rosso-500 text-base font-bold uppercase '>
 							{event.address?.location ?? ''}
 						</p>
 					</div>

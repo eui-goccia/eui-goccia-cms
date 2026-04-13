@@ -22,15 +22,17 @@ export async function EventContentSection({
 			<div className='grid md:pl-25 grid-cols-1 gap-8 lg:grid-cols-[3fr_2fr]'>
 				{/* Left: Content blocks */}
 				<div>
-					<h2 className='mb-4 font-greed text-4xl font-bold'>
-						{t('overviewHeading')}
-					</h2>
 					{event.content && event.content.length > 0 && (
-						<div className='flex flex-col gap-6'>
-							{event.content.map((block) => (
-								<BlockRenderer block={block} key={block.id} />
-							))}
-						</div>
+						<>
+							<h2 className='mb-4 font-greed text-4xl font-bold'>
+								{t('overviewHeading')}
+							</h2>
+							<div className='flex flex-col gap-6'>
+								{event.content.map((block) => (
+									<BlockRenderer block={block} key={block.id} />
+								))}
+							</div>
+						</>
 					)}
 				</div>
 
