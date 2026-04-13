@@ -93,7 +93,9 @@ export default async function EventCard({
 
 			{isCompact ? (
 				<div className='flex justify-between px-1'>
-					<p className='font-greed text-lg tracking-wide'>{event.title}</p>
+					<p className='font-greed h-fit uppercase transition-colors duration-500 group-hover:bg-rosso-500 text-base font-bold '>
+						{event.title}
+					</p>
 					<p className='font-greed h-fit uppercase transition-colors duration-500 group-hover:bg-rosso-500 text-base font-bold '>
 						{dateLabel}
 					</p>
