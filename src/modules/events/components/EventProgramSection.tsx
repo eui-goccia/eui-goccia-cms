@@ -22,7 +22,7 @@ export function EventProgramSection({
 			</h2>
 			{Array.from(subEventGroups.entries()).map(([label, labelEvents]) => (
 				<div className='mb-12 last:mb-0 md:px-25' key={label}>
-					<h3 className='mb-6 font-greed text-2xl font-bold'>
+					<h3 className='mb-4 font-greed text-2xl font-bold'>
 						{getLabelDisplayName(label, locale)}
 					</h3>
 					<div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
