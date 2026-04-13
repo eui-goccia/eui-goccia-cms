@@ -18,25 +18,27 @@ export async function EventContentSection({
 	const isMultiDay = startDateTime.date !== endDateTime.date;
 
 	return (
-		<section className='px-5 py-20 lg:px-10 xl:px-20'>
-			<div className='grid md:pl-25 grid-cols-1 gap-8 lg:grid-cols-[3fr_2fr]'>
+		<section className='px-5 py-15 md:py-20 lg:px-10 xl:px-20'>
+			<div className='grid pl-0 md:pl-25 grid-cols-1 gap-8 lg:grid-cols-[3fr_2fr]'>
 				{/* Left: Content blocks */}
 				<div>
-					<h2 className='mb-4 font-greed text-4xl font-bold'>
-						{t('overviewHeading')}
-					</h2>
 					{event.content && event.content.length > 0 && (
-						<div className='flex flex-col gap-6'>
-							{event.content.map((block) => (
-								<BlockRenderer block={block} key={block.id} />
-							))}
-						</div>
+						<>
+							<h2 className='mb-4 font-greed text-4xl font-bold'>
+								{t('overviewHeading')}
+							</h2>
+							<div className='flex flex-col gap-6'>
+								{event.content.map((block) => (
+									<BlockRenderer block={block} key={block.id} />
+								))}
+							</div>
+						</>
 					)}
 				</div>
 
 				{/* Right: Date + Location sidebar */}
-				<div className='flex flex-col items-end gap-8'>
-					<div className='space-y-20'>
+				<div className='flex flex-col items-start md:items-end gap-4 md:gap-8'>
+					<div className='space-y-8 md:space-y-20'>
 						{/* Date/Time */}
 						<div>
 							<div className='mb-2 w-fit px-1 font-bold bg-rosso-500'>
@@ -59,7 +61,7 @@ export async function EventContentSection({
 								</div>
 								{event.address.googleMapsUrl ? (
 									<a
-										className='font-ghost text-4xl varW600 uppercase tracking-wide'
+										className='font-ghost text-4xl varW600 hover:no-underline underline decoration-1 underline-offset-4 uppercase tracking-wide'
 										href={event.address.googleMapsUrl}
 										rel='noopener noreferrer'
 										target='_blank'

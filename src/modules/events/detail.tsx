@@ -114,7 +114,6 @@ export async function EventDetailContent({
 	}
 
 	const isNestedEvent = segments.length > 1;
-	const currentPath = `/eventi/${segments.join('/')}`;
 	const backHref = isNestedEvent
 		? `/eventi/${segments.slice(0, -1).join('/')}`
 		: '/eventi';
@@ -136,11 +135,7 @@ export async function EventDetailContent({
 			/>
 			<EventContentSection event={event} locale={locale} />
 			{event.showProgram && subEventGroups.size > 0 ? (
-				<EventProgramSection
-					eventPath={currentPath}
-					locale={locale}
-					subEventGroups={subEventGroups}
-				/>
+				<EventProgramSection locale={locale} subEventGroups={subEventGroups} />
 			) : null}
 		</div>
 	);

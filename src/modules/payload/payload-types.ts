@@ -486,7 +486,7 @@ export interface Event {
   id: string;
   title: string;
   /**
-   * Used in event cards and SEO. Max 160 characters.
+   * Used in event cards and SEO. Max 240 characters.
    */
   description?: string | null;
   content?: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | VideoBlock | AudioBlock | GridBlock)[] | null;
