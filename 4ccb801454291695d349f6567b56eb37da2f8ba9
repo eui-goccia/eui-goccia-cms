@@ -1,0 +1,38 @@
+src/modules/components/EventCard.tsx
+  a05cd0e10eaaae4b 32-36,38,41,43-44,78
+src/modules/events/components/EventContentSection.tsx
+  0e6dffdc97e16930 26-35
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "4ccb801454291695d349f6567b56eb37da2f8ba9",
+  "prompts": {
+    "0e6dffdc97e16930": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "53696ed8-7bca-4211-b16e-3298c5a31ca3",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 11,
+      "total_deletions": 9,
+      "accepted_lines": 11,
+      "overriden_lines": 0
+    },
+    "a05cd0e10eaaae4b": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "671a494c-4d64-4d3f-8192-103c2f4815f7",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 14,
+      "total_deletions": 11,
+      "accepted_lines": 13,
+      "overriden_lines": 2
+    }
+  }
+}
