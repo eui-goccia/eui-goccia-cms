@@ -16,12 +16,13 @@ const marqueeItems = ['a', 'b', 'c', 'd', 'e', 'f'];
 
 function Marquee({ label }: { label: string }) {
 	return (
-		<div className='overflow-hidden mt-16 bg-rosso-500'>
+		<div className='overflow-hidden mt-14 bg-rosso-500'>
+			yes ple
 			<div className='inline-flex w-full flex-nowrap'>
 				<ul className='flex animate-infinite-scroll items-center [&_li]:mx-4'>
 					{marqueeItems.map((key) => (
 						<li key={key}>
-							<p className='whitespace-nowrap py-5 font-tagada text-4xl uppercase tracking-wide text-black md:text-5xl'>
+							<p className='whitespace-nowrap pt-5 pb-3 font-tagada text-4xl uppercase tracking-wide text-black md:text-5xl'>
 								{label}
 							</p>
 						</li>
@@ -33,7 +34,7 @@ function Marquee({ label }: { label: string }) {
 				>
 					{marqueeItems.map((key) => (
 						<li key={key}>
-							<p className='whitespace-nowrap py-5 font-tagada text-4xl uppercase tracking-wide text-black md:text-5xl'>
+							<p className='whitespace-nowrap pt-5 pb-3 font-tagada text-4xl uppercase tracking-wide text-black md:text-5xl'>
 								{label}
 							</p>
 						</li>
