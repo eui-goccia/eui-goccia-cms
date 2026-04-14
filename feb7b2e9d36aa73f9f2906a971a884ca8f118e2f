@@ -1,0 +1,23 @@
+src/modules/components/shared/Header.tsx
+  099a87b6db5fe9a9 67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "feb7b2e9d36aa73f9f2906a971a884ca8f118e2f",
+  "prompts": {
+    "099a87b6db5fe9a9": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "8035e20a-fecb-4609-ad6d-14c60e876138",
+        "model": "claude-sonnet-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 2,
+      "total_deletions": 1,
+      "accepted_lines": 1,
+      "overriden_lines": 1
+    }
+  }
+}
