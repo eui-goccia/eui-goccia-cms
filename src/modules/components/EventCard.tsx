@@ -1,5 +1,5 @@
 import type { Event, Image as ImageType } from '@payload-types';
-import { getLocale, getTranslations } from 'next-intl/server';
+import { getLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 import { getEventHref } from '@/modules/events/paths';
 import { formatEventDateTime } from '@/modules/events/utils';
@@ -49,10 +49,7 @@ export default async function EventCard({
 	showImage = true,
 	variant = 'default',
 }: EventCardProps) {
-	const [locale, t] = await Promise.all([
-		getLocale(),
-		getTranslations('events'),
-	]);
+	const locale = await getLocale();
 	const image =
 		event.coverImage && typeof event.coverImage !== 'string'
 			? (event.coverImage as ImageType)

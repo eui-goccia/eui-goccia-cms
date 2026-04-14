@@ -1,5 +1,4 @@
 import {
-	AlignFeature,
 	BlockquoteFeature,
 	BoldFeature,
 	InlineToolbarFeature,
@@ -7,6 +6,7 @@ import {
 	LinkFeature,
 	lexicalEditor,
 	ParagraphFeature,
+	UnderlineFeature,
 } from '@payloadcms/richtext-lexical';
 import type { Block } from 'payload';
 import { alignFields } from '../common';
@@ -24,7 +24,7 @@ export const QuoteBlock: Block = {
 					InlineToolbarFeature(),
 					BoldFeature(),
 					ItalicFeature(),
-					AlignFeature(),
+					UnderlineFeature(),
 					BlockquoteFeature(),
 					LinkFeature(),
 					ParagraphFeature(),

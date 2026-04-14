@@ -28,7 +28,7 @@ type Slug = (
 export const slugField: Slug = (
 	fieldToUse = 'title',
 	overrides = {},
-	_collectionSlug
+	_collectionSlug = undefined
 ) => {
 	const { slugOverrides, checkboxOverrides } = overrides;
 

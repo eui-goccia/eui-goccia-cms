@@ -23,6 +23,7 @@ function ScrollToTop({ useLenis }: { useLenis: UseLenisHook }) {
 	const lenis = useLenis();
 	const lenisRef = useRef(lenis);
 	lenisRef.current = lenis;
+	const previousPathnameRef = useRef(pathname);
 	const isFirstRender = useRef(true);
 	const isPopstateNav = useRef(false);
 
@@ -43,8 +44,13 @@ function ScrollToTop({ useLenis }: { useLenis: UseLenisHook }) {
 	useEffect(() => {
 		if (isFirstRender.current) {
 			isFirstRender.current = false;
+			previousPathnameRef.current = pathname;
 			return;
 		}
+		if (previousPathnameRef.current === pathname) {
+			return;
+		}
+		previousPathnameRef.current = pathname;
 		if (isPopstateNav.current) {
 			isPopstateNav.current = false;
 			return;
