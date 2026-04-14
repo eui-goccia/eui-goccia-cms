@@ -85,7 +85,7 @@ async function EventList({
 		<>
 			<section className='px-5 pb-10 pt-10 lg:px-10'>
 				{upcomingEvents.length > 0 ? (
-					<div className='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3'>
+					<div className='grid grid-cols-1 gap-8 md:grid-cols-4 lg:grid-cols-4'>
 						{upcomingEvents.map((event) => (
 							<EventCard event={event} key={event.id} />
 						))}
