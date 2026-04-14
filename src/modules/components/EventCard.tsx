@@ -63,7 +63,7 @@ export default async function EventCard({
 		: 'group flex flex-col group gap-5';
 	const imageWrapperClass = isCompact
 		? 'aspect-4/3 overflow-hidden rounded-[20px] bg-black/5'
-		: 'aspect-video overflow-hidden rounded-4xl';
+		: 'aspect-4/5 overflow-hidden rounded-4xl';
 	const imageClass = isCompact
 		? 'object-cover rounded-[20px] transition-transform duration-500 group-hover:scale-105'
 		: 'object-cover rounded-4xl transition-transform duration-500 group-hover:scale-105';
@@ -90,7 +90,7 @@ export default async function EventCard({
 
 			{isCompact ? (
 				<div className='flex justify-between px-1'>
-					<p className='font-greed h-fit uppercase transition-colors duration-500 group-hover:bg-rosso-500 text-base font-bold '>
+					<p className='font-greed h-fit uppercase transition-colors duration-500 group-hover:bg-rosso-500 text-balance text-base font-bold '>
 						{event.title}
 					</p>
 					<p className='font-greed h-fit uppercase transition-colors duration-500 group-hover:bg-rosso-500 text-base font-bold '>
@@ -109,7 +109,7 @@ export default async function EventCard({
 					</div>
 
 					<hgroup className='flex flex-col gap-1'>
-						<h3 className='font-tagada px-1 text-3xl leading-tight tracking-wide lg:text-4xl'>
+						<h3 className='font-tagada text-pretty px-1 text-3xl leading-tight tracking-wide lg:text-4xl'>
 							{event.title}
 						</h3>
 

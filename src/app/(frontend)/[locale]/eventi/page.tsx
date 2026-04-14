@@ -85,7 +85,7 @@ async function EventList({
 		<>
 			<section className='px-5 pb-10 pt-10 lg:px-10'>
 				{upcomingEvents.length > 0 ? (
-					<div className='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3'>
+					<div className='grid grid-cols-1 gap-8 md:grid-cols-4 lg:grid-cols-4'>
 						{upcomingEvents.map((event) => (
 							<EventCard event={event} key={event.id} />
 						))}
@@ -130,8 +130,8 @@ export default async function EventiPage({ params }: EventiPageProps) {
 			<Suspense
 				fallback={
 					<section className='px-5 pb-10 pt-10 lg:px-10'>
-						<div className='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 animate-pulse'>
-							{Array.from({ length: 3 }).map((_, i) => (
+						<div className='grid grid-cols-1 gap-8 md:grid-cols-4 lg:grid-cols-4 animate-pulse'>
+							{Array.from({ length: 4 }).map((_, i) => (
 								// biome-ignore lint/suspicious/noArrayIndexKey: static skeleton
 								<div className='rounded-lg overflow-hidden' key={i}>
 									<div className='h-48 bg-gray-200' />
