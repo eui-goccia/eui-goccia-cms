@@ -1,0 +1,23 @@
+src/app/(frontend)/[locale]/eventi/page.tsx
+  50fb6164998d47dd 134
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "e3e6d73383d28d4f9215b7861eeedacf63d60f2e",
+  "prompts": {
+    "50fb6164998d47dd": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cc93b6cc-26f6-4d3c-84e4-d37222f28c91",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 1,
+      "total_deletions": 1,
+      "accepted_lines": 1,
+      "overriden_lines": 0
+    }
+  }
+}
