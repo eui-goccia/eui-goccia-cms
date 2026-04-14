@@ -1,5 +1,4 @@
 import {
-	AlignFeature,
 	BoldFeature,
 	HeadingFeature,
 	HorizontalRuleFeature,
@@ -9,7 +8,6 @@ import {
 	LinkFeature,
 	lexicalEditor,
 	ParagraphFeature,
-	StrikethroughFeature,
 	UnderlineFeature,
 	UploadFeature,
 } from '@payloadcms/richtext-lexical';
@@ -20,9 +18,7 @@ export const defaultLexical = lexicalEditor({
 		BoldFeature(),
 		ItalicFeature(),
 		UnderlineFeature(),
-		StrikethroughFeature(),
 		UploadFeature(),
-		AlignFeature(),
 		IndentFeature(),
 		HorizontalRuleFeature(),
 		HeadingFeature({
@@ -39,8 +35,6 @@ export const minimalLexical = lexicalEditor({
 		BoldFeature(),
 		ItalicFeature(),
 		UnderlineFeature(),
-		StrikethroughFeature(),
-		AlignFeature(),
 		ParagraphFeature(),
 		HorizontalRuleFeature(),
 		LinkFeature(),
