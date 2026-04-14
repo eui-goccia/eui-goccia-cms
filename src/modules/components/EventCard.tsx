@@ -99,7 +99,7 @@ export default async function EventCard({
 				</div>
 			) : (
 				<div className='flex flex-col gap-2'>
-					<div className='flex px-1 items-center justify-between gap-0'>
+					<div className='flex flex-col gap-2 px-1 items-start justify-between '>
 						<p className='font-greed h-fit transition-colors duration-500 group-hover:bg-rosso-500 text-base font-bold uppercase '>
 							{dateLabel}
 						</p>

@@ -21,8 +21,8 @@ export function EventProgramSection({
 				{locale === 'it' ? 'Programma' : 'Program'}
 			</h2>
 			{Array.from(subEventGroups.entries()).map(([label, labelEvents]) => (
-				<div className='mb-12 last:mb-0 md:px-25' key={label}>
-					<h3 className='mb-4 font-greed text-2xl font-bold'>
+				<div className='mb-12  last:mb-0 md:px-25' key={label}>
+					<h3 className='mb-4 bg-rosso-500 px-1 font-greed text-xl md:text-2xl font-bold'>
 						{getLabelDisplayName(label, locale)}
 					</h3>
 					<div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>

@@ -19,7 +19,7 @@ export async function EventContentSection({
 
 	return (
 		<section className='px-5 py-15 md:py-20 lg:px-10 xl:px-20'>
-			<div className='grid pl-0 md:px-20 grid-cols-1 gap-8 lg:grid-cols-[3fr_2fr]'>
+			<div className='grid md:pl-30  md:pr-20 grid-cols-1 gap-8 lg:grid-cols-[3fr_2fr]'>
 				{/* Left: Content blocks */}
 				<div>
 					{event.content && event.content.length > 0 && (
