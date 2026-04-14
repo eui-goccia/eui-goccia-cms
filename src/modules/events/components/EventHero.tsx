@@ -24,18 +24,18 @@ export function EventHero({
 	const bookingLabel = event.bookingLabel || 'Eventbrite';
 
 	return (
-		<section className='px-5 flex  flex-col md:flex-row pt-20 md:pt-24 pb-10 lg:px-10 xl:px-20'>
-			<div className='w-30 pb-4 pt-0.5 md:pb-0'>
+		<section className='px-5 flex flex-col md:flex-row pt-18 md:pt-24 pb-10 lg:px-10 xl:px-20'>
+			<div className='w-24 md:w-30 pb-4 pt-0.5 md:pb-0'>
 				<Link
 					aria-label={backLabel}
-					className='flex size-12 items-center justify-center rounded-[14px] border-2 border-black transition-colors hover:bg-black/5'
+					className='flex size-10 md:size-12 items-center justify-center rounded-[14px] border-2 border-black transition-colors hover:bg-black/5'
 					href={backHref}
 				>
 					<ArrowLeft />
 				</Link>
 			</div>
 
-			<div className=' items-start gap-4 md:gap-8 flex flex-col md:flex-row'>
+			<div className='w-full items-start gap-4 md:gap-8 flex flex-col md:flex-row'>
 				{/* Cover Image */}
 				{image && (
 					<div className='aspect-4/5 max-h-160 overflow-hidden rounded-4xl'>
@@ -54,7 +54,7 @@ export function EventHero({
 				{/* Title, Organizer, Booking, Links */}
 				<div className='flex flex-col pt-1 justify-between h-full gap-1'>
 					<div className='flex gap-1 flex-col'>
-						<h1 className='font-tagada text-4xl md:text-5xl text-balance tracking-wide lg:text-7xl'>
+						<h1 className='font-tagada text-4xl md:text-5xl text-balance tracking-wide lg:text-6xl xl:text-7xl'>
 							{event.title}
 						</h1>
 
