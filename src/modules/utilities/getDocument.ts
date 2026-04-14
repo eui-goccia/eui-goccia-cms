@@ -23,7 +23,6 @@ export async function getDocument({
 	'use cache';
 	cacheLife('max');
 	cacheTag(`${collection}_${slug}`);
-	cacheTag(collection);
 
 	const payload = await getPayload({ config: configPromise });
 	const result = await payload.find({
