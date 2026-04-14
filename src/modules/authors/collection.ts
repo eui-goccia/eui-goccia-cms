@@ -2,7 +2,7 @@ import type { CollectionConfig } from 'payload';
 import { anyone } from '../payload/access/anyone';
 import { editor } from '../payload/access/editor';
 import { slugField } from '../payload/fields/slug';
-import { revalidateDelete, revalidatePost } from '../posts/revalidate';
+import { revalidateAuthor, revalidateAuthorDelete } from './revalidate';
 
 export const Authors: CollectionConfig = {
 	slug: 'authors',
@@ -13,8 +13,8 @@ export const Authors: CollectionConfig = {
 		delete: editor,
 	},
 	hooks: {
-		afterChange: [revalidatePost],
-		afterDelete: [revalidateDelete],
+		afterChange: [revalidateAuthor],
+		afterDelete: [revalidateAuthorDelete],
 	},
 	labels: {
 		singular: 'Autore',
