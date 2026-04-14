@@ -130,7 +130,7 @@ export default async function EventiPage({ params }: EventiPageProps) {
 			<Suspense
 				fallback={
 					<section className='px-5 pb-10 pt-10 lg:px-10'>
-						<div className='grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 animate-pulse'>
+						<div className='grid grid-cols-1 gap-8 md:grid-cols-4 lg:grid-cols-4 animate-pulse'>
 							{Array.from({ length: 3 }).map((_, i) => (
 								// biome-ignore lint/suspicious/noArrayIndexKey: static skeleton
 								<div className='rounded-lg overflow-hidden' key={i}>

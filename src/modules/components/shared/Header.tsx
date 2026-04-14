@@ -163,7 +163,7 @@ export default function Header() {
 								<li
 									className='w-full flex items-center justify-center animate-fade-slide-in opacity-0 motion-reduce:animate-none motion-reduce:opacity-100'
 									style={{
-										animationDelay: `${250 + 4 * 100}ms`,
+										animationDelay: `${250 + navItems.length * 100}ms`,
 										animationFillMode: 'forwards',
 									}}
 								>
