@@ -1,0 +1,27 @@
+src/modules/editor/component.tsx
+  98db20aa6de0d222 220
+src/modules/events/components/EventHero.tsx
+  98db20aa6de0d222 38,55
+src/modules/events/components/EventContentSection.tsx
+  98db20aa6de0d222 24,40,47,50,64,72
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "262dee046724cdd26aea4cabde316fbdee6412f1",
+  "prompts": {
+    "98db20aa6de0d222": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "c0f9801e-9220-43d0-924a-71df633cface",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 12,
+      "total_deletions": 12,
+      "accepted_lines": 9,
+      "overriden_lines": 3
+    }
+  }
+}
