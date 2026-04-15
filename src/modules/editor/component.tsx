@@ -123,7 +123,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
 					return (
 						<h1
 							className={cn(
-								'font-ghost varW600 uppercase scroll-mt-48 md:text-5xl text-4xl lg:text-6xl font-bold mb-6'
+								'font-ghost varW600 uppercase wrap-break-word scroll-mt-48 md:text-5xl text-3xl lg:text-6xl font-bold mb-6'
 							)}
 						>
 							{children}
@@ -133,7 +133,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
 					return (
 						<h2
 							className={cn(
-								'font-ghost varW600 uppercase scroll-mt-48 md:text-4xl text-3xl lg:text-5xl'
+								'font-ghost varW600 uppercase wrap-break-word scroll-mt-48 md:text-4xl text-2xl lg:text-5xl'
 							)}
 						>
 							{children}
@@ -143,7 +143,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
 					return (
 						<h3
 							className={cn(
-								'font-ghost varW600 uppercase scroll-mt-48 md:text-3xl text-2xl lg:text-4xl font-semibold mb-4'
+								'font-ghost varW600 uppercase wrap-break-word scroll-mt-48 md:text-3xl text-xl lg:text-4xl font-semibold mb-4'
 							)}
 						>
 							{children}
@@ -217,7 +217,7 @@ export default function RichText(props: Props) {
 						enableProse,
 				},
 				className,
-				'flex flex-col gap-2.5 md:gap-5',
+				'flex flex-col min-w-0 max-w-full wrap-anywhere gap-2.5 md:gap-5',
 				'font-greed tracking-[0.01em] text-xl md:text-2xl'
 			)}
 			converters={jsxConverters}

@@ -21,7 +21,7 @@ export async function EventContentSection({
 		<section className='px-5 py-15 md:py-20 lg:px-10 xl:px-20'>
 			<div className='grid md:pl-30  md:pr-20 grid-cols-1 gap-8 lg:grid-cols-[3fr_2fr]'>
 				{/* Left: Content blocks */}
-				<div>
+				<div className='min-w-0'>
 					{event.content && event.content.length > 0 && (
 						<>
 							<h2 className='mb-4 font-greed text-4xl font-bold'>
@@ -37,17 +37,17 @@ export async function EventContentSection({
 				</div>
 
 				{/* Right: Date + Location sidebar */}
-				<div className='flex flex-col items-start md:items-end gap-4 md:gap-8'>
+				<div className='flex flex-col min-w-0 items-start md:items-end gap-4 md:gap-8'>
 					<div className='space-y-8 md:space-y-20'>
 						{/* Date/Time */}
 						<div>
 							<div className='mb-2 w-fit px-1 font-bold bg-rosso-500'>
 								{t('when')}
 							</div>
-							<p className='font-ghost text-4xl varW600 uppercase tracking-wide'>
+							<p className='font-ghost text-2xl md:text-4xl varW600 uppercase tracking-wide'>
 								{startDateTime.date} {startDateTime.time}
 							</p>
-							<p className='font-ghost text-4xl varW600 uppercase tracking-wide'>
+							<p className='font-ghost text-2xl md:text-4xl varW600 uppercase tracking-wide'>
 								— {isMultiDay && `${endDateTime.date} `}
 								{endDateTime.time}
 							</p>
@@ -61,7 +61,7 @@ export async function EventContentSection({
 								</div>
 								{event.address.googleMapsUrl ? (
 									<a
-										className='font-ghost text-4xl varW600 hover:no-underline underline decoration-1 underline-offset-4 uppercase tracking-wide'
+										className='font-ghost text-2xl md:text-4xl varW600 hover:no-underline underline decoration-1 underline-offset-4 uppercase tracking-wide'
 										href={event.address.googleMapsUrl}
 										rel='noopener noreferrer'
 										target='_blank'
@@ -69,7 +69,7 @@ export async function EventContentSection({
 										{event.address.location}
 									</a>
 								) : (
-									<p className='font-ghost text-4xl varW600 uppercase tracking-wide'>
+									<p className='font-ghost text-2xl md:text-4xl varW600 uppercase tracking-wide'>
 										{event.address.location}
 									</p>
 								)}
