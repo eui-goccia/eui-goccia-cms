@@ -35,7 +35,7 @@ export function EventHero({
 				</Link>
 			</div>
 
-			<div className='w-full items-start gap-4 md:gap-8 flex flex-col md:flex-row'>
+			<div className='w-full min-w-0 items-start gap-4 md:gap-8 flex flex-col md:flex-row'>
 				{/* Cover Image */}
 				{image && (
 					<div className='aspect-4/5 max-h-160 overflow-hidden rounded-4xl'>
@@ -52,7 +52,7 @@ export function EventHero({
 				)}
 
 				{/* Title, Organizer, Booking, Links */}
-				<div className='flex flex-col pt-1 justify-between h-full gap-1'>
+				<div className='flex flex-col min-w-0 pt-1 justify-between h-full gap-1'>
 					<div className='flex gap-1 flex-col'>
 						<h1 className='font-tagada text-4xl md:text-5xl text-balance tracking-wide lg:text-6xl xl:text-7xl'>
 							{event.title}
