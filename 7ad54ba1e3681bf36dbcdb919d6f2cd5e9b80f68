@@ -1,0 +1,29 @@
+src/modules/settings/project.ts
+  b3ba0c16ade11397 12
+src/modules/settings/about.ts
+  b3ba0c16ade11397 14
+src/modules/settings/goccia.ts
+  b3ba0c16ade11397 10
+src/modules/settings/home.ts
+  b3ba0c16ade11397 28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.2.8",
+  "base_commit_sha": "7ad54ba1e3681bf36dbcdb919d6f2cd5e9b80f68",
+  "prompts": {
+    "b3ba0c16ade11397": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "01f4da2a-8847-4277-8857-0db4dc51c7c6",
+        "model": "claude-opus-4-6"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 4,
+      "total_deletions": 4,
+      "accepted_lines": 4,
+      "overriden_lines": 0
+    }
+  }
+}
