@@ -7,7 +7,7 @@ export const Goccia: GlobalConfig = {
 	label: 'La Goccia',
 	admin: {
 		group: 'Pages',
-		hidden: true,
+		hidden: ({ user }) => user?.role !== 'editor' && user?.role !== 'admin',
 	},
 	access: {
 		read: editor,
