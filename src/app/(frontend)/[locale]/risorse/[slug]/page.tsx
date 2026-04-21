@@ -38,7 +38,9 @@ export function generateStaticParams() {
 			}
 		}
 
-		return Array.from(slugSet).map((slug) => ({ slug }));
+		const slugs = Array.from(slugSet).map((slug) => ({ slug }));
+
+		return slugs.length > 0 ? slugs : [{ slug: '_placeholder' }];
 	});
 }
 
