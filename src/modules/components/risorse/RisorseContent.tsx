@@ -117,6 +117,7 @@ export function RisorseContent({
 	};
 
 	const resetFilters = () => {
+		setSearchValue('');
 		const params = new URLSearchParams(searchParams.toString());
 		params.delete('q');
 		params.delete('tag');
