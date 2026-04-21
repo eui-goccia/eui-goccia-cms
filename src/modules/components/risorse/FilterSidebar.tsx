@@ -15,6 +15,7 @@ interface FilterSidebarProps {
 		wp: string[];
 		year: string[];
 	};
+	onSearchChange: (value: string) => void;
 	onToggleFilter: (
 		group: 'partner' | 'tag' | 'wp' | 'year',
 		value: string
@@ -26,6 +27,7 @@ interface FilterSidebarProps {
 		years: FilterOption[];
 	};
 	onReset: () => void;
+	searchValue: string;
 }
 
 function FilterGroup({
@@ -76,25 +78,45 @@ function FilterGroup({
 export function FilterSidebar({
 	activeFilters,
 	onReset,
+	onSearchChange,
 	onToggleFilter,
 	options,
+	searchValue,
 }: FilterSidebarProps) {
 	const t = useTranslations('resourcesPage');
-	const hasActiveFilters = Object.values(activeFilters).some(
-		(values) => values.length > 0
-	);
+	const hasActiveFilters =
+		searchValue.trim() !== '' ||
+		Object.values(activeFilters).some((values) => values.length > 0);
 
 	return (
 		<aside className='pt-5 pr-4 pl-1 lg:sticky lg:top-28 lg:self-start'>
-			{hasActiveFilters ? (
-				<button
-					className='mb-5 cursor-pointer font-greed text-[11px] uppercase tracking-[0.1em] text-rosso-500 underline underline-offset-4'
-					onClick={onReset}
-					type='button'
-				>
-					{t('clearFilters')}
-				</button>
-			) : null}
+			<div className='mb-5'>
+				<label className='sr-only' htmlFor='resource-search'>
+					{t('searchTitle')}
+				</label>
+				<input
+					className='w-full border-b border-black/30 bg-transparent pb-1.5 font-greed text-[13px] uppercase tracking-[0.04em] text-black outline-none placeholder:text-black/40 focus:border-rosso-500'
+					id='resource-search'
+					onChange={(event) => onSearchChange(event.target.value)}
+					placeholder={t('searchPlaceholder')}
+					type='search'
+					value={searchValue}
+				/>
+			</div>
+			{/* Always rendered to preserve vertical space and avoid layout shift when filters become active. */}
+			<button
+				aria-hidden={!hasActiveFilters}
+				className={cn(
+					'mb-5 cursor-pointer font-greed text-[11px] uppercase tracking-[0.1em] text-rosso-500 underline underline-offset-4',
+					!hasActiveFilters && 'invisible'
+				)}
+				disabled={!hasActiveFilters}
+				onClick={onReset}
+				tabIndex={hasActiveFilters ? 0 : -1}
+				type='button'
+			>
+				{t('clearFilters')}
+			</button>
 			<div className='space-y-6'>
 				<FilterGroup
 					activeValues={activeFilters.tag}

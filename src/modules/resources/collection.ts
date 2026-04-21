@@ -103,6 +103,12 @@ export const Resources: CollectionConfig = {
 									type: 'date',
 									label: 'Data',
 									required: true,
+									admin: {
+										date: {
+											displayFormat: 'dd/MM/yyyy',
+											pickerAppearance: 'dayOnly',
+										},
+									},
 								},
 								{
 									name: 'title',
@@ -142,6 +148,7 @@ export const Resources: CollectionConfig = {
 							required: true,
 							admin: {
 								date: {
+									displayFormat: 'dd/MM/yyyy',
 									pickerAppearance: 'dayOnly',
 								},
 							},
