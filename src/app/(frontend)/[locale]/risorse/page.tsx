@@ -21,8 +21,8 @@ function RisorseFallback() {
 				<div className='h-5 w-full animate-pulse rounded bg-black/10' />
 			</div>
 
-			<div className='px-5 pt-2 md:px-7 lg:pt-6'>
-				<div className='space-y-4 lg:pl-[minmax(0,260px)]'>
+				<div className='px-5 pt-2 md:px-7 lg:pt-6'>
+					<div className='space-y-4 lg:pl-[260px]'>
 					{Array.from({ length: 4 }).map((_, index) => (
 						<div
 							className='h-24 animate-pulse rounded-[16px] bg-black/8'
