@@ -10,7 +10,7 @@ import {
 } from '@payloadcms/ui';
 import type { TextFieldClientProps } from 'payload';
 import type React from 'react';
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { formatSlug } from './formatSlug';
 import './index.scss';
@@ -62,18 +62,15 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
 		}
 	}, [targetFieldValue, checkboxValue, setValue, value]);
 
-	const handleLock = useCallback(
-		(e: React.MouseEvent<Element, MouseEvent>) => {
-			e.preventDefault();
+	const handleLock = (e: React.MouseEvent<Element, MouseEvent>) => {
+		e.preventDefault();
 
-			dispatchFields({
-				type: 'UPDATE',
-				path: checkboxFieldPath,
-				value: !checkboxValue,
-			});
-		},
-		[checkboxValue, checkboxFieldPath, dispatchFields]
-	);
+		dispatchFields({
+			type: 'UPDATE',
+			path: checkboxFieldPath,
+			value: !checkboxValue,
+		});
+	};
 
 	const readOnly = readOnlyFromProps || checkboxValue;
 

@@ -3,7 +3,7 @@
 import { ChevronDown } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import { startTransition, useEffect, useMemo, useState } from 'react';
+import { startTransition, useEffect, useState } from 'react';
 import { usePathname, useRouter } from '@/i18n/routing';
 import type { ResourceListingData } from '@/modules/resources/queries';
 import { cn } from '@/modules/utilities/cnUtils';
@@ -63,18 +63,15 @@ export function RisorseContent({
 		});
 	}, [debouncedSearch, filters.q, pathname, router, searchParams]);
 
-	const filterSidebarOptions = useMemo(
-		() => ({
-			workPackages: filterOptions.workPackages,
-			tags: filterOptions.tags.map((tag) => ({
-				label: tag.label,
-				value: tag.slug,
-			})),
-			partners: filterOptions.partners,
-			years: filterOptions.years.map((year) => ({ label: year, value: year })),
-		}),
-		[filterOptions]
-	);
+	const filterSidebarOptions = {
+		workPackages: filterOptions.workPackages,
+		tags: filterOptions.tags.map((tag) => ({
+			label: tag.label,
+			value: tag.slug,
+		})),
+		partners: filterOptions.partners,
+		years: filterOptions.years.map((year) => ({ label: year, value: year })),
+	};
 
 	const updateMultiValueFilter = (
 		group: 'partner' | 'tag' | 'wp' | 'year',

@@ -46,17 +46,16 @@ function Marquee({ label }: { label: string }) {
 
 async function EventList({
 	locale,
-	draft,
 	noUpcomingEventsLabel,
 	pastHeadingLabel,
 }: {
 	locale: string;
-	draft: boolean;
 	noUpcomingEventsLabel: string;
 	pastHeadingLabel: string;
 }) {
 	await connection();
 
+	const { isEnabled: draft } = await draftMode();
 	const events = (await getDocuments({
 		collection: 'events',
 		depth: 2,
@@ -121,7 +120,6 @@ async function EventList({
 export default async function EventiPage({ params }: EventiPageProps) {
 	const { locale } = await params;
 	setRequestLocale(locale);
-	const { isEnabled: draft } = await draftMode();
 	const t = await getTranslations('events');
 
 	return (
@@ -146,7 +144,6 @@ export default async function EventiPage({ params }: EventiPageProps) {
 				}
 			>
 				<EventList
-					draft={draft}
 					locale={locale}
 					noUpcomingEventsLabel={t('noUpcomingEvents')}
 					pastHeadingLabel={t('pastHeading')}
