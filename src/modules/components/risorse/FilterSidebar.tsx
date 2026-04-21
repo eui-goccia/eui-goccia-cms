@@ -1,53 +1,125 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { cn } from '@/modules/utilities/cnUtils';
 
-interface FilterGroup {
+interface FilterOption {
 	label: string;
-	options: string[];
+	value: string;
 }
 
 interface FilterSidebarProps {
-	groups: FilterGroup[];
-	activeFilters: Record<string, string[]>;
-	onToggleFilter: (group: string, value: string) => void;
+	activeFilters: {
+		partner: string[];
+		tag: string[];
+		wp: string[];
+		year: string[];
+	};
+	onToggleFilter: (
+		group: 'partner' | 'tag' | 'wp' | 'year',
+		value: string
+	) => void;
+	options: {
+		partners: FilterOption[];
+		tags: { label: string; value: string }[];
+		workPackages: FilterOption[];
+		years: FilterOption[];
+	};
+	onReset: () => void;
+}
+
+function FilterGroup({
+	activeValues,
+	label,
+	onToggle,
+	options,
+}: {
+	activeValues: string[];
+	label: string;
+	onToggle: (value: string) => void;
+	options: FilterOption[];
+}) {
+	if (options.length === 0) {
+		return null;
+	}
+
+	return (
+		<div>
+			<p className='mb-2 font-greed text-[13px] font-bold uppercase tracking-[0.06em] text-black'>
+				{label}
+			</p>
+			<div className='flex flex-wrap gap-x-4 gap-y-1'>
+				{options.map((option) => {
+					const isActive = activeValues.includes(option.value);
+
+					return (
+						<button
+							className={cn(
+								'cursor-pointer font-greed text-[13px] uppercase tracking-[0.04em] transition-colors',
+								isActive
+									? 'text-rosso-500 underline decoration-rosso-500 decoration-2 underline-offset-[5px]'
+									: 'text-black hover:text-rosso-500'
+							)}
+							key={option.value}
+							onClick={() => onToggle(option.value)}
+							type='button'
+						>
+							{option.label.toUpperCase()}
+						</button>
+					);
+				})}
+			</div>
+		</div>
+	);
 }
 
 export function FilterSidebar({
-	groups,
 	activeFilters,
+	onReset,
 	onToggleFilter,
+	options,
 }: FilterSidebarProps) {
+	const t = useTranslations('resourcesPage');
+	const hasActiveFilters = Object.values(activeFilters).some(
+		(values) => values.length > 0
+	);
+
 	return (
-		<aside className='w-full lg:w-[250px] lg:shrink-0'>
-			<div className='flex flex-col gap-6'>
-				{groups.map((group) => (
-					<div key={group.label}>
-						<p className='mb-2 font-greed text-lg font-bold uppercase tracking-wide'>
-							{group.label}
-						</p>
-						<div className='flex flex-wrap gap-2.5'>
-							{group.options.map((option) => {
-								const isActive = activeFilters[group.label]?.includes(option);
-								return (
-									<button
-										className={cn(
-											'font-greed text-lg uppercase tracking-wide transition-all',
-											isActive
-												? 'font-bold underline decoration-rosso-500 decoration-2 underline-offset-4'
-												: 'hover:underline hover:decoration-rosso-500 hover:decoration-2 hover:underline-offset-4'
-										)}
-										key={option}
-										onClick={() => onToggleFilter(group.label, option)}
-										type='button'
-									>
-										{option}
-									</button>
-								);
-							})}
-						</div>
-					</div>
-				))}
+		<aside className='pt-5 pr-4 pl-1 lg:sticky lg:top-28 lg:self-start'>
+			{hasActiveFilters ? (
+				<button
+					className='mb-5 cursor-pointer font-greed text-[11px] uppercase tracking-[0.1em] text-rosso-500 underline underline-offset-4'
+					onClick={onReset}
+					type='button'
+				>
+					{t('clearFilters')}
+				</button>
+			) : null}
+			<div className='space-y-6'>
+				<FilterGroup
+					activeValues={activeFilters.tag}
+					label={t('paroleChiave')}
+					onToggle={(value) => onToggleFilter('tag', value)}
+					options={options.tags}
+				/>
+				<FilterGroup
+					activeValues={activeFilters.wp}
+					label={t('workPackage')}
+					onToggle={(value) => onToggleFilter('wp', value)}
+					options={options.workPackages}
+				/>
+				<FilterGroup
+					activeValues={activeFilters.year}
+					label={t('year')}
+					onToggle={(value) => onToggleFilter('year', value)}
+					options={options.years}
+				/>
+				<FilterGroup
+					activeValues={activeFilters.partner}
+					label={t('altro')}
+					onToggle={(value) => onToggleFilter('partner', value)}
+					options={options.partners}
+				/>
 			</div>
 		</aside>
 	);

@@ -1,40 +1,41 @@
-import { Link } from '@/i18n/routing';
+import type { ResolvedResource } from '@/modules/resources/queries';
 
 interface ResourceRowProps {
-	description: string;
-	date: string;
-	secondaryDescription: string;
-	reference: string;
-	slug: string;
+	onOpenPreview: (slug: string) => void;
+	resource: ResolvedResource;
 }
 
-export function ResourceRow({
-	description,
-	date,
-	secondaryDescription,
-	reference,
-	slug,
-}: ResourceRowProps) {
+export function ResourceRow({ onOpenPreview, resource }: ResourceRowProps) {
+	const keywordSummary =
+		resource.descriptionExcerpt ||
+		resource.tags.map((tag) => tag.name).join(', ');
+
 	return (
-		<Link
-			className='block border-b border-black/20 py-5 transition-colors hover:bg-black/5'
-			href={`/risorse/${slug}`}
-		>
-			<div className='grid grid-cols-1 items-start gap-4 md:grid-cols-[1fr_auto_1fr_auto_auto]'>
-				<p className='font-greed text-lg leading-[1.1] tracking-wide'>
-					{description}
+		<li>
+			<button
+				className='group grid w-full cursor-pointer grid-cols-[1fr_32px] gap-x-4 gap-y-1 py-5 text-left text-black transition-colors hover:text-rosso-500 lg:grid-cols-[minmax(0,2.2fr)_130px_minmax(0,1.4fr)_90px_44px] lg:gap-x-6'
+				onClick={() => onOpenPreview(resource.slug)}
+				type='button'
+			>
+				<p className='max-w-[52ch] font-greed text-[14px] leading-[1.3] tracking-[0.005em]'>
+					{resource.title}
 				</p>
-				<p className='font-greed text-lg leading-[1.1] tracking-wide'>{date}</p>
-				<p className='font-greed text-lg leading-[1.1] tracking-wide'>
-					{secondaryDescription}
+				<p className='font-greed text-[14px] leading-[1.3] tracking-[0.005em] lg:col-start-2'>
+					{resource.dateLabel}
 				</p>
-				<p className='font-greed text-lg leading-[1.1] tracking-wide'>
-					{reference}
+				<p className='max-w-[36ch] font-greed text-[14px] leading-[1.3] tracking-[0.005em] lg:col-start-3'>
+					{keywordSummary}
 				</p>
-				<span aria-hidden='true' className='font-greed text-4xl leading-none'>
+				<p className='font-greed text-[14px] leading-[1.3] tracking-[0.005em] lg:col-start-4'>
+					{resource.workPackageLabel}
+				</p>
+				<span
+					aria-hidden='true'
+					className='col-start-2 row-start-1 justify-self-end self-start font-greed text-2xl leading-none transition-transform group-hover:rotate-45 lg:col-start-5'
+				>
 					+
 				</span>
-			</div>
-		</Link>
+			</button>
+		</li>
 	);
 }

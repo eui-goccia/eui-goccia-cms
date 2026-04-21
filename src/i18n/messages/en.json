@@ -27,6 +27,30 @@
     "where": "Where",
     "discoverMore": "Discover more"
   },
+  "resourcesPage": {
+    "archive": "Archive",
+    "archiveTitle": "Archive/Title",
+    "filters": "Filter by search",
+    "searchTitle": "Title",
+    "date": "Date",
+    "workPackage": "Document type",
+    "keywords": "Keyword",
+    "paroleChiave": "Keywords",
+    "altro": "Other",
+    "partner": "Partner",
+    "year": "Year",
+    "searchPlaceholder": "Search by title",
+    "clearFilters": "Clear filters",
+    "openResource": "Open preview",
+    "openFullPage": "Open full page",
+    "closePreview": "Close preview",
+    "backToResources": "Back to resources",
+    "noResults": "No resources found",
+    "documentUpdates": "Document updates",
+    "preview": "Preview",
+    "dataPoints": "Data points",
+    "tags": "Tags"
+  },
   "404": {
     "description": "Page not found"
   }

@@ -2,6 +2,7 @@ import type { CollectionConfig } from 'payload';
 import { Authors } from '../authors/collection';
 import { Events } from '../events/collection';
 import { Posts } from '../posts/collection';
+import { Resources } from '../resources/collection';
 import { Audio } from '../storage/collections/Audio';
 import { Images } from '../storage/collections/Images';
 import { Tags } from '../tags/collection';
@@ -15,4 +16,5 @@ export const collections: CollectionConfig[] = [
 	Events,
 	Authors,
 	Tags,
+	Resources,
 ];

@@ -74,6 +74,7 @@ export interface Config {
     events: Event;
     authors: Author;
     tags: Tag;
+    resources: Resource;
     exports: Export;
     imports: Import;
     'payload-kv': PayloadKv;
@@ -101,6 +102,7 @@ export interface Config {
     events: EventsSelect<false> | EventsSelect<true>;
     authors: AuthorsSelect<false> | AuthorsSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
+    resources: ResourcesSelect<false> | ResourcesSelect<true>;
     exports: ExportsSelect<false> | ExportsSelect<true>;
     imports: ImportsSelect<false> | ImportsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
@@ -547,6 +549,55 @@ export interface Event {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources".
+ */
+export interface Resource {
+  id: string;
+  title: string;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  dataPoints?:
+    | {
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  gallery?: (string | Image)[] | null;
+  documentUpdates?:
+    | {
+        date: string;
+        title: string;
+        description?: string | null;
+        url?: string | null;
+        ctaLabel?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  date: string;
+  tags?: (string | Tag)[] | null;
+  workPackage: 'wp1' | 'wp2' | 'wp3' | 'wp4' | 'wp5' | 'wp6' | 'wp7' | 'wp8' | 'wp9';
+  partnerId: string;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "exports".
  */
 export interface Export {
@@ -763,6 +814,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'tags';
         value: string | Tag;
+      } | null)
+    | ({
+        relationTo: 'resources';
+        value: string | Resource;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -1143,6 +1198,40 @@ export interface TagsSelect<T extends boolean = true> {
   slugLock?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "resources_select".
+ */
+export interface ResourcesSelect<T extends boolean = true> {
+  title?: T;
+  description?: T;
+  dataPoints?:
+    | T
+    | {
+        value?: T;
+        id?: T;
+      };
+  gallery?: T;
+  documentUpdates?:
+    | T
+    | {
+        date?: T;
+        title?: T;
+        description?: T;
+        url?: T;
+        ctaLabel?: T;
+        id?: T;
+      };
+  date?: T;
+  tags?: T;
+  workPackage?: T;
+  partnerId?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1529,7 +1618,17 @@ export interface TaskCreateCollectionExport {
     id: string;
     name: string;
     batchSize?: number | null;
-    collectionSlug: 'audio' | 'images' | 'users' | 'posts' | 'events' | 'authors' | 'tags' | 'exports' | 'imports';
+    collectionSlug:
+      | 'audio'
+      | 'images'
+      | 'users'
+      | 'posts'
+      | 'events'
+      | 'authors'
+      | 'tags'
+      | 'resources'
+      | 'exports'
+      | 'imports';
     drafts?: ('yes' | 'no') | null;
     exportCollection: string;
     fields?: string[] | null;
@@ -1586,6 +1685,10 @@ export interface TaskSchedulePublish {
       | ({
           relationTo: 'events';
           value: string | Event;
+        } | null)
+      | ({
+          relationTo: 'resources';
+          value: string | Resource;
         } | null);
     global?: string | null;
     user?: (string | null) | User;

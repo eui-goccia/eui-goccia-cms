@@ -1,1 +1,1 @@
-export const RISORSE_ENABLED = false;
+export const RISORSE_ENABLED = true;

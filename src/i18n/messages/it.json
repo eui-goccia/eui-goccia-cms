@@ -27,6 +27,30 @@
     "where": "Dove",
     "discoverMore": "Scopri di più"
   },
+  "resourcesPage": {
+    "archive": "Archivio",
+    "archiveTitle": "Archivio/Titolo",
+    "filters": "Ricerca per filtri",
+    "searchTitle": "Titolo",
+    "date": "Data",
+    "workPackage": "Tipo di documento",
+    "keywords": "Keyword",
+    "paroleChiave": "Parola chiave",
+    "altro": "Altro",
+    "partner": "Partner",
+    "year": "Anno",
+    "searchPlaceholder": "Cerca per titolo",
+    "clearFilters": "Azzera filtri",
+    "openResource": "Apri anteprima",
+    "openFullPage": "Apri pagina completa",
+    "closePreview": "Chiudi anteprima",
+    "backToResources": "Torna alle risorse",
+    "noResults": "Nessuna risorsa trovata",
+    "documentUpdates": "Aggiornamenti documento",
+    "preview": "Anteprima",
+    "dataPoints": "Dati",
+    "tags": "Tag"
+  },
   "404": {
     "description": "Pagina non trovata"
   }
