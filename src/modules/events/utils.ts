@@ -13,13 +13,52 @@ export function formatEventDateTime(
 			day: '2-digit',
 			month: '2-digit',
 			year: 'numeric',
+			timeZone: 'Europe/Rome',
 		}).format(date),
 		time: new Intl.DateTimeFormat(loc, {
 			hour: '2-digit',
 			minute: '2-digit',
 			hour12: false,
+			timeZone: 'Europe/Rome',
 		}).format(date),
 	};
+}
+
+export function formatEventDateRange(
+	startDate: string,
+	endDate: string | null | undefined,
+	locale: string
+): string {
+	const loc = locale === 'it' ? 'it-IT' : 'en-GB';
+	const dateFmt = new Intl.DateTimeFormat(loc, {
+		day: 'numeric',
+		month: 'long',
+		year: 'numeric',
+		timeZone: 'Europe/Rome',
+	});
+	const timeFmt = new Intl.DateTimeFormat(loc, {
+		hour: '2-digit',
+		minute: '2-digit',
+		hour12: false,
+		timeZone: 'Europe/Rome',
+	});
+
+	const start = new Date(startDate);
+	const startDateLabel = dateFmt.format(start);
+	const startTimeLabel = timeFmt.format(start);
+
+	if (!endDate) {
+		return `${startDateLabel} ${startTimeLabel}`;
+	}
+
+	const end = new Date(endDate);
+	const endDateLabel = dateFmt.format(end);
+	const endTimeLabel = timeFmt.format(end);
+
+	if (startDateLabel === endDateLabel) {
+		return `${startDateLabel} ${startTimeLabel} – ${endTimeLabel}`;
+	}
+	return `${startDateLabel} ${startTimeLabel} – ${endDateLabel} ${endTimeLabel}`;
 }
 
 export function groupSubEventsByLabel(

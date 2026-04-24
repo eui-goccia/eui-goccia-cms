@@ -1,0 +1,11 @@
+// Project tasks configuration. See https://zed.dev/docs/tasks for documentation.
+[
+  {
+    "label": "Open repo on GitHub",
+    "command": "gh",
+    "args": ["browse"],
+    "reveal": "never",
+    "hide": "always",
+    "use_new_terminal": false
+  }
+]

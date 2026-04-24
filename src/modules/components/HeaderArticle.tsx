@@ -27,6 +27,7 @@ export default function HeaderArticle({
 							day: 'numeric',
 							month: 'long',
 							year: 'numeric',
+							timeZone: 'Europe/Rome',
 						})}
 					</li>
 				</ul>
