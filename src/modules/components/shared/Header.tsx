@@ -1,7 +1,7 @@
 'use client';
 import { usePathname } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { LocaleSwitcher } from '@/i18n/LocaleSwitcher';
 import { Link } from '@/i18n/routing';
 import LogoGoccia from '@/modules/components/logos/LogoGoccia';
@@ -51,28 +51,25 @@ export default function Header() {
 		setMenuIsOpen(false);
 	};
 
-	const navItems: NavItem[] = useMemo(
-		() => [
-			{
-				href: '/progetto',
-				label: t('project'),
-				activeColor: 'underline',
-			},
-			{
-				href: '/la-goccia',
-				label: t('goccia'),
-				activeColor: 'underline',
-			},
-			{ href: '/blog', label: t('blog'), activeColor: 'underline' },
-			{ href: '/eventi', label: t('eventi'), activeColor: 'underline' },
-			{
-				href: '/about',
-				label: t('about'),
-				activeColor: 'underline',
-			},
-		],
-		[t]
-	);
+	const navItems: NavItem[] = [
+		{
+			href: '/progetto',
+			label: t('project'),
+			activeColor: 'underline',
+		},
+		{
+			href: '/la-goccia',
+			label: t('goccia'),
+			activeColor: 'underline',
+		},
+		{ href: '/blog', label: t('blog'), activeColor: 'underline' },
+		{ href: '/eventi', label: t('eventi'), activeColor: 'underline' },
+		{
+			href: '/about',
+			label: t('about'),
+			activeColor: 'underline',
+		},
+	];
 
 	return (
 		<>

@@ -3,6 +3,7 @@ import type { CollectionSlug } from 'payload';
 const collectionPrefixMap: Partial<Record<CollectionSlug, string>> = {
 	posts: '/blog',
 	events: '/eventi',
+	resources: '/risorse',
 };
 
 interface Props {

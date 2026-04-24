@@ -1,7 +1,7 @@
 'use client';
 
 import type { Image as ImageType } from '@payload-types';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { cn } from '@/modules/utilities/cnUtils';
 
 interface Props {
@@ -175,10 +175,7 @@ export function CustomImage({
 	sizes,
 }: Props) {
 	const [loadedSrc, setLoadedSrc] = useState<string | null>(null);
-	const responsiveCandidates = useMemo(
-		() => getResolvedCandidates(image, size),
-		[image, size]
-	);
+	const responsiveCandidates = getResolvedCandidates(image, size);
 	const defaultCandidate =
 		responsiveCandidates.at(-1) ??
 		({

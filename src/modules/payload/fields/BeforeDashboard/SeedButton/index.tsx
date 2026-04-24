@@ -3,7 +3,7 @@
 
 import { Collapsible, toast } from '@payloadcms/ui';
 import type React from 'react';
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 
 import './index.scss';
 
@@ -110,64 +110,62 @@ export const SeedButton: React.FC = () => {
 			)
 	);
 
-	const updatePhaseState = useCallback(
-		(phase: SeedPhase, updates: Partial<PhaseState>) => {
-			setPhaseStates((prev) => ({
-				...prev,
-				[phase]: { ...prev[phase], ...updates },
-			}));
-		},
-		[]
-	);
+	const updatePhaseState = (phase: SeedPhase, updates: Partial<PhaseState>) => {
+		setPhaseStates((prev) => ({
+			...prev,
+			[phase]: { ...prev[phase], ...updates },
+		}));
+	};
 
-	const handleClick = useCallback(
-		async (phase: SeedPhase, endpoint: string, label: string) => {
-			const currentState = phaseStates[phase];
+	const handleClick = async (
+		phase: SeedPhase,
+		endpoint: string,
+		label: string
+	) => {
+		const currentState = phaseStates[phase];
 
-			if (currentState.completed) {
-				toast.info(`${label} already completed.`);
-				return;
-			}
-			if (currentState.loading) {
-				toast.info(`${label} already in progress.`);
-				return;
-			}
-			if (currentState.error) {
-				toast.error('An error occurred, please refresh and try again.');
-				return;
-			}
+		if (currentState.completed) {
+			toast.info(`${label} already completed.`);
+			return;
+		}
+		if (currentState.loading) {
+			toast.info(`${label} already in progress.`);
+			return;
+		}
+		if (currentState.error) {
+			toast.error('An error occurred, please refresh and try again.');
+			return;
+		}
 
-			updatePhaseState(phase, { loading: true, error: null });
+		updatePhaseState(phase, { loading: true, error: null });
 
-			try {
-				toast.promise(
-					new Promise((resolve, reject) => {
-						fetch(endpoint, { method: 'POST', credentials: 'include' })
-							.then((res) => {
-								if (res.ok) {
-									resolve(true);
-									updatePhaseState(phase, { completed: true, loading: false });
-								} else {
-									reject(`An error occurred while ${label.toLowerCase()}.`);
-								}
-							})
-							.catch((error) => {
-								reject(error);
-							});
-					}),
-					{
-						loading: `${label} in progress...`,
-						success: <SuccessMessage action={label} />,
-						error: `An error occurred while ${label.toLowerCase()}.`,
-					}
-				);
-			} catch (err) {
-				const error = err instanceof Error ? err.message : String(err);
-				updatePhaseState(phase, { error, loading: false });
-			}
-		},
-		[phaseStates, updatePhaseState]
-	);
+		try {
+			toast.promise(
+				new Promise((resolve, reject) => {
+					fetch(endpoint, { method: 'POST', credentials: 'include' })
+						.then((res) => {
+							if (res.ok) {
+								resolve(true);
+								updatePhaseState(phase, { completed: true, loading: false });
+							} else {
+								reject(`An error occurred while ${label.toLowerCase()}.`);
+							}
+						})
+						.catch((error) => {
+							reject(error);
+						});
+				}),
+				{
+					loading: `${label} in progress...`,
+					success: <SuccessMessage action={label} />,
+					error: `An error occurred while ${label.toLowerCase()}.`,
+				}
+			);
+		} catch (err) {
+			const error = err instanceof Error ? err.message : String(err);
+			updatePhaseState(phase, { error, loading: false });
+		}
+	};
 
 	return (
 		<Collapsible header='Seed Options' initCollapsed={true}>

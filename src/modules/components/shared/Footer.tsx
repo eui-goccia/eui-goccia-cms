@@ -1,7 +1,6 @@
 import { getLocale, getTranslations } from 'next-intl/server';
 import { Suspense } from 'react';
 import { Link } from '@/i18n/routing';
-import { RISORSE_ENABLED } from '@/modules/features/risorse';
 import LogoEU from '../logos/LogoEU';
 import LogoEUI from '../logos/LogoEUI';
 import LogoGoccia from '../logos/LogoGoccia';
@@ -59,13 +58,6 @@ export default async function Footer() {
 			url: '/about',
 		},
 	];
-
-	if (RISORSE_ENABLED) {
-		pages.splice(4, 0, {
-			name: t('risorse'),
-			url: '/risorse',
-		});
-	}
 
 	return (
 		<footer className='bg-black text-white p-10 flex flex-col lg:grid grid-cols-12 gap-5'>
