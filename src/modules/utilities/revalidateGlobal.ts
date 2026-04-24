@@ -1,6 +1,7 @@
 import { revalidateTag } from 'next/cache';
 
 import type { GlobalAfterChangeHook } from 'payload';
+import { globalBaseTag, globalTag, localesForInvalidation } from './cacheTags';
 
 export const revalidateGlobal: GlobalAfterChangeHook = ({
 	global,
@@ -12,8 +13,11 @@ export const revalidateGlobal: GlobalAfterChangeHook = ({
 
 	payload.logger.info(`Revalidating ${global.slug} global`);
 
-	// Single tag revalidation - simpler and more efficient
-	revalidateTag(`global_${global.slug}`, {});
+	revalidateTag(globalBaseTag(global.slug), {});
+
+	for (const locale of localesForInvalidation) {
+		revalidateTag(globalTag(global.slug, locale), {});
+	}
 
 	return global;
 };

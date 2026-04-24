@@ -5,6 +5,32 @@ import type {
 	CollectionAfterChangeHook,
 	CollectionAfterDeleteHook,
 } from 'payload';
+import {
+	collectionBaseTag,
+	collectionTag,
+	documentBaseTag,
+	documentTag,
+	localesForInvalidation,
+} from '@/modules/utilities/cacheTags';
+
+function revalidateEventDocumentTags(slug?: string | null) {
+	if (!slug) {
+		return;
+	}
+
+	revalidateTag(documentBaseTag('events', slug), {});
+	for (const locale of localesForInvalidation) {
+		revalidateTag(documentTag('events', slug, locale), {});
+	}
+}
+
+function revalidateEventListTags() {
+	revalidateTag(collectionBaseTag('events'), {});
+
+	for (const locale of localesForInvalidation) {
+		revalidateTag(collectionTag('events', locale), {});
+	}
+}
 
 export const revalidateEvent: CollectionAfterChangeHook<Event> = async ({
 	doc,
@@ -17,8 +43,8 @@ export const revalidateEvent: CollectionAfterChangeHook<Event> = async ({
 	if (doc._status === 'published') {
 		payload.logger.info(`Revalidating event: ${doc.slug}`);
 
-		revalidateTag(`events_${doc.slug}`, {});
-		revalidateTag('events', {});
+		revalidateEventDocumentTags(doc.slug);
+		revalidateEventListTags();
 
 		const children = await payload.find({
 			collection: 'events',
@@ -30,7 +56,7 @@ export const revalidateEvent: CollectionAfterChangeHook<Event> = async ({
 
 		for (const child of children.docs) {
 			if (child.slug) {
-				revalidateTag(`events_${child.slug}`, {});
+				revalidateEventDocumentTags(child.slug);
 			}
 		}
 	}
@@ -49,8 +75,8 @@ export const revalidateEventDelete: CollectionAfterDeleteHook<Event> = async ({
 	if (doc._status === 'published') {
 		payload.logger.info(`Revalidating deleted event: ${doc.slug}`);
 
-		revalidateTag(`events_${doc.slug}`, {});
-		revalidateTag('events', {});
+		revalidateEventDocumentTags(doc.slug);
+		revalidateEventListTags();
 
 		const children = await payload.find({
 			collection: 'events',
@@ -62,7 +88,7 @@ export const revalidateEventDelete: CollectionAfterDeleteHook<Event> = async ({
 
 		for (const child of children.docs) {
 			if (child.slug) {
-				revalidateTag(`events_${child.slug}`, {});
+				revalidateEventDocumentTags(child.slug);
 			}
 		}
 	}

@@ -1,3 +1,5 @@
+import 'server-only';
+
 import type { About, Image, Resource, Tag } from '@payload-types';
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical';
 import type { PaginatedDocs, Where } from 'payload';

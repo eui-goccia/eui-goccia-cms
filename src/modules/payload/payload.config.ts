@@ -12,7 +12,6 @@ import { defaultLexical } from '../editor/lexical';
 import { seoPlugin } from '../seo/plugin';
 import { storagePlugin } from '../storage/plugin';
 import { collections } from './collections';
-import { migrations } from './db/migrations';
 import { globals } from './globals';
 
 const filename = fileURLToPath(import.meta.url);
@@ -74,11 +73,9 @@ export default buildConfig({
 			'./db/payload-generated-schema.ts'
 		),
 		migrationDir: path.resolve(dirname, './db/migrations'),
-		// @ts-expect-error - known type mismatch between @payloadcms/drizzle and @payloadcms/db-sqlite migration types
-		prodMigrations: migrations,
 		push: false,
 		client: {
-			url: process.env.TURSO_DATABASE_URL || process.env.DATABASE_URL || '',
+			url: process.env.DATABASE_URL || process.env.TURSO_DATABASE_URL || '',
 			authToken: process.env.TURSO_AUTH_TOKEN,
 		},
 	}),

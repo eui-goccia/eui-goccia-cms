@@ -1,8 +1,11 @@
+import 'server-only';
+
 import configPromise from '@payload-config';
 import type { Config } from '@payload-types';
 import { cacheLife, cacheTag } from 'next/cache';
 import { getPayload } from 'payload';
 import type { Locales } from '@/i18n/routing';
+import { globalBaseTag, globalTag } from './cacheTags';
 
 type Global = keyof Config['globals'];
 
@@ -13,7 +16,7 @@ export async function getGlobal(
 ): Promise<Config['globals'][Global]> {
 	'use cache';
 	cacheLife('max');
-	cacheTag(`global_${slug}`);
+	cacheTag(globalBaseTag(slug), globalTag(slug, locale));
 
 	const payload = await getPayload({ config: configPromise });
 	return (await payload.findGlobal({

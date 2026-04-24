@@ -8,11 +8,15 @@ if [ -f .env ]; then
 	set +a
 fi
 
-# Sync media files from Cloudflare R2 (production) to local MinIO
+# Sync media files from Cloudflare R2 (production) to local MinIO.
+# Safety contract:
+#   - Reads from the r2prod alias backed by R2_* credentials.
+#   - Writes only to the local MinIO alias at http://localhost:9000.
+#   - Does not mirror back to r2prod.
 # Prerequisites: brew install minio/stable/mc
 # Required env vars: R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY, R2_BUCKET
 
-for var in R2_ACCOUNT_ID R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY R2_BUCKET S3_ACCESS_KEY_ID S3_SECRET_ACCESS_KEY S3_BUCKET; do
+for var in R2_ACCOUNT_ID R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY R2_BUCKET S3_ENDPOINT S3_ACCESS_KEY_ID S3_SECRET_ACCESS_KEY S3_BUCKET; do
 	if [ -z "${!var:-}" ]; then
 		echo "Error: $var is not set"
 		exit 1
@@ -20,14 +24,24 @@ for var in R2_ACCOUNT_ID R2_ACCESS_KEY_ID R2_SECRET_ACCESS_KEY R2_BUCKET S3_ACCE
 done
 
 R2_ENDPOINT="https://${R2_ACCOUNT_ID}.r2.cloudflarestorage.com"
+LOCAL_ENDPOINT="${S3_ENDPOINT}"
 LOCAL_ALIAS="local"
 R2_ALIAS="r2prod"
+
+if [ "$LOCAL_ENDPOINT" != "http://localhost:9000" ]; then
+	echo "Error: refusing media sync because S3_ENDPOINT is not http://localhost:9000"
+	echo "Destination endpoint was: $LOCAL_ENDPOINT"
+	exit 1
+fi
+
+echo "==> Read-only media source: ${R2_ALIAS}/${R2_BUCKET}"
+echo "==> Local media destination: ${LOCAL_ALIAS}/${S3_BUCKET} at ${LOCAL_ENDPOINT}"
 
 # Configure R2 remote
 mc alias set "$R2_ALIAS" "$R2_ENDPOINT" "$R2_ACCESS_KEY_ID" "$R2_SECRET_ACCESS_KEY"
 
 # Configure local MinIO (uses same S3_* credentials as docker-compose)
-mc alias set "$LOCAL_ALIAS" "http://localhost:9000" "$S3_ACCESS_KEY_ID" "$S3_SECRET_ACCESS_KEY"
+mc alias set "$LOCAL_ALIAS" "$LOCAL_ENDPOINT" "$S3_ACCESS_KEY_ID" "$S3_SECRET_ACCESS_KEY"
 
 # Ensure local bucket exists
 mc mb --ignore-existing "${LOCAL_ALIAS}/${S3_BUCKET}"

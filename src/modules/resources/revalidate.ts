@@ -3,6 +3,23 @@ import type {
 	CollectionAfterChangeHook,
 	CollectionAfterDeleteHook,
 } from 'payload';
+import {
+	collectionBaseTag,
+	collectionTag,
+	documentBaseTag,
+	documentTag,
+	localesForInvalidation,
+} from '@/modules/utilities/cacheTags';
+
+function revalidateResourceTags(slug: string) {
+	revalidateTag(documentBaseTag('resources', slug), {});
+	revalidateTag(collectionBaseTag('resources'), {});
+
+	for (const locale of localesForInvalidation) {
+		revalidateTag(documentTag('resources', slug, locale), {});
+		revalidateTag(collectionTag('resources', locale), {});
+	}
+}
 
 export const revalidateResource: CollectionAfterChangeHook = ({
 	doc,
@@ -14,8 +31,7 @@ export const revalidateResource: CollectionAfterChangeHook = ({
 
 	if (doc._status === 'published') {
 		payload.logger.info(`Revalidating resource: ${doc.slug}`);
-		revalidateTag(`resources_${doc.slug}`, {});
-		revalidateTag('resources', {});
+		revalidateResourceTags(doc.slug);
 	}
 
 	return doc;
@@ -31,8 +47,7 @@ export const revalidateResourceDelete: CollectionAfterDeleteHook = ({
 
 	if (doc._status === 'published') {
 		payload.logger.info(`Revalidating deleted resource: ${doc.slug}`);
-		revalidateTag(`resources_${doc.slug}`, {});
-		revalidateTag('resources', {});
+		revalidateResourceTags(doc.slug);
 	}
 
 	return doc;

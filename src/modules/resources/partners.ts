@@ -1,7 +1,6 @@
 import type { About } from '@payload-types';
 import type { OptionObject, PayloadRequest } from 'payload';
 import type { Locales } from '@/i18n/routing';
-import { getGlobal } from '@/modules/utilities/getGlobals';
 
 type AboutPartner = NonNullable<About['partners']>[number];
 
@@ -18,6 +17,7 @@ export function getValidPartners(
 export async function getPartnerOptions(
 	locale?: Locales
 ): Promise<OptionObject[]> {
+	const { getGlobal } = await import('@/modules/utilities/getGlobals');
 	const about = (await getGlobal('about', 0, locale)) as About;
 
 	return getValidPartners(about).map((partner) => ({
