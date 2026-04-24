@@ -2,7 +2,7 @@ import type { Event, Image as ImageType } from '@payload-types';
 import { getLocale } from 'next-intl/server';
 import { Link } from '@/i18n/routing';
 import { getEventHref } from '@/modules/events/paths';
-import { formatEventDateTime } from '@/modules/events/utils';
+import { formatEventDateRange } from '@/modules/events/utils';
 import { CustomImage } from './CustomImage';
 
 type EventCardVariant = 'default' | 'compact';
@@ -13,35 +13,15 @@ interface EventCardProps {
 	variant?: EventCardVariant;
 }
 
-function formatEventDateLong(timestamp: string, locale: string): string {
-	const date = new Date(timestamp);
-	const loc = locale === 'it' ? 'it-IT' : 'en-GB';
-	const dateLabel = date.toLocaleDateString(loc, {
-		day: 'numeric',
-		month: 'long',
-		year: 'numeric',
-	});
-	const timeLabel = date.toLocaleTimeString(loc, {
-		hour: '2-digit',
-		minute: '2-digit',
-		hour12: false,
-	});
-	return `${dateLabel} · ${timeLabel}`;
-}
-
 function getDateLabel(
 	startDate: string | null | undefined,
-	locale: string,
-	isCompact: boolean
+	endDate: string | null | undefined,
+	locale: string
 ): string {
 	if (!startDate) {
 		return '—';
 	}
-	if (!isCompact) {
-		return formatEventDateLong(startDate, locale);
-	}
-	const { date, time } = formatEventDateTime(startDate, locale);
-	return `${date} · ${time}`;
+	return formatEventDateRange(startDate, endDate, locale);
 }
 
 export default async function EventCard({
@@ -72,7 +52,11 @@ export default async function EventCard({
 		? undefined
 		: '(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw';
 
-	const dateLabel = getDateLabel(event.when.startDate, locale, isCompact);
+	const dateLabel = getDateLabel(
+		event.when.startDate,
+		event.when.endDate,
+		locale
+	);
 
 	return (
 		<Link className={wrapperClass} href={eventHref} locale={locale}>
@@ -89,21 +73,21 @@ export default async function EventCard({
 			) : null}
 
 			{isCompact ? (
-				<div className='flex justify-between px-1'>
-					<p className='font-greed h-fit uppercase transition-colors duration-500 group-hover:bg-rosso-500 text-balance text-base font-bold '>
-						{event.title}
-					</p>
-					<p className='font-greed h-fit uppercase transition-colors duration-500 group-hover:bg-rosso-500 text-base font-bold '>
+				<div className='flex flex-col gap-1 px-1'>
+					<p className='font-greed h-fit uppercase transition-colors duration-500 group-hover:bg-rosso-500 px-1 w-fit text-base font-bold '>
 						{dateLabel}
+					</p>
+					<p className='font-greed h-fit uppercase transition-colors duration-500 group-hover:bg-rosso-500 px-1 w-fit text-balance text-base font-bold '>
+						{event.title}
 					</p>
 				</div>
 			) : (
 				<div className='flex flex-col gap-2'>
 					<div className='flex flex-col gap-2 px-1 items-start justify-between '>
-						<p className='font-greed h-fit transition-colors duration-500 group-hover:bg-rosso-500 text-base font-bold uppercase '>
+						<p className='font-greed h-fit transition-colors duration-500 group-hover:bg-rosso-500 w-fit text-base font-bold uppercase '>
 							{dateLabel}
 						</p>
-						<p className='font-greed h-fit transition-colors duration-500 group-hover:bg-rosso-500 text-base font-bold uppercase '>
+						<p className='font-greed h-fit w-fit transition-colors duration-500 group-hover:bg-rosso-500 text-base font-bold uppercase '>
 							{event.address?.location ?? ''}
 						</p>
 					</div>
