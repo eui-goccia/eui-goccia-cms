@@ -1,0 +1,27 @@
+src/modules/components/HeaderArticle.tsx
+  de843cf7f1bad467 30
+src/modules/events/utils.ts
+  de843cf7f1bad467 16,22,27-63
+src/modules/components/EventCard.tsx
+  de843cf7f1bad467 5,18-19,24,55-59,76,81
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.2",
+  "base_commit_sha": "2174a0633c943afbd705d3fd2dec646d07a4fcc4",
+  "prompts": {
+    "de843cf7f1bad467": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "1c988d12-2249-4d2c-ba38-8652bf531b17",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 64,
+      "total_deletions": 38,
+      "accepted_lines": 52,
+      "overriden_lines": 1
+    }
+  }
+}
