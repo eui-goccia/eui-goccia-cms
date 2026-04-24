@@ -5,6 +5,28 @@ import type {
 	CollectionAfterChangeHook,
 	CollectionAfterDeleteHook,
 } from 'payload';
+import {
+	collectionBaseTag,
+	collectionTag,
+	documentBaseTag,
+	documentTag,
+	localesForInvalidation,
+} from '@/modules/utilities/cacheTags';
+
+function revalidatePostTags(slug?: string | null) {
+	if (slug) {
+		revalidateTag(documentBaseTag('posts', slug), {});
+	}
+
+	revalidateTag(collectionBaseTag('posts'), {});
+
+	for (const locale of localesForInvalidation) {
+		if (slug) {
+			revalidateTag(documentTag('posts', slug, locale), {});
+		}
+		revalidateTag(collectionTag('posts', locale), {});
+	}
+}
 
 export const revalidatePost: CollectionAfterChangeHook<Post> = ({
 	doc,
@@ -17,11 +39,7 @@ export const revalidatePost: CollectionAfterChangeHook<Post> = ({
 	if (doc._status === 'published') {
 		payload.logger.info(`Revalidating post: ${doc.slug}`);
 
-		// Revalidate specific post tag
-		revalidateTag(`posts_${doc.slug}`, {});
-
-		// Revalidate collection-level tag
-		revalidateTag('posts', {});
+		revalidatePostTags(doc.slug);
 	}
 
 	return doc;
@@ -38,9 +56,7 @@ export const revalidateDelete: CollectionAfterDeleteHook<Post> = ({
 	if (doc._status === 'published') {
 		payload.logger.info(`Revalidating deleted post: ${doc.slug}`);
 
-		// Clean up cache for deleted post
-		revalidateTag(`posts_${doc.slug}`, {});
-		revalidateTag('posts', {});
+		revalidatePostTags(doc.slug);
 	}
 
 	return doc;

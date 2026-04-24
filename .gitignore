@@ -21,6 +21,9 @@
 
 *.db
 *.sqlite
+*.sqlite-journal
+*.sqlite-shm
+*.sqlite-wal
 
 # misc
 .DS_Store

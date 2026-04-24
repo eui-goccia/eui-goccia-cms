@@ -6,6 +6,7 @@ import type { AuthResult } from 'node_modules/payload/dist/auth/operations/auth'
 import type { CollectionSlug, PayloadRequest } from 'payload';
 import { getPayload } from 'payload';
 import { redirect } from '@/i18n/routing';
+import { isValidPreviewPath } from './validatePreviewPath';
 
 export async function GET(request: NextRequest) {
 	const payload = await getPayload({ config: configPromise });
@@ -30,8 +31,12 @@ export async function GET(request: NextRequest) {
 	if (!path.startsWith('/')) {
 		return new Response(
 			'This endpoint can only be used for relative previews',
-			{ status: 500 }
+			{ status: 400 }
 		);
+	}
+
+	if (!isValidPreviewPath({ collection, path, slug })) {
+		return new Response('Invalid preview path', { status: 400 });
 	}
 
 	let result: AuthResult | null = null;

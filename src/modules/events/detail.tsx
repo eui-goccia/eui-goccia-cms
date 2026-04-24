@@ -1,3 +1,5 @@
+import 'server-only';
+
 import configPromise from '@payload-config';
 import type { Event } from '@payload-types';
 import { draftMode } from 'next/headers';
