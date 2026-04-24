@@ -1,0 +1,23 @@
+src/modules/resources/collection.ts
+  28ca16980dcc3526 41
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.3.4",
+  "base_commit_sha": "4c254f4eef498030694daeb8f2c87248d4d99fb6",
+  "prompts": {
+    "28ca16980dcc3526": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "242415f9-c226-4bbc-a917-b3187bc6a8f2",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": "az3ta",
+      "messages": [],
+      "total_additions": 24,
+      "total_deletions": 26,
+      "accepted_lines": 7,
+      "overriden_lines": 0
+    }
+  }
+}
