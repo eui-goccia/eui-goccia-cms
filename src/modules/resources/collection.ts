@@ -38,6 +38,7 @@ export const Resources: CollectionConfig = {
 	},
 	admin: {
 		useAsTitle: 'title',
+		hidden: ({ user }) => user?.role !== 'admin',
 		livePreview: {
 			url: ({ data }) =>
 				generatePreviewPath({
