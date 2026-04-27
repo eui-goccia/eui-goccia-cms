@@ -1,6 +1,6 @@
 import type { Post } from '@payload-types';
 
-import { revalidateTag } from 'next/cache';
+import { revalidatePath, revalidateTag } from 'next/cache';
 import type {
 	CollectionAfterChangeHook,
 	CollectionAfterDeleteHook,
@@ -12,6 +12,19 @@ import {
 	documentTag,
 	localesForInvalidation,
 } from '@/modules/utilities/cacheTags';
+
+function revalidatePostPath(slug?: string | null) {
+	if (!slug) {
+		return;
+	}
+
+	const path = `/blog/${slug}`;
+	revalidatePath(path);
+
+	for (const locale of localesForInvalidation) {
+		revalidatePath(`/${locale}${path}`);
+	}
+}
 
 function revalidatePostTags(slug?: string | null) {
 	if (slug) {
@@ -28,18 +41,31 @@ function revalidatePostTags(slug?: string | null) {
 	}
 }
 
+function revalidatePostSlug(slug?: string | null) {
+	revalidatePostPath(slug);
+	revalidatePostTags(slug);
+}
+
 export const revalidatePost: CollectionAfterChangeHook<Post> = ({
 	doc,
+	previousDoc,
 	req: { payload, context },
 }) => {
 	if (context.disableRevalidate) {
 		return doc;
 	}
 
-	if (doc._status === 'published') {
+	const isPublished = doc._status === 'published';
+	const wasPublished = previousDoc?._status === 'published';
+
+	if (isPublished || wasPublished) {
 		payload.logger.info(`Revalidating post: ${doc.slug}`);
 
-		revalidatePostTags(doc.slug);
+		revalidatePostSlug(doc.slug);
+
+		if (previousDoc?.slug && previousDoc.slug !== doc.slug) {
+			revalidatePostSlug(previousDoc.slug);
+		}
 	}
 
 	return doc;
@@ -56,7 +82,7 @@ export const revalidateDelete: CollectionAfterDeleteHook<Post> = ({
 	if (doc._status === 'published') {
 		payload.logger.info(`Revalidating deleted post: ${doc.slug}`);
 
-		revalidatePostTags(doc.slug);
+		revalidatePostSlug(doc.slug);
 	}
 
 	return doc;

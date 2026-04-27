@@ -11,13 +11,48 @@ import { backupPlugin } from '../backup/plugin';
 import { defaultLexical } from '../editor/lexical';
 import { seoPlugin } from '../seo/plugin';
 import { storagePlugin } from '../storage/plugin';
+import { getServerSideURL } from '../utilities/getURL';
 import { collections } from './collections';
 import { globals } from './globals';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
+const isProduction = process.env.NODE_ENV === 'production';
+
+function requireProductionEnv(name: string): string | undefined {
+	const value = process.env[name]?.trim();
+
+	if (isProduction && !value) {
+		throw new Error(`${name} is required in production.`);
+	}
+
+	return value;
+}
+
+function getAllowedOrigins() {
+	const origins = [
+		getServerSideURL(),
+		...(process.env.ALLOWED_ORIGINS ?? '')
+			.split(',')
+			.map((origin) => origin.trim())
+			.filter(Boolean),
+	];
+
+	return Array.from(new Set(origins));
+}
+
+const allowedOrigins = getAllowedOrigins();
 
 export default buildConfig({
+	serverURL: getServerSideURL(),
+	csrf: allowedOrigins,
+	cors: allowedOrigins,
+	defaultDepth: 1,
+	maxDepth: 4,
+	defaultMaxTextLength: 20_000,
+	graphQL: {
+		disable: true,
+	},
 	i18n: {
 		fallbackLanguage: langs.defaultLocale,
 		supportedLanguages: { it, en },
@@ -33,7 +68,6 @@ export default buildConfig({
 			baseDir: path.resolve(dirname),
 		},
 		components: {
-			beforeDashboard: ['./fields/BeforeDashboard'],
 			providers: ['./components/LocaleThemeProvider'],
 		},
 		livePreview: {
@@ -62,7 +96,8 @@ export default buildConfig({
 	globals,
 	collections,
 	editor: defaultLexical,
-	secret: process.env.PAYLOAD_SECRET || '',
+	secret:
+		requireProductionEnv('PAYLOAD_SECRET') || 'development-payload-secret',
 	typescript: {
 		outputFile: path.resolve(dirname, 'payload-types.ts'),
 	},
@@ -75,6 +110,7 @@ export default buildConfig({
 		migrationDir: path.resolve(dirname, './db/migrations'),
 		push: false,
 		client: {
+			// Local dev uses DATABASE_URL; production can leave it unset and use Turso.
 			url: process.env.DATABASE_URL || process.env.TURSO_DATABASE_URL || '',
 			authToken: process.env.TURSO_AUTH_TOKEN,
 		},

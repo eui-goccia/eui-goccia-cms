@@ -7,12 +7,13 @@ import {
 	useField,
 	useForm,
 	useFormFields,
+	useLocale,
 } from '@payloadcms/ui';
 import type { TextFieldClientProps } from 'payload';
 import type React from 'react';
 import { useEffect } from 'react';
 
-import { formatSlug } from './formatSlug';
+import { DEFAULT_SLUG_LOCALE, formatSlug } from './formatSlug';
 import './index.scss';
 
 type SlugComponentProps = {
@@ -28,6 +29,8 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
 	readOnly: readOnlyFromProps,
 }) => {
 	const { label } = field;
+	const locale = useLocale();
+	const isCanonicalLocale = locale.code === DEFAULT_SLUG_LOCALE;
 
 	const checkboxFieldPath = path?.includes('.')
 		? `${path}.${checkboxFieldPathFromProps}`
@@ -49,7 +52,7 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
 	);
 
 	useEffect(() => {
-		if (checkboxValue) {
+		if (checkboxValue && isCanonicalLocale) {
 			if (targetFieldValue) {
 				const formattedSlug = formatSlug(targetFieldValue);
 
@@ -60,10 +63,14 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
 				setValue('');
 			}
 		}
-	}, [targetFieldValue, checkboxValue, setValue, value]);
+	}, [targetFieldValue, checkboxValue, isCanonicalLocale, setValue, value]);
 
 	const handleLock = (e: React.MouseEvent<Element, MouseEvent>) => {
 		e.preventDefault();
+
+		if (!isCanonicalLocale) {
+			return;
+		}
 
 		dispatchFields({
 			type: 'UPDATE',
@@ -72,16 +79,22 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
 		});
 	};
 
-	const readOnly = readOnlyFromProps || checkboxValue;
+	const readOnly = readOnlyFromProps || checkboxValue || !isCanonicalLocale;
 
 	return (
 		<div className='field-type slug-field-component'>
 			<div className='label-wrapper'>
 				<FieldLabel htmlFor={`field-${path}`} label={label} />
 
-				<Button buttonStyle='none' className='lock-button' onClick={handleLock}>
-					{checkboxValue ? 'Unlock' : 'Lock'}
-				</Button>
+				{isCanonicalLocale ? (
+					<Button
+						buttonStyle='none'
+						className='lock-button'
+						onClick={handleLock}
+					>
+						{checkboxValue ? 'Unlock' : 'Lock'}
+					</Button>
+				) : null}
 			</div>
 
 			<TextInput

@@ -1,17 +1,155 @@
-import type { CheckboxField, TextField } from 'payload';
+import type {
+	CheckboxField,
+	PayloadRequest,
+	TextField,
+	TextFieldSingleValidation,
+} from 'payload';
 
 import { formatSlugFromItalianHook, formatSlugHook } from './formatSlug';
 
 interface Overrides {
-	slugOverrides?: Partial<TextField>;
+	slugOverrides?: Partial<SlugTextField>;
 	checkboxOverrides?: Partial<CheckboxField>;
 }
+
+type SlugTextField = TextField & {
+	hasMany?: false;
+	validate?: TextFieldSingleValidation;
+};
 
 type Slug = (
 	fieldToUse?: string,
 	overrides?: Overrides,
 	collectionSlug?: string
-) => [TextField, CheckboxField];
+) => [SlugTextField, CheckboxField];
+
+const UNIQUE_SLUG_COLLECTIONS = new Set([
+	'posts',
+	'resources',
+	'authors',
+	'tags',
+]);
+
+type RelationshipValue = number | string | { id?: number | string } | null;
+
+function getRelationshipID(value: unknown): null | string | undefined {
+	if (value === null) {
+		return null;
+	}
+
+	if (typeof value === 'number' || typeof value === 'string') {
+		return String(value);
+	}
+
+	if (typeof value === 'object' && value && 'id' in value) {
+		const id = (value as { id?: number | string }).id;
+		return typeof id === 'number' || typeof id === 'string'
+			? String(id)
+			: undefined;
+	}
+
+	return undefined;
+}
+
+async function resolveEventParentID({
+	id,
+	req,
+	siblingData,
+}: {
+	id?: number | string;
+	req: PayloadRequest;
+	siblingData: Record<string, unknown>;
+}): Promise<null | string> {
+	const siblingParentID = getRelationshipID(siblingData.parent);
+
+	if (siblingParentID !== undefined) {
+		return siblingParentID;
+	}
+
+	if (!id) {
+		return null;
+	}
+
+	try {
+		const currentEvent = await req.payload.findByID({
+			collection: 'events',
+			id,
+			depth: 0,
+			select: {
+				parent: true,
+			},
+		});
+
+		return getRelationshipID(currentEvent?.parent) ?? null;
+	} catch (error) {
+		req.payload.logger.warn(
+			`Could not resolve event parent for slug validation: ${error}`
+		);
+		return null;
+	}
+}
+
+export const validateEventSiblingSlug: TextFieldSingleValidation = async (
+	value,
+	{ id, req, siblingData }
+) => {
+	if (!value) {
+		return 'Slug is required.';
+	}
+
+	const parentID = await resolveEventParentID({
+		id,
+		req,
+		siblingData: siblingData as Record<string, unknown>,
+	});
+	const currentID = id ? String(id) : undefined;
+	const matches = await req.payload.find({
+		collection: 'events',
+		where: {
+			slug: {
+				equals: value,
+			},
+		},
+		depth: 0,
+		pagination: false,
+		overrideAccess: true,
+	});
+	const duplicate = matches.docs.some((doc: { id: number | string }) => {
+		if (currentID && String(doc.id) === currentID) {
+			return false;
+		}
+
+		const matchParentID = getRelationshipID(
+			(doc as { parent?: RelationshipValue }).parent
+		);
+
+		return matchParentID === parentID;
+	});
+
+	return duplicate ? 'Sibling events must use unique slugs.' : true;
+};
+
+function getSlugConstraints(
+	collectionSlug: string | undefined,
+	slugOverrides: Partial<SlugTextField> | undefined
+): Partial<SlugTextField> {
+	if (collectionSlug === 'events') {
+		return {
+			validate: validateEventSiblingSlug,
+		};
+	}
+
+	if (collectionSlug && UNIQUE_SLUG_COLLECTIONS.has(collectionSlug)) {
+		return {
+			unique: true,
+			validate: slugOverrides?.validate,
+		};
+	}
+
+	return {
+		validate: slugOverrides?.validate,
+	};
+}
 
 /**
  * Creates a slug field derived from the current locale version of a source field.
@@ -28,9 +166,10 @@ type Slug = (
 export const slugField: Slug = (
 	fieldToUse = 'title',
 	overrides = {},
-	_collectionSlug = undefined
+	collectionSlug = undefined
 ) => {
 	const { slugOverrides, checkboxOverrides } = overrides;
+	const slugConstraints = getSlugConstraints(collectionSlug, slugOverrides);
 
 	const checkBoxField: CheckboxField = {
 		name: 'slugLock',
@@ -42,14 +181,14 @@ export const slugField: Slug = (
 		...checkboxOverrides,
 	};
 
-	// Expect ts error here because of typescript mismatching Partial<TextField> with TextField
-	// @ts-expect-error
-	const slugFieldFromEnglish: TextField = {
+	const slugFieldFromEnglish: SlugTextField = {
 		name: 'slug',
 		type: 'text',
 		index: true,
 		label: 'Slug',
+		required: true,
 		...(slugOverrides || {}),
+		...slugConstraints,
 		hooks: {
 			// Kept this in for hook or API based updates
 			beforeValidate: [formatSlugHook(fieldToUse)],
@@ -82,6 +221,7 @@ export const slugFieldFromItalian: Slug = (
 	collectionSlug = 'posts'
 ) => {
 	const { slugOverrides, checkboxOverrides } = overrides;
+	const slugConstraints = getSlugConstraints(collectionSlug, slugOverrides);
 
 	const checkBoxField: CheckboxField = {
 		name: 'slugLock',
@@ -93,13 +233,14 @@ export const slugFieldFromItalian: Slug = (
 		...checkboxOverrides,
 	};
 
-	// @ts-expect-error
-	const slugFieldFromIt: TextField = {
+	const slugFieldFromIt: SlugTextField = {
 		name: 'slug',
 		type: 'text',
 		index: true,
 		label: 'Slug',
+		required: true,
 		...(slugOverrides || {}),
+		...slugConstraints,
 		hooks: {
 			// Use the Italian-specific hook for consistent slug generation
 			beforeValidate: [formatSlugFromItalianHook(fieldToUse, collectionSlug)],

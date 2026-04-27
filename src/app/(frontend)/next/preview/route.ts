@@ -2,11 +2,12 @@ import configPromise from '@payload-config';
 import { draftMode } from 'next/headers';
 import type { NextRequest } from 'next/server';
 import { getLocale } from 'next-intl/server';
-import type { AuthResult } from 'node_modules/payload/dist/auth/operations/auth';
-import type { CollectionSlug, PayloadRequest } from 'payload';
+import type { CollectionSlug, Payload, PayloadRequest } from 'payload';
 import { getPayload } from 'payload';
 import { redirect } from '@/i18n/routing';
 import { isValidPreviewPath } from './validatePreviewPath';
+
+type AuthResult = Awaited<ReturnType<Payload['auth']>>;
 
 export async function GET(request: NextRequest) {
 	const payload = await getPayload({ config: configPromise });
