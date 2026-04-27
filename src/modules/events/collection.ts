@@ -9,12 +9,12 @@ import { editorOrPublished } from '../payload/access/editorOrPublished';
 import { slugFieldFromItalian } from '../payload/fields/slug';
 import { seoTab } from '../seo/fields';
 import { generatePreviewPath } from '../utilities/generatePreviewPath';
-import { getEventRelativePath } from './paths';
+import { type EventPathNode, getEventRelativePath } from './paths';
 import { revalidateEvent, revalidateEventDelete } from './revalidate';
 
 function generateEventPreviewPath(data: {
 	breadcrumbs?: { url?: string | null }[] | null;
-	parent?: object | string | null;
+	parent?: EventPathNode | string | null;
 	slug?: string | null;
 }) {
 	const slug = typeof data?.slug === 'string' ? data.slug : '';

@@ -1,6 +1,6 @@
 import type { Event } from '@payload-types';
 
-type EventPathNode = Pick<Event, 'breadcrumbs' | 'slug'> & {
+export type EventPathNode = Pick<Event, 'breadcrumbs' | 'slug'> & {
 	parent?: string | EventPathNode | null;
 };
 
@@ -32,8 +32,8 @@ export function getEventRelativePathFromParents(
 
 export function getEventRelativePath(event: EventPathNode): string {
 	return (
-		getEventRelativePathFromParents(event) ??
 		event.breadcrumbs?.at(-1)?.url ??
+		getEventRelativePathFromParents(event) ??
 		`/${event.slug}`
 	);
 }

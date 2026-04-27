@@ -39,6 +39,6 @@ export const Tags: CollectionConfig = {
 			on: 'tags',
 			collection: 'posts',
 		},
-		...slugField('name'),
+		...slugField('name', {}, 'tags'),
 	],
 };

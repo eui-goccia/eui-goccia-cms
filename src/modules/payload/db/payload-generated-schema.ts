@@ -563,7 +563,7 @@ export const posts = sqliteTable(
   (columns) => [
     index("posts_cover_image_idx").on(columns.coverImage),
     index("posts_author_idx").on(columns.author),
-    index("posts_slug_idx").on(columns.slug),
+    uniqueIndex("posts_slug_idx").on(columns.slug),
     index("posts_updated_at_idx").on(columns.updatedAt),
     index("posts_created_at_idx").on(columns.createdAt),
     index("posts__status_idx").on(columns._status),
@@ -2051,7 +2051,7 @@ export const authors = sqliteTable(
     image: text("image_id").references(() => images.id, {
       onDelete: "set null",
     }),
-    slug: text("slug"),
+    slug: text("slug").notNull(),
     slugLock: integer("slug_lock", { mode: "boolean" }).default(true),
     updatedAt: text("updated_at")
       .notNull()
@@ -2062,7 +2062,7 @@ export const authors = sqliteTable(
   },
   (columns) => [
     index("authors_image_idx").on(columns.image),
-    index("authors_slug_idx").on(columns.slug),
+    uniqueIndex("authors_slug_idx").on(columns.slug),
     index("authors_updated_at_idx").on(columns.updatedAt),
     index("authors_created_at_idx").on(columns.createdAt),
   ],
@@ -2096,7 +2096,7 @@ export const tags = sqliteTable(
     id: text("id")
       .primaryKey()
       .$defaultFn(() => randomUUID()),
-    slug: text("slug"),
+    slug: text("slug").notNull(),
     slugLock: integer("slug_lock", { mode: "boolean" }).default(true),
     updatedAt: text("updated_at")
       .notNull()
@@ -2106,7 +2106,7 @@ export const tags = sqliteTable(
       .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
   },
   (columns) => [
-    index("tags_slug_idx").on(columns.slug),
+    uniqueIndex("tags_slug_idx").on(columns.slug),
     index("tags_updated_at_idx").on(columns.updatedAt),
     index("tags_created_at_idx").on(columns.createdAt),
   ],
@@ -2131,6 +2131,377 @@ export const tags_locales = sqliteTable(
       columns: [columns["_parentID"]],
       foreignColumns: [tags.id],
       name: "tags_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const resources_data_points = sqliteTable(
+  "resources_data_points",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    id: text("id").primaryKey(),
+  },
+  (columns) => [
+    index("resources_data_points_order_idx").on(columns._order),
+    index("resources_data_points_parent_id_idx").on(columns._parentID),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [resources.id],
+      name: "resources_data_points_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const resources_data_points_locales = sqliteTable(
+  "resources_data_points_locales",
+  {
+    value: text("value"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex("resources_data_points_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [resources_data_points.id],
+      name: "resources_data_points_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const resources_document_updates = sqliteTable(
+  "resources_document_updates",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    id: text("id").primaryKey(),
+    date: text("date").default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    url: text("url"),
+  },
+  (columns) => [
+    index("resources_document_updates_order_idx").on(columns._order),
+    index("resources_document_updates_parent_id_idx").on(columns._parentID),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [resources.id],
+      name: "resources_document_updates_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const resources_document_updates_locales = sqliteTable(
+  "resources_document_updates_locales",
+  {
+    title: text("title"),
+    description: text("description"),
+    ctaLabel: text("cta_label"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex(
+      "resources_document_updates_locales_locale_parent_id_unique",
+    ).on(columns._locale, columns._parentID),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [resources_document_updates.id],
+      name: "resources_document_updates_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const resources = sqliteTable(
+  "resources",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    date: text("date").default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    workPackage: text("work_package", {
+      enum: ["wp1", "wp2", "wp3", "wp4", "wp5", "wp6", "wp7", "wp8", "wp9"],
+    }),
+    partnerId: text("partner_id"),
+    slug: text("slug"),
+    slugLock: integer("slug_lock", { mode: "boolean" }).default(true),
+    updatedAt: text("updated_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    _status: text("_status", { enum: ["draft", "published"] }).default("draft"),
+  },
+  (columns) => [
+    uniqueIndex("resources_slug_idx").on(columns.slug),
+    index("resources_updated_at_idx").on(columns.updatedAt),
+    index("resources_created_at_idx").on(columns.createdAt),
+    index("resources__status_idx").on(columns._status),
+  ],
+);
+
+export const resources_locales = sqliteTable(
+  "resources_locales",
+  {
+    title: text("title"),
+    description: text("description", { mode: "json" }),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex("resources_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [resources.id],
+      name: "resources_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const resources_rels = sqliteTable(
+  "resources_rels",
+  {
+    id: integer("id").primaryKey(),
+    order: integer("order"),
+    parent: text("parent_id").notNull(),
+    path: text("path").notNull(),
+    imagesID: text("images_id"),
+    tagsID: text("tags_id"),
+  },
+  (columns) => [
+    index("resources_rels_order_idx").on(columns.order),
+    index("resources_rels_parent_idx").on(columns.parent),
+    index("resources_rels_path_idx").on(columns.path),
+    index("resources_rels_images_id_idx").on(columns.imagesID),
+    index("resources_rels_tags_id_idx").on(columns.tagsID),
+    foreignKey({
+      columns: [columns["parent"]],
+      foreignColumns: [resources.id],
+      name: "resources_rels_parent_fk",
+    }).onDelete("cascade"),
+    foreignKey({
+      columns: [columns["imagesID"]],
+      foreignColumns: [images.id],
+      name: "resources_rels_images_fk",
+    }).onDelete("cascade"),
+    foreignKey({
+      columns: [columns["tagsID"]],
+      foreignColumns: [tags.id],
+      name: "resources_rels_tags_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _resources_v_version_data_points = sqliteTable(
+  "_resources_v_version_data_points",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    _uuid: text("_uuid"),
+  },
+  (columns) => [
+    index("_resources_v_version_data_points_order_idx").on(columns._order),
+    index("_resources_v_version_data_points_parent_id_idx").on(
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_resources_v.id],
+      name: "_resources_v_version_data_points_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _resources_v_version_data_points_locales = sqliteTable(
+  "_resources_v_version_data_points_locales",
+  {
+    value: text("value"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex(
+      "_resources_v_version_data_points_locales_locale_parent_id_un",
+    ).on(columns._locale, columns._parentID),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_resources_v_version_data_points.id],
+      name: "_resources_v_version_data_points_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _resources_v_version_document_updates = sqliteTable(
+  "_resources_v_version_document_updates",
+  {
+    _order: integer("_order").notNull(),
+    _parentID: text("_parent_id").notNull(),
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    date: text("date").default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    url: text("url"),
+    _uuid: text("_uuid"),
+  },
+  (columns) => [
+    index("_resources_v_version_document_updates_order_idx").on(columns._order),
+    index("_resources_v_version_document_updates_parent_id_idx").on(
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_resources_v.id],
+      name: "_resources_v_version_document_updates_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _resources_v_version_document_updates_locales = sqliteTable(
+  "_resources_v_version_document_updates_locales",
+  {
+    title: text("title"),
+    description: text("description"),
+    ctaLabel: text("cta_label"),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex(
+      "_resources_v_version_document_updates_locales_locale_parent_",
+    ).on(columns._locale, columns._parentID),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_resources_v_version_document_updates.id],
+      name: "_resources_v_version_document_updates_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _resources_v = sqliteTable(
+  "_resources_v",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => randomUUID()),
+    parent: text("parent_id").references(() => resources.id, {
+      onDelete: "set null",
+    }),
+    version_date: text("version_date").default(
+      sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+    ),
+    version_workPackage: text("version_work_package", {
+      enum: ["wp1", "wp2", "wp3", "wp4", "wp5", "wp6", "wp7", "wp8", "wp9"],
+    }),
+    version_partnerId: text("version_partner_id"),
+    version_slug: text("version_slug"),
+    version_slugLock: integer("version_slug_lock", { mode: "boolean" }).default(
+      true,
+    ),
+    version_updatedAt: text("version_updated_at").default(
+      sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+    ),
+    version_createdAt: text("version_created_at").default(
+      sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`,
+    ),
+    version__status: text("version__status", {
+      enum: ["draft", "published"],
+    }).default("draft"),
+    createdAt: text("created_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    updatedAt: text("updated_at")
+      .notNull()
+      .default(sql`(strftime('%Y-%m-%dT%H:%M:%fZ', 'now'))`),
+    snapshot: integer("snapshot", { mode: "boolean" }),
+    publishedLocale: text("published_locale", { enum: ["en", "it"] }),
+    latest: integer("latest", { mode: "boolean" }),
+  },
+  (columns) => [
+    index("_resources_v_parent_idx").on(columns.parent),
+    index("_resources_v_version_version_slug_idx").on(columns.version_slug),
+    index("_resources_v_version_version_updated_at_idx").on(
+      columns.version_updatedAt,
+    ),
+    index("_resources_v_version_version_created_at_idx").on(
+      columns.version_createdAt,
+    ),
+    index("_resources_v_version_version__status_idx").on(
+      columns.version__status,
+    ),
+    index("_resources_v_created_at_idx").on(columns.createdAt),
+    index("_resources_v_updated_at_idx").on(columns.updatedAt),
+    index("_resources_v_snapshot_idx").on(columns.snapshot),
+    index("_resources_v_published_locale_idx").on(columns.publishedLocale),
+    index("_resources_v_latest_idx").on(columns.latest),
+  ],
+);
+
+export const _resources_v_locales = sqliteTable(
+  "_resources_v_locales",
+  {
+    version_title: text("version_title"),
+    version_description: text("version_description", { mode: "json" }),
+    id: integer("id").primaryKey(),
+    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
+    _parentID: text("_parent_id").notNull(),
+  },
+  (columns) => [
+    uniqueIndex("_resources_v_locales_locale_parent_id_unique").on(
+      columns._locale,
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns["_parentID"]],
+      foreignColumns: [_resources_v.id],
+      name: "_resources_v_locales_parent_id_fk",
+    }).onDelete("cascade"),
+  ],
+);
+
+export const _resources_v_rels = sqliteTable(
+  "_resources_v_rels",
+  {
+    id: integer("id").primaryKey(),
+    order: integer("order"),
+    parent: text("parent_id").notNull(),
+    path: text("path").notNull(),
+    imagesID: text("images_id"),
+    tagsID: text("tags_id"),
+  },
+  (columns) => [
+    index("_resources_v_rels_order_idx").on(columns.order),
+    index("_resources_v_rels_parent_idx").on(columns.parent),
+    index("_resources_v_rels_path_idx").on(columns.path),
+    index("_resources_v_rels_images_id_idx").on(columns.imagesID),
+    index("_resources_v_rels_tags_id_idx").on(columns.tagsID),
+    foreignKey({
+      columns: [columns["parent"]],
+      foreignColumns: [_resources_v.id],
+      name: "_resources_v_rels_parent_fk",
+    }).onDelete("cascade"),
+    foreignKey({
+      columns: [columns["imagesID"]],
+      foreignColumns: [images.id],
+      name: "_resources_v_rels_images_fk",
+    }).onDelete("cascade"),
+    foreignKey({
+      columns: [columns["tagsID"]],
+      foreignColumns: [tags.id],
+      name: "_resources_v_rels_tags_fk",
     }).onDelete("cascade"),
   ],
 );
@@ -2365,6 +2736,7 @@ export const payload_locked_documents_rels = sqliteTable(
     eventsID: text("events_id"),
     authorsID: text("authors_id"),
     tagsID: text("tags_id"),
+    resourcesID: text("resources_id"),
   },
   (columns) => [
     index("payload_locked_documents_rels_order_idx").on(columns.order),
@@ -2377,6 +2749,9 @@ export const payload_locked_documents_rels = sqliteTable(
     index("payload_locked_documents_rels_events_id_idx").on(columns.eventsID),
     index("payload_locked_documents_rels_authors_id_idx").on(columns.authorsID),
     index("payload_locked_documents_rels_tags_id_idx").on(columns.tagsID),
+    index("payload_locked_documents_rels_resources_id_idx").on(
+      columns.resourcesID,
+    ),
     foreignKey({
       columns: [columns["parent"]],
       foreignColumns: [payload_locked_documents.id],
@@ -2416,6 +2791,11 @@ export const payload_locked_documents_rels = sqliteTable(
       columns: [columns["tagsID"]],
       foreignColumns: [tags.id],
       name: "payload_locked_documents_rels_tags_fk",
+    }).onDelete("cascade"),
+    foreignKey({
+      columns: [columns["resourcesID"]],
+      foreignColumns: [resources.id],
+      name: "payload_locked_documents_rels_resources_fk",
     }).onDelete("cascade"),
   ],
 );
@@ -4142,6 +4522,192 @@ export const relations_tags = relations(tags, ({ many }) => ({
     relationName: "_locales",
   }),
 }));
+export const relations_resources_data_points_locales = relations(
+  resources_data_points_locales,
+  ({ one }) => ({
+    _parentID: one(resources_data_points, {
+      fields: [resources_data_points_locales._parentID],
+      references: [resources_data_points.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_resources_data_points = relations(
+  resources_data_points,
+  ({ one, many }) => ({
+    _parentID: one(resources, {
+      fields: [resources_data_points._parentID],
+      references: [resources.id],
+      relationName: "dataPoints",
+    }),
+    _locales: many(resources_data_points_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_resources_document_updates_locales = relations(
+  resources_document_updates_locales,
+  ({ one }) => ({
+    _parentID: one(resources_document_updates, {
+      fields: [resources_document_updates_locales._parentID],
+      references: [resources_document_updates.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_resources_document_updates = relations(
+  resources_document_updates,
+  ({ one, many }) => ({
+    _parentID: one(resources, {
+      fields: [resources_document_updates._parentID],
+      references: [resources.id],
+      relationName: "documentUpdates",
+    }),
+    _locales: many(resources_document_updates_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_resources_locales = relations(
+  resources_locales,
+  ({ one }) => ({
+    _parentID: one(resources, {
+      fields: [resources_locales._parentID],
+      references: [resources.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations_resources_rels = relations(
+  resources_rels,
+  ({ one }) => ({
+    parent: one(resources, {
+      fields: [resources_rels.parent],
+      references: [resources.id],
+      relationName: "_rels",
+    }),
+    imagesID: one(images, {
+      fields: [resources_rels.imagesID],
+      references: [images.id],
+      relationName: "images",
+    }),
+    tagsID: one(tags, {
+      fields: [resources_rels.tagsID],
+      references: [tags.id],
+      relationName: "tags",
+    }),
+  }),
+);
+export const relations_resources = relations(resources, ({ many }) => ({
+  dataPoints: many(resources_data_points, {
+    relationName: "dataPoints",
+  }),
+  documentUpdates: many(resources_document_updates, {
+    relationName: "documentUpdates",
+  }),
+  _locales: many(resources_locales, {
+    relationName: "_locales",
+  }),
+  _rels: many(resources_rels, {
+    relationName: "_rels",
+  }),
+}));
+export const relations__resources_v_version_data_points_locales = relations(
+  _resources_v_version_data_points_locales,
+  ({ one }) => ({
+    _parentID: one(_resources_v_version_data_points, {
+      fields: [_resources_v_version_data_points_locales._parentID],
+      references: [_resources_v_version_data_points.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations__resources_v_version_data_points = relations(
+  _resources_v_version_data_points,
+  ({ one, many }) => ({
+    _parentID: one(_resources_v, {
+      fields: [_resources_v_version_data_points._parentID],
+      references: [_resources_v.id],
+      relationName: "version_dataPoints",
+    }),
+    _locales: many(_resources_v_version_data_points_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations__resources_v_version_document_updates_locales =
+  relations(_resources_v_version_document_updates_locales, ({ one }) => ({
+    _parentID: one(_resources_v_version_document_updates, {
+      fields: [_resources_v_version_document_updates_locales._parentID],
+      references: [_resources_v_version_document_updates.id],
+      relationName: "_locales",
+    }),
+  }));
+export const relations__resources_v_version_document_updates = relations(
+  _resources_v_version_document_updates,
+  ({ one, many }) => ({
+    _parentID: one(_resources_v, {
+      fields: [_resources_v_version_document_updates._parentID],
+      references: [_resources_v.id],
+      relationName: "version_documentUpdates",
+    }),
+    _locales: many(_resources_v_version_document_updates_locales, {
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations__resources_v_locales = relations(
+  _resources_v_locales,
+  ({ one }) => ({
+    _parentID: one(_resources_v, {
+      fields: [_resources_v_locales._parentID],
+      references: [_resources_v.id],
+      relationName: "_locales",
+    }),
+  }),
+);
+export const relations__resources_v_rels = relations(
+  _resources_v_rels,
+  ({ one }) => ({
+    parent: one(_resources_v, {
+      fields: [_resources_v_rels.parent],
+      references: [_resources_v.id],
+      relationName: "_rels",
+    }),
+    imagesID: one(images, {
+      fields: [_resources_v_rels.imagesID],
+      references: [images.id],
+      relationName: "images",
+    }),
+    tagsID: one(tags, {
+      fields: [_resources_v_rels.tagsID],
+      references: [tags.id],
+      relationName: "tags",
+    }),
+  }),
+);
+export const relations__resources_v = relations(
+  _resources_v,
+  ({ one, many }) => ({
+    parent: one(resources, {
+      fields: [_resources_v.parent],
+      references: [resources.id],
+      relationName: "parent",
+    }),
+    version_dataPoints: many(_resources_v_version_data_points, {
+      relationName: "version_dataPoints",
+    }),
+    version_documentUpdates: many(_resources_v_version_document_updates, {
+      relationName: "version_documentUpdates",
+    }),
+    _locales: many(_resources_v_locales, {
+      relationName: "_locales",
+    }),
+    _rels: many(_resources_v_rels, {
+      relationName: "_rels",
+    }),
+  }),
+);
 export const relations_exports_texts = relations(exports_texts, ({ one }) => ({
   parent: one(exports, {
     fields: [exports_texts.parent],
@@ -4213,6 +4779,11 @@ export const relations_payload_locked_documents_rels = relations(
       fields: [payload_locked_documents_rels.tagsID],
       references: [tags.id],
       relationName: "tags",
+    }),
+    resourcesID: one(resources, {
+      fields: [payload_locked_documents_rels.resourcesID],
+      references: [resources.id],
+      relationName: "resources",
     }),
   }),
 );
@@ -4696,6 +5267,20 @@ type DatabaseSchema = {
   authors_locales: typeof authors_locales;
   tags: typeof tags;
   tags_locales: typeof tags_locales;
+  resources_data_points: typeof resources_data_points;
+  resources_data_points_locales: typeof resources_data_points_locales;
+  resources_document_updates: typeof resources_document_updates;
+  resources_document_updates_locales: typeof resources_document_updates_locales;
+  resources: typeof resources;
+  resources_locales: typeof resources_locales;
+  resources_rels: typeof resources_rels;
+  _resources_v_version_data_points: typeof _resources_v_version_data_points;
+  _resources_v_version_data_points_locales: typeof _resources_v_version_data_points_locales;
+  _resources_v_version_document_updates: typeof _resources_v_version_document_updates;
+  _resources_v_version_document_updates_locales: typeof _resources_v_version_document_updates_locales;
+  _resources_v: typeof _resources_v;
+  _resources_v_locales: typeof _resources_v_locales;
+  _resources_v_rels: typeof _resources_v_rels;
   exports: typeof exports;
   exports_texts: typeof exports_texts;
   imports: typeof imports;
@@ -4810,6 +5395,20 @@ type DatabaseSchema = {
   relations_authors: typeof relations_authors;
   relations_tags_locales: typeof relations_tags_locales;
   relations_tags: typeof relations_tags;
+  relations_resources_data_points_locales: typeof relations_resources_data_points_locales;
+  relations_resources_data_points: typeof relations_resources_data_points;
+  relations_resources_document_updates_locales: typeof relations_resources_document_updates_locales;
+  relations_resources_document_updates: typeof relations_resources_document_updates;
+  relations_resources_locales: typeof relations_resources_locales;
+  relations_resources_rels: typeof relations_resources_rels;
+  relations_resources: typeof relations_resources;
+  relations__resources_v_version_data_points_locales: typeof relations__resources_v_version_data_points_locales;
+  relations__resources_v_version_data_points: typeof relations__resources_v_version_data_points;
+  relations__resources_v_version_document_updates_locales: typeof relations__resources_v_version_document_updates_locales;
+  relations__resources_v_version_document_updates: typeof relations__resources_v_version_document_updates;
+  relations__resources_v_locales: typeof relations__resources_v_locales;
+  relations__resources_v_rels: typeof relations__resources_v_rels;
+  relations__resources_v: typeof relations__resources_v;
   relations_exports_texts: typeof relations_exports_texts;
   relations_exports: typeof relations_exports;
   relations_imports: typeof relations_imports;

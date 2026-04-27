@@ -307,7 +307,7 @@ export interface Post {
   coverImage: string | Image;
   author: string | Author;
   publishedAt?: string | null;
-  slug?: string | null;
+  slug: string;
   slugLock?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -326,7 +326,7 @@ export interface Tag {
     hasNextPage?: boolean;
     totalDocs?: number;
   };
-  slug?: string | null;
+  slug: string;
   slugLock?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -475,7 +475,7 @@ export interface Author {
     hasNextPage?: boolean;
     totalDocs?: number;
   };
-  slug?: string | null;
+  slug: string;
   slugLock?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -541,7 +541,7 @@ export interface Event {
       }[]
     | null;
   label?: ('esplorazioni' | 'approfondimenti' | 'attivita-piccoli' | 'talk-musica-arte' | 'esposizioni-voci') | null;
-  slug?: string | null;
+  slug: string;
   slugLock?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -590,7 +590,7 @@ export interface Resource {
   tags?: (string | Tag)[] | null;
   workPackage: 'wp1' | 'wp2' | 'wp3' | 'wp4' | 'wp5' | 'wp6' | 'wp7' | 'wp8' | 'wp9';
   partnerId: string;
-  slug?: string | null;
+  slug: string;
   slugLock?: boolean | null;
   updatedAt: string;
   createdAt: string;

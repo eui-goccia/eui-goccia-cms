@@ -56,6 +56,6 @@ export const Authors: CollectionConfig = {
 			hasMany: true,
 			label: 'Articoli',
 		},
-		...slugField('name'),
+		...slugField('name', {}, 'authors'),
 	],
 };

@@ -3,8 +3,7 @@ import 'server-only';
 import configPromise from '@payload-config';
 import type { Config } from '@payload-types';
 import { cacheLife, cacheTag } from 'next/cache';
-import type { SelectFromCollectionSlug } from 'node_modules/payload/dist/collections/config/types';
-import { getPayload, type Where } from 'payload';
+import { getPayload, type SelectType, type Where } from 'payload';
 import type { Locales } from '@/i18n/routing';
 import {
 	collectionBaseTag,
@@ -31,7 +30,7 @@ interface GetDocumentsArgs {
 	sort?: string;
 	draft?: boolean;
 	where?: Where;
-	select?: SelectFromCollectionSlug<Collection>;
+	select?: SelectType;
 	locale?: Locales;
 }
 
