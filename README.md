@@ -21,6 +21,8 @@ SQLite and local MinIO.
 	`scripts/sync-media.sh`; Payload runtime must use `S3_*` instead.
 - `S3_*` config is the runtime upload target. Local uploads must use
 	`S3_ENDPOINT=http://localhost:9000`.
+- Payload uploads use direct browser-to-S3/R2 writes in deployed environments,
+	so the runtime bucket CORS policy must allow `PUT` from the site origin.
 
 Fresh local dataset workflow:
 
