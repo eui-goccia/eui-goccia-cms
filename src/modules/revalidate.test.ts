@@ -111,4 +111,29 @@ describe('collection revalidation hooks', () => {
 			})
 		);
 	});
+
+	it('revalidates the old event path when breadcrumbs change without a slug change', async () => {
+		await revalidateEvent({
+			doc: {
+				id: 'event',
+				slug: 'session',
+				_status: 'published',
+				breadcrumbs: [{ url: '/new-parent/session' }],
+			},
+			previousDoc: {
+				id: 'event',
+				slug: 'session',
+				_status: 'published',
+				breadcrumbs: [{ url: '/old-parent/session' }],
+			},
+			req: createReq(),
+		} as never);
+
+		expect(revalidatePathMock).toHaveBeenCalledWith(
+			'/eventi/new-parent/session'
+		);
+		expect(revalidatePathMock).toHaveBeenCalledWith(
+			'/eventi/old-parent/session'
+		);
+	});
 });

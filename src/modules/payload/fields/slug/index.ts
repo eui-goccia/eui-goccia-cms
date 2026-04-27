@@ -111,7 +111,7 @@ export const validateEventSiblingSlug: TextFieldSingleValidation = async (
 			},
 		},
 		depth: 0,
-		limit: 100,
+		pagination: false,
 		overrideAccess: true,
 	});
 	const duplicate = matches.docs.some((doc: { id: number | string }) => {

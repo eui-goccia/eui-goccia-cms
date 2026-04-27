@@ -68,7 +68,7 @@ export const revalidateEvent: CollectionAfterChangeHook<Event> = async ({
 
 		revalidateEventDocument(doc);
 
-		if (previousDoc?.slug && previousDoc.slug !== doc.slug) {
+		if (previousDoc?.slug && getEventHref(previousDoc) !== getEventHref(doc)) {
 			revalidateEventDocument(previousDoc);
 		}
 

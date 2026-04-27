@@ -56,5 +56,11 @@ describe('event sibling slug validation', () => {
 				siblingData: { parent: 'parent-c' },
 			} as never)
 		).resolves.toBe(true);
+
+		expect(find).toHaveBeenCalledWith(
+			expect.objectContaining({
+				pagination: false,
+			})
+		);
 	});
 });
