@@ -11,7 +11,7 @@ import { backupPlugin } from '../backup/plugin';
 import { defaultLexical } from '../editor/lexical';
 import { seoPlugin } from '../seo/plugin';
 import { storagePlugin } from '../storage/plugin';
-import { getServerSideURL } from '../utilities/getURL';
+import { getServerSideOrigins, getServerSideURL } from '../utilities/getURL';
 import { collections } from './collections';
 import { globals } from './globals';
 
@@ -31,7 +31,7 @@ function requireProductionEnv(name: string): string | undefined {
 
 function getAllowedOrigins() {
 	const origins = [
-		getServerSideURL(),
+		...getServerSideOrigins(),
 		...(process.env.ALLOWED_ORIGINS ?? '')
 			.split(',')
 			.map((origin) => origin.trim())

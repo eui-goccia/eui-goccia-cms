@@ -25,14 +25,60 @@ function normalizeURL(url: string | undefined): string | undefined {
 	return `https://${trimmedURL}`.replace(TRAILING_SLASH_PATTERN, '');
 }
 
-function getRuntimeURL() {
+function getVercelURL(name: string): string | undefined {
+	return process.env[name] ?? process.env[`NEXT_PUBLIC_${name}`];
+}
+
+function getVercelEnvironment() {
+	return getVercelURL('VERCEL_ENV');
+}
+
+function getPreviewRuntimeURL() {
 	return (
-		normalizeURL(process.env.NEXT_PUBLIC_SITE_URL) ??
-		normalizeURL(process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL) ??
-		normalizeURL(process.env.NEXT_PUBLIC_VERCEL_URL) ??
-		normalizeURL(process.env.NEXT_PUBLIC_VERCEL_BRANCH_URL) ??
-		LOCALHOST_URL
+		normalizeURL(getVercelURL('VERCEL_URL')) ??
+		normalizeURL(getVercelURL('VERCEL_BRANCH_URL')) ??
+		normalizeURL(getVercelURL('VERCEL_PROJECT_PRODUCTION_URL'))
 	);
+}
+
+function getProductionRuntimeURL() {
+	return (
+		normalizeURL(getVercelURL('VERCEL_PROJECT_PRODUCTION_URL')) ??
+		normalizeURL(getVercelURL('VERCEL_URL')) ??
+		normalizeURL(getVercelURL('VERCEL_BRANCH_URL'))
+	);
+}
+
+function isString(value: string | undefined): value is string {
+	return typeof value === 'string';
+}
+
+function getRuntimeURL() {
+	const siteURL = normalizeURL(process.env.NEXT_PUBLIC_SITE_URL);
+
+	if (siteURL) {
+		return siteURL;
+	}
+
+	if (getVercelEnvironment() === 'preview') {
+		return getPreviewRuntimeURL() ?? LOCALHOST_URL;
+	}
+
+	return getProductionRuntimeURL() ?? LOCALHOST_URL;
+}
+
+export function getServerSideOrigins() {
+	const isPreview = getVercelEnvironment() === 'preview';
+	const origins = [
+		getRuntimeURL(),
+		normalizeURL(getVercelURL('VERCEL_URL')),
+		normalizeURL(getVercelURL('VERCEL_BRANCH_URL')),
+		isPreview
+			? undefined
+			: normalizeURL(getVercelURL('VERCEL_PROJECT_PRODUCTION_URL')),
+	];
+
+	return Array.from(new Set(origins.filter(isString)));
 }
 
 export const getServerSideURL = () => {
