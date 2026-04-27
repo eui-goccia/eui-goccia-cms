@@ -18,6 +18,7 @@ import { globals } from './globals';
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 const isProduction = process.env.NODE_ENV === 'production';
+const MAX_UPLOAD_FILE_SIZE_BYTES = 20 * 1024 * 1024;
 
 function requireProductionEnv(name: string): string | undefined {
 	const value = process.env[name]?.trim();
@@ -50,6 +51,13 @@ export default buildConfig({
 	defaultDepth: 1,
 	maxDepth: 4,
 	defaultMaxTextLength: 20_000,
+	upload: {
+		abortOnLimit: true,
+		limits: {
+			fileSize: MAX_UPLOAD_FILE_SIZE_BYTES,
+		},
+		responseOnLimit: 'File size limit exceeded. Maximum upload size is 20MB.',
+	},
 	graphQL: {
 		disable: true,
 	},

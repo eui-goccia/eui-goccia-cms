@@ -26,6 +26,7 @@ export const storagePlugin = s3Storage({
 		},
 	},
 	bucket: getS3Env('S3_BUCKET'),
+	clientUploads: true,
 	disableLocalStorage: true,
 	enabled: true,
 	config: {
