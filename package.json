@@ -4,6 +4,7 @@
   "description": "EUI Goccia",
   "license": "MIT",
   "type": "module",
+  "packageManager": "pnpm@10.33.2",
   "scripts": {
     "build": "pnpm payload migrate && pnpm build:next",
     "build:next": "next build",
