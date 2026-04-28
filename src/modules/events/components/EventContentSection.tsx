@@ -81,3 +81,25 @@ export async function EventContentSection({
 		</section>
 	);
 }
+
+export function EventContent2Section({
+	event,
+}: Pick<EventContentSectionProps, 'event'>) {
+	if (!event.content2 || event.content2.length === 0) {
+		return null;
+	}
+
+	return (
+		<section className='px-5 pb-15 md:pb-20 lg:px-10 xl:px-20'>
+			<div className='grid md:pl-30 md:pr-20 grid-cols-1 gap-8 lg:grid-cols-[3fr_2fr]'>
+				<div className='min-w-0'>
+					<div className='flex flex-col gap-6'>
+						{event.content2.map((block) => (
+							<BlockRenderer block={block} key={block.id} />
+						))}
+					</div>
+				</div>
+			</div>
+		</section>
+	);
+}

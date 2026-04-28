@@ -7,7 +7,10 @@ import { notFound } from 'next/navigation';
 import { connection } from 'next/server';
 import { getPayload } from 'payload';
 import type { Locales } from '@/i18n/routing';
-import { EventContentSection } from './components/EventContentSection';
+import {
+	EventContent2Section,
+	EventContentSection,
+} from './components/EventContentSection';
 import { EventHero } from './components/EventHero';
 import { EventProgramSection } from './components/EventProgramSection';
 import { getEventRelativePath } from './paths';
@@ -139,6 +142,7 @@ export async function EventDetailContent({
 			{event.showProgram && subEventGroups.size > 0 ? (
 				<EventProgramSection locale={locale} subEventGroups={subEventGroups} />
 			) : null}
+			<EventContent2Section event={event} />
 		</div>
 	);
 }

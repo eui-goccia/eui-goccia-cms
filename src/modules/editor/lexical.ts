@@ -11,9 +11,11 @@ import {
 	UnderlineFeature,
 	UploadFeature,
 } from '@payloadcms/richtext-lexical';
+import { PlainTextPasteFeature } from './features/plainTextPaste/feature.server';
 
 export const defaultLexical = lexicalEditor({
 	features: [
+		PlainTextPasteFeature(),
 		InlineToolbarFeature(),
 		BoldFeature(),
 		ItalicFeature(),
@@ -31,6 +33,7 @@ export const defaultLexical = lexicalEditor({
 
 export const minimalLexical = lexicalEditor({
 	features: [
+		PlainTextPasteFeature(),
 		InlineToolbarFeature(),
 		BoldFeature(),
 		ItalicFeature(),

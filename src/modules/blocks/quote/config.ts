@@ -9,6 +9,7 @@ import {
 	UnderlineFeature,
 } from '@payloadcms/richtext-lexical';
 import type { Block } from 'payload';
+import { PlainTextPasteFeature } from '@/modules/editor/features/plainTextPaste/feature.server';
 import { alignFields } from '../common';
 
 export const QuoteBlock: Block = {
@@ -21,6 +22,7 @@ export const QuoteBlock: Block = {
 			localized: true,
 			editor: lexicalEditor({
 				features: () => [
+					PlainTextPasteFeature(),
 					InlineToolbarFeature(),
 					BoldFeature(),
 					ItalicFeature(),

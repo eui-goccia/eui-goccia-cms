@@ -2,7 +2,7 @@ import {
 	createBreadcrumbsField,
 	createParentField,
 } from '@payloadcms/plugin-nested-docs';
-import type { CollectionConfig } from 'payload';
+import type { CollectionBeforeValidateHook, CollectionConfig } from 'payload';
 import { defaultBlocks } from '../blocks';
 import { editor } from '../payload/access/editor';
 import { editorOrPublished } from '../payload/access/editorOrPublished';
@@ -37,6 +37,17 @@ function generateEventPreviewPath(data: {
 	});
 }
 
+const resetIncomingBreadcrumbs: CollectionBeforeValidateHook = ({ data }) => {
+	if (!data?.breadcrumbs) {
+		return data;
+	}
+
+	return {
+		...data,
+		breadcrumbs: [],
+	};
+};
+
 export const Events: CollectionConfig = {
 	slug: 'events',
 	labels: {
@@ -64,6 +75,7 @@ export const Events: CollectionConfig = {
 		delete: editor,
 	},
 	hooks: {
+		beforeValidate: [resetIncomingBreadcrumbs],
 		afterChange: [revalidateEvent],
 		afterDelete: [revalidateEventDelete],
 	},
@@ -103,6 +115,12 @@ export const Events: CollectionConfig = {
 							name: 'content',
 							type: 'blocks',
 							label: 'Contenuto',
+							blocks: defaultBlocks,
+						},
+						{
+							name: 'content2',
+							type: 'blocks',
+							label: 'Contenuto 2',
 							blocks: defaultBlocks,
 						},
 					],
@@ -256,6 +274,7 @@ export const Events: CollectionConfig = {
 			},
 		}),
 		createBreadcrumbsField('events', {
+			localized: false,
 			admin: {
 				hidden: true,
 			},

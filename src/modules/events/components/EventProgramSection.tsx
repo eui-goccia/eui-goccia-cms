@@ -17,21 +17,27 @@ export function EventProgramSection({
 
 	return (
 		<section className='px-5 pb-16 lg:px-10 xl:px-20'>
-			<h2 className='mb-8 md:px-25 font-greed text-4xl font-bold  '>
-				{locale === 'it' ? 'Programma' : 'Program'}
-			</h2>
-			{Array.from(subEventGroups.entries()).map(([label, labelEvents]) => (
-				<div className='mb-12  last:mb-0 md:px-25' key={label}>
-					<h3 className='mb-4 bg-rosso-500 px-1 font-greed text-xl md:text-2xl font-bold'>
-						{getLabelDisplayName(label, locale)}
-					</h3>
-					<div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
-						{labelEvents.map((subEvent) => (
-							<EventCard event={subEvent} key={subEvent.id} variant='compact' />
-						))}
+			<div className='md:pl-30 md:pr-20'>
+				<h2 className='mb-8 font-greed text-4xl font-bold'>
+					{locale === 'it' ? 'Programma' : 'Program'}
+				</h2>
+				{Array.from(subEventGroups.entries()).map(([label, labelEvents]) => (
+					<div className='mb-12 last:mb-0' key={label}>
+						<h3 className='mb-4 bg-rosso-500 px-1 font-greed text-xl md:text-2xl font-bold'>
+							{getLabelDisplayName(label, locale)}
+						</h3>
+						<div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3'>
+							{labelEvents.map((subEvent) => (
+								<EventCard
+									event={subEvent}
+									key={subEvent.id}
+									variant='compact'
+								/>
+							))}
+						</div>
 					</div>
-				</div>
-			))}
+				))}
+			</div>
 		</section>
 	);
 }
