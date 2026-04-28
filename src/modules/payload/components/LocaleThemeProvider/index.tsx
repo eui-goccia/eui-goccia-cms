@@ -1,29 +1,33 @@
 'use client';
-import { useLocale } from '@payloadcms/ui';
-import { useEffect } from 'react';
+import { useLocale, useTheme } from '@payloadcms/ui';
+import { type FC, type ReactNode, useLayoutEffect } from 'react';
 import './index.scss';
 
-const LocaleThemeProvider: React.FC<{ children?: React.ReactNode }> = ({
-	children,
-}) => {
+const LocaleThemeProvider: FC<{ children?: ReactNode }> = ({ children }) => {
 	const locale = useLocale();
-	// const { theme } = useTheme();
+	const { autoMode, theme } = useTheme();
 
-	useEffect(() => {
-		// Remove any existing locale classes
+	useLayoutEffect(() => {
 		document.documentElement.classList.remove(
 			'admin-locale-en',
 			'admin-locale-it'
 		);
 
-		// Only add class for English locale (Italian stays default/unchanged)
 		if (locale.code === 'en') {
 			document.documentElement.classList.add('admin-locale-en');
 		}
 
-		// Add data attribute for easy CSS targeting
 		document.documentElement.setAttribute('data-admin-locale', locale.code);
-	}, [locale.code]);
+		document.documentElement.setAttribute('data-admin-theme', theme);
+		document.documentElement.setAttribute(
+			'data-admin-theme-mode',
+			autoMode ? 'auto' : 'manual'
+		);
+
+		if (document.documentElement.getAttribute('data-theme') !== theme) {
+			document.documentElement.setAttribute('data-theme', theme);
+		}
+	});
 
 	return <>{children}</>;
 };
