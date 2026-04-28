@@ -1424,7 +1424,6 @@ export const events_breadcrumbs = sqliteTable(
   {
     _order: integer("_order").notNull(),
     _parentID: text("_parent_id").notNull(),
-    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
     id: text("id").primaryKey(),
     doc: text("doc_id").references(() => events.id, {
       onDelete: "set null",
@@ -1435,7 +1434,6 @@ export const events_breadcrumbs = sqliteTable(
   (columns) => [
     index("events_breadcrumbs_order_idx").on(columns._order),
     index("events_breadcrumbs_parent_id_idx").on(columns._parentID),
-    index("events_breadcrumbs_locale_idx").on(columns._locale),
     index("events_breadcrumbs_doc_idx").on(columns.doc),
     foreignKey({
       columns: [columns["_parentID"]],
@@ -1897,7 +1895,6 @@ export const _events_v_version_breadcrumbs = sqliteTable(
   {
     _order: integer("_order").notNull(),
     _parentID: text("_parent_id").notNull(),
-    _locale: text("_locale", { enum: ["en", "it"] }).notNull(),
     id: text("id")
       .primaryKey()
       .$defaultFn(() => randomUUID()),
@@ -1911,7 +1908,6 @@ export const _events_v_version_breadcrumbs = sqliteTable(
   (columns) => [
     index("_events_v_version_breadcrumbs_order_idx").on(columns._order),
     index("_events_v_version_breadcrumbs_parent_id_idx").on(columns._parentID),
-    index("_events_v_version_breadcrumbs_locale_idx").on(columns._locale),
     index("_events_v_version_breadcrumbs_doc_idx").on(columns.doc),
     foreignKey({
       columns: [columns["_parentID"]],

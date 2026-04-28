@@ -492,6 +492,7 @@ export interface Event {
    */
   description?: string | null;
   content?: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | VideoBlock | AudioBlock | GridBlock)[] | null;
+  content2?: (TextBlock | RichTextBlock | QuoteBlock | ImageBlock | VideoBlock | AudioBlock | GridBlock)[] | null;
   when: {
     startDate: string;
     endDate: string;
@@ -1113,6 +1114,17 @@ export interface EventsSelect<T extends boolean = true> {
   title?: T;
   description?: T;
   content?:
+    | T
+    | {
+        text?: T | TextBlockSelect<T>;
+        richText?: T | RichTextBlockSelect<T>;
+        quote?: T | QuoteBlockSelect<T>;
+        image?: T | ImageBlockSelect<T>;
+        video?: T | VideoBlockSelect<T>;
+        audio?: T | AudioBlockSelect<T>;
+        grid?: T | GridBlockSelect<T>;
+      };
+  content2?:
     | T
     | {
         text?: T | TextBlockSelect<T>;
