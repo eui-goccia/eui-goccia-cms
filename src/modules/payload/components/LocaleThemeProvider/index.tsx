@@ -27,7 +27,7 @@ const LocaleThemeProvider: FC<{ children?: ReactNode }> = ({ children }) => {
 		if (document.documentElement.getAttribute('data-theme') !== theme) {
 			document.documentElement.setAttribute('data-theme', theme);
 		}
-	});
+	}, [autoMode, locale.code, theme]);
 
 	return <>{children}</>;
 };
