@@ -32,6 +32,9 @@ const isSluggableDoc = (
 ): value is { slug: string; [key: string]: unknown } =>
 	isPopulatedDoc(value) && 'slug' in value && typeof value.slug === 'string';
 
+const isInternalHref = (href: string) =>
+	href.startsWith('/') && !href.startsWith('//');
+
 type NodeTypes =
 	| DefaultNodeTypes
 	| SerializedBlockNode<QuoteBlock | ImageBlock | TextBlock | GridBlock>;
@@ -81,10 +84,18 @@ const CustomLinkConverter: JSXConverter<SerializedLinkNode> = async ({
 		? { target: '_blank', rel: 'noopener noreferrer' }
 		: {};
 
+	if (isInternalHref(href)) {
+		return (
+			<Link href={href} locale={locale} {...newTabProps}>
+				{renderedChildren}
+			</Link>
+		);
+	}
+
 	return (
-		<Link href={href ?? '#'} locale={locale} {...newTabProps}>
+		<a href={href} {...newTabProps}>
 			{renderedChildren}
-		</Link>
+		</a>
 	);
 };
 
