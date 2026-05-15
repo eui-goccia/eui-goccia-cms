@@ -68,5 +68,5 @@ export async function GET(request: NextRequest) {
 
 	draft.enable();
 
-	redirect({ href: path, locale });
+	redirect({ href: `/_preview${path}`, locale });
 }

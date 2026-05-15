@@ -32,6 +32,16 @@ describe('preview path validation', () => {
 		).toBe(true);
 	});
 
+	it('rejects event paths where the slug is only part of a segment', () => {
+		expect(
+			isValidPreviewPath({
+				collection: 'events',
+				path: '/eventi/parent/childish',
+				slug: 'child',
+			})
+		).toBe(false);
+	});
+
 	it('rejects collection and path mismatches', () => {
 		expect(
 			isValidPreviewPath({
@@ -55,6 +65,13 @@ describe('preview path validation', () => {
 				collection: 'posts',
 				path: '/https:%2F%2Fexample.com/blog/a',
 				slug: 'a',
+			})
+		).toBe(false);
+		expect(
+			isValidPreviewPath({
+				collection: 'posts',
+				path: '/blog/http:%2F%2Fexample.com',
+				slug: 'http://example.com',
 			})
 		).toBe(false);
 	});

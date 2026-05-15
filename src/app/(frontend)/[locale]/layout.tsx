@@ -4,16 +4,11 @@ import '@/app/(frontend)/[locale]/global.css';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
-import { type ReactNode, Suspense } from 'react';
+import type { ReactNode } from 'react';
 import type { Locale } from '@/i18n/routing';
 import { routing } from '@/i18n/routing';
 import { PlausibleAnalytics } from '@/modules/analytics/plausible';
-import { LivePreviewListener } from '@/modules/components/LivePreviewListener';
-import Footer from '@/modules/components/shared/Footer';
-import Header from '@/modules/components/shared/Header';
-import NewsletterSignup from '@/modules/components/shared/NewsletterSignup';
 import { cn } from '@/modules/utilities/cnUtils';
-import { ReactLenis } from '@/modules/utilities/lenis';
 
 export const metadata: Metadata = {
 	title: 'EUI Goccia',
@@ -105,23 +100,7 @@ export default async function RootLayout({ children, params }: Readonly<Args>) {
 			>
 				<PlausibleAnalytics />
 				<NextIntlClientProvider messages={messages}>
-					<ReactLenis root>
-						<LivePreviewListener />
-						<Header />
-						<main className='mb-auto bg-blu-300'>{children}</main>
-						<Suspense
-							fallback={
-								<div className='w-full bg-rosa-300 min-h-55 px-5 lg:px-10 animate-pulse' />
-							}
-						>
-							<NewsletterSignup />
-						</Suspense>
-						<Suspense
-							fallback={<div className='bg-black min-h-40 animate-pulse' />}
-						>
-							<Footer />
-						</Suspense>
-					</ReactLenis>
+					{children}
 				</NextIntlClientProvider>
 			</body>
 		</html>

@@ -1,6 +1,19 @@
 import type { Event } from '@payload-types';
 import { SUB_EVENT_LABEL_ORDER } from './labels';
 
+export function isHttpUrl(value: string | null | undefined): value is string {
+	if (!value?.trim()) {
+		return false;
+	}
+
+	try {
+		const url = new URL(value);
+		return url.protocol === 'http:' || url.protocol === 'https:';
+	} catch {
+		return false;
+	}
+}
+
 export function formatEventDateTime(
 	dateString: string,
 	locale: string

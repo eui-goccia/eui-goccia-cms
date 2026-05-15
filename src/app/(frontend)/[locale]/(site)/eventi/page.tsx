@@ -1,15 +1,23 @@
-import { draftMode } from 'next/headers';
-import { connection } from 'next/server';
+import configPromise from '@payload-config';
+import { cacheLife, cacheTag } from 'next/cache';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { PaginatedDocs } from 'payload';
-import { Suspense } from 'react';
+import { getPayload } from 'payload';
 import type { Locales } from '@/i18n/routing';
 import EventCard from '@/modules/components/EventCard';
 import type { Event } from '@/modules/payload/payload-types';
-import { getDocuments } from '@/modules/utilities/getDocument';
+import {
+	collectionBaseTag,
+	collectionTag,
+} from '@/modules/utilities/cacheTags';
 
 interface EventiPageProps {
 	params: Promise<{ locale: string }>;
+}
+
+interface EventListingData {
+	pastEvents: Event[];
+	upcomingEvents: Event[];
 }
 
 const marqueeItems = ['a', 'b', 'c', 'd', 'e', 'f'];
@@ -53,32 +61,8 @@ async function EventList({
 	noUpcomingEventsLabel: string;
 	pastHeadingLabel: string;
 }) {
-	await connection();
-
-	const { isEnabled: draft } = await draftMode();
-	const events = (await getDocuments({
-		collection: 'events',
-		depth: 2,
-		draft,
-		limit: 0,
-		locale: locale as Locales,
-		sort: '-when.startDate',
-		where: {
-			parent: { exists: false },
-		},
-	})) as PaginatedDocs<Event>;
-
-	const now = new Date();
-	const upcomingEvents = events.docs
-		.filter((event) => new Date(event.when.endDate) >= now)
-		.sort(
-			(a, b) =>
-				new Date(a.when.startDate).getTime() -
-				new Date(b.when.startDate).getTime()
-		);
-	const pastEvents = events.docs.filter(
-		(event) => new Date(event.when.endDate) < now
-	);
+	const { pastEvents, upcomingEvents } =
+		await getPublishedEventListingData(locale);
 
 	return (
 		<>
@@ -117,6 +101,45 @@ async function EventList({
 	);
 }
 
+async function getPublishedEventListingData(
+	locale: string
+): Promise<EventListingData> {
+	'use cache';
+	cacheLife('hours');
+	cacheTag(collectionBaseTag('events'), collectionTag('events', locale));
+
+	const payload = await getPayload({ config: configPromise });
+	const events = (await payload.find({
+		collection: 'events',
+		depth: 2,
+		draft: false,
+		limit: 0,
+		locale: locale as Locales,
+		overrideAccess: false,
+		sort: '-when.startDate',
+		where: {
+			parent: { exists: false },
+		},
+	})) as PaginatedDocs<Event>;
+
+	const now = new Date();
+	const upcomingEvents = events.docs
+		.filter((event) => new Date(event.when.endDate) >= now)
+		.sort(
+			(a, b) =>
+				new Date(a.when.startDate).getTime() -
+				new Date(b.when.startDate).getTime()
+		);
+	const pastEvents = events.docs.filter(
+		(event) => new Date(event.when.endDate) < now
+	);
+
+	return {
+		pastEvents,
+		upcomingEvents,
+	};
+}
+
 export default async function EventiPage({ params }: EventiPageProps) {
 	const { locale } = await params;
 	setRequestLocale(locale);
@@ -125,30 +148,11 @@ export default async function EventiPage({ params }: EventiPageProps) {
 	return (
 		<div className='bg-blu-300 min-h-screen'>
 			<Marquee label={t('upcomingMarquee')} />
-			<Suspense
-				fallback={
-					<section className='px-5 pb-10 pt-10 lg:px-10'>
-						<div className='grid grid-cols-1 gap-8 md:grid-cols-4 lg:grid-cols-4 animate-pulse'>
-							{Array.from({ length: 4 }).map((_, i) => (
-								// biome-ignore lint/suspicious/noArrayIndexKey: static skeleton
-								<div className='rounded-lg overflow-hidden' key={i}>
-									<div className='h-48 bg-gray-200' />
-									<div className='p-4 space-y-3'>
-										<div className='h-4 bg-gray-200 rounded w-3/4' />
-										<div className='h-3 bg-gray-200 rounded w-1/2' />
-									</div>
-								</div>
-							))}
-						</div>
-					</section>
-				}
-			>
-				<EventList
-					locale={locale}
-					noUpcomingEventsLabel={t('noUpcomingEvents')}
-					pastHeadingLabel={t('pastHeading')}
-				/>
-			</Suspense>
+			<EventList
+				locale={locale}
+				noUpcomingEventsLabel={t('noUpcomingEvents')}
+				pastHeadingLabel={t('pastHeading')}
+			/>
 		</div>
 	);
 }
