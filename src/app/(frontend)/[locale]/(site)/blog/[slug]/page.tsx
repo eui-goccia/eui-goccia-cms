@@ -1,7 +1,6 @@
 import type { Post } from '@payload-types';
 import { setRequestLocale } from 'next-intl/server';
 import type { PaginatedDocs } from 'payload';
-import localization from '@/i18n/localization';
 import type { Locales } from '@/i18n/routing';
 import { BlogPostContent } from '@/modules/posts/BlogPostContent';
 import { getDocuments } from '@/modules/utilities/getDocument';
@@ -10,41 +9,32 @@ interface PageProps {
 	params: Promise<{ slug: string; locale: string }>;
 }
 
-export async function generateStaticParams() {
-	const slugSet = new Set<string>();
+export async function generateStaticParams({
+	params,
+}: {
+	params: { locale: string };
+}) {
+	try {
+		const posts = (await getDocuments({
+			collection: 'posts',
+			depth: 0,
+			limit: 20,
+			draft: false,
+			locale: params.locale as Locales,
+		})) as PaginatedDocs<Post>;
 
-	const results = await Promise.allSettled(
-		localization.locales.map((localeConfig) =>
-			getDocuments({
-				collection: 'posts',
-				depth: 0,
-				limit: 20,
-				draft: false,
-				locale: localeConfig.code as Locales,
-			})
-		)
-	);
+		const slugs = posts.docs.flatMap(({ slug }) =>
+			slug && typeof slug === 'string' ? [{ slug }] : []
+		);
 
-	for (const [i, result] of results.entries()) {
-		const localeCode = localization.locales[i].code;
-		if (result.status === 'rejected') {
-			console.error(
-				`[generateStaticParams] Failed to fetch posts for locale "${localeCode}":`,
-				result.reason
-			);
-			continue;
-		}
-		const posts = result.value as PaginatedDocs<Post>;
-		for (const { slug } of posts.docs) {
-			if (slug && typeof slug === 'string') {
-				slugSet.add(slug);
-			}
-		}
+		return slugs.length > 0 ? slugs : [{ slug: '_placeholder' }];
+	} catch (error) {
+		console.error(
+			`[generateStaticParams] Failed to fetch posts for locale "${params.locale}":`,
+			error
+		);
+		return [{ slug: '_placeholder' }];
 	}
-
-	const slugs = Array.from(slugSet).map((slug) => ({ slug }));
-
-	return slugs.length > 0 ? slugs : [{ slug: '_placeholder' }];
 }
 
 export default async function BlogPost({ params }: PageProps) {

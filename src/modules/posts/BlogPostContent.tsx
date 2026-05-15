@@ -33,7 +33,7 @@ export async function BlogPostContent({
 			<HeaderArticle
 				author={author}
 				coverImage={cover}
-				publishedAt={post.publishedAt || ''}
+				publishedAt={post.publishedAt}
 				title={post.title}
 			/>
 			<div className='px-5 lg:px-10 pb-30 grid grid-cols-12 gap-5 bg-blu-300'>

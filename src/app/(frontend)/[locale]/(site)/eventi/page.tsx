@@ -105,7 +105,7 @@ async function getPublishedEventListingData(
 	locale: string
 ): Promise<EventListingData> {
 	'use cache';
-	cacheLife('hours');
+	cacheLife('minutes');
 	cacheTag(collectionBaseTag('events'), collectionTag('events', locale));
 
 	const payload = await getPayload({ config: configPromise });
