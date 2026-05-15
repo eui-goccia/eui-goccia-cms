@@ -1,9 +1,5 @@
 import type { Where } from 'payload';
 
-export function getEventDetailRelativePath(segments: string[]): string {
-	return `/${segments.join('/')}`;
-}
-
 export function getEventDetailQueryOptions({
 	draft,
 	locale,
@@ -17,19 +13,24 @@ export function getEventDetailQueryOptions({
 		draft,
 		overrideAccess: draft,
 		joins: false as const,
-		limit: 50,
+		limit: 1,
 		locale,
 	};
 }
 
-export function getEventDetailExactWhere(relativePath: string): Where {
+export function getEventDetailSegmentWhere({
+	parentID,
+	slug,
+}: {
+	parentID: null | number | string;
+	slug: string;
+}): Where {
 	return {
-		'breadcrumbs.url': { equals: relativePath },
-	};
-}
-
-export function getEventDetailFallbackWhere(leafSlug: string): Where {
-	return {
-		slug: { equals: leafSlug },
+		and: [
+			{ slug: { equals: slug } },
+			parentID === null
+				? { parent: { exists: false } }
+				: { parent: { equals: parentID } },
+		],
 	};
 }

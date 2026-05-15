@@ -4,7 +4,7 @@ import configPromise from '@payload-config';
 import type { Event } from '@payload-types';
 import { cacheLife, cacheTag } from 'next/cache';
 import { notFound } from 'next/navigation';
-import { getPayload, type Where } from 'payload';
+import { getPayload, type PaginatedDocs } from 'payload';
 import type { Locales } from '@/i18n/routing';
 import {
 	collectionBaseTag,
@@ -17,12 +17,9 @@ import {
 import { EventHero } from './components/EventHero';
 import { EventProgramSection } from './components/EventProgramSection';
 import {
-	getEventDetailExactWhere,
-	getEventDetailFallbackWhere,
 	getEventDetailQueryOptions,
-	getEventDetailRelativePath,
+	getEventDetailSegmentWhere,
 } from './detailLookup';
-import { getEventRelativePath } from './paths';
 import { groupSubEventsByLabel } from './utils';
 
 interface EventDetailData {
@@ -40,41 +37,26 @@ async function findEventBySegments({
 	segments: string[];
 }) {
 	const payload = await getPayload({ config: configPromise });
-	const relativePath = getEventDetailRelativePath(segments);
-	const leafSlug = segments.at(-1);
 	const queryOptions = getEventDetailQueryOptions({ draft, locale });
-	const findEvents = (where: Where) =>
-		payload.find({
+	let parentID: null | number | string = null;
+	let event: Event | null = null;
+
+	for (const segment of segments) {
+		const matches = (await payload.find({
 			...queryOptions,
 			locale: queryOptions.locale as Locales,
-			where,
-		});
+			where: getEventDetailSegmentWhere({ parentID, slug: segment }),
+		})) as PaginatedDocs<Event>;
 
-	const exactMatches = await findEvents(getEventDetailExactWhere(relativePath));
+		event = matches.docs[0] ?? null;
+		if (!event) {
+			return { event: null, payload };
+		}
 
-	const exactEvent = exactMatches.docs.find(
-		(doc) => doc.breadcrumbs?.at(-1)?.url === relativePath
-	);
-
-	if (exactEvent) {
-		return { event: exactEvent, payload };
+		parentID = event.id;
 	}
 
-	if (!leafSlug) {
-		return { event: null, payload };
-	}
-
-	const fallbackMatches = await findEvents(
-		getEventDetailFallbackWhere(leafSlug)
-	);
-
-	return {
-		event:
-			fallbackMatches.docs.find(
-				(doc) => getEventRelativePath(doc) === relativePath
-			) ?? null,
-		payload,
-	};
+	return { event, payload };
 }
 
 async function getEventDetailData({
