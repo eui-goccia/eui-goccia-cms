@@ -1,14 +1,16 @@
 import { setRequestLocale } from 'next-intl/server';
 import type { PaginatedDocs } from 'payload';
-import { Suspense } from 'react';
 import localization from '@/i18n/localization';
 import type { Locales } from '@/i18n/routing';
-import { EventDetailSkeleton } from '@/modules/components/skeletons/EventDetailSkeleton';
 import { EventDetailContent } from '@/modules/events/detail';
 import type { Event } from '@/modules/payload/payload-types';
 import { getDocuments } from '@/modules/utilities/getDocument';
 
 const LEADING_SLASH_PATTERN = /^\//;
+
+interface EventPageProps {
+	params: Promise<{ locale: string; segments: string[] }>;
+}
 
 export async function generateStaticParams() {
 	const paramSet = new Set<string>();
@@ -39,11 +41,13 @@ export async function generateStaticParams() {
 		for (const event of events.docs) {
 			const lastBreadcrumb = event.breadcrumbs?.at(-1);
 			if (lastBreadcrumb?.url) {
-				const parts = lastBreadcrumb.url
+				const segments = lastBreadcrumb.url
 					.replace(LEADING_SLASH_PATTERN, '')
-					.split('/');
-				if (parts.length === 2) {
-					paramSet.add(JSON.stringify({ slug: parts[0], subSlug: parts[1] }));
+					.split('/')
+					.filter(Boolean);
+
+				if (segments.length > 0) {
+					paramSet.add(JSON.stringify({ segments }));
 				}
 			}
 		}
@@ -51,22 +55,14 @@ export async function generateStaticParams() {
 
 	const params = Array.from(paramSet).map((p) => JSON.parse(p));
 
-	return params.length > 0
-		? params
-		: [{ slug: '_placeholder', subSlug: '_placeholder' }];
+	return params.length > 0 ? params : [{ segments: ['_placeholder'] }];
 }
 
-interface SubEventPageProps {
-	params: Promise<{ locale: string; slug: string; subSlug: string }>;
-}
-
-export default async function SubEventPage({ params }: SubEventPageProps) {
-	const { locale, slug, subSlug } = await params;
+export default async function EventPage({ params }: EventPageProps) {
+	const { locale, segments } = await params;
 	setRequestLocale(locale);
 
 	return (
-		<Suspense fallback={<EventDetailSkeleton />}>
-			<EventDetailContent locale={locale} segments={[slug, subSlug]} />
-		</Suspense>
+		<EventDetailContent draft={false} locale={locale} segments={segments} />
 	);
 }

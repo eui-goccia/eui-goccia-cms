@@ -5,7 +5,7 @@ interface HeaderProps {
 	title: string;
 	coverImage: Image;
 	author: string | Author;
-	publishedAt: string;
+	publishedAt?: null | string;
 }
 
 export default function HeaderArticle({
@@ -14,6 +14,17 @@ export default function HeaderArticle({
 	author,
 	publishedAt,
 }: HeaderProps) {
+	const publishedDate = publishedAt ? new Date(publishedAt) : null;
+	const formattedPublishedAt =
+		publishedDate && !Number.isNaN(publishedDate.getTime())
+			? publishedDate.toLocaleDateString('it-IT', {
+					day: 'numeric',
+					month: 'long',
+					year: 'numeric',
+					timeZone: 'Europe/Rome',
+				})
+			: null;
+
 	return (
 		<div className='flex items-center flex-col bg-blu-300'>
 			<hgroup className='pt-30 md:pt-50 pb-20 max-w-[1300px] md:pb-40 flex flex-col gap-14  items-center justify-center w-full'>
@@ -22,14 +33,7 @@ export default function HeaderArticle({
 				</h1>
 				<ul className='flex md:flex-row flex-col md:justify-between font-greed uppercase text-xl varW600 w-full px-5 md:px-10'>
 					<li>{typeof author === 'string' ? author : author.name}</li>
-					<li>
-						{new Date(publishedAt).toLocaleDateString('it-IT', {
-							day: 'numeric',
-							month: 'long',
-							year: 'numeric',
-							timeZone: 'Europe/Rome',
-						})}
-					</li>
+					{formattedPublishedAt ? <li>{formattedPublishedAt}</li> : null}
 				</ul>
 			</hgroup>
 

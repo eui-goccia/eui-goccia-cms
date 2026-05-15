@@ -1,5 +1,6 @@
-import { getLocale, getTranslations } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { Suspense } from 'react';
+import type { Locale } from '@/i18n/routing';
 import { Link } from '@/i18n/routing';
 import LogoEU from '../logos/LogoEU';
 import LogoEUI from '../logos/LogoEUI';
@@ -34,8 +35,8 @@ const socials: SocialsProp[] = [
 	},
 ];
 
-export default async function Footer() {
-	const [t, locale] = await Promise.all([getTranslations(), getLocale()]);
+export default async function Footer({ locale }: { locale: Locale }) {
+	const t = await getTranslations({ locale });
 	const pages: PagesProps[] = [
 		{
 			name: 'Homepage',

@@ -2,19 +2,30 @@ import 'server-only';
 
 import configPromise from '@payload-config';
 import type { Event } from '@payload-types';
-import { draftMode } from 'next/headers';
+import { cacheLife, cacheTag } from 'next/cache';
 import { notFound } from 'next/navigation';
-import { connection } from 'next/server';
-import { getPayload } from 'payload';
+import { getPayload, type PaginatedDocs } from 'payload';
 import type { Locales } from '@/i18n/routing';
+import {
+	collectionBaseTag,
+	collectionTag,
+} from '@/modules/utilities/cacheTags';
 import {
 	EventContent2Section,
 	EventContentSection,
 } from './components/EventContentSection';
 import { EventHero } from './components/EventHero';
 import { EventProgramSection } from './components/EventProgramSection';
-import { getEventRelativePath } from './paths';
+import {
+	getEventDetailQueryOptions,
+	getEventDetailSegmentWhere,
+} from './detailLookup';
 import { groupSubEventsByLabel } from './utils';
+
+interface EventDetailData {
+	event: Event | null;
+	subEventGroups: Map<string, Event[]>;
+}
 
 async function findEventBySegments({
 	draft,
@@ -26,66 +37,37 @@ async function findEventBySegments({
 	segments: string[];
 }) {
 	const payload = await getPayload({ config: configPromise });
-	const relativePath = `/${segments.join('/')}`;
-	const leafSlug = segments.at(-1);
+	const queryOptions = getEventDetailQueryOptions({ draft, locale });
+	let parentID: null | number | string = null;
+	let event: Event | null = null;
 
-	const exactMatches = await payload.find({
-		collection: 'events',
-		depth: 2,
-		draft,
-		overrideAccess: draft,
-		joins: false,
-		limit: 50,
-		locale: locale as Locales,
-		where: {
-			'breadcrumbs.url': { equals: relativePath },
-		},
-	});
+	for (const segment of segments) {
+		const matches = (await payload.find({
+			...queryOptions,
+			locale: queryOptions.locale as Locales,
+			where: getEventDetailSegmentWhere({ parentID, slug: segment }),
+		})) as PaginatedDocs<Event>;
 
-	const exactEvent = exactMatches.docs.find(
-		(doc) => doc.breadcrumbs?.at(-1)?.url === relativePath
-	);
+		event = matches.docs[0] ?? null;
+		if (!event) {
+			return { event: null, payload };
+		}
 
-	if (exactEvent) {
-		return { event: exactEvent, payload };
+		parentID = event.id;
 	}
 
-	if (!leafSlug) {
-		return { event: null, payload };
-	}
-
-	const fallbackMatches = await payload.find({
-		collection: 'events',
-		depth: 2,
-		draft,
-		overrideAccess: draft,
-		joins: false,
-		limit: 50,
-		locale: locale as Locales,
-		where: {
-			slug: { equals: leafSlug },
-		},
-	});
-
-	return {
-		event:
-			fallbackMatches.docs.find(
-				(doc) => getEventRelativePath(doc) === relativePath
-			) ?? null,
-		payload,
-	};
+	return { event, payload };
 }
 
-export async function EventDetailContent({
+async function getEventDetailData({
+	draft,
 	locale,
 	segments,
 }: {
+	draft: boolean;
 	locale: string;
 	segments: string[];
-}) {
-	await connection();
-
-	const { isEnabled: draft } = await draftMode();
+}): Promise<EventDetailData> {
 	const { event, payload } = await findEventBySegments({
 		draft,
 		locale,
@@ -93,29 +75,82 @@ export async function EventDetailContent({
 	});
 
 	if (!event) {
-		notFound();
+		return {
+			event: null,
+			subEventGroups: new Map<string, Event[]>(),
+		};
 	}
 
-	let subEventGroups = new Map<string, Event[]>();
+	if (!event.showProgram) {
+		return {
+			event,
+			subEventGroups: new Map<string, Event[]>(),
+		};
+	}
 
-	if (event.showProgram) {
-		const subEvents = await payload.find({
-			collection: 'events',
-			depth: 1,
-			draft,
-			overrideAccess: draft,
-			limit: 100,
-			locale: locale as Locales,
-			sort: 'when.startDate',
-			where: {
-				parent: { equals: event.id },
-				...(draft ? {} : { _status: { equals: 'published' } }),
-			},
-		});
+	const subEvents = await payload.find({
+		collection: 'events',
+		depth: 1,
+		draft,
+		overrideAccess: draft,
+		limit: 100,
+		locale: locale as Locales,
+		sort: 'when.startDate',
+		where: {
+			parent: { equals: event.id },
+			...(draft ? {} : { _status: { equals: 'published' } }),
+		},
+	});
 
-		subEventGroups = groupSubEventsByLabel(subEvents.docs, {
+	return {
+		event,
+		subEventGroups: groupSubEventsByLabel(subEvents.docs, {
 			includeDrafts: draft,
-		});
+		}),
+	};
+}
+
+async function getPublishedEventDetailData(
+	locale: string,
+	segments: string[]
+): Promise<EventDetailData> {
+	'use cache';
+	cacheLife('max');
+	cacheTag(collectionBaseTag('events'), collectionTag('events', locale));
+
+	return getEventDetailData({
+		draft: false,
+		locale,
+		segments,
+	});
+}
+
+async function getDraftEventDetailData(
+	locale: string,
+	segments: string[]
+): Promise<EventDetailData> {
+	return getEventDetailData({
+		draft: true,
+		locale,
+		segments,
+	});
+}
+
+export async function EventDetailContent({
+	draft = false,
+	locale,
+	segments,
+}: {
+	draft?: boolean;
+	locale: string;
+	segments: string[];
+}) {
+	const { event, subEventGroups } = draft
+		? await getDraftEventDetailData(locale, segments)
+		: await getPublishedEventDetailData(locale, segments);
+
+	if (!event) {
+		notFound();
 	}
 
 	const isNestedEvent = segments.length > 1;

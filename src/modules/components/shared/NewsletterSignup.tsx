@@ -1,7 +1,8 @@
 import { getTranslations } from 'next-intl/server';
+import type { Locale } from '@/i18n/routing';
 
-export default async function NewsletterSignup() {
-	const t = await getTranslations('newsletter');
+export default async function NewsletterSignup({ locale }: { locale: Locale }) {
+	const t = await getTranslations({ locale, namespace: 'newsletter' });
 	return (
 		<div className='w-full bg-rosa-300 min-h-55 px-5 lg:px-10 flex flex-col lg:flex-row items-center justify-between pb-10 pt-16 gap-y-5 lg:gap-y-10 gap-x-5'>
 			<div className='flex flex-col w-full text-start'>

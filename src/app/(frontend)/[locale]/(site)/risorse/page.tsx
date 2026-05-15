@@ -1,4 +1,3 @@
-import { draftMode } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 import { Suspense } from 'react';
@@ -43,13 +42,10 @@ async function RisorseListing({
 	locale: Locales;
 	searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-	const [{ isEnabled: draft }, resolvedSearchParams] = await Promise.all([
-		draftMode(),
-		searchParams,
-	]);
+	const resolvedSearchParams = await searchParams;
 	const filters = normalizeResourceSearchParams(resolvedSearchParams);
 	const listingData = await getResourceListingData({
-		draft,
+		draft: false,
 		filters,
 		locale,
 	});

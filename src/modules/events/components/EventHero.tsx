@@ -2,6 +2,7 @@ import type { Event, Image as ImageType } from '@payload-types';
 import { Link } from '@/i18n/routing';
 import { CustomImage } from '@/modules/components/CustomImage';
 import ArrowLeft from '@/modules/components/ui/arrow-left';
+import { isHttpUrl } from '../utils';
 import { EventLinks } from './EventLinks';
 
 interface EventHeroProps {
@@ -9,6 +10,37 @@ interface EventHeroProps {
 	backHref: string;
 	backLabel: string;
 	locale: string;
+}
+
+function BookingCallout({
+	label,
+	url,
+}: {
+	label?: string;
+	url: string | null;
+}) {
+	if (url) {
+		return (
+			<a
+				className='inline-flex mt-4 w-fit items-center justify-center rounded-full bg-black px-6 py-3 font-greed text-md font-bold uppercase tracking-wider text-white transition-colors hover:bg-black/80'
+				href={url}
+				rel='noopener noreferrer'
+				target='_blank'
+			>
+				{label || 'Eventbrite'}
+			</a>
+		);
+	}
+
+	if (label) {
+		return (
+			<span className='inline-flex mt-4 w-fit items-center justify-center rounded-full bg-black px-6 py-3 font-greed text-md font-bold uppercase tracking-wider text-white'>
+				{label}
+			</span>
+		);
+	}
+
+	return null;
 }
 
 export function EventHero({
@@ -21,7 +53,8 @@ export function EventHero({
 		event.coverImage && typeof event.coverImage !== 'string'
 			? (event.coverImage as ImageType)
 			: null;
-	const bookingLabel = event.bookingLabel || 'Eventbrite';
+	const bookingUrl = isHttpUrl(event.bookingUrl) ? event.bookingUrl : null;
+	const bookingLabel = event.bookingLabel?.trim();
 
 	return (
 		<section className='px-5 flex flex-col md:flex-row pt-18 md:pt-24 pb-10 lg:px-10 xl:px-20'>
@@ -64,16 +97,7 @@ export function EventHero({
 							</p>
 						)}
 
-						{event.bookingUrl && (
-							<a
-								className='inline-flex mt-4 w-fit items-center justify-center rounded-full bg-black px-6 py-3 font-greed text-md font-bold uppercase tracking-wider text-white transition-colors hover:bg-black/80'
-								href={event.bookingUrl}
-								rel='noopener noreferrer'
-								target='_blank'
-							>
-								{bookingLabel}
-							</a>
-						)}
+						<BookingCallout label={bookingLabel} url={bookingUrl} />
 					</div>
 
 					<EventLinks links={event.links} locale={locale} />
